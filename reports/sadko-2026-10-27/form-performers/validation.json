@@ -1,0 +1,107 @@
+{
+  "changedLabels": 16,
+  "formParts": 17,
+  "boundariesPreserved": true,
+  "otherAnalysisFieldsPreserved": true,
+  "midiSha256": "bacc8e5deae7be99fa598d7173a0e54de2bacc76e2cb9292b9c16b77d139c201",
+  "source": "sadko_klavier_1.pdf",
+  "labels": [
+    {
+      "measure": 1,
+      "old": "Хор",
+      "label": "Хор гостей",
+      "pdfPage": 1
+    },
+    {
+      "measure": 357,
+      "old": "Былина",
+      "label": "Былина Нежаты",
+      "pdfPage": 22
+    },
+    {
+      "measure": 475,
+      "old": "Хор/Сцена",
+      "label": "Хор гостей",
+      "pdfPage": 32
+    },
+    {
+      "measure": 493,
+      "old": "Речитатив",
+      "label": "Речитатив Садко",
+      "pdfPage": 34
+    },
+    {
+      "measure": 501,
+      "old": "Хор",
+      "label": "Хор гостей",
+      "pdfPage": 35
+    },
+    {
+      "measure": 507,
+      "old": "Речитатив",
+      "label": "Речитатив Садко",
+      "pdfPage": 36
+    },
+    {
+      "measure": 567,
+      "old": "Ария",
+      "label": "Ария Садко",
+      "pdfPage": 40
+    },
+    {
+      "measure": 620,
+      "old": "Сцена",
+      "label": "Сцена гостей",
+      "pdfPage": 44
+    },
+    {
+      "measure": 655,
+      "old": "Речитатив",
+      "label": "Речитатив Садко",
+      "pdfPage": 49
+    },
+    {
+      "measure": 678,
+      "old": "Хор",
+      "label": "Хор гостей",
+      "pdfPage": 51
+    },
+    {
+      "measure": 727,
+      "old": "Пляска",
+      "label": "Пляска скоморохов",
+      "pdfPage": 55
+    },
+    {
+      "measure": 763,
+      "old": "Дуда",
+      "label": "Песня Дуды",
+      "pdfPage": 56
+    },
+    {
+      "measure": 808,
+      "old": "Сопель",
+      "label": "Припев скоморохов",
+      "pdfPage": 58
+    },
+    {
+      "measure": 867,
+      "old": "Сопель",
+      "label": "Песня Сопеля",
+      "pdfPage": 61
+    },
+    {
+      "measure": 931,
+      "old": "Пляска",
+      "label": "Пляска скоморохов",
+      "pdfPage": 65
+    },
+    {
+      "measure": 938,
+      "old": "Хор",
+      "label": "Хор гостей",
+      "pdfPage": 65
+    }
+  ],
+  "note": "Measure 808 is the skomorokhi refrain, rather than a solo by Sopel. Duda song includes interjections by Sopel."
+}

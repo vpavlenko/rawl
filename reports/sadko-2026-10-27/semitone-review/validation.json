@@ -1,0 +1,29 @@
+{
+  "createdAt": "2026-10-27T11:27:15.235223+00:00",
+  "previousSha256": "bacc8e5deae7be99fa598d7173a0e54de2bacc76e2cb9292b9c16b77d139c201",
+  "newSha256": "0ff6627e3f3b682ec1e65287743da3b13c288600b090705368c5d9b56b34b8ce",
+  "changedSelectedEvents": 75,
+  "changedMidiAttacks": 74,
+  "changedMeasures": 54,
+  "approvedProposals": 200,
+  "sourceControls": {
+    "previousFullEventAttacks": 198,
+    "newPitchOnsetAttacks": 25,
+    "newStaffMeasures": 4,
+    "newDurationsScored": false
+  },
+  "timingSelectionAndAllOtherEventFieldsExact": true,
+  "tempoMeterKeyMarkersExact": true,
+  "obbligatoAndPianoTracksExact": true,
+  "formAndOtherRemoteAnalysisNeverWritten": true,
+  "notes": 23155,
+  "anomalies": {
+    "before": 977,
+    "after": 899,
+    "remainingMeasures": 307,
+    "comparisonAnalysisSha256": "5a62011693fd3c418c62a292a9776543c7ae6258fcdaf55b399ed0f6c65e4876",
+    "noFlaggedOverlapsInMeasures43Through62": true,
+    "remainingAreWarningsNotProvenErrors": true
+  },
+  "releaseCommit": "6e296d2e4"
+}

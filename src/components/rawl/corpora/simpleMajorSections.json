@@ -1,44 +1,44 @@
 [
   {
     "id": "primary-triads",
-    "title": "I and V only",
-    "description": "Stage 1: major-key harmony limited to I and V.",
+    "title": "I, V and V7 only",
+    "description": "Stage 1: major-key harmony limited to I, V and V7. The dominant seventh belongs to the simplest stage.",
     "startsAtMidi": "dance-suite",
     "color": "#66c2ff"
   },
   {
     "id": "primary-with-iv",
-    "title": "Adds IV: I, IV and V",
-    "description": "Stage 2: adds IV, the subdominant, to I and V.",
-    "startsAtMidi": "stille-nacht-heilige-nacht-the-1818-original-silent-night",
+    "title": "Adds IV: I, IV, V and V7",
+    "description": "Stage 2: adds IV, the subdominant, to I, V and V7.",
+    "startsAtMidi": "music_for_airports_1_1-eno",
     "color": "#4e9dff"
   },
   {
     "id": "triads-with-vi",
     "title": "Triads with vi",
     "description": "Adds vi, the relative-minor triad, to the primary chords.",
-    "startsAtMidi": "Walking_On_a_dream",
+    "startsAtMidi": "radino-horo",
     "color": "#48c9b0"
   },
   {
     "id": "triads-with-ii",
     "title": "Triads with ii",
     "description": "Includes ii, the minor supertonic triad.",
-    "startsAtMidi": "evermore---taylor-swift-feat.-bon-iver",
+    "startsAtMidi": "nujabes---counting-stars---loop-piano-cover",
     "color": "#a6d96a"
   },
   {
     "id": "triads-with-iii",
     "title": "Triads with iii or vii diminished",
     "description": "Includes iii, the minor mediant, or the leading-tone diminished triad.",
-    "startsAtMidi": "chariots-of-fire-theme",
+    "startsAtMidi": "lesotho-national-anthem",
     "color": "#f7d154"
   },
   {
     "id": "mixed-sevenths",
-    "title": "Seventh chords and extensions",
-    "description": "Includes dominant and other seventh chords, plus richer chord extensions.",
-    "startsAtMidi": "wima.4be9-schubert_de.-tanz-d.365.28",
+    "title": "Other seventh chords and extensions",
+    "description": "Includes seventh chords other than V7, plus richer chord extensions. V7 counts at Stage 1.",
+    "startsAtMidi": "nde-rendape-aju-jose-a-suncion-flores-manuel-ortiz-guerrero",
     "color": "#d68cff"
   }
 ]

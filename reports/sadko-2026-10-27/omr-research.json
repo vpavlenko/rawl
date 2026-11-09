@@ -1,0 +1,2293 @@
+{
+  "checkedAt": "2026-10-27",
+  "sources": [
+    {
+      "name": "Copista / copisteria",
+      "url": "https://huggingface.co/kobimusic/copista-28m",
+      "code": "https://github.com/kobimusic/copisteria",
+      "architecture": "symbol detector plus learned structural evidence model",
+      "decision": "Include as independent diagnostic engine; local five-page pilot completed; do not automatically accept clefs or tremolos"
+    },
+    {
+      "name": "page-omr",
+      "url": "https://github.com/tobiashornbogen/page-omr",
+      "paper": "https://ismir2026program.ismir.net/poster_520.html",
+      "architecture": "full-page DINOv2 encoder and autoregressive decoder to kern or ABC",
+      "decision": "Include as independent full-page diagnostic engine; first-page control successful"
+    },
+    {
+      "name": "Transcoda",
+      "url": "https://github.com/btrkeks/transcoda",
+      "paper": "https://arxiv.org/abs/2605.10835",
+      "architecture": "ConvNeXtV2 plus autoregressive kern decoder",
+      "decision": "Useful next candidate for piano pair and historical scans; not run"
+    },
+    {
+      "name": "SMT / SMT++ / SMT NeXt",
+      "url": "https://github.com/antoniorv6/SMT",
+      "paper": "https://doi.org/10.1007/s11263-025-02654-6",
+      "architecture": "image-to-sequence transformer with system and full-page pianoform checkpoints",
+      "decision": "Reserve independent baseline; SMT++ repository migrated to SMT; not run"
+    },
+    {
+      "name": "LEGATO 2",
+      "url": "https://huggingface.co/guangyangmusic/legato-2",
+      "paper": "https://arxiv.org/abs/2607.05769",
+      "architecture": "system detector and sequential context-conditioned ABC transcriber",
+      "decision": "Checkpoint now published but gated; terms not accepted and not run"
+    },
+    {
+      "name": "Starry",
+      "url": "https://github.com/FindLab-org/starry",
+      "paper": "https://arxiv.org/abs/2604.20522",
+      "architecture": "symbol candidates plus topology recognition and probability-guided structure search",
+      "decision": "Relevant to timing/voice separation; public repository says core code release is pending; not run"
+    }
+  ],
+  "rankingPolicy": "No universal SOTA ranking: compare on source-matched scanned piano/vocal controls, using identical strict note and notation metrics. Published metrics across different datasets or MCR versus OMR-NED are not interchangeable.",
+  "metricsProvenance": {
+    "page-omr": "author-reported ISMIR 2026 MCR results, not independently reproduced here",
+    "Copista": "author-run OMR-NED benchmark, not an independent leaderboard; local Sadko pilot is separate"
+  },
+  "localControls": {
+    "oldMidi": [
+      {
+        "bar": 5,
+        "role": 6,
+        "expected": 7,
+        "before": {
+          "exact": true,
+          "correct": 7,
+          "attacks": 7
+        },
+        "after": {
+          "exact": true,
+          "correct": 7,
+          "attacks": 7
+        }
+      },
+      {
+        "bar": 5,
+        "role": 7,
+        "expected": 3,
+        "before": {
+          "exact": false,
+          "correct": 3,
+          "attacks": 4
+        },
+        "after": {
+          "exact": true,
+          "correct": 3,
+          "attacks": 3
+        }
+      },
+      {
+        "bar": 6,
+        "role": 6,
+        "expected": 6,
+        "before": {
+          "exact": false,
+          "correct": 4,
+          "attacks": 6
+        },
+        "after": {
+          "exact": true,
+          "correct": 6,
+          "attacks": 6
+        }
+      },
+      {
+        "bar": 6,
+        "role": 7,
+        "expected": 2,
+        "before": {
+          "exact": true,
+          "correct": 2,
+          "attacks": 2
+        },
+        "after": {
+          "exact": true,
+          "correct": 2,
+          "attacks": 2
+        }
+      },
+      {
+        "bar": 7,
+        "role": 6,
+        "expected": 6,
+        "before": {
+          "exact": false,
+          "correct": 1,
+          "attacks": 6
+        },
+        "after": {
+          "exact": true,
+          "correct": 6,
+          "attacks": 6
+        }
+      },
+      {
+        "bar": 7,
+        "role": 7,
+        "expected": 2,
+        "before": {
+          "exact": false,
+          "correct": 1,
+          "attacks": 2
+        },
+        "after": {
+          "exact": true,
+          "correct": 2,
+          "attacks": 2
+        }
+      },
+      {
+        "bar": 8,
+        "role": 6,
+        "expected": 6,
+        "before": {
+          "exact": false,
+          "correct": 1,
+          "attacks": 6
+        },
+        "after": {
+          "exact": true,
+          "correct": 6,
+          "attacks": 6
+        }
+      },
+      {
+        "bar": 8,
+        "role": 7,
+        "expected": 2,
+        "before": {
+          "exact": false,
+          "correct": 0,
+          "attacks": 2
+        },
+        "after": {
+          "exact": true,
+          "correct": 2,
+          "attacks": 2
+        }
+      }
+    ],
+    "copista": {
+      "engine": "copista-28m",
+      "sourceControls": "34 direct-read notes in eight staff-measures, no ties/tremolos; controls not provided to engine",
+      "exactStaffMeasures": 7,
+      "staffMeasures": 8,
+      "correct": 33,
+      "expected": 34,
+      "predicted": 34,
+      "rows": [
+        {
+          "bar": 5,
+          "role": 6,
+          "exact": true,
+          "matched": 7,
+          "expected": 7,
+          "predicted": 7,
+          "got": [
+            [
+              0,
+              0.75,
+              71
+            ],
+            [
+              0,
+              0.75,
+              78
+            ],
+            [
+              0.75,
+              0.25,
+              78
+            ],
+            [
+              1.0,
+              0.5,
+              78
+            ],
+            [
+              1.5,
+              0.5,
+              80
+            ],
+            [
+              2.0,
+              0.5,
+              78
+            ],
+            [
+              2.5,
+              0.5,
+              76
+            ]
+          ]
+        },
+        {
+          "bar": 5,
+          "role": 7,
+          "exact": false,
+          "matched": 2,
+          "expected": 3,
+          "predicted": 3,
+          "got": [
+            [
+              0.0,
+              0.5,
+              59
+            ],
+            [
+              0.0,
+              0.5,
+              66
+            ],
+            [
+              1.5,
+              0.5,
+              56
+            ]
+          ]
+        },
+        {
+          "bar": 6,
+          "role": 6,
+          "exact": true,
+          "matched": 6,
+          "expected": 6,
+          "predicted": 6,
+          "got": [
+            [
+              0,
+              0.75,
+              75
+            ],
+            [
+              0.75,
+              0.25,
+              75
+            ],
+            [
+              1.0,
+              0.5,
+              75
+            ],
+            [
+              1.5,
+              0.5,
+              76
+            ],
+            [
+              2.0,
+              0.5,
+              75
+            ],
+            [
+              2.5,
+              0.5,
+              76
+            ]
+          ]
+        },
+        {
+          "bar": 6,
+          "role": 7,
+          "exact": true,
+          "matched": 2,
+          "expected": 2,
+          "predicted": 2,
+          "got": [
+            [
+              0.0,
+              0.5,
+              78
+            ],
+            [
+              1.5,
+              0.5,
+              73
+            ]
+          ]
+        },
+        {
+          "bar": 7,
+          "role": 6,
+          "exact": true,
+          "matched": 6,
+          "expected": 6,
+          "predicted": 6,
+          "got": [
+            [
+              0,
+              0.75,
+              78
+            ],
+            [
+              0.75,
+              0.25,
+              78
+            ],
+            [
+              1.0,
+              0.5,
+              78
+            ],
+            [
+              1.5,
+              0.5,
+              80
+            ],
+            [
+              2.0,
+              0.5,
+              78
+            ],
+            [
+              2.5,
+              0.5,
+              76
+            ]
+          ]
+        },
+        {
+          "bar": 7,
+          "role": 7,
+          "exact": true,
+          "matched": 2,
+          "expected": 2,
+          "predicted": 2,
+          "got": [
+            [
+              0.0,
+              0.5,
+              71
+            ],
+            [
+              1.5,
+              0.5,
+              76
+            ]
+          ]
+        },
+        {
+          "bar": 8,
+          "role": 6,
+          "exact": true,
+          "matched": 6,
+          "expected": 6,
+          "predicted": 6,
+          "got": [
+            [
+              0,
+              0.75,
+              75
+            ],
+            [
+              0.75,
+              0.25,
+              75
+            ],
+            [
+              1.0,
+              0.5,
+              75
+            ],
+            [
+              1.5,
+              0.5,
+              76
+            ],
+            [
+              2.0,
+              0.5,
+              75
+            ],
+            [
+              2.5,
+              0.5,
+              76
+            ]
+          ]
+        },
+        {
+          "bar": 8,
+          "role": 7,
+          "exact": true,
+          "matched": 2,
+          "expected": 2,
+          "predicted": 2,
+          "got": [
+            [
+              0.0,
+              0.5,
+              78
+            ],
+            [
+              1.5,
+              0.5,
+              73
+            ]
+          ]
+        }
+      ]
+    },
+    "pageOmr": {
+      "engine": "page-omr-a1-kern",
+      "metric": "exact pitch, onset and duration; no tie or staff identity metric",
+      "exactStaffMeasures": 8,
+      "staffMeasures": 8,
+      "correct": 34,
+      "expected": 34,
+      "predicted": 34,
+      "rows": [
+        {
+          "bar": 5,
+          "role": 6,
+          "exact": true,
+          "correct": 7,
+          "expected": 7,
+          "predicted": 7,
+          "got": [
+            [
+              0.0,
+              0.75,
+              71
+            ],
+            [
+              0.0,
+              0.75,
+              78
+            ],
+            [
+              0.75,
+              0.25,
+              78
+            ],
+            [
+              1.0,
+              0.5,
+              78
+            ],
+            [
+              1.5,
+              0.5,
+              80
+            ],
+            [
+              2.0,
+              0.5,
+              78
+            ],
+            [
+              2.5,
+              0.5,
+              76
+            ]
+          ]
+        },
+        {
+          "bar": 5,
+          "role": 7,
+          "exact": true,
+          "correct": 3,
+          "expected": 3,
+          "predicted": 3,
+          "got": [
+            [
+              0.0,
+              0.5,
+              59
+            ],
+            [
+              0.0,
+              0.5,
+              66
+            ],
+            [
+              1.5,
+              0.5,
+              76
+            ]
+          ]
+        },
+        {
+          "bar": 6,
+          "role": 6,
+          "exact": true,
+          "correct": 6,
+          "expected": 6,
+          "predicted": 6,
+          "got": [
+            [
+              0.0,
+              0.75,
+              75
+            ],
+            [
+              0.75,
+              0.25,
+              75
+            ],
+            [
+              1.0,
+              0.5,
+              75
+            ],
+            [
+              1.5,
+              0.5,
+              76
+            ],
+            [
+              2.0,
+              0.5,
+              75
+            ],
+            [
+              2.5,
+              0.5,
+              76
+            ]
+          ]
+        },
+        {
+          "bar": 6,
+          "role": 7,
+          "exact": true,
+          "correct": 2,
+          "expected": 2,
+          "predicted": 2,
+          "got": [
+            [
+              0.0,
+              0.5,
+              78
+            ],
+            [
+              1.5,
+              0.5,
+              73
+            ]
+          ]
+        },
+        {
+          "bar": 7,
+          "role": 6,
+          "exact": true,
+          "correct": 6,
+          "expected": 6,
+          "predicted": 6,
+          "got": [
+            [
+              0.0,
+              0.75,
+              78
+            ],
+            [
+              0.75,
+              0.25,
+              78
+            ],
+            [
+              1.0,
+              0.5,
+              78
+            ],
+            [
+              1.5,
+              0.5,
+              80
+            ],
+            [
+              2.0,
+              0.5,
+              78
+            ],
+            [
+              2.5,
+              0.5,
+              76
+            ]
+          ]
+        },
+        {
+          "bar": 7,
+          "role": 7,
+          "exact": true,
+          "correct": 2,
+          "expected": 2,
+          "predicted": 2,
+          "got": [
+            [
+              0.0,
+              0.5,
+              71
+            ],
+            [
+              1.5,
+              0.5,
+              76
+            ]
+          ]
+        },
+        {
+          "bar": 8,
+          "role": 6,
+          "exact": true,
+          "correct": 6,
+          "expected": 6,
+          "predicted": 6,
+          "got": [
+            [
+              0.0,
+              0.75,
+              75
+            ],
+            [
+              0.75,
+              0.25,
+              75
+            ],
+            [
+              1.0,
+              0.5,
+              75
+            ],
+            [
+              1.5,
+              0.5,
+              76
+            ],
+            [
+              2.0,
+              0.5,
+              75
+            ],
+            [
+              2.5,
+              0.5,
+              76
+            ]
+          ]
+        },
+        {
+          "bar": 8,
+          "role": 7,
+          "exact": true,
+          "correct": 2,
+          "expected": 2,
+          "predicted": 2,
+          "got": [
+            [
+              0.0,
+              0.5,
+              78
+            ],
+            [
+              1.5,
+              0.5,
+              73
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "pageOmrPilot": [
+    {
+      "page": 1,
+      "parseable": true,
+      "parts": 2,
+      "measures": [
+        29,
+        29
+      ],
+      "referenceMeasures": 29,
+      "quarterLength": 87.0,
+      "referenceQuarterLength": 87.0
+    },
+    {
+      "page": 23,
+      "parseable": true,
+      "parts": 3,
+      "measures": [
+        15,
+        15,
+        15
+      ],
+      "referenceMeasures": 15,
+      "quarterLength": 92.0,
+      "referenceQuarterLength": 90.0
+    },
+    {
+      "page": 55,
+      "parseable": true,
+      "parts": 2,
+      "measures": [
+        38,
+        38
+      ],
+      "referenceMeasures": 36,
+      "quarterLength": 76.0,
+      "referenceQuarterLength": 72.0
+    },
+    {
+      "page": 67,
+      "parseable": true,
+      "parts": 6,
+      "measures": [
+        0,
+        2,
+        7,
+        7,
+        7,
+        7
+      ],
+      "referenceMeasures": 11,
+      "quarterLength": 28.5,
+      "referenceQuarterLength": 22.0
+    },
+    {
+      "page": 71,
+      "parseable": true,
+      "parts": 3,
+      "measures": [
+        22,
+        3,
+        24
+      ],
+      "referenceMeasures": 24,
+      "quarterLength": 48.375,
+      "referenceQuarterLength": 48.0
+    }
+  ],
+  "copistaExtendedControls": {
+    "metric": "exact written note pitch, onset and duration; no slur/accidental-spelling score; two expanded tremolo cells excluded",
+    "cells": 21,
+    "exactCells": 21,
+    "expected": 107,
+    "predicted": 107,
+    "correct": 107,
+    "layouts": [
+      {
+        "page": 1,
+        "referenceSystems": 5,
+        "recognizedSystems": 5,
+        "referenceStaves": 10,
+        "recognizedStaves": 10,
+        "referenceBars": 29,
+        "recognizedBars": 29
+      },
+      {
+        "page": 23,
+        "referenceSystems": 4,
+        "recognizedSystems": 4,
+        "referenceStaves": 12,
+        "recognizedStaves": 12,
+        "referenceBars": 15,
+        "recognizedBars": 15
+      },
+      {
+        "page": 55,
+        "referenceSystems": 6,
+        "recognizedSystems": 6,
+        "referenceStaves": 12,
+        "recognizedStaves": 12,
+        "referenceBars": 36,
+        "recognizedBars": 36
+      },
+      {
+        "page": 67,
+        "referenceSystems": 2,
+        "recognizedSystems": 2,
+        "referenceStaves": 11,
+        "recognizedStaves": 11,
+        "referenceBars": 11,
+        "recognizedBars": 11
+      },
+      {
+        "page": 71,
+        "referenceSystems": 5,
+        "recognizedSystems": 5,
+        "referenceStaves": 12,
+        "recognizedStaves": 12,
+        "referenceBars": 24,
+        "recognizedBars": 24
+      }
+    ],
+    "cases": [
+      {
+        "page": 1,
+        "system": 1,
+        "localBar": 1,
+        "staffFromTop": 0,
+        "exact": true,
+        "expected": 4,
+        "predicted": 4,
+        "correct": 4,
+        "got": [
+          [
+            0,
+            1.5,
+            75
+          ],
+          [
+            1.5,
+            0.5,
+            75
+          ],
+          [
+            2.0,
+            0.5,
+            75
+          ],
+          [
+            2.5,
+            0.5,
+            75
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            1.5,
+            75
+          ],
+          [
+            1.5,
+            0.5,
+            75
+          ],
+          [
+            2,
+            0.5,
+            75
+          ],
+          [
+            2.5,
+            0.5,
+            75
+          ]
+        ]
+      },
+      {
+        "page": 1,
+        "system": 1,
+        "localBar": 1,
+        "staffFromTop": 1,
+        "exact": true,
+        "expected": 4,
+        "predicted": 4,
+        "correct": 4,
+        "got": [
+          [
+            0.0,
+            1.5,
+            63
+          ],
+          [
+            1.5,
+            0.5,
+            63
+          ],
+          [
+            2.0,
+            0.5,
+            63
+          ],
+          [
+            2.5,
+            0.5,
+            63
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            1.5,
+            63
+          ],
+          [
+            1.5,
+            0.5,
+            63
+          ],
+          [
+            2,
+            0.5,
+            63
+          ],
+          [
+            2.5,
+            0.5,
+            63
+          ]
+        ]
+      },
+      {
+        "page": 1,
+        "system": 1,
+        "localBar": 2,
+        "staffFromTop": 0,
+        "exact": true,
+        "expected": 4,
+        "predicted": 4,
+        "correct": 4,
+        "got": [
+          [
+            0,
+            1.5,
+            75
+          ],
+          [
+            1.5,
+            0.5,
+            75
+          ],
+          [
+            2.0,
+            0.5,
+            75
+          ],
+          [
+            2.5,
+            0.5,
+            75
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            1.5,
+            75
+          ],
+          [
+            1.5,
+            0.5,
+            75
+          ],
+          [
+            2,
+            0.5,
+            75
+          ],
+          [
+            2.5,
+            0.5,
+            75
+          ]
+        ]
+      },
+      {
+        "page": 1,
+        "system": 1,
+        "localBar": 2,
+        "staffFromTop": 1,
+        "exact": true,
+        "expected": 4,
+        "predicted": 4,
+        "correct": 4,
+        "got": [
+          [
+            0.0,
+            1.5,
+            63
+          ],
+          [
+            1.5,
+            0.5,
+            63
+          ],
+          [
+            2.0,
+            0.5,
+            63
+          ],
+          [
+            2.5,
+            0.5,
+            63
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            1.5,
+            63
+          ],
+          [
+            1.5,
+            0.5,
+            63
+          ],
+          [
+            2,
+            0.5,
+            63
+          ],
+          [
+            2.5,
+            0.5,
+            63
+          ]
+        ]
+      },
+      {
+        "page": 1,
+        "system": 1,
+        "localBar": 3,
+        "staffFromTop": 0,
+        "exact": true,
+        "expected": 6,
+        "predicted": 6,
+        "correct": 6,
+        "got": [
+          [
+            0,
+            0.75,
+            75
+          ],
+          [
+            0.75,
+            0.25,
+            75
+          ],
+          [
+            1.0,
+            0.5,
+            75
+          ],
+          [
+            1.5,
+            0.5,
+            75
+          ],
+          [
+            2.0,
+            0.5,
+            75
+          ],
+          [
+            2.5,
+            0.5,
+            75
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            0.75,
+            75
+          ],
+          [
+            0.75,
+            0.25,
+            75
+          ],
+          [
+            1,
+            0.5,
+            75
+          ],
+          [
+            1.5,
+            0.5,
+            75
+          ],
+          [
+            2,
+            0.5,
+            75
+          ],
+          [
+            2.5,
+            0.5,
+            75
+          ]
+        ]
+      },
+      {
+        "page": 1,
+        "system": 1,
+        "localBar": 4,
+        "staffFromTop": 0,
+        "exact": true,
+        "expected": 8,
+        "predicted": 8,
+        "correct": 8,
+        "got": [
+          [
+            0,
+            0.75,
+            75
+          ],
+          [
+            0.75,
+            0.25,
+            75
+          ],
+          [
+            1.0,
+            0.5,
+            75
+          ],
+          [
+            1.5,
+            0.5,
+            73
+          ],
+          [
+            1.5,
+            0.5,
+            76
+          ],
+          [
+            2.0,
+            0.5,
+            75
+          ],
+          [
+            2.5,
+            0.5,
+            73
+          ],
+          [
+            2.5,
+            0.5,
+            76
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            0.75,
+            75
+          ],
+          [
+            0.75,
+            0.25,
+            75
+          ],
+          [
+            1,
+            0.5,
+            75
+          ],
+          [
+            1.5,
+            0.5,
+            73
+          ],
+          [
+            1.5,
+            0.5,
+            76
+          ],
+          [
+            2,
+            0.5,
+            75
+          ],
+          [
+            2.5,
+            0.5,
+            73
+          ],
+          [
+            2.5,
+            0.5,
+            76
+          ]
+        ]
+      },
+      {
+        "page": 1,
+        "system": 1,
+        "localBar": 3,
+        "staffFromTop": 1,
+        "exact": true,
+        "expected": 6,
+        "predicted": 6,
+        "correct": 6,
+        "got": [
+          [
+            0.0,
+            0.75,
+            63
+          ],
+          [
+            0.75,
+            0.25,
+            63
+          ],
+          [
+            1.0,
+            0.5,
+            63
+          ],
+          [
+            1.5,
+            0.5,
+            63
+          ],
+          [
+            2.0,
+            0.5,
+            63
+          ],
+          [
+            2.5,
+            0.5,
+            63
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            0.75,
+            63
+          ],
+          [
+            0.75,
+            0.25,
+            63
+          ],
+          [
+            1,
+            0.5,
+            63
+          ],
+          [
+            1.5,
+            0.5,
+            63
+          ],
+          [
+            2,
+            0.5,
+            63
+          ],
+          [
+            2.5,
+            0.5,
+            63
+          ]
+        ]
+      },
+      {
+        "page": 1,
+        "system": 1,
+        "localBar": 4,
+        "staffFromTop": 1,
+        "exact": true,
+        "expected": 8,
+        "predicted": 8,
+        "correct": 8,
+        "got": [
+          [
+            0.0,
+            0.75,
+            63
+          ],
+          [
+            0.75,
+            0.25,
+            63
+          ],
+          [
+            1.0,
+            0.5,
+            63
+          ],
+          [
+            1.5,
+            0.5,
+            61
+          ],
+          [
+            1.5,
+            0.5,
+            64
+          ],
+          [
+            2.0,
+            0.5,
+            63
+          ],
+          [
+            2.5,
+            0.5,
+            61
+          ],
+          [
+            2.5,
+            0.5,
+            64
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            0.75,
+            63
+          ],
+          [
+            0.75,
+            0.25,
+            63
+          ],
+          [
+            1,
+            0.5,
+            63
+          ],
+          [
+            1.5,
+            0.5,
+            61
+          ],
+          [
+            1.5,
+            0.5,
+            64
+          ],
+          [
+            2,
+            0.5,
+            63
+          ],
+          [
+            2.5,
+            0.5,
+            61
+          ],
+          [
+            2.5,
+            0.5,
+            64
+          ]
+        ]
+      },
+      {
+        "page": 1,
+        "system": 2,
+        "localBar": 4,
+        "staffFromTop": 1,
+        "exact": true,
+        "expected": 8,
+        "predicted": 8,
+        "correct": 8,
+        "got": [
+          [
+            0.0,
+            1.5,
+            59
+          ],
+          [
+            0.0,
+            1.5,
+            66
+          ],
+          [
+            1.5,
+            0.5,
+            59
+          ],
+          [
+            1.5,
+            0.5,
+            66
+          ],
+          [
+            2.0,
+            0.5,
+            59
+          ],
+          [
+            2.0,
+            0.5,
+            66
+          ],
+          [
+            2.5,
+            0.5,
+            59
+          ],
+          [
+            2.5,
+            0.5,
+            66
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            1.5,
+            59
+          ],
+          [
+            0,
+            1.5,
+            66
+          ],
+          [
+            1.5,
+            0.5,
+            59
+          ],
+          [
+            1.5,
+            0.5,
+            66
+          ],
+          [
+            2,
+            0.5,
+            59
+          ],
+          [
+            2,
+            0.5,
+            66
+          ],
+          [
+            2.5,
+            0.5,
+            59
+          ],
+          [
+            2.5,
+            0.5,
+            66
+          ]
+        ]
+      },
+      {
+        "page": 1,
+        "system": 2,
+        "localBar": 5,
+        "staffFromTop": 1,
+        "exact": true,
+        "expected": 8,
+        "predicted": 8,
+        "correct": 8,
+        "got": [
+          [
+            0.0,
+            1.5,
+            59
+          ],
+          [
+            0.0,
+            1.5,
+            66
+          ],
+          [
+            1.5,
+            0.5,
+            59
+          ],
+          [
+            1.5,
+            0.5,
+            66
+          ],
+          [
+            2.0,
+            0.5,
+            59
+          ],
+          [
+            2.0,
+            0.5,
+            66
+          ],
+          [
+            2.5,
+            0.5,
+            59
+          ],
+          [
+            2.5,
+            0.5,
+            66
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            1.5,
+            59
+          ],
+          [
+            0,
+            1.5,
+            66
+          ],
+          [
+            1.5,
+            0.5,
+            59
+          ],
+          [
+            1.5,
+            0.5,
+            66
+          ],
+          [
+            2,
+            0.5,
+            59
+          ],
+          [
+            2,
+            0.5,
+            66
+          ],
+          [
+            2.5,
+            0.5,
+            59
+          ],
+          [
+            2.5,
+            0.5,
+            66
+          ]
+        ]
+      },
+      {
+        "page": 23,
+        "system": 1,
+        "localBar": 1,
+        "staffFromTop": 0,
+        "exact": true,
+        "expected": 5,
+        "predicted": 5,
+        "correct": 5,
+        "got": [
+          [
+            0,
+            2.0,
+            71
+          ],
+          [
+            2.0,
+            1.0,
+            69
+          ],
+          [
+            3.0,
+            1.0,
+            68
+          ],
+          [
+            4.0,
+            1.0,
+            66
+          ],
+          [
+            5.0,
+            1.0,
+            64
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            2,
+            71
+          ],
+          [
+            2,
+            1,
+            69
+          ],
+          [
+            3,
+            1,
+            68
+          ],
+          [
+            4,
+            1,
+            66
+          ],
+          [
+            5,
+            1,
+            64
+          ]
+        ]
+      },
+      {
+        "page": 23,
+        "system": 1,
+        "localBar": 2,
+        "staffFromTop": 0,
+        "exact": true,
+        "expected": 5,
+        "predicted": 5,
+        "correct": 5,
+        "got": [
+          [
+            0,
+            2.0,
+            71
+          ],
+          [
+            2.0,
+            1.0,
+            69
+          ],
+          [
+            3.0,
+            1.0,
+            68
+          ],
+          [
+            4.0,
+            1.0,
+            66
+          ],
+          [
+            5.0,
+            1.0,
+            64
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            2,
+            71
+          ],
+          [
+            2,
+            1,
+            69
+          ],
+          [
+            3,
+            1,
+            68
+          ],
+          [
+            4,
+            1,
+            66
+          ],
+          [
+            5,
+            1,
+            64
+          ]
+        ]
+      },
+      {
+        "page": 23,
+        "system": 1,
+        "localBar": 3,
+        "staffFromTop": 0,
+        "exact": true,
+        "expected": 5,
+        "predicted": 5,
+        "correct": 5,
+        "got": [
+          [
+            0,
+            2.0,
+            66
+          ],
+          [
+            2.0,
+            1.0,
+            66
+          ],
+          [
+            3.0,
+            0.5,
+            68
+          ],
+          [
+            3.5,
+            0.5,
+            66
+          ],
+          [
+            4.0,
+            2.0,
+            64
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            2,
+            66
+          ],
+          [
+            2,
+            1,
+            66
+          ],
+          [
+            3,
+            0.5,
+            68
+          ],
+          [
+            3.5,
+            0.5,
+            66
+          ],
+          [
+            4,
+            2,
+            64
+          ]
+        ]
+      },
+      {
+        "page": 55,
+        "system": 1,
+        "localBar": 1,
+        "staffFromTop": 0,
+        "exact": true,
+        "expected": 6,
+        "predicted": 6,
+        "correct": 6,
+        "got": [
+          [
+            0,
+            0.75,
+            86
+          ],
+          [
+            0.75,
+            0.25,
+            83
+          ],
+          [
+            1.0,
+            0.25,
+            84
+          ],
+          [
+            1.25,
+            0.25,
+            83
+          ],
+          [
+            1.5,
+            0.25,
+            81
+          ],
+          [
+            1.75,
+            0.25,
+            79
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            0.75,
+            86
+          ],
+          [
+            0.75,
+            0.25,
+            83
+          ],
+          [
+            1,
+            0.25,
+            84
+          ],
+          [
+            1.25,
+            0.25,
+            83
+          ],
+          [
+            1.5,
+            0.25,
+            81
+          ],
+          [
+            1.75,
+            0.25,
+            79
+          ]
+        ]
+      },
+      {
+        "page": 55,
+        "system": 1,
+        "localBar": 2,
+        "staffFromTop": 0,
+        "exact": true,
+        "expected": 8,
+        "predicted": 8,
+        "correct": 8,
+        "got": [
+          [
+            0,
+            0.25,
+            78
+          ],
+          [
+            0.25,
+            0.25,
+            79
+          ],
+          [
+            0.5,
+            0.25,
+            81
+          ],
+          [
+            0.75,
+            0.25,
+            78
+          ],
+          [
+            1.0,
+            0.25,
+            76
+          ],
+          [
+            1.25,
+            0.25,
+            78
+          ],
+          [
+            1.5,
+            0.25,
+            79
+          ],
+          [
+            1.75,
+            0.25,
+            76
+          ]
+        ],
+        "truth": [
+          [
+            0.0,
+            0.25,
+            78
+          ],
+          [
+            0.25,
+            0.25,
+            79
+          ],
+          [
+            0.5,
+            0.25,
+            81
+          ],
+          [
+            0.75,
+            0.25,
+            78
+          ],
+          [
+            1.0,
+            0.25,
+            76
+          ],
+          [
+            1.25,
+            0.25,
+            78
+          ],
+          [
+            1.5,
+            0.25,
+            79
+          ],
+          [
+            1.75,
+            0.25,
+            76
+          ]
+        ]
+      },
+      {
+        "page": 55,
+        "system": 1,
+        "localBar": 1,
+        "staffFromTop": 1,
+        "exact": true,
+        "expected": 8,
+        "predicted": 8,
+        "correct": 8,
+        "got": [
+          [
+            0.0,
+            0.25,
+            60
+          ],
+          [
+            0.25,
+            0.25,
+            62
+          ],
+          [
+            0.5,
+            0.25,
+            60
+          ],
+          [
+            0.75,
+            0.25,
+            62
+          ],
+          [
+            1.0,
+            0.25,
+            60
+          ],
+          [
+            1.25,
+            0.25,
+            62
+          ],
+          [
+            1.5,
+            0.25,
+            60
+          ],
+          [
+            1.75,
+            0.25,
+            62
+          ]
+        ],
+        "truth": [
+          [
+            0.0,
+            0.25,
+            60
+          ],
+          [
+            0.25,
+            0.25,
+            62
+          ],
+          [
+            0.5,
+            0.25,
+            60
+          ],
+          [
+            0.75,
+            0.25,
+            62
+          ],
+          [
+            1.0,
+            0.25,
+            60
+          ],
+          [
+            1.25,
+            0.25,
+            62
+          ],
+          [
+            1.5,
+            0.25,
+            60
+          ],
+          [
+            1.75,
+            0.25,
+            62
+          ]
+        ]
+      },
+      {
+        "page": 71,
+        "system": 5,
+        "localBar": 4,
+        "staffFromTop": 0,
+        "exact": true,
+        "expected": 2,
+        "predicted": 2,
+        "correct": 2,
+        "got": [
+          [
+            0,
+            1.0,
+            79
+          ],
+          [
+            0,
+            1.0,
+            91
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            1,
+            79
+          ],
+          [
+            0,
+            1,
+            91
+          ]
+        ]
+      },
+      {
+        "page": 71,
+        "system": 5,
+        "localBar": 4,
+        "staffFromTop": 1,
+        "exact": true,
+        "expected": 2,
+        "predicted": 2,
+        "correct": 2,
+        "got": [
+          [
+            0,
+            1.0,
+            55
+          ],
+          [
+            0,
+            1.0,
+            67
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            1,
+            55
+          ],
+          [
+            0,
+            1,
+            67
+          ]
+        ]
+      },
+      {
+        "page": 71,
+        "system": 5,
+        "localBar": 5,
+        "staffFromTop": 0,
+        "exact": true,
+        "expected": 2,
+        "predicted": 2,
+        "correct": 2,
+        "got": [
+          [
+            0,
+            1.0,
+            79
+          ],
+          [
+            0,
+            1.0,
+            91
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            1,
+            79
+          ],
+          [
+            0,
+            1,
+            91
+          ]
+        ]
+      },
+      {
+        "page": 71,
+        "system": 5,
+        "localBar": 5,
+        "staffFromTop": 1,
+        "exact": true,
+        "expected": 2,
+        "predicted": 2,
+        "correct": 2,
+        "got": [
+          [
+            0,
+            1.0,
+            55
+          ],
+          [
+            0,
+            1.0,
+            67
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            1,
+            55
+          ],
+          [
+            0,
+            1,
+            67
+          ]
+        ]
+      },
+      {
+        "page": 71,
+        "system": 5,
+        "localBar": 6,
+        "staffFromTop": 0,
+        "exact": true,
+        "expected": 2,
+        "predicted": 2,
+        "correct": 2,
+        "got": [
+          [
+            0,
+            2.0,
+            55
+          ],
+          [
+            0,
+            2.0,
+            67
+          ]
+        ],
+        "truth": [
+          [
+            0,
+            2,
+            55
+          ],
+          [
+            0,
+            2,
+            67
+          ]
+        ]
+      }
+    ]
+  },
+  "recommendedStressEnsemble": [
+    "Audiveris",
+    "HOMR",
+    "Copista-28m",
+    "page-omr-a1-kern"
+  ],
+  "fusionPolicy": "Use independent outputs as disagreement detectors. Keep raw outputs and separate adapters. Do not use blind majority voting or discard correct pitch because an adapter failed its rhythm check.",
+  "fullStress": {
+    "createdAt": "2026-10-27T11:29:31.340660+00:00",
+    "kind": "inference only; no training or fine-tuning",
+    "commands": [
+      ".venv/bin/python sadko/scripts/run_full_stress.py copista",
+      ".venv/bin/python sadko/scripts/run_full_stress.py page-omr"
+    ],
+    "progress": {
+      "copista": {
+        "completed": 71,
+        "failed": 0,
+        "requested": 71,
+        "finished": true,
+        "progressFile": "qa/full-stress/copista/run.json",
+        "checkpointSha256": "7a3eb0362b44016e941680c5df1e133239576592ab134057c3dbac8e9f3b8838"
+      },
+      "page-omr": {
+        "completed": 24,
+        "failed": 0,
+        "requested": 71,
+        "finished": false,
+        "progressFile": "qa/full-stress/page-omr/run.json",
+        "checkpointSha256": "4d18332641f8e5798aefb9609a69da5c9bbd704c55246726a05e6562d2a57dbe"
+      }
+    },
+    "previousEnginesAllPages": [
+      "Audiveris",
+      "HOMR"
+    ],
+    "codeAndWeightHashes": [
+      {
+        "engine": "copista",
+        "codeCommit": "5d1cd54286bb8a27e33a495c88fadf0e2101152d",
+        "model": "kobimusic/copista-28m",
+        "weights": [
+          {
+            "filename": "evidence-2m.pt",
+            "sha256": "7a3eb0362b44016e941680c5df1e133239576592ab134057c3dbac8e9f3b8838"
+          },
+          {
+            "filename": "v7_obj-recall-30m_best.pt",
+            "sha256": "9f1db282271fb1064461387da4a2e15de14b099c49b619c21429cdc45be85cfe"
+          }
+        ],
+        "codeModified": false
+      },
+      {
+        "engine": "page-omr",
+        "codeCommit": "e369a44a8232ddcf0ddd915f7e07b19cdcb91b61",
+        "model": "tobiashornbogen/page-omr-a1-kern",
+        "weights": [
+          {
+            "filename": "omr_model.pt",
+            "sha256": "4d18332641f8e5798aefb9609a69da5c9bbd704c55246726a05e6562d2a57dbe"
+          }
+        ],
+        "codeModified": false
+      }
+    ],
+    "dependencies": {
+      "torch": "2.12.0",
+      "torchvision": "0.27.0",
+      "transformers": "4.45.1",
+      "tokenizers": "0.20.3",
+      "numpy": "2.4.6",
+      "pillow": "12.2.0"
+    },
+    "copistaPagesSafeForAutomaticAlignment": 45,
+    "correctionValidation": {
+      "createdAt": "2026-10-27T11:27:15.235223+00:00",
+      "previousSha256": "bacc8e5deae7be99fa598d7173a0e54de2bacc76e2cb9292b9c16b77d139c201",
+      "newSha256": "0ff6627e3f3b682ec1e65287743da3b13c288600b090705368c5d9b56b34b8ce",
+      "changedSelectedEvents": 75,
+      "changedMidiAttacks": 74,
+      "changedMeasures": 54,
+      "approvedProposals": 200,
+      "sourceControls": {
+        "previousFullEventAttacks": 198,
+        "newPitchOnsetAttacks": 25,
+        "newStaffMeasures": 4,
+        "newDurationsScored": false
+      },
+      "timingSelectionAndAllOtherEventFieldsExact": true,
+      "tempoMeterKeyMarkersExact": true,
+      "obbligatoAndPianoTracksExact": true,
+      "formAndOtherRemoteAnalysisNeverWritten": true,
+      "notes": 23155,
+      "anomalies": {
+        "before": 977,
+        "after": 899,
+        "remainingMeasures": 307,
+        "comparisonAnalysisSha256": "5a62011693fd3c418c62a292a9776543c7ae6258fcdaf55b399ed0f6c65e4876",
+        "noFlaggedOverlapsInMeasures43Through62": true,
+        "remainingAreWarningsNotProvenErrors": true
+      },
+      "releaseCommit": "6e296d2e4"
+    },
+    "policy": "Tonal anomalies are warnings. Correct only source-head proposals with independently confirmed pitch/onset/duration and exact physical geometry, or an explicit direct source reading. Preserve all other notes, timing and user analysis."
+  }
+}

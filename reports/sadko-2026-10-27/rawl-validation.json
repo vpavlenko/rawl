@@ -1,0 +1,596 @@
+{
+  "voices": 8,
+  "notes": 23155,
+  "measureBoundaries": 1028,
+  "lastSeconds": 1471.341314999935,
+  "phraseStarts": 258,
+  "anchors": {
+    "90": {
+      "section": 88,
+      "phrase": 89,
+      "edge": "end"
+    },
+    "100": {
+      "section": 98,
+      "phrase": 99,
+      "edge": "end"
+    },
+    "107": {
+      "section": 105,
+      "phrase": 106,
+      "edge": "end"
+    }
+  },
+  "anchorOffsets": {
+    "90": 5.625000000026887,
+    "100": 4.144734000100755,
+    "107": 5.625000000015291
+  },
+  "firstNotes": [
+    [
+      {
+        "note": {
+          "midiNumber": 56
+        },
+        "id": "0_98880_960_56",
+        "isDrum": false,
+        "span": [
+          31.21208999999992,
+          31.515119999999918
+        ],
+        "tickSpan": [
+          98880,
+          99840
+        ],
+        "voiceIndex": 0,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 56
+        },
+        "id": "0_99840_960_56",
+        "isDrum": false,
+        "span": [
+          31.515119999999918,
+          31.818149999999918
+        ],
+        "tickSpan": [
+          99840,
+          100800
+        ],
+        "voiceIndex": 0,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 56
+        },
+        "id": "0_100800_960_56",
+        "isDrum": false,
+        "span": [
+          31.818149999999918,
+          32.12117999999992
+        ],
+        "tickSpan": [
+          100800,
+          101760
+        ],
+        "voiceIndex": 0,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 56
+        },
+        "id": "0_101760_960_56",
+        "isDrum": false,
+        "span": [
+          32.12117999999992,
+          32.42420999999992
+        ],
+        "tickSpan": [
+          101760,
+          102720
+        ],
+        "voiceIndex": 0,
+        "velocity": 84
+      }
+    ],
+    [
+      {
+        "note": {
+          "midiNumber": 56
+        },
+        "id": "1_98880_960_56",
+        "isDrum": false,
+        "span": [
+          31.21208999999992,
+          31.515119999999918
+        ],
+        "tickSpan": [
+          98880,
+          99840
+        ],
+        "voiceIndex": 1,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 56
+        },
+        "id": "1_99840_960_56",
+        "isDrum": false,
+        "span": [
+          31.515119999999918,
+          31.818149999999918
+        ],
+        "tickSpan": [
+          99840,
+          100800
+        ],
+        "voiceIndex": 1,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 55
+        },
+        "id": "1_99840_960_55",
+        "isDrum": false,
+        "span": [
+          31.515119999999918,
+          31.818149999999918
+        ],
+        "tickSpan": [
+          99840,
+          100800
+        ],
+        "voiceIndex": 1,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 56
+        },
+        "id": "1_100800_960_56",
+        "isDrum": false,
+        "span": [
+          31.818149999999918,
+          32.12117999999992
+        ],
+        "tickSpan": [
+          100800,
+          101760
+        ],
+        "voiceIndex": 1,
+        "velocity": 84
+      }
+    ],
+    [
+      {
+        "note": {
+          "midiNumber": 44
+        },
+        "id": "2_603360_1440_44",
+        "isDrum": false,
+        "span": [
+          190.4543550000038,
+          190.9089000000038
+        ],
+        "tickSpan": [
+          603360,
+          604800
+        ],
+        "voiceIndex": 2,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 49
+        },
+        "id": "2_604800_960_49",
+        "isDrum": false,
+        "span": [
+          190.9089000000038,
+          191.2119300000038
+        ],
+        "tickSpan": [
+          604800,
+          605760
+        ],
+        "voiceIndex": 2,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 48
+        },
+        "id": "2_605760_480_48",
+        "isDrum": false,
+        "span": [
+          191.2119300000038,
+          191.36344500000382
+        ],
+        "tickSpan": [
+          605760,
+          606240
+        ],
+        "voiceIndex": 2,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 46
+        },
+        "id": "2_606240_960_46",
+        "isDrum": false,
+        "span": [
+          191.36344500000382,
+          191.66647500000383
+        ],
+        "tickSpan": [
+          606240,
+          607200
+        ],
+        "voiceIndex": 2,
+        "velocity": 84
+      }
+    ],
+    [
+      {
+        "note": {
+          "midiNumber": 44
+        },
+        "id": "3_603360_960_44",
+        "isDrum": false,
+        "span": [
+          190.4543550000038,
+          190.75738500000378
+        ],
+        "tickSpan": [
+          603360,
+          604320
+        ],
+        "voiceIndex": 3,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 44
+        },
+        "id": "3_604320_480_44",
+        "isDrum": false,
+        "span": [
+          190.75738500000378,
+          190.9089000000038
+        ],
+        "tickSpan": [
+          604320,
+          604800
+        ],
+        "voiceIndex": 3,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 49
+        },
+        "id": "3_604800_960_49",
+        "isDrum": false,
+        "span": [
+          190.9089000000038,
+          191.2119300000038
+        ],
+        "tickSpan": [
+          604800,
+          605760
+        ],
+        "voiceIndex": 3,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 48
+        },
+        "id": "3_605760_480_48",
+        "isDrum": false,
+        "span": [
+          191.2119300000038,
+          191.36344500000382
+        ],
+        "tickSpan": [
+          605760,
+          606240
+        ],
+        "voiceIndex": 3,
+        "velocity": 84
+      }
+    ],
+    [
+      {
+        "note": {
+          "midiNumber": 52
+        },
+        "id": "4_3761280_960_52",
+        "isDrum": false,
+        "span": [
+          1412.2504650000142,
+          1412.7050100000142
+        ],
+        "tickSpan": [
+          3761280,
+          3762240
+        ],
+        "voiceIndex": 4,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 55
+        },
+        "id": "4_3761280_960_55",
+        "isDrum": false,
+        "span": [
+          1412.2504650000142,
+          1412.7050100000142
+        ],
+        "tickSpan": [
+          3761280,
+          3762240
+        ],
+        "voiceIndex": 4,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 50
+        },
+        "id": "4_3762240_720_50",
+        "isDrum": false,
+        "span": [
+          1412.7050100000142,
+          1413.0459187500142
+        ],
+        "tickSpan": [
+          3762240,
+          3762960
+        ],
+        "voiceIndex": 4,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 53
+        },
+        "id": "4_3762240_720_53",
+        "isDrum": false,
+        "span": [
+          1412.7050100000142,
+          1413.0459187500142
+        ],
+        "tickSpan": [
+          3762240,
+          3762960
+        ],
+        "voiceIndex": 4,
+        "velocity": 84
+      }
+    ],
+    [
+      {
+        "note": {
+          "midiNumber": 78
+        },
+        "id": "5_1293120_960_78",
+        "isDrum": false,
+        "span": [
+          420.5291310000225,
+          420.9238680000225
+        ],
+        "tickSpan": [
+          1293120,
+          1294080
+        ],
+        "voiceIndex": 5,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 80
+        },
+        "id": "5_1293600_960_80",
+        "isDrum": false,
+        "span": [
+          420.7264995000225,
+          421.12123650002246
+        ],
+        "tickSpan": [
+          1293600,
+          1294560
+        ],
+        "voiceIndex": 5,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 85
+        },
+        "id": "5_1295040_480_85",
+        "isDrum": false,
+        "span": [
+          421.31860500002244,
+          421.5159735000224
+        ],
+        "tickSpan": [
+          1295040,
+          1295520
+        ],
+        "voiceIndex": 5,
+        "velocity": 84
+      },
+      {
+        "note": {
+          "midiNumber": 87
+        },
+        "id": "5_1295520_480_87",
+        "isDrum": false,
+        "span": [
+          421.5159735000224,
+          421.7133420000224
+        ],
+        "tickSpan": [
+          1295520,
+          1296000
+        ],
+        "voiceIndex": 5,
+        "velocity": 84
+      }
+    ],
+    [
+      {
+        "note": {
+          "midiNumber": 75
+        },
+        "id": "6_0_1920_75",
+        "isDrum": false,
+        "span": [
+          0,
+          0.6060599999999999
+        ],
+        "tickSpan": [
+          0,
+          1920
+        ],
+        "voiceIndex": 6,
+        "velocity": 90
+      },
+      {
+        "note": {
+          "midiNumber": 75
+        },
+        "id": "6_1920_480_75",
+        "isDrum": false,
+        "span": [
+          0.6060599999999999,
+          0.7575749999999999
+        ],
+        "tickSpan": [
+          1920,
+          2400
+        ],
+        "voiceIndex": 6,
+        "velocity": 90
+      },
+      {
+        "note": {
+          "midiNumber": 75
+        },
+        "id": "6_2400_480_75",
+        "isDrum": false,
+        "span": [
+          0.7575749999999999,
+          0.90909
+        ],
+        "tickSpan": [
+          2400,
+          2880
+        ],
+        "voiceIndex": 6,
+        "velocity": 90
+      },
+      {
+        "note": {
+          "midiNumber": 75
+        },
+        "id": "6_2880_1920_75",
+        "isDrum": false,
+        "span": [
+          0.90909,
+          1.5151499999999998
+        ],
+        "tickSpan": [
+          2880,
+          4800
+        ],
+        "voiceIndex": 6,
+        "velocity": 90
+      }
+    ],
+    [
+      {
+        "note": {
+          "midiNumber": 63
+        },
+        "id": "7_0_1920_63",
+        "isDrum": false,
+        "span": [
+          0,
+          0.6060599999999999
+        ],
+        "tickSpan": [
+          0,
+          1920
+        ],
+        "voiceIndex": 7,
+        "velocity": 90
+      },
+      {
+        "note": {
+          "midiNumber": 63
+        },
+        "id": "7_1920_480_63",
+        "isDrum": false,
+        "span": [
+          0.6060599999999999,
+          0.7575749999999999
+        ],
+        "tickSpan": [
+          1920,
+          2400
+        ],
+        "voiceIndex": 7,
+        "velocity": 90
+      },
+      {
+        "note": {
+          "midiNumber": 63
+        },
+        "id": "7_2400_480_63",
+        "isDrum": false,
+        "span": [
+          0.7575749999999999,
+          0.90909
+        ],
+        "tickSpan": [
+          2400,
+          2880
+        ],
+        "voiceIndex": 7,
+        "velocity": 90
+      },
+      {
+        "note": {
+          "midiNumber": 63
+        },
+        "id": "7_2880_1920_63",
+        "isDrum": false,
+        "span": [
+          0.90909,
+          1.5151499999999998
+        ],
+        "tickSpan": [
+          2880,
+          4800
+        ],
+        "voiceIndex": 7,
+        "velocity": 90
+      }
+    ]
+  ],
+  "resultKeys": [
+    "measuresAndBeats",
+    "notes",
+    "instrumentNames"
+  ]
+}

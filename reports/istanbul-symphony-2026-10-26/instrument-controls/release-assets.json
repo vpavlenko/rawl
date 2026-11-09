@@ -1,0 +1,18 @@
+{
+  "paths": [
+    "static/js/main.b9b0520c.js",
+    "static/js/main.b9b0520c.js.map",
+    "static/js/1.f8ed1c79.chunk.js",
+    "static/js/1.f8ed1c79.chunk.js.map",
+    "static/js/midi-synth.d3450087.js",
+    "static/js/midi-synth.d3450087.js.map",
+    "index.html",
+    "asset-manifest.json",
+    "midi/Fazil_Say/fazil-say-istanbul-symphony-06-oriental-night.mid"
+  ],
+  "main": "/static/js/main.b9b0520c.js?release=instrument-groups-v1",
+  "vendor": "/static/js/1.f8ed1c79.chunk.js",
+  "worker": "/static/js/midi-synth.d3450087.js",
+  "audioWorkerUnchanged": true,
+  "cssUnchanged": true
+}

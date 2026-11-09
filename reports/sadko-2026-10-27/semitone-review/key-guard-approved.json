@@ -1,0 +1,1602 @@
+{
+  "3:1:v1:21": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2965",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 3,
+    "bar": 52
+  },
+  "3:1:v1:27": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2970",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 3,
+    "bar": 52
+  },
+  "3:1:v1:42": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2972",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 3,
+    "bar": 54
+  },
+  "3:1:v1:56": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2974",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 3,
+    "bar": 55
+  },
+  "3:1:v1:62": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2979",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 3,
+    "bar": 55
+  },
+  "3:3:v1:54": {
+    "before": 64,
+    "after": 63,
+    "sourceHead": "5471",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 3,
+    "bar": 67
+  },
+  "3:3:v1:56": {
+    "before": 64,
+    "after": 63,
+    "sourceHead": "5471",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 3,
+    "bar": 67
+  },
+  "4:1:v1:47": {
+    "before": 74,
+    "after": 73,
+    "sourceHead": "2584",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 4,
+    "bar": 74
+  },
+  "4:1:v1:52": {
+    "before": 69,
+    "after": 68,
+    "sourceHead": "2656",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 4,
+    "bar": 74
+  },
+  "4:1:v1:55": {
+    "before": 69,
+    "after": 68,
+    "sourceHead": "2660",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 4,
+    "bar": 74
+  },
+  "4:2:v1:58": {
+    "before": 69,
+    "after": 68,
+    "sourceHead": "3532",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 4,
+    "bar": 79
+  },
+  "6:1:v1:41": {
+    "before": 77,
+    "after": 76,
+    "sourceHead": "2826",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 6,
+    "bar": 108
+  },
+  "6:1:v1:56": {
+    "before": 77,
+    "after": 76,
+    "sourceHead": "2836",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 6,
+    "bar": 109
+  },
+  "6:1:v2:27": {
+    "before": 53,
+    "after": 52,
+    "sourceHead": "2998",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 6,
+    "bar": 107
+  },
+  "6:2:v1:5": {
+    "before": 77,
+    "after": 76,
+    "sourceHead": "3449",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 6,
+    "bar": 110
+  },
+  "6:2:v1:28": {
+    "before": 77,
+    "after": 76,
+    "sourceHead": "3457",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 6,
+    "bar": 112
+  },
+  "6:3:v1:38": {
+    "before": 75,
+    "after": 74,
+    "sourceHead": "4029",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 6,
+    "bar": 117
+  },
+  "7:3:v1:5": {
+    "before": 73,
+    "after": 74,
+    "sourceHead": "4415",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 7,
+    "bar": 129
+  },
+  "10:1:v2:16": {
+    "before": 52,
+    "after": 51,
+    "sourceHead": "2458",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 10,
+    "bar": 168
+  },
+  "10:2:v1:4": {
+    "before": 66,
+    "after": 67,
+    "sourceHead": "2941",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 10,
+    "bar": 172
+  },
+  "10:2:v1:7": {
+    "before": 66,
+    "after": 67,
+    "sourceHead": "2945",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 10,
+    "bar": 172
+  },
+  "10:2:v1:8": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2881",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 10,
+    "bar": 172
+  },
+  "10:2:v1:10": {
+    "before": 66,
+    "after": 67,
+    "sourceHead": "2949",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 10,
+    "bar": 172
+  },
+  "10:2:v1:17": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2974",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 10,
+    "bar": 173
+  },
+  "10:2:v1:19": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2972",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 10,
+    "bar": 174
+  },
+  "10:2:v1:39": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2887",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 10,
+    "bar": 176
+  },
+  "10:2:v2:34": {
+    "before": 52,
+    "after": 51,
+    "sourceHead": "3095",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 10,
+    "bar": 175
+  },
+  "10:3:v2:7": {
+    "before": 47,
+    "after": 48,
+    "sourceHead": "3677",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 10,
+    "bar": 177
+  },
+  "10:3:v2:17": {
+    "before": 47,
+    "after": 48,
+    "sourceHead": "3683",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 10,
+    "bar": 178
+  },
+  "10:3:v2:27": {
+    "before": 47,
+    "after": 48,
+    "sourceHead": "13714",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 10,
+    "bar": 179
+  },
+  "10:3:v2:37": {
+    "before": 54,
+    "after": 55,
+    "sourceHead": "3623",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 10,
+    "bar": 180
+  },
+  "11:1:v1:19": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2368",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 11,
+    "bar": 183
+  },
+  "11:1:v1:25": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2372",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 11,
+    "bar": 183
+  },
+  "11:1:v1:38": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2376",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 11,
+    "bar": 185
+  },
+  "11:1:v1:58": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2380",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 11,
+    "bar": 186
+  },
+  "13:1:v4:7": {
+    "before": 47,
+    "after": 48,
+    "sourceHead": "2337",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 13,
+    "bar": 217
+  },
+  "13:1:v4:10": {
+    "before": 42,
+    "after": 43,
+    "sourceHead": "2363",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 13,
+    "bar": 218
+  },
+  "13:2:v2:2": {
+    "before": 66,
+    "after": 67,
+    "sourceHead": "3013",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 13,
+    "bar": 221
+  },
+  "13:2:v2:12": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2968",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 13,
+    "bar": 223
+  },
+  "15:1:v3:3": {
+    "before": 54,
+    "after": 55,
+    "sourceHead": "2199",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 236
+  },
+  "15:1:v3:9": {
+    "before": 59,
+    "after": 60,
+    "sourceHead": "2249",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 237
+  },
+  "15:1:v3:10": {
+    "before": 59,
+    "after": 60,
+    "sourceHead": "2249",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 237
+  },
+  "15:1:v3:12": {
+    "before": 54,
+    "after": 55,
+    "sourceHead": "2203",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 238
+  },
+  "15:1:v3:18": {
+    "before": 59,
+    "after": 60,
+    "sourceHead": "2253",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 239
+  },
+  "15:1:v3:19": {
+    "before": 59,
+    "after": 60,
+    "sourceHead": "2257",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 239
+  },
+  "15:1:v3:21": {
+    "before": 54,
+    "after": 55,
+    "sourceHead": "2209",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 240
+  },
+  "15:2:v2:8": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2766",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 242
+  },
+  "15:2:v2:9": {
+    "before": 66,
+    "after": 67,
+    "sourceHead": "2849",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 242
+  },
+  "15:2:v2:13": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2771",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 243
+  },
+  "15:2:v2:14": {
+    "before": 66,
+    "after": 67,
+    "sourceHead": "2853",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 243
+  },
+  "15:2:v2:18": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2776",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 244
+  },
+  "15:2:v2:19": {
+    "before": 66,
+    "after": 67,
+    "sourceHead": "2859",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 244
+  },
+  "15:2:v2:22": {
+    "before": 66,
+    "after": 67,
+    "sourceHead": "2863",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 245
+  },
+  "15:2:v2:25": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2780",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 245
+  },
+  "15:2:v3:4": {
+    "before": 59,
+    "after": 60,
+    "sourceHead": "3132",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 241
+  },
+  "15:2:v3:5": {
+    "before": 59,
+    "after": 60,
+    "sourceHead": "3136",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 241
+  },
+  "15:2:v3:7": {
+    "before": 54,
+    "after": 55,
+    "sourceHead": "3043",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 242
+  },
+  "15:2:v3:10": {
+    "before": 59,
+    "after": 60,
+    "sourceHead": "3140",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 242
+  },
+  "15:2:v3:12": {
+    "before": 54,
+    "after": 55,
+    "sourceHead": "3047",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 243
+  },
+  "15:2:v3:15": {
+    "before": 59,
+    "after": 60,
+    "sourceHead": "3144",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 243
+  },
+  "15:2:v3:17": {
+    "before": 54,
+    "after": 55,
+    "sourceHead": "3049",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 244
+  },
+  "15:2:v3:20": {
+    "before": 59,
+    "after": 60,
+    "sourceHead": "3148",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 244
+  },
+  "15:2:v3:25": {
+    "before": 59,
+    "after": 60,
+    "sourceHead": "3152",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 15,
+    "bar": 245
+  },
+  "16:1:v1:5": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2519",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 16,
+    "bar": 247
+  },
+  "16:1:v1:28": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "2525",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 16,
+    "bar": 250
+  },
+  "16:2:v1:19": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "3443",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 16,
+    "bar": 253
+  },
+  "16:2:v1:35": {
+    "before": 66,
+    "after": 67,
+    "sourceHead": "3586",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 16,
+    "bar": 254
+  },
+  "16:2:v1:38": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "3452",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 16,
+    "bar": 255
+  },
+  "16:2:v1:52": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "3463",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 16,
+    "bar": 256
+  },
+  "16:2:v1:58": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "3467",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 16,
+    "bar": 256
+  },
+  "16:3:v1:8": {
+    "before": 66,
+    "after": 67,
+    "sourceHead": "4666",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 16,
+    "bar": 257
+  },
+  "16:3:v1:11": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "4576",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 16,
+    "bar": 258
+  },
+  "16:3:v1:25": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "4582",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 16,
+    "bar": 259
+  },
+  "16:3:v1:33": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "4589",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 16,
+    "bar": 259
+  },
+  "16:3:v1:43": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "14532",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 16,
+    "bar": 261
+  },
+  "16:3:v2:16": {
+    "before": 47,
+    "after": 48,
+    "sourceHead": "14542",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 16,
+    "bar": 258
+  },
+  "16:3:v2:19": {
+    "before": 47,
+    "after": 48,
+    "sourceHead": "4823",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 16,
+    "bar": 258
+  },
+  "16:3:v2:26": {
+    "before": 47,
+    "after": 48,
+    "sourceHead": "4828",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 16,
+    "bar": 259
+  },
+  "16:3:v2:32": {
+    "before": 47,
+    "after": 48,
+    "sourceHead": "4860",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 16,
+    "bar": 259
+  },
+  "16:3:v2:38": {
+    "before": 54,
+    "after": 55,
+    "sourceHead": "4728",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 16,
+    "bar": 261
+  },
+  "18:3:v1:5": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "4119",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 18,
+    "bar": 293
+  },
+  "18:3:v1:26": {
+    "before": 71,
+    "after": 72,
+    "sourceHead": "4125",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 18,
+    "bar": 298
+  },
+  "22:3:v1:4": {
+    "before": 70,
+    "after": 69,
+    "sourceHead": "3035",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 363
+  },
+  "22:3:v1:8": {
+    "before": 70,
+    "after": 69,
+    "sourceHead": "3037",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 363
+  },
+  "22:3:v1:11": {
+    "before": 70,
+    "after": 69,
+    "sourceHead": "3039",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 363
+  },
+  "22:3:v1:15": {
+    "before": 70,
+    "after": 69,
+    "sourceHead": "3041",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 364
+  },
+  "22:3:v1:18": {
+    "before": 70,
+    "after": 69,
+    "sourceHead": "3043",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 364
+  },
+  "22:3:v1:21": {
+    "before": 70,
+    "after": 69,
+    "sourceHead": "3047",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 364
+  },
+  "22:3:v1:24": {
+    "before": 70,
+    "after": 69,
+    "sourceHead": "3049",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 364
+  },
+  "22:3:v1:27": {
+    "before": 70,
+    "after": 69,
+    "sourceHead": "3087",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 364
+  },
+  "22:3:v1:31": {
+    "before": 70,
+    "after": 69,
+    "sourceHead": "3051",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 365
+  },
+  "22:3:v1:34": {
+    "before": 70,
+    "after": 69,
+    "sourceHead": "3053",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 365
+  },
+  "22:3:v1:37": {
+    "before": 70,
+    "after": 69,
+    "sourceHead": "3055",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 365
+  },
+  "22:3:v2:2": {
+    "before": 58,
+    "after": 57,
+    "sourceHead": "3102",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 363
+  },
+  "22:3:v2:6": {
+    "before": 58,
+    "after": 57,
+    "sourceHead": "3200",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 363
+  },
+  "22:3:v2:9": {
+    "before": 58,
+    "after": 57,
+    "sourceHead": "3106",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 363
+  },
+  "22:3:v2:13": {
+    "before": 58,
+    "after": 57,
+    "sourceHead": "3201",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 364
+  },
+  "22:3:v2:16": {
+    "before": 58,
+    "after": 57,
+    "sourceHead": "3112",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 364
+  },
+  "22:3:v2:19": {
+    "before": 58,
+    "after": 57,
+    "sourceHead": "3116",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 364
+  },
+  "22:3:v2:22": {
+    "before": 58,
+    "after": 57,
+    "sourceHead": "3120",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 364
+  },
+  "22:3:v2:25": {
+    "before": 58,
+    "after": 57,
+    "sourceHead": "3124",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 364
+  },
+  "22:3:v2:29": {
+    "before": 58,
+    "after": 57,
+    "sourceHead": "3126",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 365
+  },
+  "22:3:v2:32": {
+    "before": 58,
+    "after": 57,
+    "sourceHead": "3132",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 365
+  },
+  "22:3:v2:35": {
+    "before": 58,
+    "after": 57,
+    "sourceHead": "3134",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 22,
+    "bar": 365
+  },
+  "28:3:v1:11": {
+    "before": 73,
+    "after": 72,
+    "sourceHead": "2861",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 28,
+    "bar": 437
+  },
+  "29:3:v1:3": {
+    "before": 70,
+    "after": 69,
+    "sourceHead": "2832",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 29,
+    "bar": 450
+  },
+  "29:3:v1:6": {
+    "before": 65,
+    "after": 64,
+    "sourceHead": "2862",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 29,
+    "bar": 450
+  },
+  "35:1:v3:4": {
+    "before": 48,
+    "after": 47,
+    "sourceHead": "2182",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 35,
+    "bar": 501
+  },
+  "35:1:v3:7": {
+    "before": 48,
+    "after": 47,
+    "sourceHead": "2281",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 35,
+    "bar": 501
+  },
+  "35:1:v3:41": {
+    "before": 48,
+    "after": 47,
+    "sourceHead": "2190",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 35,
+    "bar": 502
+  },
+  "47:1:v1:3": {
+    "before": 73,
+    "after": 74,
+    "sourceHead": "1672",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 47,
+    "bar": 638
+  },
+  "47:1:v1:4": {
+    "before": 73,
+    "after": 74,
+    "sourceHead": "1674",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 47,
+    "bar": 638
+  },
+  "51:2:v1:32": {
+    "before": 71,
+    "after": 70,
+    "sourceHead": "2769",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 51,
+    "bar": 684
+  },
+  "51:3:v1:2": {
+    "before": 73,
+    "after": 74,
+    "sourceHead": "3256",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 51,
+    "bar": 686
+  },
+  "51:3:v1:19": {
+    "before": 73,
+    "after": 74,
+    "sourceHead": "3260",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 51,
+    "bar": 688
+  },
+  "58:3:v1:28": {
+    "before": 61,
+    "after": 62,
+    "sourceHead": "3240",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 58,
+    "bar": 815
+  },
+  "59:1:v2:12": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "3470",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 59,
+    "bar": 820
+  },
+  "59:2:v2:22": {
+    "before": 80,
+    "after": 79,
+    "sourceHead": "4350",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 59,
+    "bar": 827
+  },
+  "59:2:v3:13": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4469",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 59,
+    "bar": 825
+  },
+  "59:2:v3:14": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4471",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 59,
+    "bar": 825
+  },
+  "59:3:v3:9": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "5183",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 59,
+    "bar": 829
+  },
+  "59:3:v3:10": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "5185",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 59,
+    "bar": 829
+  },
+  "66:1:v1:2": {
+    "before": 73,
+    "after": 72,
+    "sourceHead": "2641",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 942
+  },
+  "66:1:v1:4": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "2697",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 942
+  },
+  "66:1:v1:7": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "2701",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 942
+  },
+  "66:1:v1:10": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "2705",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 942
+  },
+  "66:1:v1:13": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "2709",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 942
+  },
+  "66:1:v1:15": {
+    "before": 73,
+    "after": 72,
+    "sourceHead": "2645",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 943
+  },
+  "66:1:v1:26": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "2717",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 944
+  },
+  "66:1:v1:29": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "2721",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 944
+  },
+  "66:1:v1:32": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "2725",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 944
+  },
+  "66:1:v1:34": {
+    "before": 73,
+    "after": 72,
+    "sourceHead": "2649",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 945
+  },
+  "66:1:v1:36": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "2731",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 945
+  },
+  "66:1:v1:39": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "2735",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 945
+  },
+  "66:1:v1:42": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "2739",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 945
+  },
+  "66:1:v1:45": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "2743",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 945
+  },
+  "66:1:v1:47": {
+    "before": 73,
+    "after": 72,
+    "sourceHead": "2776",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 946
+  },
+  "66:3:v2:2": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4533",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 953
+  },
+  "66:3:v2:5": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4535",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 953
+  },
+  "66:3:v2:8": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4539",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 953
+  },
+  "66:3:v2:10": {
+    "before": 49,
+    "after": 48,
+    "sourceHead": "4680",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 953
+  },
+  "66:3:v2:11": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4539",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 953
+  },
+  "66:3:v2:13": {
+    "before": 49,
+    "after": 48,
+    "sourceHead": "4682",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 953
+  },
+  "66:3:v2:15": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4545",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 954
+  },
+  "66:3:v2:18": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4549",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 954
+  },
+  "66:3:v2:20": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4549",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 954
+  },
+  "66:3:v2:21": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4736",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 954
+  },
+  "66:3:v2:24": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4740",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 954
+  },
+  "66:3:v2:28": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4559",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 955
+  },
+  "66:3:v2:31": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4562",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 955
+  },
+  "66:3:v2:34": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4565",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 955
+  },
+  "66:3:v2:36": {
+    "before": 49,
+    "after": 48,
+    "sourceHead": "4684",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 955
+  },
+  "66:3:v2:37": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4738",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 955
+  },
+  "66:3:v2:39": {
+    "before": 49,
+    "after": 48,
+    "sourceHead": "4686",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 955
+  },
+  "66:3:v2:41": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4567",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 956
+  },
+  "66:3:v2:44": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4569",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 956
+  },
+  "66:3:v2:46": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4569",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 956
+  },
+  "66:3:v2:47": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4573",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 956
+  },
+  "66:3:v2:50": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4575",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 956
+  },
+  "66:3:v2:54": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4742",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 957
+  },
+  "66:3:v2:57": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4581",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 957
+  },
+  "66:3:v2:60": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4587",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 957
+  },
+  "66:3:v2:62": {
+    "before": 49,
+    "after": 48,
+    "sourceHead": "4688",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 957
+  },
+  "66:3:v2:63": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "4589",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 957
+  },
+  "66:3:v2:65": {
+    "before": 49,
+    "after": 48,
+    "sourceHead": "4690",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 66,
+    "bar": 957
+  },
+  "67:2:v5:14": {
+    "before": 49,
+    "after": 48,
+    "sourceHead": "2202",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 67,
+    "bar": 964
+  },
+  "67:2:v5:16": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "2109",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 67,
+    "bar": 965
+  },
+  "67:2:v5:18": {
+    "before": 49,
+    "after": 48,
+    "sourceHead": "2204",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 67,
+    "bar": 965
+  },
+  "67:2:v5:19": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "2111",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 67,
+    "bar": 965
+  },
+  "67:2:v5:21": {
+    "before": 49,
+    "after": 48,
+    "sourceHead": "2206",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 67,
+    "bar": 965
+  },
+  "67:2:v5:23": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "2113",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 67,
+    "bar": 966
+  },
+  "67:2:v5:29": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "2115",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 67,
+    "bar": 966
+  },
+  "67:2:v5:32": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "2117",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 67,
+    "bar": 966
+  },
+  "67:2:v5:36": {
+    "before": 61,
+    "after": 60,
+    "sourceHead": "2244",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 67,
+    "bar": 967
+  },
+  "67:2:v5:49": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "2119",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 67,
+    "bar": 968
+  },
+  "67:2:v5:52": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "2121",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 67,
+    "bar": 968
+  },
+  "70:1:v3:7": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "2449",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 994
+  },
+  "70:1:v3:11": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "2451",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 995
+  },
+  "70:1:v3:17": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "2457",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 996
+  },
+  "70:1:v3:21": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "2461",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 997
+  },
+  "70:1:v4:2": {
+    "before": 80,
+    "after": 79,
+    "sourceHead": "2555",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 993
+  },
+  "70:1:v4:8": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "2671",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 993
+  },
+  "70:1:v4:11": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "2675",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 993
+  },
+  "70:1:v4:15": {
+    "before": 73,
+    "after": 72,
+    "sourceHead": "2639",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 994
+  },
+  "70:1:v4:28": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "2683",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 995
+  },
+  "70:1:v4:31": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "2687",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 995
+  },
+  "70:1:v4:35": {
+    "before": 73,
+    "after": 72,
+    "sourceHead": "2643",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 996
+  },
+  "70:1:v4:45": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "2693",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 997
+  },
+  "70:1:v4:48": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "2697",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 997
+  },
+  "70:1:v5:8": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "2756",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 993
+  },
+  "70:1:v5:15": {
+    "before": 61,
+    "after": 60,
+    "sourceHead": "2854",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 994
+  },
+  "70:1:v5:35": {
+    "before": 61,
+    "after": 60,
+    "sourceHead": "2869",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 996
+  },
+  "70:1:v5:45": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "2774",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 997
+  },
+  "70:1:v5:48": {
+    "before": 56,
+    "after": 55,
+    "sourceHead": "2776",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 997
+  },
+  "70:2:v4:4": {
+    "before": 73,
+    "after": 72,
+    "sourceHead": "3927",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 998
+  },
+  "70:2:v4:30": {
+    "before": 80,
+    "after": 79,
+    "sourceHead": "3868",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 1002
+  },
+  "70:2:v4:32": {
+    "before": 68,
+    "after": 67,
+    "sourceHead": "3956",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 70,
+    "bar": 1002
+  },
+  "71:1:v1:2": {
+    "before": 80,
+    "after": 79,
+    "sourceHead": "2212",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 71,
+    "bar": 1003
+  },
+  "71:1:v1:6": {
+    "before": 80,
+    "after": 79,
+    "sourceHead": "2216",
+    "evidence": "Audiveris physical head and source key, plus Copista pitch/onset/duration and verified physical row mapping",
+    "page": 71,
+    "bar": 1004
+  },
+  "2:3:v2:8": {
+    "before": 57,
+    "after": 56,
+    "sourceHead": "5191",
+    "evidence": "direct visual reading of p2-b43-vocal.png; A-flat3 with G3, no natural",
+    "page": 2,
+    "bar": 43
+  }
+}

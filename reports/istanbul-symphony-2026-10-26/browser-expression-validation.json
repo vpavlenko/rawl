@@ -1,0 +1,55 @@
+{
+  "version": "expression-v2",
+  "checkedAt": "2026-10-26T11:09:25.161Z",
+  "checks": [
+    {
+      "movement": 1,
+      "percussionVoices": 1,
+      "download": true,
+      "errors": []
+    },
+    {
+      "movement": 2,
+      "heading": "Fazil Say Istanbul Symphony 02 Religious Order\nFazil Say\n*1970",
+      "percussionVoices": 1,
+      "download": true,
+      "errors": []
+    },
+    {
+      "movement": 3,
+      "heading": "Fazil Say Istanbul Symphony 03 Blue Mosque\nFazil Say\n*1970",
+      "percussionVoices": 1,
+      "download": true,
+      "errors": []
+    },
+    {
+      "movement": 4,
+      "percussionVoices": 1,
+      "download": true,
+      "errors": [],
+      "playbackObserved": "0:08 to 0:24",
+      "proof": "continuous-tremolo-live.png"
+    },
+    {
+      "movement": 5,
+      "heading": "Fazil Say Istanbul Symphony 05 Travellers to Anatolia\nFazil Say\n*1970",
+      "percussionVoices": 1,
+      "download": true,
+      "errors": []
+    },
+    {
+      "movement": 6,
+      "heading": "Fazil Say Istanbul Symphony 06 Oriental Night\nFazil Say\n*1970",
+      "percussionVoices": 1,
+      "download": true,
+      "errors": []
+    },
+    {
+      "movement": 7,
+      "heading": "Fazil Say Istanbul Symphony 07 Finale\nFazil Say\n*1970",
+      "percussionVoices": 1,
+      "download": true,
+      "errors": []
+    }
+  ]
+}

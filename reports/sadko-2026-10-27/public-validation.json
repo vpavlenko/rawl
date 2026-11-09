@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-10-27T10:42:50.599Z",
+  "anonymousFirebaseBytes": true,
+  "anonymousAnalysis": true,
+  "expectedBundle": "/static/js/main.8a9f2ad4.js?release=sadko-20261027",
+  "servedBundle": "/static/js/main.8a9f2ad4.js?release=sadko-20261027",
+  "assets": [
+    {
+      "path": "/static/js/main.8a9f2ad4.js",
+      "status": 200,
+      "bytes": 6765604,
+      "sha256": "8a9f2ad4034a5d07a4875a0724a961d8cafecec5a0b0261d323dd2f7ebe71330",
+      "matches": true
+    },
+    {
+      "path": "/midi/Nikolai_Rimsky-Korsakov/sadko-01.mid",
+      "status": 200,
+      "bytes": 187350,
+      "sha256": "bacc8e5deae7be99fa598d7173a0e54de2bacc76e2cb9292b9c16b77d139c201",
+      "matches": true
+    }
+  ]
+}

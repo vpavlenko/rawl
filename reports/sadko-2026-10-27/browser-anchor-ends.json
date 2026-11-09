@@ -1,0 +1,176 @@
+[
+  {
+    "chain": [
+      {
+        "style": "font-size: 12px; font-family: sans-serif;",
+        "tag": "SPAN",
+        "width": 20.0234375,
+        "x": 497.671875
+      },
+      {
+        "style": "position: absolute; top: -4px; left: 467.673px; color: rgb(102, 102, 102); z-index: 15; cursor: pointer; user-select: none;",
+        "tag": "DIV",
+        "width": 20.0234375,
+        "x": 497.671875
+      },
+      {
+        "style": "z-index: 15;",
+        "tag": "DIV",
+        "width": 554,
+        "x": 30
+      },
+      {
+        "style": "width: 554.007px; height: 16px; margin-bottom: -15px; margin-left: 0px; z-index: auto; position: relative; top: 0px;",
+        "tag": "DIV",
+        "width": 554,
+        "x": 30
+      }
+    ],
+    "measure": "362"
+  },
+  {
+    "chain": [
+      {
+        "style": "font-size: 12px; font-family: sans-serif;",
+        "tag": "SPAN",
+        "width": 20.0234375,
+        "x": 497.671875
+      },
+      {
+        "style": "position: absolute; top: -4px; left: 467.673px; color: rgb(102, 102, 102); z-index: 15; cursor: pointer; user-select: none;",
+        "tag": "DIV",
+        "width": 20.0234375,
+        "x": 497.671875
+      },
+      {
+        "style": "z-index: 15;",
+        "tag": "DIV",
+        "width": 554,
+        "x": 30
+      },
+      {
+        "style": "width: 554.007px; height: 16px; margin-bottom: -15px; margin-left: 0px; z-index: auto; position: relative; top: 0px;",
+        "tag": "DIV",
+        "width": 554,
+        "x": 30
+      }
+    ],
+    "measure": "365"
+  },
+  {
+    "chain": [
+      {
+        "style": "font-size: 12px; font-family: sans-serif;",
+        "tag": "SPAN",
+        "width": 20.0234375,
+        "x": 497.671875
+      },
+      {
+        "style": "position: absolute; top: -4px; left: 467.673px; color: rgb(102, 102, 102); z-index: 15; cursor: pointer; user-select: none;",
+        "tag": "DIV",
+        "width": 20.0234375,
+        "x": 497.671875
+      },
+      {
+        "style": "z-index: 15;",
+        "tag": "DIV",
+        "width": 554,
+        "x": 30
+      },
+      {
+        "style": "width: 554.007px; height: 16px; margin-bottom: -15px; margin-left: 0px; z-index: auto; position: relative; top: 0px;",
+        "tag": "DIV",
+        "width": 554,
+        "x": 30
+      }
+    ],
+    "measure": "400"
+  },
+  {
+    "chain": [
+      {
+        "style": "font-size: 12px; font-family: sans-serif;",
+        "tag": "SPAN",
+        "width": 20.0234375,
+        "x": 473.3671875
+      },
+      {
+        "style": "position: absolute; top: -4px; left: 443.374px; color: rgb(102, 102, 102); z-index: 15; cursor: pointer; user-select: none;",
+        "tag": "DIV",
+        "width": 20.0234375,
+        "x": 473.3671875
+      },
+      {
+        "style": "z-index: 15;",
+        "tag": "DIV",
+        "width": 554,
+        "x": 30
+      },
+      {
+        "style": "width: 554.007px; height: 16px; margin-bottom: -15px; margin-left: 0px; z-index: auto; position: relative; top: 0px;",
+        "tag": "DIV",
+        "width": 554,
+        "x": 30
+      }
+    ],
+    "measure": "403"
+  },
+  {
+    "chain": [
+      {
+        "style": "font-size: 12px; font-family: sans-serif;",
+        "tag": "SPAN",
+        "width": 20.0234375,
+        "x": 497.671875
+      },
+      {
+        "style": "position: absolute; top: -4px; left: 467.673px; color: rgb(102, 102, 102); z-index: 15; cursor: pointer; user-select: none;",
+        "tag": "DIV",
+        "width": 20.0234375,
+        "x": 497.671875
+      },
+      {
+        "style": "z-index: 15;",
+        "tag": "DIV",
+        "width": 554,
+        "x": 30
+      },
+      {
+        "style": "width: 554.007px; height: 16px; margin-bottom: -15px; margin-left: 0px; z-index: auto; position: relative; top: 0px;",
+        "tag": "DIV",
+        "width": 554,
+        "x": 30
+      }
+    ],
+    "measure": "426"
+  },
+  {
+    "chain": [
+      {
+        "style": "font-size: 12px; font-family: sans-serif;",
+        "tag": "SPAN",
+        "width": 20.0234375,
+        "x": 497.671875
+      },
+      {
+        "style": "position: absolute; top: -4px; left: 467.673px; color: rgb(102, 102, 102); z-index: 15; cursor: pointer; user-select: none;",
+        "tag": "DIV",
+        "width": 20.0234375,
+        "x": 497.671875
+      },
+      {
+        "style": "z-index: 15;",
+        "tag": "DIV",
+        "width": 554,
+        "x": 30
+      },
+      {
+        "style": "width: 554.007px; height: 16px; margin-bottom: -15px; margin-left: 0px; z-index: auto; position: relative; top: 0px;",
+        "tag": "DIV",
+        "width": 554,
+        "x": 30
+      }
+    ],
+    "measure": "429"
+  }
+]

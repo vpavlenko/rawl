@@ -1,0 +1,34 @@
+{
+  "page": 20,
+  "movement": 1,
+  "measure": 29,
+  "part": "Violin II",
+  "quarterOffset": 2.25,
+  "before": 74,
+  "after": 75,
+  "removed": [
+    [
+      7,
+      91440,
+      "{\"channel\": 6, \"note\": 74, \"type\": \"note_on\", \"velocity\": 103}"
+    ],
+    [
+      7,
+      91680,
+      "{\"channel\": 6, \"note\": 74, \"type\": \"note_off\", \"velocity\": 0}"
+    ]
+  ],
+  "added": [
+    [
+      7,
+      91440,
+      "{\"channel\": 6, \"note\": 75, \"type\": \"note_on\", \"velocity\": 103}"
+    ],
+    [
+      7,
+      91680,
+      "{\"channel\": 6, \"note\": 75, \"type\": \"note_off\", \"velocity\": 0}"
+    ]
+  ],
+  "source": "User-confirmed erratum: PDF omits the sharp; parallel parts and motif repetitions support D-sharp."
+}

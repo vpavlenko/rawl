@@ -123,6 +123,8 @@ export type HarmonyResult = {
 };
 export type HarmonyOptions = {
   referenceKeys?: { start: number; tonic: number }[];
+  // Offline chord-only consumers do not need the independent structure models.
+  includeStructure?: boolean;
 };
 
 // MIDI has no spelling. Follow the displayed Roman degree when a tonic is
@@ -873,10 +875,10 @@ export function analyzeHarmony(
     chords,
     keys,
     inferredKeys,
-    sections: inferLearnedSections(validNotes, grid),
-    sectionModelVersion: SECTION_MODEL_VERSION,
-    phrases: inferLearnedPhrases(validNotes, grid),
-    phraseModelVersion: PHRASE_MODEL_VERSION,
+    sections: options.includeStructure === false ? [] : inferLearnedSections(validNotes, grid),
+    sectionModelVersion: options.includeStructure === false ? undefined : SECTION_MODEL_VERSION,
+    phrases: options.includeStructure === false ? [] : inferLearnedPhrases(validNotes, grid),
+    phraseModelVersion: options.includeStructure === false ? undefined : PHRASE_MODEL_VERSION,
     warnings: [],
   };
 }

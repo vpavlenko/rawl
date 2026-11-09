@@ -1,0 +1,22 @@
+{
+  "publicUrl": "https://rawl.rocks/f/haydn-piano-trio-hob-xv-27-iii-finale-presto",
+  "catalogUrl": "https://rawl.rocks/corpus/haydn?release=haydn-xv27-8351e8c28",
+  "catalogPosition": 10,
+  "servedBundle": "https://rawl.rocks/static/js/main.206a3079.js",
+  "deployment": "https://github.com/vpavlenko/rawl/actions/runs/40867406297",
+  "deploymentStatus": "success",
+  "chrome": {
+    "voices": [
+      "Piano",
+      "Violin",
+      "Piano",
+      "Cello"
+    ],
+    "duration": "4:32",
+    "playbackCounterAfterPlay": "1:00",
+    "pausedButton": "Resume (use Space)",
+    "pieceWarningsErrors": [],
+    "catalogWarningsErrors": []
+  },
+  "localhost": "ERR_CONNECTION_REFUSED"
+}

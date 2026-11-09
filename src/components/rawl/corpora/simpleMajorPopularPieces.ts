@@ -49,11 +49,12 @@ export const simpleMajorPopularPieces: Record<string, string[][]> = {
 };
 
 export function getSimpleMajorPopularPicks(
-  sectionId: string,
+  _sectionId: string,
   midis: string[],
 ): Set<string> {
   return new Set(
-    (simpleMajorPopularPieces[sectionId] || [])
+    // Stage reassignment must not erase a previously curated popular work.
+    Object.values(simpleMajorPopularPieces).flat()
       .map((arrangements) => arrangements.find((slug) => midis.includes(slug)))
       .filter((slug): slug is string => !!slug),
   );

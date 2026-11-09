@@ -1,0 +1,55 @@
+{
+  "base": "17f3d6b4d427f59b4777d9089e8e69e2008121cc",
+  "oldBundle": "/static/js/main.5ce0f2ba.js",
+  "newBundle": "/static/js/main.b9b0520c.js",
+  "entry": {
+    "slug": "fazil_say",
+    "composerName": "Faz\u0131l Say",
+    "composerBirthYear": 1970,
+    "midis": [
+      "fazil-say-istanbul-symphony-01-nostalgia",
+      "fazil-say-istanbul-symphony-02-religious-order",
+      "fazil-say-istanbul-symphony-03-blue-mosque",
+      "fazil-say-istanbul-symphony-04-merrily-clad-ladies",
+      "fazil-say-istanbul-symphony-05-travellers-to-anatolia",
+      "fazil-say-istanbul-symphony-06-oriental-night",
+      "fazil-say-istanbul-symphony-07-finale"
+    ]
+  },
+  "insertedBytes": 418,
+  "sha256": "58b74d3c62ec3a2e08462a29b1485382405a93fe25be6044c4d5db98cd1f811b",
+  "servedBundle": "/static/js/main.b9b0520c.js?release=instrument-groups-v1",
+  "assetVersion": "b9e9555",
+  "midiVersions": {
+    "1": "expression-v2",
+    "2": "expression-v2",
+    "3": "expression-v2",
+    "4": "flute-v3",
+    "5": "expression-v2",
+    "6": "kanun-v3",
+    "7": "expression-v2"
+  },
+  "midiRevision": "expression-v2",
+  "midiCommit": "fb0376cba9c4bc138f357261825bcf9834746a89",
+  "deploymentRun": 40312283158,
+  "deploymentStatus": "success",
+  "midiCommits": {
+    "4": "32c4982b9ee449379e2558dc4be8ab13c4f44aac",
+    "6": "290f290253e2ed885b7fb5a178a39ad96a6ba4d8"
+  },
+  "previousBundle": "/static/js/main.969beb90.js?release=b9e9555",
+  "extraAssets": [
+    {
+      "path": "/static/js/1.f8ed1c79.chunk.js",
+      "sha256": "f15ff902cc686491a51595089e25bd5fbe25ee7735ff34ba043cf7d2d7a8661a"
+    },
+    {
+      "path": "/static/js/midi-synth.d3450087.js",
+      "sha256": "f39b577dfc84eda5843038c3c19aa87c62e530018511c6f238d343f703ff6ac0"
+    }
+  ],
+  "groupingVersion": "instrument-groups-v1",
+  "groupingCommit": "290f290253e2ed885b7fb5a178a39ad96a6ba4d8",
+  "groupingDeploymentRun": 40327087127,
+  "groupingDeploymentStatus": "success"
+}

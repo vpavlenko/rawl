@@ -1,0 +1,122 @@
+[
+  {
+    "bar": 5,
+    "role": 6,
+    "expected": 7,
+    "before": {
+      "exact": true,
+      "correct": 7,
+      "attacks": 7
+    },
+    "after": {
+      "exact": true,
+      "correct": 7,
+      "attacks": 7
+    }
+  },
+  {
+    "bar": 5,
+    "role": 7,
+    "expected": 3,
+    "before": {
+      "exact": false,
+      "correct": 3,
+      "attacks": 4
+    },
+    "after": {
+      "exact": true,
+      "correct": 3,
+      "attacks": 3
+    }
+  },
+  {
+    "bar": 6,
+    "role": 6,
+    "expected": 6,
+    "before": {
+      "exact": false,
+      "correct": 4,
+      "attacks": 6
+    },
+    "after": {
+      "exact": true,
+      "correct": 6,
+      "attacks": 6
+    }
+  },
+  {
+    "bar": 6,
+    "role": 7,
+    "expected": 2,
+    "before": {
+      "exact": true,
+      "correct": 2,
+      "attacks": 2
+    },
+    "after": {
+      "exact": true,
+      "correct": 2,
+      "attacks": 2
+    }
+  },
+  {
+    "bar": 7,
+    "role": 6,
+    "expected": 6,
+    "before": {
+      "exact": false,
+      "correct": 1,
+      "attacks": 6
+    },
+    "after": {
+      "exact": true,
+      "correct": 6,
+      "attacks": 6
+    }
+  },
+  {
+    "bar": 7,
+    "role": 7,
+    "expected": 2,
+    "before": {
+      "exact": false,
+      "correct": 1,
+      "attacks": 2
+    },
+    "after": {
+      "exact": true,
+      "correct": 2,
+      "attacks": 2
+    }
+  },
+  {
+    "bar": 8,
+    "role": 6,
+    "expected": 6,
+    "before": {
+      "exact": false,
+      "correct": 1,
+      "attacks": 6
+    },
+    "after": {
+      "exact": true,
+      "correct": 6,
+      "attacks": 6
+    }
+  },
+  {
+    "bar": 8,
+    "role": 7,
+    "expected": 2,
+    "before": {
+      "exact": false,
+      "correct": 0,
+      "attacks": 2
+    },
+    "after": {
+      "exact": true,
+      "correct": 2,
+      "attacks": 2
+    }
+  }
+]

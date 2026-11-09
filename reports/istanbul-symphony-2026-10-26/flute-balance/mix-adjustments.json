@@ -1,0 +1,3668 @@
+[
+  {
+    "id": 26373,
+    "part": "Flute",
+    "measure": 1,
+    "gain": 1.26
+  },
+  {
+    "id": 26374,
+    "part": "Flute",
+    "measure": 1,
+    "gain": 1.26
+  },
+  {
+    "id": 26375,
+    "part": "Flute",
+    "measure": 1,
+    "gain": 1.26
+  },
+  {
+    "id": 26376,
+    "part": "Flute",
+    "measure": 1,
+    "gain": 1.26
+  },
+  {
+    "id": 26377,
+    "part": "Flute",
+    "measure": 1,
+    "gain": 1.26
+  },
+  {
+    "id": 26378,
+    "part": "Flute",
+    "measure": 1,
+    "gain": 1.26
+  },
+  {
+    "id": 26379,
+    "part": "Flute",
+    "measure": 1,
+    "gain": 1.26
+  },
+  {
+    "id": 26380,
+    "part": "Flute",
+    "measure": 1,
+    "gain": 1.26
+  },
+  {
+    "id": 26381,
+    "part": "Flute",
+    "measure": 1,
+    "gain": 1.26
+  },
+  {
+    "id": 26382,
+    "part": "Flute",
+    "measure": 1,
+    "gain": 1.26
+  },
+  {
+    "id": 26383,
+    "part": "Flute",
+    "measure": 1,
+    "gain": 1.26
+  },
+  {
+    "id": 26384,
+    "part": "Flute",
+    "measure": 1,
+    "gain": 1.26
+  },
+  {
+    "id": 26385,
+    "part": "Flute",
+    "measure": 1,
+    "gain": 1.26
+  },
+  {
+    "id": 26386,
+    "part": "Flute",
+    "measure": 2,
+    "gain": 1.26
+  },
+  {
+    "id": 26387,
+    "part": "Flute",
+    "measure": 2,
+    "gain": 1.26
+  },
+  {
+    "id": 26388,
+    "part": "Flute",
+    "measure": 2,
+    "gain": 1.26
+  },
+  {
+    "id": 26389,
+    "part": "Flute",
+    "measure": 2,
+    "gain": 1.26
+  },
+  {
+    "id": 26390,
+    "part": "Flute",
+    "measure": 2,
+    "gain": 1.26
+  },
+  {
+    "id": 26391,
+    "part": "Flute",
+    "measure": 2,
+    "gain": 1.26
+  },
+  {
+    "id": 26392,
+    "part": "Flute",
+    "measure": 2,
+    "gain": 1.26
+  },
+  {
+    "id": 26393,
+    "part": "Flute",
+    "measure": 2,
+    "gain": 1.26
+  },
+  {
+    "id": 26394,
+    "part": "Flute",
+    "measure": 2,
+    "gain": 1.26
+  },
+  {
+    "id": 26395,
+    "part": "Flute",
+    "measure": 2,
+    "gain": 1.26
+  },
+  {
+    "id": 26396,
+    "part": "Flute",
+    "measure": 2,
+    "gain": 1.26
+  },
+  {
+    "id": 26397,
+    "part": "Flute",
+    "measure": 2,
+    "gain": 1.26
+  },
+  {
+    "id": 26398,
+    "part": "Flute",
+    "measure": 2,
+    "gain": 1.26
+  },
+  {
+    "id": 26399,
+    "part": "Flute",
+    "measure": 3,
+    "gain": 1.26
+  },
+  {
+    "id": 26400,
+    "part": "Flute",
+    "measure": 3,
+    "gain": 1.26
+  },
+  {
+    "id": 26401,
+    "part": "Flute",
+    "measure": 3,
+    "gain": 1.26
+  },
+  {
+    "id": 26402,
+    "part": "Flute",
+    "measure": 3,
+    "gain": 1.26
+  },
+  {
+    "id": 26403,
+    "part": "Flute",
+    "measure": 3,
+    "gain": 1.26
+  },
+  {
+    "id": 26404,
+    "part": "Flute",
+    "measure": 3,
+    "gain": 1.26
+  },
+  {
+    "id": 26405,
+    "part": "Flute",
+    "measure": 3,
+    "gain": 1.26
+  },
+  {
+    "id": 26406,
+    "part": "Flute",
+    "measure": 3,
+    "gain": 1.26
+  },
+  {
+    "id": 26407,
+    "part": "Flute",
+    "measure": 3,
+    "gain": 1.26
+  },
+  {
+    "id": 26408,
+    "part": "Flute",
+    "measure": 3,
+    "gain": 1.26
+  },
+  {
+    "id": 26409,
+    "part": "Flute",
+    "measure": 3,
+    "gain": 1.26
+  },
+  {
+    "id": 26410,
+    "part": "Flute",
+    "measure": 3,
+    "gain": 1.26
+  },
+  {
+    "id": 26411,
+    "part": "Flute",
+    "measure": 3,
+    "gain": 1.26
+  },
+  {
+    "id": 26412,
+    "part": "Flute",
+    "measure": 4,
+    "gain": 1.26
+  },
+  {
+    "id": 26413,
+    "part": "Flute",
+    "measure": 4,
+    "gain": 1.26
+  },
+  {
+    "id": 26414,
+    "part": "Flute",
+    "measure": 4,
+    "gain": 1.26
+  },
+  {
+    "id": 26415,
+    "part": "Flute",
+    "measure": 4,
+    "gain": 1.26
+  },
+  {
+    "id": 26416,
+    "part": "Flute",
+    "measure": 4,
+    "gain": 1.26
+  },
+  {
+    "id": 26417,
+    "part": "Flute",
+    "measure": 4,
+    "gain": 1.26
+  },
+  {
+    "id": 26418,
+    "part": "Flute",
+    "measure": 4,
+    "gain": 1.26
+  },
+  {
+    "id": 26419,
+    "part": "Flute",
+    "measure": 4,
+    "gain": 1.26
+  },
+  {
+    "id": 26420,
+    "part": "Flute",
+    "measure": 4,
+    "gain": 1.26
+  },
+  {
+    "id": 26421,
+    "part": "Flute",
+    "measure": 4,
+    "gain": 1.26
+  },
+  {
+    "id": 26422,
+    "part": "Flute",
+    "measure": 4,
+    "gain": 1.26
+  },
+  {
+    "id": 26423,
+    "part": "Flute",
+    "measure": 4,
+    "gain": 1.26
+  },
+  {
+    "id": 26424,
+    "part": "Flute",
+    "measure": 4,
+    "gain": 1.26
+  },
+  {
+    "id": 26425,
+    "part": "Flute",
+    "measure": 5,
+    "gain": 1.26
+  },
+  {
+    "id": 26426,
+    "part": "Flute",
+    "measure": 5,
+    "gain": 1.26
+  },
+  {
+    "id": 26427,
+    "part": "Flute",
+    "measure": 5,
+    "gain": 1.26
+  },
+  {
+    "id": 26428,
+    "part": "Flute",
+    "measure": 5,
+    "gain": 1.26
+  },
+  {
+    "id": 26429,
+    "part": "Flute",
+    "measure": 5,
+    "gain": 1.26
+  },
+  {
+    "id": 26430,
+    "part": "Flute",
+    "measure": 5,
+    "gain": 1.26
+  },
+  {
+    "id": 26431,
+    "part": "Flute",
+    "measure": 5,
+    "gain": 1.26
+  },
+  {
+    "id": 26432,
+    "part": "Flute",
+    "measure": 5,
+    "gain": 1.26
+  },
+  {
+    "id": 26433,
+    "part": "Flute",
+    "measure": 5,
+    "gain": 1.26
+  },
+  {
+    "id": 26434,
+    "part": "Flute",
+    "measure": 5,
+    "gain": 1.26
+  },
+  {
+    "id": 26435,
+    "part": "Flute",
+    "measure": 5,
+    "gain": 1.26
+  },
+  {
+    "id": 26436,
+    "part": "Flute",
+    "measure": 5,
+    "gain": 1.26
+  },
+  {
+    "id": 26517,
+    "part": "Flute",
+    "measure": 6,
+    "gain": 1.26
+  },
+  {
+    "id": 26518,
+    "part": "Flute",
+    "measure": 6,
+    "gain": 1.26
+  },
+  {
+    "id": 26519,
+    "part": "Flute",
+    "measure": 6,
+    "gain": 1.26
+  },
+  {
+    "id": 26520,
+    "part": "Flute",
+    "measure": 6,
+    "gain": 1.26
+  },
+  {
+    "id": 26521,
+    "part": "Flute",
+    "measure": 6,
+    "gain": 1.26
+  },
+  {
+    "id": 26522,
+    "part": "Flute",
+    "measure": 6,
+    "gain": 1.26
+  },
+  {
+    "id": 26523,
+    "part": "Flute",
+    "measure": 6,
+    "gain": 1.26
+  },
+  {
+    "id": 26524,
+    "part": "Flute",
+    "measure": 6,
+    "gain": 1.26
+  },
+  {
+    "id": 26525,
+    "part": "Flute",
+    "measure": 6,
+    "gain": 1.26
+  },
+  {
+    "id": 26526,
+    "part": "Flute",
+    "measure": 6,
+    "gain": 1.26
+  },
+  {
+    "id": 26527,
+    "part": "Flute",
+    "measure": 6,
+    "gain": 1.26
+  },
+  {
+    "id": 26528,
+    "part": "Flute",
+    "measure": 6,
+    "gain": 1.26
+  },
+  {
+    "id": 26529,
+    "part": "Flute",
+    "measure": 7,
+    "gain": 1.26
+  },
+  {
+    "id": 26530,
+    "part": "Flute",
+    "measure": 7,
+    "gain": 1.26
+  },
+  {
+    "id": 26531,
+    "part": "Flute",
+    "measure": 7,
+    "gain": 1.26
+  },
+  {
+    "id": 26532,
+    "part": "Flute",
+    "measure": 7,
+    "gain": 1.26
+  },
+  {
+    "id": 26533,
+    "part": "Flute",
+    "measure": 7,
+    "gain": 1.26
+  },
+  {
+    "id": 26534,
+    "part": "Flute",
+    "measure": 7,
+    "gain": 1.26
+  },
+  {
+    "id": 26535,
+    "part": "Flute",
+    "measure": 7,
+    "gain": 1.26
+  },
+  {
+    "id": 26536,
+    "part": "Flute",
+    "measure": 7,
+    "gain": 1.26
+  },
+  {
+    "id": 26537,
+    "part": "Flute",
+    "measure": 7,
+    "gain": 1.26
+  },
+  {
+    "id": 26538,
+    "part": "Flute",
+    "measure": 7,
+    "gain": 1.26
+  },
+  {
+    "id": 26539,
+    "part": "Flute",
+    "measure": 7,
+    "gain": 1.26
+  },
+  {
+    "id": 26540,
+    "part": "Flute",
+    "measure": 7,
+    "gain": 1.26
+  },
+  {
+    "id": 26541,
+    "part": "Flute",
+    "measure": 8,
+    "gain": 1.26
+  },
+  {
+    "id": 26542,
+    "part": "Flute",
+    "measure": 8,
+    "gain": 1.26
+  },
+  {
+    "id": 26543,
+    "part": "Flute",
+    "measure": 8,
+    "gain": 1.26
+  },
+  {
+    "id": 26544,
+    "part": "Flute",
+    "measure": 8,
+    "gain": 1.26
+  },
+  {
+    "id": 26545,
+    "part": "Flute",
+    "measure": 8,
+    "gain": 1.26
+  },
+  {
+    "id": 26546,
+    "part": "Flute",
+    "measure": 8,
+    "gain": 1.26
+  },
+  {
+    "id": 26547,
+    "part": "Flute",
+    "measure": 8,
+    "gain": 1.26
+  },
+  {
+    "id": 26548,
+    "part": "Flute",
+    "measure": 8,
+    "gain": 1.26
+  },
+  {
+    "id": 26549,
+    "part": "Flute",
+    "measure": 8,
+    "gain": 1.26
+  },
+  {
+    "id": 26550,
+    "part": "Flute",
+    "measure": 8,
+    "gain": 1.26
+  },
+  {
+    "id": 26551,
+    "part": "Flute",
+    "measure": 8,
+    "gain": 1.26
+  },
+  {
+    "id": 26552,
+    "part": "Flute",
+    "measure": 8,
+    "gain": 1.26
+  },
+  {
+    "id": 26994,
+    "part": "Flute",
+    "measure": 17,
+    "gain": 1.26
+  },
+  {
+    "id": 27055,
+    "part": "Violin I",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27115,
+    "part": "Violin II",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27175,
+    "part": "Viola",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 26995,
+    "part": "Flute",
+    "measure": 17,
+    "gain": 1.26
+  },
+  {
+    "id": 27056,
+    "part": "Violin I",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27116,
+    "part": "Violin II",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27176,
+    "part": "Viola",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 26996,
+    "part": "Flute",
+    "measure": 17,
+    "gain": 1.26
+  },
+  {
+    "id": 26997,
+    "part": "Flute",
+    "measure": 17,
+    "gain": 1.26
+  },
+  {
+    "id": 27057,
+    "part": "Violin I",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27117,
+    "part": "Violin II",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27177,
+    "part": "Viola",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 26998,
+    "part": "Flute",
+    "measure": 17,
+    "gain": 1.26
+  },
+  {
+    "id": 27058,
+    "part": "Violin I",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27118,
+    "part": "Violin II",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27178,
+    "part": "Viola",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 26999,
+    "part": "Flute",
+    "measure": 17,
+    "gain": 1.26
+  },
+  {
+    "id": 27000,
+    "part": "Flute",
+    "measure": 17,
+    "gain": 1.26
+  },
+  {
+    "id": 27059,
+    "part": "Violin I",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27119,
+    "part": "Violin II",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27179,
+    "part": "Viola",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27060,
+    "part": "Violin I",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27120,
+    "part": "Violin II",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27180,
+    "part": "Viola",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27001,
+    "part": "Flute",
+    "measure": 17,
+    "gain": 1.26
+  },
+  {
+    "id": 27061,
+    "part": "Violin I",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27121,
+    "part": "Violin II",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27181,
+    "part": "Viola",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27062,
+    "part": "Violin I",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27122,
+    "part": "Violin II",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27182,
+    "part": "Viola",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27002,
+    "part": "Flute",
+    "measure": 17,
+    "gain": 1.26
+  },
+  {
+    "id": 27063,
+    "part": "Violin I",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27123,
+    "part": "Violin II",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27183,
+    "part": "Viola",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27064,
+    "part": "Violin I",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27124,
+    "part": "Violin II",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27184,
+    "part": "Viola",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27003,
+    "part": "Flute",
+    "measure": 17,
+    "gain": 1.26
+  },
+  {
+    "id": 27065,
+    "part": "Violin I",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27125,
+    "part": "Violin II",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27185,
+    "part": "Viola",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27066,
+    "part": "Violin I",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27126,
+    "part": "Violin II",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27186,
+    "part": "Viola",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27004,
+    "part": "Flute",
+    "measure": 17,
+    "gain": 1.26
+  },
+  {
+    "id": 27067,
+    "part": "Violin I",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27127,
+    "part": "Violin II",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27187,
+    "part": "Viola",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27005,
+    "part": "Flute",
+    "measure": 17,
+    "gain": 1.26
+  },
+  {
+    "id": 27068,
+    "part": "Violin I",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27128,
+    "part": "Violin II",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27188,
+    "part": "Viola",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27006,
+    "part": "Flute",
+    "measure": 17,
+    "gain": 1.26
+  },
+  {
+    "id": 27069,
+    "part": "Violin I",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27129,
+    "part": "Violin II",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27189,
+    "part": "Viola",
+    "measure": 17,
+    "gain": 0.6
+  },
+  {
+    "id": 27007,
+    "part": "Flute",
+    "measure": 18,
+    "gain": 1.26
+  },
+  {
+    "id": 27070,
+    "part": "Violin I",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27130,
+    "part": "Violin II",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27190,
+    "part": "Viola",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27008,
+    "part": "Flute",
+    "measure": 18,
+    "gain": 1.26
+  },
+  {
+    "id": 27071,
+    "part": "Violin I",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27131,
+    "part": "Violin II",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27191,
+    "part": "Viola",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27009,
+    "part": "Flute",
+    "measure": 18,
+    "gain": 1.26
+  },
+  {
+    "id": 27010,
+    "part": "Flute",
+    "measure": 18,
+    "gain": 1.26
+  },
+  {
+    "id": 27072,
+    "part": "Violin I",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27132,
+    "part": "Violin II",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27192,
+    "part": "Viola",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27011,
+    "part": "Flute",
+    "measure": 18,
+    "gain": 1.26
+  },
+  {
+    "id": 27073,
+    "part": "Violin I",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27133,
+    "part": "Violin II",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27193,
+    "part": "Viola",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27012,
+    "part": "Flute",
+    "measure": 18,
+    "gain": 1.26
+  },
+  {
+    "id": 27013,
+    "part": "Flute",
+    "measure": 18,
+    "gain": 1.26
+  },
+  {
+    "id": 27074,
+    "part": "Violin I",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27134,
+    "part": "Violin II",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27194,
+    "part": "Viola",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27075,
+    "part": "Violin I",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27135,
+    "part": "Violin II",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27195,
+    "part": "Viola",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27014,
+    "part": "Flute",
+    "measure": 18,
+    "gain": 1.26
+  },
+  {
+    "id": 27076,
+    "part": "Violin I",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27136,
+    "part": "Violin II",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27196,
+    "part": "Viola",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27077,
+    "part": "Violin I",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27137,
+    "part": "Violin II",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27197,
+    "part": "Viola",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27015,
+    "part": "Flute",
+    "measure": 18,
+    "gain": 1.26
+  },
+  {
+    "id": 27078,
+    "part": "Violin I",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27138,
+    "part": "Violin II",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27198,
+    "part": "Viola",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27079,
+    "part": "Violin I",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27139,
+    "part": "Violin II",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27199,
+    "part": "Viola",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27016,
+    "part": "Flute",
+    "measure": 18,
+    "gain": 1.26
+  },
+  {
+    "id": 27080,
+    "part": "Violin I",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27140,
+    "part": "Violin II",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27200,
+    "part": "Viola",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27081,
+    "part": "Violin I",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27141,
+    "part": "Violin II",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27201,
+    "part": "Viola",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27017,
+    "part": "Flute",
+    "measure": 18,
+    "gain": 1.26
+  },
+  {
+    "id": 27082,
+    "part": "Violin I",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27142,
+    "part": "Violin II",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27202,
+    "part": "Viola",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27018,
+    "part": "Flute",
+    "measure": 18,
+    "gain": 1.26
+  },
+  {
+    "id": 27083,
+    "part": "Violin I",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27143,
+    "part": "Violin II",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27203,
+    "part": "Viola",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27019,
+    "part": "Flute",
+    "measure": 18,
+    "gain": 1.26
+  },
+  {
+    "id": 27084,
+    "part": "Violin I",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27144,
+    "part": "Violin II",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27204,
+    "part": "Viola",
+    "measure": 18,
+    "gain": 0.6
+  },
+  {
+    "id": 27020,
+    "part": "Flute",
+    "measure": 19,
+    "gain": 1.26
+  },
+  {
+    "id": 27085,
+    "part": "Violin I",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27145,
+    "part": "Violin II",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27205,
+    "part": "Viola",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27021,
+    "part": "Flute",
+    "measure": 19,
+    "gain": 1.26
+  },
+  {
+    "id": 27086,
+    "part": "Violin I",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27146,
+    "part": "Violin II",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27206,
+    "part": "Viola",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27022,
+    "part": "Flute",
+    "measure": 19,
+    "gain": 1.26
+  },
+  {
+    "id": 27023,
+    "part": "Flute",
+    "measure": 19,
+    "gain": 1.26
+  },
+  {
+    "id": 27087,
+    "part": "Violin I",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27147,
+    "part": "Violin II",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27207,
+    "part": "Viola",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27024,
+    "part": "Flute",
+    "measure": 19,
+    "gain": 1.26
+  },
+  {
+    "id": 27088,
+    "part": "Violin I",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27148,
+    "part": "Violin II",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27208,
+    "part": "Viola",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27025,
+    "part": "Flute",
+    "measure": 19,
+    "gain": 1.26
+  },
+  {
+    "id": 27026,
+    "part": "Flute",
+    "measure": 19,
+    "gain": 1.26
+  },
+  {
+    "id": 27089,
+    "part": "Violin I",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27149,
+    "part": "Violin II",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27209,
+    "part": "Viola",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27090,
+    "part": "Violin I",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27150,
+    "part": "Violin II",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27210,
+    "part": "Viola",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27027,
+    "part": "Flute",
+    "measure": 19,
+    "gain": 1.26
+  },
+  {
+    "id": 27091,
+    "part": "Violin I",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27151,
+    "part": "Violin II",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27211,
+    "part": "Viola",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27092,
+    "part": "Violin I",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27152,
+    "part": "Violin II",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27212,
+    "part": "Viola",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27028,
+    "part": "Flute",
+    "measure": 19,
+    "gain": 1.26
+  },
+  {
+    "id": 27093,
+    "part": "Violin I",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27153,
+    "part": "Violin II",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27213,
+    "part": "Viola",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27094,
+    "part": "Violin I",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27154,
+    "part": "Violin II",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27214,
+    "part": "Viola",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27029,
+    "part": "Flute",
+    "measure": 19,
+    "gain": 1.26
+  },
+  {
+    "id": 27095,
+    "part": "Violin I",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27155,
+    "part": "Violin II",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27215,
+    "part": "Viola",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27096,
+    "part": "Violin I",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27156,
+    "part": "Violin II",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27216,
+    "part": "Viola",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27030,
+    "part": "Flute",
+    "measure": 19,
+    "gain": 1.26
+  },
+  {
+    "id": 27097,
+    "part": "Violin I",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27157,
+    "part": "Violin II",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27217,
+    "part": "Viola",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27031,
+    "part": "Flute",
+    "measure": 19,
+    "gain": 1.26
+  },
+  {
+    "id": 27098,
+    "part": "Violin I",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27158,
+    "part": "Violin II",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27218,
+    "part": "Viola",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27032,
+    "part": "Flute",
+    "measure": 19,
+    "gain": 1.26
+  },
+  {
+    "id": 27099,
+    "part": "Violin I",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27159,
+    "part": "Violin II",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27219,
+    "part": "Viola",
+    "measure": 19,
+    "gain": 0.6
+  },
+  {
+    "id": 27033,
+    "part": "Flute",
+    "measure": 20,
+    "gain": 1.26
+  },
+  {
+    "id": 27100,
+    "part": "Violin I",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27160,
+    "part": "Violin II",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27220,
+    "part": "Viola",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27034,
+    "part": "Flute",
+    "measure": 20,
+    "gain": 1.26
+  },
+  {
+    "id": 27101,
+    "part": "Violin I",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27161,
+    "part": "Violin II",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27221,
+    "part": "Viola",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27035,
+    "part": "Flute",
+    "measure": 20,
+    "gain": 1.26
+  },
+  {
+    "id": 27036,
+    "part": "Flute",
+    "measure": 20,
+    "gain": 1.26
+  },
+  {
+    "id": 27102,
+    "part": "Violin I",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27162,
+    "part": "Violin II",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27222,
+    "part": "Viola",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27037,
+    "part": "Flute",
+    "measure": 20,
+    "gain": 1.26
+  },
+  {
+    "id": 27103,
+    "part": "Violin I",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27163,
+    "part": "Violin II",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27223,
+    "part": "Viola",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27038,
+    "part": "Flute",
+    "measure": 20,
+    "gain": 1.26
+  },
+  {
+    "id": 27039,
+    "part": "Flute",
+    "measure": 20,
+    "gain": 1.26
+  },
+  {
+    "id": 27104,
+    "part": "Violin I",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27164,
+    "part": "Violin II",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27224,
+    "part": "Viola",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27105,
+    "part": "Violin I",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27165,
+    "part": "Violin II",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27225,
+    "part": "Viola",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27040,
+    "part": "Flute",
+    "measure": 20,
+    "gain": 1.26
+  },
+  {
+    "id": 27106,
+    "part": "Violin I",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27166,
+    "part": "Violin II",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27226,
+    "part": "Viola",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27107,
+    "part": "Violin I",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27167,
+    "part": "Violin II",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27227,
+    "part": "Viola",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27041,
+    "part": "Flute",
+    "measure": 20,
+    "gain": 1.26
+  },
+  {
+    "id": 27108,
+    "part": "Violin I",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27168,
+    "part": "Violin II",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27228,
+    "part": "Viola",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27109,
+    "part": "Violin I",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27169,
+    "part": "Violin II",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27229,
+    "part": "Viola",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27042,
+    "part": "Flute",
+    "measure": 20,
+    "gain": 1.26
+  },
+  {
+    "id": 27110,
+    "part": "Violin I",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27170,
+    "part": "Violin II",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27230,
+    "part": "Viola",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27111,
+    "part": "Violin I",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27171,
+    "part": "Violin II",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27231,
+    "part": "Viola",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27043,
+    "part": "Flute",
+    "measure": 20,
+    "gain": 1.26
+  },
+  {
+    "id": 27112,
+    "part": "Violin I",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27172,
+    "part": "Violin II",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27232,
+    "part": "Viola",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27044,
+    "part": "Flute",
+    "measure": 20,
+    "gain": 1.26
+  },
+  {
+    "id": 27113,
+    "part": "Violin I",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27173,
+    "part": "Violin II",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27233,
+    "part": "Viola",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27045,
+    "part": "Flute",
+    "measure": 20,
+    "gain": 1.26
+  },
+  {
+    "id": 27114,
+    "part": "Violin I",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27174,
+    "part": "Violin II",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27234,
+    "part": "Viola",
+    "measure": 20,
+    "gain": 0.6
+  },
+  {
+    "id": 27332,
+    "part": "Violin I",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27392,
+    "part": "Violin II",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27452,
+    "part": "Viola",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27512,
+    "part": "Cello",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27333,
+    "part": "Violin I",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27393,
+    "part": "Violin II",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27453,
+    "part": "Viola",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27513,
+    "part": "Cello",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27334,
+    "part": "Violin I",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27394,
+    "part": "Violin II",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27454,
+    "part": "Viola",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27514,
+    "part": "Cello",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27244,
+    "part": "Flute",
+    "measure": 21,
+    "gain": 1.26
+  },
+  {
+    "id": 27335,
+    "part": "Violin I",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27395,
+    "part": "Violin II",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27455,
+    "part": "Viola",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27515,
+    "part": "Cello",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27245,
+    "part": "Flute",
+    "measure": 21,
+    "gain": 1.26
+  },
+  {
+    "id": 27246,
+    "part": "Flute",
+    "measure": 21,
+    "gain": 1.26
+  },
+  {
+    "id": 27336,
+    "part": "Violin I",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27396,
+    "part": "Violin II",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27456,
+    "part": "Viola",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27516,
+    "part": "Cello",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27337,
+    "part": "Violin I",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27397,
+    "part": "Violin II",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27457,
+    "part": "Viola",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27517,
+    "part": "Cello",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27247,
+    "part": "Flute",
+    "measure": 21,
+    "gain": 1.26
+  },
+  {
+    "id": 27338,
+    "part": "Violin I",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27398,
+    "part": "Violin II",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27458,
+    "part": "Viola",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27518,
+    "part": "Cello",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27339,
+    "part": "Violin I",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27399,
+    "part": "Violin II",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27459,
+    "part": "Viola",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27519,
+    "part": "Cello",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27248,
+    "part": "Flute",
+    "measure": 21,
+    "gain": 1.26
+  },
+  {
+    "id": 27340,
+    "part": "Violin I",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27400,
+    "part": "Violin II",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27460,
+    "part": "Viola",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27520,
+    "part": "Cello",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27341,
+    "part": "Violin I",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27401,
+    "part": "Violin II",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27461,
+    "part": "Viola",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27521,
+    "part": "Cello",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27249,
+    "part": "Flute",
+    "measure": 21,
+    "gain": 1.26
+  },
+  {
+    "id": 27342,
+    "part": "Violin I",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27402,
+    "part": "Violin II",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27462,
+    "part": "Viola",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27522,
+    "part": "Cello",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27343,
+    "part": "Violin I",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27403,
+    "part": "Violin II",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27463,
+    "part": "Viola",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27523,
+    "part": "Cello",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27250,
+    "part": "Flute",
+    "measure": 21,
+    "gain": 1.26
+  },
+  {
+    "id": 27344,
+    "part": "Violin I",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27404,
+    "part": "Violin II",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27464,
+    "part": "Viola",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27524,
+    "part": "Cello",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27251,
+    "part": "Flute",
+    "measure": 21,
+    "gain": 1.26
+  },
+  {
+    "id": 27345,
+    "part": "Violin I",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27405,
+    "part": "Violin II",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27465,
+    "part": "Viola",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27525,
+    "part": "Cello",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27252,
+    "part": "Flute",
+    "measure": 21,
+    "gain": 1.26
+  },
+  {
+    "id": 27346,
+    "part": "Violin I",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27406,
+    "part": "Violin II",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27466,
+    "part": "Viola",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27526,
+    "part": "Cello",
+    "measure": 21,
+    "gain": 0.6
+  },
+  {
+    "id": 27347,
+    "part": "Violin I",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27407,
+    "part": "Violin II",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27467,
+    "part": "Viola",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27527,
+    "part": "Cello",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27348,
+    "part": "Violin I",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27408,
+    "part": "Violin II",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27468,
+    "part": "Viola",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27528,
+    "part": "Cello",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27349,
+    "part": "Violin I",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27409,
+    "part": "Violin II",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27469,
+    "part": "Viola",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27529,
+    "part": "Cello",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27253,
+    "part": "Flute",
+    "measure": 22,
+    "gain": 1.26
+  },
+  {
+    "id": 27350,
+    "part": "Violin I",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27410,
+    "part": "Violin II",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27470,
+    "part": "Viola",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27530,
+    "part": "Cello",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27254,
+    "part": "Flute",
+    "measure": 22,
+    "gain": 1.26
+  },
+  {
+    "id": 27255,
+    "part": "Flute",
+    "measure": 22,
+    "gain": 1.26
+  },
+  {
+    "id": 27351,
+    "part": "Violin I",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27411,
+    "part": "Violin II",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27471,
+    "part": "Viola",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27531,
+    "part": "Cello",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27352,
+    "part": "Violin I",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27412,
+    "part": "Violin II",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27472,
+    "part": "Viola",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27532,
+    "part": "Cello",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27256,
+    "part": "Flute",
+    "measure": 22,
+    "gain": 1.26
+  },
+  {
+    "id": 27353,
+    "part": "Violin I",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27413,
+    "part": "Violin II",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27473,
+    "part": "Viola",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27533,
+    "part": "Cello",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27354,
+    "part": "Violin I",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27414,
+    "part": "Violin II",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27474,
+    "part": "Viola",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27534,
+    "part": "Cello",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27257,
+    "part": "Flute",
+    "measure": 22,
+    "gain": 1.26
+  },
+  {
+    "id": 27355,
+    "part": "Violin I",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27415,
+    "part": "Violin II",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27475,
+    "part": "Viola",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27535,
+    "part": "Cello",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27356,
+    "part": "Violin I",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27416,
+    "part": "Violin II",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27476,
+    "part": "Viola",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27536,
+    "part": "Cello",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27258,
+    "part": "Flute",
+    "measure": 22,
+    "gain": 1.26
+  },
+  {
+    "id": 27357,
+    "part": "Violin I",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27417,
+    "part": "Violin II",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27477,
+    "part": "Viola",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27537,
+    "part": "Cello",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27358,
+    "part": "Violin I",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27418,
+    "part": "Violin II",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27478,
+    "part": "Viola",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27538,
+    "part": "Cello",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27259,
+    "part": "Flute",
+    "measure": 22,
+    "gain": 1.26
+  },
+  {
+    "id": 27359,
+    "part": "Violin I",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27419,
+    "part": "Violin II",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27479,
+    "part": "Viola",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27539,
+    "part": "Cello",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27260,
+    "part": "Flute",
+    "measure": 22,
+    "gain": 1.26
+  },
+  {
+    "id": 27360,
+    "part": "Violin I",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27420,
+    "part": "Violin II",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27480,
+    "part": "Viola",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27540,
+    "part": "Cello",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27261,
+    "part": "Flute",
+    "measure": 22,
+    "gain": 1.26
+  },
+  {
+    "id": 27361,
+    "part": "Violin I",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27421,
+    "part": "Violin II",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27481,
+    "part": "Viola",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27541,
+    "part": "Cello",
+    "measure": 22,
+    "gain": 0.6
+  },
+  {
+    "id": 27362,
+    "part": "Violin I",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27422,
+    "part": "Violin II",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27482,
+    "part": "Viola",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27542,
+    "part": "Cello",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27363,
+    "part": "Violin I",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27423,
+    "part": "Violin II",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27483,
+    "part": "Viola",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27543,
+    "part": "Cello",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27364,
+    "part": "Violin I",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27424,
+    "part": "Violin II",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27484,
+    "part": "Viola",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27544,
+    "part": "Cello",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27262,
+    "part": "Flute",
+    "measure": 23,
+    "gain": 1.26
+  },
+  {
+    "id": 27365,
+    "part": "Violin I",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27425,
+    "part": "Violin II",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27485,
+    "part": "Viola",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27545,
+    "part": "Cello",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27263,
+    "part": "Flute",
+    "measure": 23,
+    "gain": 1.26
+  },
+  {
+    "id": 27264,
+    "part": "Flute",
+    "measure": 23,
+    "gain": 1.26
+  },
+  {
+    "id": 27366,
+    "part": "Violin I",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27426,
+    "part": "Violin II",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27486,
+    "part": "Viola",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27546,
+    "part": "Cello",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27367,
+    "part": "Violin I",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27427,
+    "part": "Violin II",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27487,
+    "part": "Viola",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27547,
+    "part": "Cello",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27265,
+    "part": "Flute",
+    "measure": 23,
+    "gain": 1.26
+  },
+  {
+    "id": 27368,
+    "part": "Violin I",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27428,
+    "part": "Violin II",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27488,
+    "part": "Viola",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27548,
+    "part": "Cello",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27369,
+    "part": "Violin I",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27429,
+    "part": "Violin II",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27489,
+    "part": "Viola",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27549,
+    "part": "Cello",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27266,
+    "part": "Flute",
+    "measure": 23,
+    "gain": 1.26
+  },
+  {
+    "id": 27370,
+    "part": "Violin I",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27430,
+    "part": "Violin II",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27490,
+    "part": "Viola",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27550,
+    "part": "Cello",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27371,
+    "part": "Violin I",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27431,
+    "part": "Violin II",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27491,
+    "part": "Viola",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27551,
+    "part": "Cello",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27267,
+    "part": "Flute",
+    "measure": 23,
+    "gain": 1.26
+  },
+  {
+    "id": 27372,
+    "part": "Violin I",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27432,
+    "part": "Violin II",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27492,
+    "part": "Viola",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27552,
+    "part": "Cello",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27373,
+    "part": "Violin I",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27433,
+    "part": "Violin II",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27493,
+    "part": "Viola",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27553,
+    "part": "Cello",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27268,
+    "part": "Flute",
+    "measure": 23,
+    "gain": 1.26
+  },
+  {
+    "id": 27374,
+    "part": "Violin I",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27434,
+    "part": "Violin II",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27494,
+    "part": "Viola",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27554,
+    "part": "Cello",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27269,
+    "part": "Flute",
+    "measure": 23,
+    "gain": 1.26
+  },
+  {
+    "id": 27375,
+    "part": "Violin I",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27435,
+    "part": "Violin II",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27495,
+    "part": "Viola",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27555,
+    "part": "Cello",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27270,
+    "part": "Flute",
+    "measure": 23,
+    "gain": 1.26
+  },
+  {
+    "id": 27376,
+    "part": "Violin I",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27436,
+    "part": "Violin II",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27496,
+    "part": "Viola",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27556,
+    "part": "Cello",
+    "measure": 23,
+    "gain": 0.6
+  },
+  {
+    "id": 27377,
+    "part": "Violin I",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27437,
+    "part": "Violin II",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27497,
+    "part": "Viola",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27557,
+    "part": "Cello",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27271,
+    "part": "Flute",
+    "measure": 24,
+    "gain": 1.26
+  },
+  {
+    "id": 27378,
+    "part": "Violin I",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27438,
+    "part": "Violin II",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27498,
+    "part": "Viola",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27558,
+    "part": "Cello",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27272,
+    "part": "Flute",
+    "measure": 24,
+    "gain": 1.26
+  },
+  {
+    "id": 27273,
+    "part": "Flute",
+    "measure": 24,
+    "gain": 1.26
+  },
+  {
+    "id": 27379,
+    "part": "Violin I",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27439,
+    "part": "Violin II",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27499,
+    "part": "Viola",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27559,
+    "part": "Cello",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27274,
+    "part": "Flute",
+    "measure": 24,
+    "gain": 1.26
+  },
+  {
+    "id": 27380,
+    "part": "Violin I",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27440,
+    "part": "Violin II",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27500,
+    "part": "Viola",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27560,
+    "part": "Cello",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27275,
+    "part": "Flute",
+    "measure": 24,
+    "gain": 1.26
+  },
+  {
+    "id": 27276,
+    "part": "Flute",
+    "measure": 24,
+    "gain": 1.26
+  },
+  {
+    "id": 27381,
+    "part": "Violin I",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27441,
+    "part": "Violin II",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27501,
+    "part": "Viola",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27561,
+    "part": "Cello",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27382,
+    "part": "Violin I",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27442,
+    "part": "Violin II",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27502,
+    "part": "Viola",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27562,
+    "part": "Cello",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27277,
+    "part": "Flute",
+    "measure": 24,
+    "gain": 1.26
+  },
+  {
+    "id": 27383,
+    "part": "Violin I",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27443,
+    "part": "Violin II",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27503,
+    "part": "Viola",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27563,
+    "part": "Cello",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27384,
+    "part": "Violin I",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27444,
+    "part": "Violin II",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27504,
+    "part": "Viola",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27564,
+    "part": "Cello",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27278,
+    "part": "Flute",
+    "measure": 24,
+    "gain": 1.26
+  },
+  {
+    "id": 27385,
+    "part": "Violin I",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27445,
+    "part": "Violin II",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27505,
+    "part": "Viola",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27565,
+    "part": "Cello",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27386,
+    "part": "Violin I",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27446,
+    "part": "Violin II",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27506,
+    "part": "Viola",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27566,
+    "part": "Cello",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27279,
+    "part": "Flute",
+    "measure": 24,
+    "gain": 1.26
+  },
+  {
+    "id": 27387,
+    "part": "Violin I",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27447,
+    "part": "Violin II",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27507,
+    "part": "Viola",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27567,
+    "part": "Cello",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27388,
+    "part": "Violin I",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27448,
+    "part": "Violin II",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27508,
+    "part": "Viola",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27568,
+    "part": "Cello",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27280,
+    "part": "Flute",
+    "measure": 24,
+    "gain": 1.26
+  },
+  {
+    "id": 27389,
+    "part": "Violin I",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27449,
+    "part": "Violin II",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27509,
+    "part": "Viola",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27569,
+    "part": "Cello",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27281,
+    "part": "Flute",
+    "measure": 24,
+    "gain": 1.26
+  },
+  {
+    "id": 27390,
+    "part": "Violin I",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27450,
+    "part": "Violin II",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27510,
+    "part": "Viola",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27570,
+    "part": "Cello",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27282,
+    "part": "Flute",
+    "measure": 24,
+    "gain": 1.26
+  },
+  {
+    "id": 27391,
+    "part": "Violin I",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27451,
+    "part": "Violin II",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27511,
+    "part": "Viola",
+    "measure": 24,
+    "gain": 0.6
+  },
+  {
+    "id": 27571,
+    "part": "Cello",
+    "measure": 24,
+    "gain": 0.6
+  }
+]

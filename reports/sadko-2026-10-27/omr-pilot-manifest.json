@@ -1,0 +1,78 @@
+{
+  "kind": "inference only; no training or fine-tuning",
+  "pages": [
+    1,
+    23,
+    55,
+    67,
+    71
+  ],
+  "inputs": [
+    {
+      "page": 1,
+      "sha256": "c01e8a6b62a9fcdc0a1ea4326cd943aa7414dc534af0edc790672996064a6037"
+    },
+    {
+      "page": 23,
+      "sha256": "ff71c282e80170c8d974de9da9453bf0637e63268b7f22f22ee7e83e1cf93076"
+    },
+    {
+      "page": 55,
+      "sha256": "4e005cda6616c80ece4becac440e7ae86d1ca799ca27b8fd6a18b34643d21f73"
+    },
+    {
+      "page": 67,
+      "sha256": "28e1b56d7bf8479bf20fde5071f663dbc69568f84f32c79977fffce5a977d927"
+    },
+    {
+      "page": 71,
+      "sha256": "3473cbaf480ec7bbdd9fd4a48f4301cdec022c449c21a02b5b5aae56570c2c56"
+    }
+  ],
+  "dependencies": {
+    "torch": "2.12.0",
+    "torchvision": "0.27.0",
+    "transformers": "4.45.1",
+    "tokenizers": "0.20.3",
+    "numpy": "2.4.6",
+    "pillow": "12.2.0"
+  },
+  "engines": [
+    {
+      "engine": "copista",
+      "codeCommit": "5d1cd54286bb8a27e33a495c88fadf0e2101152d",
+      "model": "kobimusic/copista-28m",
+      "weights": [
+        {
+          "filename": "evidence-2m.pt",
+          "sha256": "7a3eb0362b44016e941680c5df1e133239576592ab134057c3dbac8e9f3b8838"
+        },
+        {
+          "filename": "v7_obj-recall-30m_best.pt",
+          "sha256": "9f1db282271fb1064461387da4a2e15de14b099c49b619c21429cdc45be85cfe"
+        }
+      ],
+      "codeModified": false
+    },
+    {
+      "engine": "page-omr",
+      "codeCommit": "e369a44a8232ddcf0ddd915f7e07b19cdcb91b61",
+      "model": "tobiashornbogen/page-omr-a1-kern",
+      "weights": [
+        {
+          "filename": "omr_model.pt",
+          "sha256": "4d18332641f8e5798aefb9609a69da5c9bbd704c55246726a05e6562d2a57dbe"
+        }
+      ],
+      "codeModified": false
+    }
+  ],
+  "runtimeNotes": [
+    "Copisteria declares Python >=3.12; pilot ran unchanged under Python 3.11.5 after successful compile/import. This compatibility result is limited to this inference run.",
+    "Initial torchvision 0.29.1 was incompatible with Torch 2.12.0; rerun with 0.27.0 succeeded.",
+    "page-omr Xet download stalled; HTTP retry completed, and checkpoint SHA-256 matched the published LFS object.",
+    "No source files sent to remote model inference services.",
+    "Per-system physical staff order used for control alignment; Copista part IDs change when the score drops vocal staves. Staff identity is not scored.",
+    "Exact controls measure pitch/onset/duration; no broad full-score accuracy percentage is inferred."
+  ]
+}

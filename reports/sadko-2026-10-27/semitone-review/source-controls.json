@@ -1,0 +1,30 @@
+[
+  {
+    "bar": 43,
+    "role": 1,
+    "pitchOnsetAttacks": 5,
+    "passed": true,
+    "durationsScored": false
+  },
+  {
+    "bar": 52,
+    "role": 0,
+    "pitchOnsetAttacks": 8,
+    "passed": true,
+    "durationsScored": false
+  },
+  {
+    "bar": 54,
+    "role": 0,
+    "pitchOnsetAttacks": 4,
+    "passed": true,
+    "durationsScored": false
+  },
+  {
+    "bar": 55,
+    "role": 0,
+    "pitchOnsetAttacks": 8,
+    "passed": true,
+    "durationsScored": false
+  }
+]

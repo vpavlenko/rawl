@@ -1,0 +1,55 @@
+{
+  "inputNotes": 44536,
+  "singleHeldNotes": 1755,
+  "pairedGroups": 1111,
+  "pairedHeldNotes": 2222,
+  "percussionAttacks": 944,
+  "passthroughNotes": 40501,
+  "deduplicatedUnisons": 0,
+  "perMovement": {
+    "1": {
+      "passthroughNotes": 10311,
+      "percussionAttacks": 280,
+      "singleHeldNotes": 274
+    },
+    "2": {
+      "passthroughNotes": 8254,
+      "singleHeldNotes": 611,
+      "percussionAttacks": 168
+    },
+    "3": {
+      "pairedGroups": 589,
+      "pairedHeldNotes": 1178,
+      "passthroughNotes": 4513,
+      "percussionAttacks": 48,
+      "singleHeldNotes": 94
+    },
+    "4": {
+      "passthroughNotes": 3980,
+      "singleHeldNotes": 196
+    },
+    "5": {
+      "pairedGroups": 454,
+      "pairedHeldNotes": 908,
+      "passthroughNotes": 5078,
+      "singleHeldNotes": 336,
+      "percussionAttacks": 184
+    },
+    "6": {
+      "pairedGroups": 51,
+      "pairedHeldNotes": 102,
+      "passthroughNotes": 6604,
+      "singleHeldNotes": 105,
+      "percussionAttacks": 72
+    },
+    "7": {
+      "pairedGroups": 17,
+      "pairedHeldNotes": 34,
+      "passthroughNotes": 1761,
+      "singleHeldNotes": 139,
+      "percussionAttacks": 192
+    }
+  },
+  "outputNotes": 45422,
+  "expressionPoints": 184101
+}

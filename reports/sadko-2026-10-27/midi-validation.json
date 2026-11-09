@@ -1,0 +1,56 @@
+{
+  "filename": "sadko-01.mid",
+  "sha256": "bacc8e5deae7be99fa598d7173a0e54de2bacc76e2cb9292b9c16b77d139c201",
+  "seconds": 1470.4322249999182,
+  "measures": 1026,
+  "beats": 4046.0,
+  "sourcePages": 71,
+  "notes": 23155,
+  "tracks": [
+    {
+      "name": "Sadko I",
+      "notes": 0,
+      "ticks": 3884160
+    },
+    {
+      "name": "Vocal 1",
+      "notes": 3427,
+      "ticks": 3884160
+    },
+    {
+      "name": "Vocal 2",
+      "notes": 2071,
+      "ticks": 3884160
+    },
+    {
+      "name": "Vocal 3",
+      "notes": 508,
+      "ticks": 3884160
+    },
+    {
+      "name": "Vocal 4",
+      "notes": 262,
+      "ticks": 3884160
+    },
+    {
+      "name": "Vocal 5",
+      "notes": 118,
+      "ticks": 3884160
+    },
+    {
+      "name": "Obbligato",
+      "notes": 121,
+      "ticks": 3884160
+    },
+    {
+      "name": "Piano RH",
+      "notes": 10032,
+      "ticks": 3884160
+    },
+    {
+      "name": "Piano LH",
+      "notes": 6616,
+      "ticks": 3884160
+    }
+  ]
+}

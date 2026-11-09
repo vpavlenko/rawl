@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const ts = require("typescript");
 const { parseMidi } = require("midi-file");
+const { estimateSegmentalStages, POLICY } = require("./simple-major-segmental.cjs");
 const {
   readNotes,
   readKeyRegions,
@@ -23,7 +24,7 @@ const sectionDefinitions = JSON.parse(
 const groups = sectionDefinitions.map((section) => section.title);
 const reviewedHarmony = require("./simple-major-reviewed-harmony.json");
 function groupForDegrees(degrees, seventhDegrees = []) {
-  if (seventhDegrees.length) return 5;
+  if (seventhDegrees.some(degree => degree !== 4)) return 5;
   if (degrees.includes(2) || degrees.includes(6)) return 4;
   if (degrees.includes(1)) return 3;
   if (degrees.includes(5)) return 2;
@@ -38,6 +39,21 @@ function primaryGroup(row, hasIVBass = false) {
     hasIVBass
     ? 1
     : 0;
+}
+function applySavedStageTags(row, annotation) {
+  const tags = [...(annotation?.tags || []), ...(annotation?.snippets || []).map(s => s.tag)];
+  if (tags.some(t => /^(seventh_chords:|extensions:|V:9$)/.test(t) &&
+    !/^seventh_chords:(V7|dominant_seventh|dominant)$/.test(t)))
+    return { ...row, group: 5, basis: "saved seventh/extended-chord annotation" };
+  if (tags.some(t => /^pure_major:iii|^chord_scale:iii$|^progression:pachelbels_canon$/.test(t)))
+    return { ...row, group: 4, basis: "saved iii annotation" };
+  if (tags.some(t => /^(pure_major:I_V|shuttle:I_V|harmony:pure_I[-_]V)(?:_V7)?$/.test(t)))
+    return { ...row, group: 0, basis: "saved I/V/V7 annotation" };
+  if (tags.some(t => /^(pure_major:I_IV_V|harmony:pure_I[-_]IV[-_]V)(?:_V7)?$/.test(t)))
+    return { ...row, group: 1, basis: "saved I/IV/V/V7 annotation" };
+  if (tags.includes("progression:I_vi_IV_V") && row.group < 5)
+    return { ...row, group: 2, basis: "saved I-vi-IV-V progression annotation" };
+  return row;
 }
 function applyReviewedHarmony(row) {
   const review = reviewedHarmony[row.slug];
@@ -490,6 +506,12 @@ async function main() {
   }
   visit(source);
   const slugs = array.elements.map((n) => n.text);
+  const previousGroups = new Map(slugs.map((slug, index) => [slug,
+    sectionDefinitions.findLastIndex(section => {
+      const start = slugs.indexOf(section.startsAtMidi);
+      return start >= 0 && index >= start;
+    }),
+  ]));
   const annotations = require("../../src/corpus/analyses.json");
   const previousRows = JSON.parse(
     fs.readFileSync(
@@ -533,7 +555,8 @@ async function main() {
             data.blobBase64 = Buffer.from(data.blob).toString("base64");
         }
         if (!data?.blobBase64) throw new Error("No available MIDI backup");
-        const midi = parseMidi(Buffer.from(data.blobBase64, "base64"));
+        const bytes = Buffer.from(data.blobBase64, "base64");
+        const midi = parseMidi(bytes);
         const notes = readNotes(midi);
         const keyRegions = readKeyRegions(midi, notes, annotation);
         if (tonic == null) {
@@ -546,7 +569,7 @@ async function main() {
           )[0];
         }
         // Normalize every section to the initial tonic before ranking harmony.
-        evidence = estimateHarmony(
+        const legacy = estimateHarmony(
           notes
             .filter((n) => !isPickupNote(n, keyRegions))
             .map((n) => ({
@@ -558,11 +581,12 @@ async function main() {
             })),
           tonic,
         );
+        evidence = estimateSegmentalStages({ midi, bytes, annotation, tonic, keyRegions, legacy });
       } catch (e) {
         error = e.message;
       }
       let group = evidence?.group;
-      let basis = "MIDI estimate";
+      let basis = "segmental chord analysis";
       if (tags.some((t) => /^seventh_chords:|^extensions:|^V:9$/.test(t))) {
         group = 5;
         basis = "saved seventh/extended-chord annotation";
@@ -594,12 +618,16 @@ async function main() {
         group = 5;
         basis = "MIDI review: opening ii9 arpeggio";
       }
-      if (basis === "MIDI estimate" && evidence && !evidence.degrees.length) {
+      if (basis === "segmental chord analysis" && evidence?.stageFallback) {
         // Absence of recognized chords is not evidence for I/IV/V. Retain the
         // last category and make the inconclusive result visible in the report.
-        group = previousRows.find((row) => row.slug === slug)?.group;
+        group = evidence.group ?? previousGroups.get(slug) ?? previousRows.find((row) => row.slug === slug)?.group;
         basis =
-          "previous category retained; insufficient adaptive chord evidence";
+          "legacy estimator retained; insufficient segmental chord evidence";
+      }
+      if (group == null || group < 0) {
+        group = previousGroups.get(slug);
+        basis = `previous category retained; ${error || "insufficient harmonic evidence"}`;
       }
       const row = applyReviewedHarmony({
         slug,
@@ -608,6 +636,7 @@ async function main() {
         ...(evidence || {}),
         group,
         position,
+        previousGroup: previousGroups.get(slug),
         tags,
         ...(error ? { error } : {}),
       });
@@ -635,8 +664,11 @@ async function main() {
       : path.join(root, "scripts/rawl/simple-major-complexity.json"),
     JSON.stringify(
       {
+        generatedAt: new Date().toISOString(),
+        harmonyVersion: require("../../src/harmony/harmony.ts").HARMONY_VERSION,
+        stagePolicy: POLICY,
         method:
-          "Estimate harmonic rhythm from recurring accompaniment changes, classify texture in each span (bass, power chord, block chord, strummed chord, arpeggiated chord or mixed), then estimate harmony with texture-dependent melody weights. Bass-only spans can establish a degree without a complete triad; reviewed chord-presence constraints and saved annotations take precedence. Unresolved spans use twice the estimated harmonic period, capped at eight beats. Not a definitive harmonic transcription.",
+          "Assign stages from the score ribbon's segmental chord analysis in saved/local major keys. V7 counts with I and V at Stage 1; other sevenths and extensions remain Stage 6. Count supported roots and actual root/third/seventh tone durations with at least 0.60 chord evidence, 1.5 beats and 3.5% duration support. Retain sparse bass/power-chord evidence, human reviews and saved chord tags. Below 50% segmental coverage retain the legacy estimator under the same V7 policy, reporting every fallback. Curated corpus membership is unchanged. No model fitting.",
         groups: groups.map((label, group) => ({
           label,
           count: rows.filter((r) => r.group === group).length,
@@ -693,4 +725,5 @@ module.exports = {
   applyReviewedHarmony,
   groupForDegrees,
   primaryGroup,
+  applySavedStageTags,
 };

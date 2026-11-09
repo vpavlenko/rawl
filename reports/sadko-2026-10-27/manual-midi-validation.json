@@ -1,0 +1,250 @@
+[
+  {
+    "page": 1,
+    "system": 1,
+    "bar": 1,
+    "role": 6,
+    "attacks": 3,
+    "passed": true
+  },
+  {
+    "page": 1,
+    "system": 1,
+    "bar": 1,
+    "role": 7,
+    "attacks": 3,
+    "passed": true
+  },
+  {
+    "page": 1,
+    "system": 1,
+    "bar": 2,
+    "role": 6,
+    "attacks": 3,
+    "passed": true
+  },
+  {
+    "page": 1,
+    "system": 1,
+    "bar": 2,
+    "role": 7,
+    "attacks": 3,
+    "passed": true
+  },
+  {
+    "page": 1,
+    "system": 1,
+    "bar": 3,
+    "role": 6,
+    "attacks": 6,
+    "passed": true
+  },
+  {
+    "page": 1,
+    "system": 1,
+    "bar": 4,
+    "role": 6,
+    "attacks": 8,
+    "passed": true
+  },
+  {
+    "page": 1,
+    "system": 1,
+    "bar": 3,
+    "role": 7,
+    "attacks": 6,
+    "passed": true
+  },
+  {
+    "page": 1,
+    "system": 1,
+    "bar": 4,
+    "role": 7,
+    "attacks": 8,
+    "passed": true
+  },
+  {
+    "page": 23,
+    "system": 1,
+    "bar": 1,
+    "role": 0,
+    "attacks": 5,
+    "passed": true
+  },
+  {
+    "page": 23,
+    "system": 1,
+    "bar": 2,
+    "role": 0,
+    "attacks": 5,
+    "passed": true
+  },
+  {
+    "page": 23,
+    "system": 1,
+    "bar": 3,
+    "role": 0,
+    "attacks": 5,
+    "passed": true
+  },
+  {
+    "page": 37,
+    "system": 1,
+    "bar": 1,
+    "role": 0,
+    "attacks": 3,
+    "passed": true
+  },
+  {
+    "page": 37,
+    "system": 1,
+    "bar": 2,
+    "role": 0,
+    "attacks": 6,
+    "passed": true
+  },
+  {
+    "page": 37,
+    "system": 1,
+    "bar": 3,
+    "role": 0,
+    "attacks": 3,
+    "passed": true
+  },
+  {
+    "page": 40,
+    "system": 2,
+    "bar": 1,
+    "role": 0,
+    "attacks": 3,
+    "passed": true
+  },
+  {
+    "page": 40,
+    "system": 2,
+    "bar": 2,
+    "role": 0,
+    "attacks": 6,
+    "passed": true
+  },
+  {
+    "page": 40,
+    "system": 2,
+    "bar": 3,
+    "role": 0,
+    "attacks": 3,
+    "passed": true
+  },
+  {
+    "page": 40,
+    "system": 2,
+    "bar": 4,
+    "role": 0,
+    "attacks": 3,
+    "passed": true
+  },
+  {
+    "page": 55,
+    "system": 1,
+    "bar": 1,
+    "role": 6,
+    "attacks": 6,
+    "passed": true
+  },
+  {
+    "page": 55,
+    "system": 1,
+    "bar": 2,
+    "role": 6,
+    "attacks": 8,
+    "passed": true
+  },
+  {
+    "page": 55,
+    "system": 1,
+    "bar": 1,
+    "role": 7,
+    "attacks": 8,
+    "passed": true
+  },
+  {
+    "page": 55,
+    "system": 1,
+    "bar": 2,
+    "role": 7,
+    "attacks": 16,
+    "passed": true
+  },
+  {
+    "page": 71,
+    "system": 5,
+    "bar": 4,
+    "role": 6,
+    "attacks": 2,
+    "passed": true
+  },
+  {
+    "page": 71,
+    "system": 5,
+    "bar": 4,
+    "role": 7,
+    "attacks": 2,
+    "passed": true
+  },
+  {
+    "page": 71,
+    "system": 5,
+    "bar": 5,
+    "role": 6,
+    "attacks": 2,
+    "passed": true
+  },
+  {
+    "page": 71,
+    "system": 5,
+    "bar": 5,
+    "role": 7,
+    "attacks": 2,
+    "passed": true
+  },
+  {
+    "page": 71,
+    "system": 5,
+    "bar": 6,
+    "role": 6,
+    "attacks": 2,
+    "passed": true
+  },
+  {
+    "page": 71,
+    "system": 5,
+    "bar": 6,
+    "role": 7,
+    "attacks": 16,
+    "passed": true
+  },
+  {
+    "page": 1,
+    "system": 2,
+    "bar": 4,
+    "role": 7,
+    "attacks": 6,
+    "passed": true
+  },
+  {
+    "page": 1,
+    "system": 2,
+    "bar": 5,
+    "role": 7,
+    "attacks": 6,
+    "passed": true
+  },
+  {
+    "page": 8,
+    "system": 1,
+    "bar": 1,
+    "role": 7,
+    "attacks": 6,
+    "passed": true
+  }
+]

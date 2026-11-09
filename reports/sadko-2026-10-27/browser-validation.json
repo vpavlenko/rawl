@@ -1,0 +1,53 @@
+{
+  "url": "https://rawl.rocks/f/rimsky-korsakov-sadko-01",
+  "title": "Rimsky Korsakov Sadko 01",
+  "checkedAt": "2026-10-27T09:09:44.461Z",
+  "voiceControls": [
+    {
+      "checked": true,
+      "id": "voice-active-5"
+    },
+    {
+      "checked": true,
+      "id": "voice-active-6"
+    },
+    {
+      "checked": true,
+      "id": "voice-active-0"
+    },
+    {
+      "checked": true,
+      "id": "voice-active-2"
+    },
+    {
+      "checked": true,
+      "id": "voice-active-1"
+    },
+    {
+      "checked": true,
+      "id": "voice-active-4"
+    },
+    {
+      "checked": true,
+      "id": "voice-active-3"
+    },
+    {
+      "checked": true,
+      "id": "voice-active-7"
+    }
+  ],
+  "console": [],
+  "actionsObserved": [
+    "Form-part seek to Bylina (measure 357)",
+    "Form-part seek to Coda (measure 1003)",
+    "Playback clock advanced; pause changed to Resume",
+    "Piano LH mute checkbox changed to false and back to true",
+    "17 form parts rendered",
+    "Three section anchor geometries read from DOM"
+  ],
+  "historicalNativeConsoleWarnings": [
+    "3 FluidSynth invalid-generator warnings for unused soundfont instruments",
+    "3 chip-core.wasm preload warnings"
+  ],
+  "historicalNativeConsoleErrors": 0
+}

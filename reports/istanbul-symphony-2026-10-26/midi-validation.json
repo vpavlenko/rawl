@@ -1,0 +1,87 @@
+[
+  {
+    "file": "fazil-say-istanbul-symphony-01-nostalgia.mid",
+    "notes": 10539,
+    "tracks": 34,
+    "ports": [
+      0,
+      1,
+      2
+    ],
+    "seconds": 589.479,
+    "sha256": "f6a96cafb2d81e8faa055800fda9330661070d4230ba7c42c317c38ab8980784"
+  },
+  {
+    "file": "fazil-say-istanbul-symphony-02-religious-order.mid",
+    "notes": 8838,
+    "tracks": 33,
+    "ports": [
+      0,
+      1,
+      2
+    ],
+    "seconds": 222.734,
+    "sha256": "15f0cdc527c893c1aea6bb20a1e3f09b9c36f9c932642ce2a58c5d98d1e177b6"
+  },
+  {
+    "file": "fazil-say-istanbul-symphony-03-blue-mosque.mid",
+    "notes": 5773,
+    "tracks": 70,
+    "ports": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "seconds": 419.223,
+    "sha256": "84a478a1c36377daed1500885b994ba173e1f013538ae0f80e08eb7aeea06446"
+  },
+  {
+    "file": "fazil-say-istanbul-symphony-04-merrily-clad-ladies.mid",
+    "notes": 4051,
+    "tracks": 32,
+    "ports": [
+      0,
+      1
+    ],
+    "seconds": 233.85,
+    "sha256": "31a83a182977f14ae424e4d0317cebc5b718250114d32df26c6829acea2e7962"
+  },
+  {
+    "file": "fazil-say-istanbul-symphony-05-travellers-to-anatolia.mid",
+    "notes": 6362,
+    "tracks": 42,
+    "ports": [
+      0,
+      1,
+      2
+    ],
+    "seconds": 242.843,
+    "sha256": "2b7b5bd70bb0f775aaa36a9e72150baa1df88f550221b243c90a885694d74588"
+  },
+  {
+    "file": "fazil-say-istanbul-symphony-06-oriental-night.mid",
+    "notes": 7714,
+    "tracks": 41,
+    "ports": [
+      0,
+      1,
+      2
+    ],
+    "seconds": 244.778,
+    "sha256": "1eef2163b50b74ea0910d6b667b33663268eae2397e679ae0fc910e9542e65cf"
+  },
+  {
+    "file": "fazil-say-istanbul-symphony-07-finale.mid",
+    "notes": 2033,
+    "tracks": 39,
+    "ports": [
+      0,
+      1,
+      2
+    ],
+    "seconds": 366.316,
+    "sha256": "611a46b881953942b36561b90c24c89aa8cf33e1cf71f546ef185eff498092f8"
+  }
+]

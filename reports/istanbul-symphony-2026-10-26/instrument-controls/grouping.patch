@@ -1,0 +1,449 @@
+--- a/src/components/App.tsx
++++ b/src/components/App.tsx
+@@ -984,14 +984,14 @@
+ 
+   seekForRawl = (seekMs: number) => this.seekRelativeInner(seekMs);
+ 
+-  hoveredVoiceIndex: number | null = null;
+-
+-  handleVoiceHover = (voiceIndex: number | null) => {
++  hoveredVoiceIndex: number | number[] | null = null;
++
++  handleVoiceHover = (voiceIndex: number | number[] | null) => {
+     this.hoveredVoiceIndex = voiceIndex;
+     this.midiPlayer?.setVoiceMask(
+       voiceIndex === null
+         ? this.state.voiceMask
+-        : this.state.voiceMask.map((_, index) => index === voiceIndex),
++        : this.state.voiceMask.map((_, index) => Array.isArray(voiceIndex) ? voiceIndex.includes(index) : index === voiceIndex),
+     );
+   };
+ 
+@@ -1000,7 +1000,7 @@
+     this.midiPlayer?.setVoiceMask(
+       this.hoveredVoiceIndex === null
+         ? nextVoiceMask
+-        : nextVoiceMask.map((_, index) => index === this.hoveredVoiceIndex),
++        : nextVoiceMask.map((_, index) => Array.isArray(this.hoveredVoiceIndex) ? this.hoveredVoiceIndex.includes(index) : index === this.hoveredVoiceIndex),
+     );
+     // Lakh and embedded players consume rawlProps rather than the route props.
+     // Keep their controls in sync so subsequent clicks use the current mask.
+--- a/src/components/rawl/Rawl.tsx
++++ b/src/components/rawl/Rawl.tsx
+@@ -1,3 +1,4 @@
++import { instrumentVoiceMembers } from "./instrumentVoiceGroups";
+ import { EMPTY_TIME_SLIDER_DATA } from "../timeSliderData";
+ import { buildTimeSliderData } from "../buildTimeSliderData";
+ import { noteColorClass } from "./colors";
+@@ -131,7 +132,7 @@
+   voiceNames: string[];
+   voiceMask: VoiceMask;
+   setVoiceMask: (mask: VoiceMask) => void;
+-  onVoiceHover?: (voiceIndex: number | null) => void;
++  onVoiceHover?: (voiceIndex: number | number[] | null) => void;
+   onForcedPanningChange?: (enabled: boolean) => void;
+   setDrumVoices?: (voices: number[]) => void;
+   enableManualRemeasuring?: boolean;
+@@ -236,6 +237,8 @@
+     [saveAnalysis],
+   );
+ 
++  const voiceMembers = useCallback((index: number) => instrumentVoiceMembers(voiceNames, index, slug), [voiceNames, slug]);
++
+   // Missing or invalid saved offsets render at the original octave.
+   const voiceOctaveShifts = useMemo<Record<number, number>>(() => {
+     const shifts: Record<number, number> = {};
+@@ -250,13 +253,15 @@
+     if (!Number.isInteger(voiceIndex) || voiceIndex < 0 || voiceIndex >= parsingResult.notes.length)
+       return;
+     const shifts = { ...analysisRef.current.voiceOctaveShifts };
+-    const current = Number.isSafeInteger(shifts[voiceIndex]) ? shifts[voiceIndex] : 0;
+-    const next = current + direction;
+-    if (!Number.isSafeInteger(next)) return;
+-    if (next === 0) delete shifts[voiceIndex];
+-    else shifts[voiceIndex] = next;
++    for (const index of voiceMembers(voiceIndex)) {
++      const current = Number.isSafeInteger(shifts[index]) ? shifts[index] : 0;
++      const next = current + direction;
++      if (!Number.isSafeInteger(next)) return;
++      if (next === 0) delete shifts[index];
++      else shifts[index] = next;
++    }
+     commitAnalysisUpdate({ voiceOctaveShifts: shifts });
+-  }, [parsingResult.notes.length, commitAnalysisUpdate]);
++  }, [parsingResult.notes.length, commitAnalysisUpdate, voiceMembers]);
+ 
+   const annotatedVoiceNames = useMemo(
+     () => voiceNames.map((name, index) => {
+@@ -277,11 +282,13 @@
+       );
+       if (name === null) return;
+       const next = { ...analysisRef.current.voiceNames };
+-      if (name.trim()) next[voiceIndex] = name.trim();
+-      else delete next[voiceIndex];
++      for (const index of voiceMembers(voiceIndex)) {
++        if (name.trim()) next[index] = name.trim();
++        else delete next[index];
++      }
+       commitAnalysisUpdate({ voiceNames: next });
+     },
+-    [voiceNames, annotatedVoiceNames, commitAnalysisUpdate],
++    [voiceNames, annotatedVoiceNames, commitAnalysisUpdate, voiceMembers],
+   );
+ 
+   const renameVoicesWithInstrumentTimbres = useCallback(() => {
+@@ -326,8 +333,11 @@
+       )
+         return;
+       const next = new Set(drumVoices);
+-      if (next.has(voiceIndex)) next.delete(voiceIndex);
+-      else next.add(voiceIndex);
++      const enabled = !next.has(voiceIndex);
++      for (const index of voiceMembers(voiceIndex)) {
++        if (nativeDrumVoices.includes(index)) continue;
++        if (enabled) next.add(index); else next.delete(index);
++      }
+       commitAnalysisUpdate({ drumVoices: [...next].sort((a, b) => a - b) });
+       setHoveredNote(null);
+     },
+@@ -336,6 +346,7 @@
+       parsingResult.notes.length,
+       nativeDrumVoices,
+       commitAnalysisUpdate,
++      voiceMembers,
+     ],
+   );
+ 
+@@ -382,12 +393,14 @@
+       )
+         return;
+       const next = new Set(excludedVoices);
+-      if (next.has(voiceIndex)) next.delete(voiceIndex);
+-      else next.add(voiceIndex);
++      const enabled = !next.has(voiceIndex);
++      for (const index of voiceMembers(voiceIndex)) {
++        if (enabled) next.add(index); else next.delete(index);
++      }
+       commitAnalysisUpdate({ excludedVoices: [...next].sort((a, b) => a - b) });
+       setHoveredNote(null);
+     },
+-    [excludedVoices, parsingResult.notes.length, commitAnalysisUpdate],
++    [excludedVoices, parsingResult.notes.length, commitAnalysisUpdate, voiceMembers],
+   );
+ 
+   // Preserve slots and note.voiceIndex so MIDI channels, colors and saved indices
+@@ -600,14 +613,14 @@
+         voiceIndex >= notes.length ||
+         !notes[voiceIndex].some((note) => !note.isDrum)
+       ) return;
+-      commitAnalysisUpdate({
+-        strummingVoices: {
+-          ...analysisRef.current.strummingVoices,
+-          [voiceIndex]: !strummingVoices.includes(voiceIndex),
+-        },
+-      });
++      const next = { ...analysisRef.current.strummingVoices };
++      const enabled = !strummingVoices.includes(voiceIndex);
++      for (const index of voiceMembers(voiceIndex)) {
++        if (notes[index]?.some((note) => !note.isDrum)) next[index] = enabled;
++      }
++      commitAnalysisUpdate({ strummingVoices: next });
+     },
+-    [notes, strummingVoices, commitAnalysisUpdate],
++    [notes, strummingVoices, commitAnalysisUpdate, voiceMembers],
+   );
+ 
+   const selectMeasure = useCallback(
+@@ -1126,6 +1139,7 @@
+       notes: displayNotes,
+       voiceMask: arrangementVoiceMask,
+       voiceNames: annotatedVoiceNames,
++      sourceVoiceNames: voiceNames,
+       onRenameVoice: canEditVoices ? renameVoice : undefined,
+       onRenameVoicesWithInstrumentTimbres: canEditVoices && parsingResult.instrumentNames?.length
+         ? renameVoicesWithInstrumentTimbres : undefined,
+--- a/src/components/rawl/SystemLayout.tsx
++++ b/src/components/rawl/SystemLayout.tsx
+@@ -1,3 +1,4 @@
++import { voiceHoverContains } from "./instrumentVoiceGroups";
+ import * as React from "react";
+ import {
+   useCallback,
+@@ -104,7 +105,7 @@
+   sectionSpan?: MeasuresSpan;
+   enableManualRemeasuring: boolean;
+   hoveredColors: string[] | null;
+-  hoveredVoiceIndex?: number | null;
++  hoveredVoiceIndex?: number | number[] | null;
+   playbackMeasure: number | null;
+   showPlaybackMeasureBottomBorder: boolean;
+ }> = React.memo(({
+@@ -332,6 +333,7 @@
+   notes: ColoredNotesInVoices;
+   sectionDetectionNotes?: ColoredNotesInVoices;
+   voiceNames: string[];
++  sourceVoiceNames?: string[];
+   voiceMask: VoiceMask;
+   measuresAndBeats: MeasuresAndBeats;
+   playbackMeasure: number | null;
+@@ -348,9 +350,9 @@
+   seek?: (ms: number) => void;
+   hoveredColors: string[] | null;
+   setHoveredColors: (colors: string[] | null) => void;
+-  hoveredVoiceIndex?: number | null;
++  hoveredVoiceIndex?: number | number[] | null;
+   usePageScroll?: boolean;
+-  onVoiceHover?: (voiceIndex: number | null) => void;
++  onVoiceHover?: (voiceIndex: number | number[] | null) => void;
+   onForcedPanningChange?: (enabled: boolean) => void;
+ };
+ 
+@@ -767,7 +769,7 @@
+     setHoveredColors,
+   } = props;
+ 
+-  const [hoveredVoiceIndex, setHoveredVoiceIndex] = useState<number | null>(null);
++  const [hoveredVoiceIndex, setHoveredVoiceIndex] = useState<number | number[] | null>(null);
+   // Rank the full arrangement so muting, hovering, and section boundaries
+   // cannot change which voice is drawn on top.
+   const voiceZIndices = useMemo(() => {
+@@ -788,7 +790,7 @@
+   }, [voiceNames, notes, props.drumVoices, props.nativeDrumVoices]);
+   const { onVoiceHover } = props;
+   const handleVoiceHover = useCallback(
+-    (voiceIndex: number | null) => {
++    (voiceIndex: number | number[] | null) => {
+       setHoveredVoiceIndex(voiceIndex);
+       onVoiceHover?.(voiceIndex);
+     },
+@@ -809,7 +811,7 @@
+   const flattenedNotes = useMemo(
+     () => [
+       notes.flatMap((voiceNotes, voiceIndex) =>
+-        voiceMask[voiceIndex] || voiceIndex === hoveredVoiceIndex
++        voiceMask[voiceIndex] || voiceHoverContains(hoveredVoiceIndex, voiceIndex)
+           ? voiceNotes
+           : [],
+       ),
+@@ -837,6 +839,7 @@
+       {!isEmbedded && (
+         <MergedVoicesLegend
+           voiceNames={voiceNames}
++          sourceVoiceNames={props.sourceVoiceNames}
+           notes={notes}
+           voiceMask={voiceMask}
+           setVoiceMask={setVoiceMask}
+--- a/src/components/rawl/getNoteRectangles.tsx
++++ b/src/components/rawl/getNoteRectangles.tsx
+@@ -1,3 +1,4 @@
++import { voiceHoverContains } from "./instrumentVoiceGroups";
+ import { pitchColor as paletteColor } from "./colors";
+ import * as React from "react";
+ import { SecondsConverter, SecondsSpan } from "./Rawl";
+@@ -334,7 +335,7 @@
+   hoveredColors: string[] | null,
+   showSourceLocation: boolean = false,
+   drumNoteToY?: (note: Note) => number,
+-  hoveredVoiceIndex: number | null = null,
++  hoveredVoiceIndex: number | number[] | null = null,
+   sectionEndX?: number,
+   sectionStartX?: number,
+ ) => {
+@@ -418,7 +419,7 @@
+   hoveredColors: string[] | null;
+   showSourceLocation: boolean;
+   drumNoteToY?: (note: Note) => number;
+-  hoveredVoiceIndex: number | null;
++  hoveredVoiceIndex: number | number[] | null;
+   sectionEndX?: number;
+   sectionStartX?: number;
+ }) => {
+@@ -497,12 +498,12 @@
+     : undefined;
+ 
+   const isOtherVoice =
+-    hoveredVoiceIndex !== null && voiceIndex !== hoveredVoiceIndex;
++    hoveredVoiceIndex !== null && !voiceHoverContains(hoveredVoiceIndex, voiceIndex);
+   const isHighlighted =
+     !isOtherVoice &&
+     (isDrum || !hoveredColors || hoveredColors.includes(color));
+   const showFullNote =
+-    voiceIndex === hoveredVoiceIndex || (isActive && isHighlighted);
++    voiceHoverContains(hoveredVoiceIndex, voiceIndex) || (isActive && isHighlighted);
+   const collapsedHeight = (isOtherVoice ? 1 : 0.5) * heightScale;
+ 
+   // Adjust height and top position for notes under the cursor
+@@ -591,7 +592,7 @@
+   }
+ 
+   return isDrum ? (
+-    isActive || voiceIndex === hoveredVoiceIndex ? (
++    isActive || voiceHoverContains(hoveredVoiceIndex, voiceIndex) ? (
+       <DrumEmoji
+         key={`nr_${note.id}`}
+         collapsed={!showFullNote}
+--- a/src/components/rawl/layouts/MergedVoicesLegend.tsx
++++ b/src/components/rawl/layouts/MergedVoicesLegend.tsx
+@@ -1,3 +1,4 @@
++import { groupInstrumentRows, toggleInstrumentMask, soloInstrumentMask } from "../instrumentVoiceGroups";
+ import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+ import styled, { keyframes } from "styled-components";
+ import { useLocalStorage } from "usehooks-ts";
+@@ -81,10 +82,11 @@
+ 
+ type MergedVoicesLegendProps = {
+   voiceNames: string[];
++  sourceVoiceNames?: string[];
+   notes: ColoredNotesInVoices;
+   voiceMask: boolean[];
+   setVoiceMask: (mask: boolean[]) => void;
+-  onVoiceHover: (voiceIndex: number | null) => void;
++  onVoiceHover: (voiceIndex: number | number[] | null) => void;
+   onForcedPanningChange?: (enabled: boolean) => void;
+   slug: string;
+   excludedVoices?: number[];
+@@ -104,6 +106,7 @@
+ 
+ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
+   voiceNames,
++  sourceVoiceNames = voiceNames,
+   notes,
+   voiceMask,
+   setVoiceMask,
+@@ -178,9 +181,10 @@
+   }, [flashing]);
+ 
+   const order = displayedOrder.split(",").map(Number);
+-  const sortedVoices = [...targetVoices].sort(
++  const sortedVoices = groupInstrumentRows([...targetVoices].sort(
+     (a, b) => order.indexOf(a.voiceIndex) - order.indexOf(b.voiceIndex),
+-  );
++  ), sourceVoiceNames, slug, excludedVoices);
++  const excludedGroups = groupInstrumentRows(excludedVoices.map((voiceIndex) => ({ voiceIndex })), sourceVoiceNames, slug);
+ 
+   const handlePanningToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+     const newValue = e.target.checked;
+@@ -269,7 +273,7 @@
+         )}
+         <VoiceList $flashing={flashing}>
+         {sortedVoices.map(
+-          ({ voiceName, voiceIndex, isDrum }) =>
++          ({ voiceName, voiceIndex, isDrum, voiceMembers }) =>
+             !excluded.has(voiceIndex) && (
+               <VoiceRow key={voiceIndex}>
+                 <VoiceCheckbox
+@@ -277,15 +281,10 @@
+                   type="checkbox"
+                   onChange={(e) => {
+                     e.stopPropagation();
+-                    let newVoiceMask = voiceMask.map((value, i) =>
+-                      i === voiceIndex ? !value : value,
+-                    );
+-                    if (newVoiceMask.filter((voice) => voice).length === 0) {
+-                      newVoiceMask = allIncluded;
+-                    }
+-                    setVoiceMask(newVoiceMask);
++                    setVoiceMask(toggleInstrumentMask(voiceMask, voiceMembers, allIncluded));
+                   }}
+-                  checked={voiceMask[voiceIndex]}
++                  checked={voiceMembers.every((index) => voiceMask[index])}
++                  ref={(input) => { if (input) input.indeterminate = voiceMembers.some((index) => voiceMask[index]) && !voiceMembers.every((index) => voiceMask[index]); }}
+                 />{" "}
+                 <label
+                   htmlFor={`voice-active-${voiceIndex}`}
+@@ -293,17 +292,10 @@
+                   onClick={(event) => {
+                     event.preventDefault();
+                     event.stopPropagation();
+-                    const isSingleActive =
+-                      voiceMask[voiceIndex] &&
+-                      voiceMask.filter(Boolean).length === 1;
+                     onVoiceHover(null);
+-                    setVoiceMask(
+-                      isSingleActive
+-                        ? allIncluded
+-                        : voiceMask.map((_, index) => index === voiceIndex),
+-                    );
++                    setVoiceMask(soloInstrumentMask(voiceMask, voiceMembers, allIncluded));
+                   }}
+-                  onMouseEnter={() => onVoiceHover(voiceIndex)}
++                  onMouseEnter={() => onVoiceHover(voiceMembers.length > 1 ? voiceMembers : voiceIndex)}
+                   onMouseLeave={() => onVoiceHover(null)}
+                   style={{
+                     margin: 0,
+@@ -317,14 +309,14 @@
+                     style={{
+                       display: "inline-block",
+                       cursor: "pointer",
+-                      backgroundColor: voiceMask[voiceIndex] !== isDrum
++                      backgroundColor: voiceMembers.some((index) => voiceMask[index]) !== isDrum
+                         ? "white"
+                         : "black",
+                       padding: "0px 6px",
+                       fontSize: "12px",
+                       marginRight: 5,
+                       verticalAlign: "middle",
+-                      color: voiceMask[voiceIndex] !== isDrum ? "black" : "white",
++                      color: voiceMembers.some((index) => voiceMask[index]) !== isDrum ? "black" : "white",
+                     }}
+                   >
+                     {voiceName}
+@@ -421,9 +413,9 @@
+         {excludedVoices.length > 0 && canEditArrangement && (
+           <details style={{ marginTop: 8, background: "#111", padding: 6 }}>
+             <summary style={{ cursor: "pointer" }}>
+-              Removed voices ({excludedVoices.length})
++              Removed voices ({excludedGroups.length})
+             </summary>
+-            {excludedVoices.map((index) => (
++            {excludedGroups.map(({ voiceIndex: index }) => (
+               <div key={index} style={{ marginTop: 6 }}>
+                 {index + 1}. {voiceNames[index] || `Voice ${index + 1}`}{" "}
+                 <button
+--- /dev/null
++++ b/src/components/rawl/instrumentVoiceGroups.ts
+@@ -0,0 +1,44 @@
++// Group controls only. Source note IDs, MIDI channels and saved indices stay intact.
++export type VoiceHover = number | number[] | null;
++
++export const usesInstrumentGroups = (slug?: string): boolean =>
++  /^fazil-say-istanbul-symphony-0[1-7]-/.test(slug || "");
++
++export function instrumentVoiceMembers(names: string[], index: number, slug?: string): number[] {
++  if (!usesInstrumentGroups(slug) || !names[index]?.trim()) return [index];
++  const name = names[index].trim();
++  return names.flatMap((candidate, i) => candidate.trim() === name ? [i] : []);
++}
++
++export function voiceHoverContains(hover: VoiceHover, index: number): boolean {
++  return Array.isArray(hover) ? hover.includes(index) : hover === index;
++}
++
++export function groupInstrumentRows<T extends { voiceIndex: number }>(
++  rows: T[], names: string[], slug?: string, excluded: number[] = [],
++): (T & { voiceMembers: number[] })[] {
++  const removed = new Set(excluded);
++  const seen = new Set<number>();
++  const result: (T & { voiceMembers: number[] })[] = [];
++  rows.forEach((row) => {
++    if (removed.has(row.voiceIndex) || seen.has(row.voiceIndex)) return;
++    const members = instrumentVoiceMembers(names, row.voiceIndex, slug)
++      .filter((index) => !removed.has(index));
++    members.forEach((index) => seen.add(index));
++    result.push({ ...row, voiceMembers: members });
++  });
++  return result;
++}
++
++export function toggleInstrumentMask(mask: boolean[], members: number[], allIncluded: boolean[]): boolean[] {
++  const selected = new Set(members);
++  const enabled = !members.every((index) => mask[index]);
++  const next = mask.map((value, index) => selected.has(index) ? enabled : value);
++  return next.some(Boolean) ? next : [...allIncluded];
++}
++
++export function soloInstrumentMask(mask: boolean[], members: number[], allIncluded: boolean[]): boolean[] {
++  const selected = new Set(members);
++  const alreadySolo = mask.some(Boolean) && mask.every((enabled,index) => !enabled || selected.has(index));
++  return alreadySolo ? [...allIncluded] : mask.map((_,index) => selected.has(index));
++}

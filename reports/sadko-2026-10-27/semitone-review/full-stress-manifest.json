@@ -1,0 +1,99 @@
+{
+  "createdAt": "2026-10-27T11:29:31.340660+00:00",
+  "kind": "inference only; no training or fine-tuning",
+  "commands": [
+    ".venv/bin/python sadko/scripts/run_full_stress.py copista",
+    ".venv/bin/python sadko/scripts/run_full_stress.py page-omr"
+  ],
+  "progress": {
+    "copista": {
+      "completed": 71,
+      "failed": 0,
+      "requested": 71,
+      "finished": true,
+      "progressFile": "qa/full-stress/copista/run.json",
+      "checkpointSha256": "7a3eb0362b44016e941680c5df1e133239576592ab134057c3dbac8e9f3b8838"
+    },
+    "page-omr": {
+      "completed": 24,
+      "failed": 0,
+      "requested": 71,
+      "finished": false,
+      "progressFile": "qa/full-stress/page-omr/run.json",
+      "checkpointSha256": "4d18332641f8e5798aefb9609a69da5c9bbd704c55246726a05e6562d2a57dbe"
+    }
+  },
+  "previousEnginesAllPages": [
+    "Audiveris",
+    "HOMR"
+  ],
+  "codeAndWeightHashes": [
+    {
+      "engine": "copista",
+      "codeCommit": "5d1cd54286bb8a27e33a495c88fadf0e2101152d",
+      "model": "kobimusic/copista-28m",
+      "weights": [
+        {
+          "filename": "evidence-2m.pt",
+          "sha256": "7a3eb0362b44016e941680c5df1e133239576592ab134057c3dbac8e9f3b8838"
+        },
+        {
+          "filename": "v7_obj-recall-30m_best.pt",
+          "sha256": "9f1db282271fb1064461387da4a2e15de14b099c49b619c21429cdc45be85cfe"
+        }
+      ],
+      "codeModified": false
+    },
+    {
+      "engine": "page-omr",
+      "codeCommit": "e369a44a8232ddcf0ddd915f7e07b19cdcb91b61",
+      "model": "tobiashornbogen/page-omr-a1-kern",
+      "weights": [
+        {
+          "filename": "omr_model.pt",
+          "sha256": "4d18332641f8e5798aefb9609a69da5c9bbd704c55246726a05e6562d2a57dbe"
+        }
+      ],
+      "codeModified": false
+    }
+  ],
+  "dependencies": {
+    "torch": "2.12.0",
+    "torchvision": "0.27.0",
+    "transformers": "4.45.1",
+    "tokenizers": "0.20.3",
+    "numpy": "2.4.6",
+    "pillow": "12.2.0"
+  },
+  "copistaPagesSafeForAutomaticAlignment": 45,
+  "correctionValidation": {
+    "createdAt": "2026-10-27T11:27:15.235223+00:00",
+    "previousSha256": "bacc8e5deae7be99fa598d7173a0e54de2bacc76e2cb9292b9c16b77d139c201",
+    "newSha256": "0ff6627e3f3b682ec1e65287743da3b13c288600b090705368c5d9b56b34b8ce",
+    "changedSelectedEvents": 75,
+    "changedMidiAttacks": 74,
+    "changedMeasures": 54,
+    "approvedProposals": 200,
+    "sourceControls": {
+      "previousFullEventAttacks": 198,
+      "newPitchOnsetAttacks": 25,
+      "newStaffMeasures": 4,
+      "newDurationsScored": false
+    },
+    "timingSelectionAndAllOtherEventFieldsExact": true,
+    "tempoMeterKeyMarkersExact": true,
+    "obbligatoAndPianoTracksExact": true,
+    "formAndOtherRemoteAnalysisNeverWritten": true,
+    "notes": 23155,
+    "anomalies": {
+      "before": 977,
+      "after": 899,
+      "remainingMeasures": 307,
+      "comparisonAnalysisSha256": "5a62011693fd3c418c62a292a9776543c7ae6258fcdaf55b399ed0f6c65e4876",
+      "noFlaggedOverlapsInMeasures43Through62": true,
+      "remainingAreWarningsNotProvenErrors": true
+    },
+    "releaseCommit": "6e296d2e4"
+  },
+  "policy": "Tonal anomalies are warnings. Correct only source-head proposals with independently confirmed pitch/onset/duration and exact physical geometry, or an explicit direct source reading. Preserve all other notes, timing and user analysis."
+}

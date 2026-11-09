@@ -1,0 +1,38 @@
+{
+  "onlyCC11Changed": true,
+  "otherSixByteIdentical": true,
+  "metrics": [
+    {
+      "region": "1-8",
+      "phase": "before",
+      "fluteRms": 0.012914194288456663,
+      "stringsSumRms": 0.010113231303037807,
+      "fluteOverStringsDb": 2.123547512903087,
+      "mixPeak": 0.1169891208410263
+    },
+    {
+      "region": "1-8",
+      "phase": "after",
+      "fluteRms": 0.020483328977620025,
+      "stringsSumRms": 0.010113231938389877,
+      "fluteOverStringsDb": 6.130211452427391,
+      "mixPeak": 0.13804775476455688
+    },
+    {
+      "region": "17-24",
+      "phase": "before",
+      "fluteRms": 0.012470888126070915,
+      "stringsSumRms": 0.02535674739034314,
+      "fluteOverStringsDb": -6.163923217013746,
+      "mixPeak": 0.15744423866271973
+    },
+    {
+      "region": "17-24",
+      "phase": "after",
+      "fluteRms": 0.019790859115158415,
+      "stringsSumRms": 0.009190044848494734,
+      "fluteOverStringsDb": 6.662940328148257,
+      "mixPeak": 0.12039798498153687
+    }
+  ]
+}

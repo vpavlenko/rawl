@@ -1,0 +1,4 @@
+{"heldGm44ExpressionPcm":{"loud":0.014716781512665198,"soft":0.00007923381940435951,"restored":0.014881462782030529}}
+{"heldGm44BestFontExpressionPcm":{"bestLoud":0.0127565310855312,"bestSoft":0.00008293580020503889,"bestRestored":0.01135654222477473}}
+{"file":"fazil-say-istanbul-symphony-06-oriental-night.mid","voices":40,"notes":7714}
+MIDI port parsing, synthesis, mute, drums, seeking, and hand-split checks passed.

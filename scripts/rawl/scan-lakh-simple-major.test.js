@@ -30,7 +30,15 @@ assert.equal(bamba.status, "match");
 assert.equal(bamba.tier, "manually reviewed");
 assert.equal(bamba.tonic, 0);
 assert.equal(bamba.group, 1);
-assert.deepEqual(bamba.estimatedDegrees, [0, 3, 4]);
+assert.deepEqual(bamba.degrees, [0, 3, 4]);
+assert.deepEqual(bamba.seventhDegrees, []);
+assert.deepEqual(bamba.legacyEstimate.degrees, [0, 3, 4]);
+assert.equal(bamba.harmonyVersion, "segmental-2");
+assert.equal(bamba.harmonySource, "fresh MIDI chord analysis");
+const cachedBamba = scan({ artist: "Valens Ritchie", filename: "La Bamba.mid", title: "La Bamba",
+  slug: "lakh/Valens_Ritchie/La_Bamba" }, require("../../src/corpus/analyses.json"));
+assert.equal(cachedBamba.harmonySource, "verified harmonic sidecar");
+assert.equal(cachedBamba.group, 1);
 const progression = (tonic, start, bars = 8) =>
   Array.from({ length: bars }, (_, i) => {
     const root = [48, 53, 55, 48][i % 4] + tonic;

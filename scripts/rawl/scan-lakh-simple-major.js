@@ -14,8 +14,10 @@ const {
 const {
   estimateHarmony,
   applyReviewedHarmony,
+  applySavedStageTags,
 } = require("./sort-simple-major");
 const reviews = require("./simple-major-reviewed-harmony.json");
+const { estimateSegmentalStages, POLICY } = require("./simple-major-segmental.cjs");
 const root = path.resolve(__dirname, "../..");
 const output = path.join(root, "reports/lakh-simple-major");
 
@@ -135,11 +137,10 @@ function inferTruckDriverRegions(notes) {
   return regions;
 }
 function scan(entry, analyses) {
-  const midi = parseMidi(
-    fs.readFileSync(
+  const bytes = fs.readFileSync(
       path.join(root, "public/lakh-data", entry.artist, entry.filename),
-    ),
-  );
+    );
+  const midi = parseMidi(bytes);
   const notes = readNotes(midi);
   const annotation = analyses[`c/MIDI/${entry.artist}/${entry.filename}`];
   let regions = readKeyRegions(midi, notes, annotation);
@@ -192,11 +193,13 @@ function scan(entry, analyses) {
         ((keyAtBeat(regions, n.start, match.tonic) - match.tonic + 12) % 12),
       key: keyAtBeat(regions, n.start, match.tonic),
     }));
-  const harmony = applyReviewedHarmony({
+  const legacy = estimateHarmony(normalized, match.tonic);
+  const harmony = applyReviewedHarmony(applySavedStageTags({
     slug: entry.slug,
-    basis: "MIDI estimate",
-    ...estimateHarmony(normalized, match.tonic),
-  });
+    basis: "segmental chord analysis",
+    ...estimateSegmentalStages({ midi, bytes, annotation, tonic: match.tonic, keyRegions: regions,
+      artist: entry.artist, filename: entry.filename, legacy }),
+  }, annotation));
   return {
     status: harmony.group == null ? "inconclusive" : "match",
     ...entry,
@@ -315,8 +318,11 @@ async function main() {
     )
     .slice(0, arg("--limit", Infinity));
   const report = {
+    generatedAt: new Date().toISOString(),
+    harmonyVersion: require("../../src/harmony/harmony.ts").HARMONY_VERSION,
+    stagePolicy: POLICY,
     method:
-      "Conservative major-key search, then rhythm/texture/harmony estimation. Two ending tiers plus sustained truck-driver key lifts; reviewed exclusive labels override spurious harmonies. No corpus membership changed.",
+      "Conservative major-key membership screen, then the score ribbon's segmental chord analysis for stages. Saved/local-major tonics, reviewed constraints and sparse bass/power chords retain priority; sidecars require matching MIDI hash, annotation settings and harmony version. Insufficient segmental coverage retains the legacy estimate with an explicit fallback. No model fitting or curated corpus membership changes.",
     total: entries.length,
     completed: 0,
     excluded: 0,

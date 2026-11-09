@@ -1,0 +1,77 @@
+{
+  "checkedAt": "2026-10-26T13:05:25.000Z",
+  "mainBundle": "/static/js/main.b9b0520c.js?release=instrument-groups-v1",
+  "expectedBundle": "/static/js/main.b9b0520c.js?release=instrument-groups-v1",
+  "results": [
+    {
+      "path": "/static/js/main.b9b0520c.js?release=instrument-groups-v1",
+      "status": 200,
+      "bytes": 6765544,
+      "sha256": "58b74d3c62ec3a2e08462a29b1485382405a93fe25be6044c4d5db98cd1f811b",
+      "matches": true
+    },
+    {
+      "path": "/static/js/1.f8ed1c79.chunk.js",
+      "status": 200,
+      "bytes": 5286095,
+      "sha256": "f15ff902cc686491a51595089e25bd5fbe25ee7735ff34ba043cf7d2d7a8661a",
+      "matches": true
+    },
+    {
+      "path": "/static/js/midi-synth.d3450087.js",
+      "status": 200,
+      "bytes": 728313,
+      "sha256": "f39b577dfc84eda5843038c3c19aa87c62e530018511c6f238d343f703ff6ac0",
+      "matches": true
+    },
+    {
+      "path": "/midi/Fazil_Say/fazil-say-istanbul-symphony-01-nostalgia.mid?release=expression-v2",
+      "status": 200,
+      "bytes": 123003,
+      "sha256": "f6a96cafb2d81e8faa055800fda9330661070d4230ba7c42c317c38ab8980784",
+      "matches": true
+    },
+    {
+      "path": "/midi/Fazil_Say/fazil-say-istanbul-symphony-02-religious-order.mid?release=expression-v2",
+      "status": 200,
+      "bytes": 111661,
+      "sha256": "15f0cdc527c893c1aea6bb20a1e3f09b9c36f9c932642ce2a58c5d98d1e177b6",
+      "matches": true
+    },
+    {
+      "path": "/midi/Fazil_Say/fazil-say-istanbul-symphony-03-blue-mosque.mid?release=expression-v2",
+      "status": 200,
+      "bytes": 234418,
+      "sha256": "84a478a1c36377daed1500885b994ba173e1f013538ae0f80e08eb7aeea06446",
+      "matches": true
+    },
+    {
+      "path": "/midi/Fazil_Say/fazil-say-istanbul-symphony-04-merrily-clad-ladies.mid?release=flute-v3",
+      "status": 200,
+      "bytes": 97377,
+      "sha256": "31a83a182977f14ae424e4d0317cebc5b718250114d32df26c6829acea2e7962",
+      "matches": true
+    },
+    {
+      "path": "/midi/Fazil_Say/fazil-say-istanbul-symphony-05-travellers-to-anatolia.mid?release=expression-v2",
+      "status": 200,
+      "bytes": 196228,
+      "sha256": "2b7b5bd70bb0f775aaa36a9e72150baa1df88f550221b243c90a885694d74588",
+      "matches": true
+    },
+    {
+      "path": "/midi/Fazil_Say/fazil-say-istanbul-symphony-06-oriental-night.mid?release=kanun-v3",
+      "status": 200,
+      "bytes": 94788,
+      "sha256": "1eef2163b50b74ea0910d6b667b33663268eae2397e679ae0fc910e9542e65cf",
+      "matches": true
+    },
+    {
+      "path": "/midi/Fazil_Say/fazil-say-istanbul-symphony-07-finale.mid?release=expression-v2",
+      "status": 200,
+      "bytes": 96325,
+      "sha256": "611a46b881953942b36561b90c24c89aa8cf33e1cf71f546ef185eff498092f8",
+      "matches": true
+    }
+  ]
+}

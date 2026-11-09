@@ -1,0 +1,8 @@
+{
+  "src/components/App.tsx": "d79f39342cdbfc8f03f3095ea9501299764661164ca0a22a97b5ef7cdfcef322",
+  "src/components/rawl/getNoteRectangles.tsx": "a3bf661b21f5d55a70c4153c89f5cfb05d71401aee22625884d93fa3003db751",
+  "src/components/rawl/Rawl.tsx": "6f97f8d9952029029b3dd755d89aeed1366a54bdc14aabe229db62c01b2277b9",
+  "src/components/rawl/SystemLayout.tsx": "cea48e80ab8464973d505d0db0a5628e57643114bf33c937b30f582cc2b56e5d",
+  "src/components/rawl/instrumentVoiceGroups.ts": "e7e0c4179fdee2fc27195d1851aa92555209134df5106ee393fb2f8659f8eb67",
+  "src/components/rawl/layouts/MergedVoicesLegend.tsx": "12b39dfaf6f81bfd6b55fb430f434ce9bebb706284d33e7d017ae3600d801db7"
+}

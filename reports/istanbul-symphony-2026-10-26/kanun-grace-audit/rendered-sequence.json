@@ -1,0 +1,186 @@
+{
+  "sequencedRuns": [
+    {
+      "movement": 6,
+      "page": 115,
+      "measure": 36,
+      "sys": 120,
+      "staff": 7,
+      "anchorQuarter": 208.5,
+      "anchorIds": [
+        40414
+      ],
+      "sourceIds": [
+        40410,
+        40411,
+        40412,
+        40413
+      ],
+      "pitches": [
+        60,
+        62,
+        63,
+        66
+      ],
+      "sourceX": [
+        640.02,
+        645.0599,
+        651.78,
+        658.92
+      ],
+      "oldOnsets": [
+        208.375,
+        208.375,
+        208.375,
+        208.375
+      ],
+      "newOnsets": [
+        208.25,
+        208.3125,
+        208.375,
+        208.4375
+      ]
+    },
+    {
+      "movement": 6,
+      "page": 115,
+      "measure": 37,
+      "sys": 121,
+      "staff": 7,
+      "anchorQuarter": 213.0,
+      "anchorIds": [
+        40528
+      ],
+      "sourceIds": [
+        40524,
+        40525,
+        40526,
+        40527
+      ],
+      "pitches": [
+        60,
+        62,
+        63,
+        66
+      ],
+      "sourceX": [
+        110.04,
+        115.02,
+        121.8,
+        128.94
+      ],
+      "oldOnsets": [
+        212.875,
+        212.875,
+        212.875,
+        212.875
+      ],
+      "newOnsets": [
+        212.75,
+        212.8125,
+        212.875,
+        212.9375
+      ]
+    },
+    {
+      "movement": 6,
+      "page": 115,
+      "measure": 41,
+      "sys": 121,
+      "staff": 7,
+      "anchorQuarter": 231.0,
+      "anchorIds": [
+        40560
+      ],
+      "sourceIds": [
+        40556,
+        40557,
+        40558,
+        40559
+      ],
+      "pitches": [
+        60,
+        62,
+        63,
+        66
+      ],
+      "sourceX": [
+        534.1799,
+        539.22,
+        545.9399,
+        553.08
+      ],
+      "oldOnsets": [
+        230.875,
+        230.875,
+        230.875,
+        230.875
+      ],
+      "newOnsets": [
+        230.75,
+        230.8125,
+        230.875,
+        230.9375
+      ]
+    },
+    {
+      "movement": 6,
+      "page": 116,
+      "measure": 47,
+      "sys": 122,
+      "staff": 8,
+      "anchorQuarter": 258.0,
+      "anchorIds": [
+        40709
+      ],
+      "sourceIds": [
+        40705,
+        40706,
+        40707,
+        40708
+      ],
+      "pitches": [
+        60,
+        62,
+        63,
+        66
+      ],
+      "sourceX": [
+        609.84,
+        614.28,
+        620.28,
+        626.64
+      ],
+      "oldOnsets": [
+        257.875,
+        257.875,
+        257.875,
+        257.875
+      ],
+      "newOnsets": [
+        257.75,
+        257.8125,
+        257.875,
+        257.9375
+      ]
+    }
+  ],
+  "unchangedOrnaments": [
+    {
+      "measure": 51,
+      "ids": [
+        40943
+      ]
+    },
+    {
+      "measure": 51,
+      "ids": [
+        40946
+      ]
+    }
+  ],
+  "stepQuarter": 0.0625,
+  "spacingIsPerformanceChoice": true,
+  "mainNoteOnsetsChanged": 0,
+  "sequencedHeads": 16
+}

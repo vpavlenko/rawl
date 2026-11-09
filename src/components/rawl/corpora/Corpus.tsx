@@ -133,15 +133,21 @@ const Corpus: React.FC<{
       : [];
   const stageCount = (section: (typeof sections)[number]) =>
     section.count + lakhPieces(section.id).length;
+  const popularIdentity = (artist: string, title: string) =>
+    JSON.stringify([artist.toLowerCase(), title.replace(/\.\d+$/, "").toLowerCase()]);
+  const lakhPopularIdentities = new Set(
+    Object.values(simpleMajorLakhPopularPieces).flat().map(([artist, title]) => popularIdentity(artist, title)),
+  );
+  const lakhPopularCount = (sectionId: string) => new Set(
+    lakhPieces(sectionId).map(piece => popularIdentity(piece.artist, piece.title))
+      .filter(identity => lakhPopularIdentities.has(identity)),
+  ).size;
   const renderLakhPopularStar = (
     sectionId: string,
     artist: string,
     title: string,
   ) => {
-    const picks =
-      (simpleMajorLakhPopularPieces as Record<string, string[][]>)[sectionId] ||
-      [];
-    if (!picks.some(([name, song]) => name === artist && song === title))
+    if (!lakhPopularIdentities.has(popularIdentity(artist, title)))
       return null;
     return (
       <span
@@ -268,13 +274,12 @@ const Corpus: React.FC<{
       {slug === "simple_major" && (
         <div
           style={{ color: "#888", fontSize: "0.75em", marginTop: "8px" }}
-          title="Curated picks based on broad recognition: five /f/ pieces and ten Lakh songs per stage."
+          title="Curated picks based on broad recognition, retained when a work changes stage."
         >
           <span style={{ color: section.color }} aria-hidden="true">
             ★
           </span>{" "}
-          Popular picks · {popularPicks.get(section.id)?.size || 0} /f/ · 10
-          /lakh/
+          Popular picks · {popularPicks.get(section.id)?.size || 0} /f/ · {lakhPopularCount(section.id)} /lakh/
         </div>
       )}
     </header>

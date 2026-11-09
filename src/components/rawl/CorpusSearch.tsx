@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { corpora } from "./corpora/corpora";
-import { formatComposerName, getEmojis } from "./corpusUtils";
+import { formatComposerName, getEmojis, hasMetadata } from "./corpusUtils";
 import { TOP_100_COMPOSERS } from "./top100Composers";
 
 const highlightMatch = (text: string, term: string) => {
@@ -172,32 +172,58 @@ const CorpusSearch: React.FC<{
     setTotalMidis(uniqueMidis.size);
   }, []);
 
-  const corpusSearchIndex = React.useMemo(
-    () =>
-      corpora
-        .filter((corpus) => !corpus.secondary)
-        .map((corpus) => ({
-          corpus,
-          words: [
-            ...corpus.slug.toLowerCase().split(/[-_\s]+/),
-            ...corpus.midis.flatMap((midi) => [
-              ...midi.toLowerCase().split(/[-_\s]+/),
-              ...getNiceName(midi).toLowerCase().split(/\s+/),
-            ]),
-          ],
-        })),
-    [],
-  );
+  const corpusSearchIndex = React.useMemo(() => {
+    const searchableCorpora = corpora.filter((corpus) => !corpus.secondary);
+    const isComposerCorpus = (corpus: (typeof corpora)[number]) =>
+      corpus.composerName !== null &&
+      (Boolean(corpus.composerName) || hasMetadata(corpus));
+    // Resolve ownership across the entire catalog before matching the query.
+    // Composer membership wins even when an auxiliary collection matches it.
+    const owners = new Map<string, (typeof corpora)[number]>();
+    const rankedCorpora = [...searchableCorpora].sort((a, b) => {
+      const priority = (corpus: (typeof corpora)[number]) =>
+        !isComposerCorpus(corpus)
+          ? 0
+          : typeof corpus.composerBirthYear === "number"
+          ? 3
+          : corpus.composerName
+          ? 2
+          : 1;
+      return priority(b) - priority(a);
+    });
+    rankedCorpora.forEach((corpus) => {
+      corpus.midis.forEach((midi) => {
+        if (!owners.has(midi)) owners.set(midi, corpus);
+      });
+    });
+    return searchableCorpora.map((corpus) => {
+      const searchMidis = [...new Set(corpus.midis)].filter(
+        (midi) => owners.get(midi) === corpus,
+      );
+      return {
+        corpus,
+        searchMidis,
+        words: [
+          ...corpus.slug.toLowerCase().split(/[-_\s]+/),
+          ...searchMidis.flatMap((midi) => [
+            ...midi.toLowerCase().split(/[-_\s]+/),
+            ...getNiceName(midi).toLowerCase().split(/\s+/),
+          ]),
+        ],
+      };
+    });
+  }, []);
 
   const searchTerms = searchTerm.toLowerCase().split(/\s+/);
   const filteredCorpora = corpusSearchIndex
-    .filter(({ corpus, words }) => {
+    .filter(({ corpus, searchMidis, words }) => {
       if (searchTerm === "") return corpus.midis.length >= 1;
-      return searchTerms.every((term) =>
-        words.some((word) => word.includes(term)),
+      return (
+        searchMidis.length > 0 &&
+        searchTerms.every((term) => words.some((word) => word.includes(term)))
       );
     })
-    .map(({ corpus }) => corpus);
+    .map(({ corpus, searchMidis }) => ({ ...corpus, searchMidis }));
 
   const renderEmptySearchResults = () => {
     const sortedCorpora = filteredCorpora.sort(
@@ -371,7 +397,7 @@ const CorpusSearch: React.FC<{
         )}
         {searchTerm === ""
           ? renderEmptySearchResults()
-          : filteredCorpora.map(({ slug, midis }) => {
+          : filteredCorpora.map(({ slug, midis, searchMidis }) => {
               const searchTerms = searchTerm.toLowerCase().split(/\s+/);
               const composerMatched = searchTerms.every((term) =>
                 slug
@@ -381,7 +407,7 @@ const CorpusSearch: React.FC<{
               );
 
               // Update the matching logic to also check nice names
-              const matchingMidis = midis.filter((midi) => {
+              const matchingMidis = searchMidis.filter((midi) => {
                 const niceName = getNiceName(midi).toLowerCase();
                 const niceNameWords = niceName.split(/\s+/);
 

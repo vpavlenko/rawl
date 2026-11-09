@@ -79,7 +79,12 @@ assert.deepEqual(harmonicWindows(roots, new Set(["bass"])), [
 ]);
 // A genuine sustained dominant seventh still ranks in the seventh category.
 const dominantSeventh = [43, 47, 50, 53].map((pitch) => note(pitch, 0, 4));
-assert.equal(estimateHarmony(dominantSeventh, 0).group, 5);
+assert.equal(estimateHarmony(dominantSeventh, 0).group, 0);
+assert.deepEqual(estimateHarmony(dominantSeventh, 0).seventhDegrees, [4]);
+assert.equal(groupForDegrees([0, 4], [4]), 0);
+assert.equal(groupForDegrees([0, 3, 4], [4]), 1);
+assert.equal(groupForDegrees([0, 4, 5], [4]), 2);
+assert.equal(groupForDegrees([0, 4], [0, 4]), 5);
 assert.equal(estimateHarmonicRhythm(rapid, new Set(["bass"])).beats, 1);
 assert.equal(estimateHarmonicRhythm(slow, new Set(["bass"])).beats, 8);
 assert.equal(

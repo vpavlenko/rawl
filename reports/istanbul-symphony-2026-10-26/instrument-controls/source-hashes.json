@@ -1,0 +1,7 @@
+{
+  "src/components/App.tsx": "7d8fec3c0aeb35f06fd0bccbc8b93333c2496ef20c65d09bbe85faf2579ebcfd",
+  "src/components/rawl/Rawl.tsx": "d40bd013a5eb0c17fe5526f93e1c324f2d3776dacf1c304abe3a7e0e22b4dd89",
+  "src/components/rawl/SystemLayout.tsx": "bee1efed0f3ab94b63adbc60f2a6b67814ebf8e5d771a082b1ebf84bb5a97e83",
+  "src/components/rawl/getNoteRectangles.tsx": "8889a7ef350f856972edcdde0ee542cd8efb8b558d411478163e18cd992e47b0",
+  "src/components/rawl/layouts/MergedVoicesLegend.tsx": "e3d82ff7fb8f24a7e8eecad4fc6451fb690b188afc21323bb4d7a2f53bd6dd99"
+}

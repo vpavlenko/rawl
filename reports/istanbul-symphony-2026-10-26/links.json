@@ -1,0 +1,44 @@
+[
+  {
+    "movement": 1,
+    "rawUrl": "https://rawl.rocks/f/fazil-say-istanbul-symphony-01-nostalgia?release=instrument-groups-v1",
+    "midiUrl": "https://rawl.rocks/midi/Fazil_Say/fazil-say-istanbul-symphony-01-nostalgia.mid?release=expression-v2",
+    "sha256": "f6a96cafb2d81e8faa055800fda9330661070d4230ba7c42c317c38ab8980784"
+  },
+  {
+    "movement": 2,
+    "rawUrl": "https://rawl.rocks/f/fazil-say-istanbul-symphony-02-religious-order?release=instrument-groups-v1",
+    "midiUrl": "https://rawl.rocks/midi/Fazil_Say/fazil-say-istanbul-symphony-02-religious-order.mid?release=expression-v2",
+    "sha256": "15f0cdc527c893c1aea6bb20a1e3f09b9c36f9c932642ce2a58c5d98d1e177b6"
+  },
+  {
+    "movement": 3,
+    "rawUrl": "https://rawl.rocks/f/fazil-say-istanbul-symphony-03-blue-mosque?release=instrument-groups-v1",
+    "midiUrl": "https://rawl.rocks/midi/Fazil_Say/fazil-say-istanbul-symphony-03-blue-mosque.mid?release=expression-v2",
+    "sha256": "84a478a1c36377daed1500885b994ba173e1f013538ae0f80e08eb7aeea06446"
+  },
+  {
+    "movement": 4,
+    "rawUrl": "https://rawl.rocks/f/fazil-say-istanbul-symphony-04-merrily-clad-ladies?release=instrument-groups-v1",
+    "midiUrl": "https://rawl.rocks/midi/Fazil_Say/fazil-say-istanbul-symphony-04-merrily-clad-ladies.mid?release=flute-v3",
+    "sha256": "31a83a182977f14ae424e4d0317cebc5b718250114d32df26c6829acea2e7962"
+  },
+  {
+    "movement": 5,
+    "rawUrl": "https://rawl.rocks/f/fazil-say-istanbul-symphony-05-travellers-to-anatolia?release=instrument-groups-v1",
+    "midiUrl": "https://rawl.rocks/midi/Fazil_Say/fazil-say-istanbul-symphony-05-travellers-to-anatolia.mid?release=expression-v2",
+    "sha256": "2b7b5bd70bb0f775aaa36a9e72150baa1df88f550221b243c90a885694d74588"
+  },
+  {
+    "movement": 6,
+    "rawUrl": "https://rawl.rocks/f/fazil-say-istanbul-symphony-06-oriental-night?release=instrument-groups-v1",
+    "midiUrl": "https://rawl.rocks/midi/Fazil_Say/fazil-say-istanbul-symphony-06-oriental-night.mid?release=kanun-v3",
+    "sha256": "1eef2163b50b74ea0910d6b667b33663268eae2397e679ae0fc910e9542e65cf"
+  },
+  {
+    "movement": 7,
+    "rawUrl": "https://rawl.rocks/f/fazil-say-istanbul-symphony-07-finale?release=instrument-groups-v1",
+    "midiUrl": "https://rawl.rocks/midi/Fazil_Say/fazil-say-istanbul-symphony-07-finale.mid?release=expression-v2",
+    "sha256": "611a46b881953942b36561b90c24c89aa8cf33e1cf71f546ef185eff498092f8"
+  }
+]

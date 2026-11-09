@@ -1,0 +1,749 @@
+{
+  "method": "Corrected score pitch-class features, whitened audio STFT chroma, subsequence DTW; multi-bar estimates instead of per-bar jitter. Independent constant-tempo correlation refines VI opening and tests III pulse. Values below are quarter-note BPM.",
+  "numeric_printed_tempo_marks": {
+    "1": {
+      "69": 135
+    },
+    "6": {
+      "126": 56
+    }
+  },
+  "cautions": [
+    "Reference chapters contain preliminary silence, room sound, applause, unnotated improvisation and free waves. Never force their total duration into all printed bars.",
+    "DTW is unreliable for static sustained harmonies, all-rest/neutral-percussion-only passages, and free glissandi.",
+    "All optional ritardando/fermata values are performance realizations; only135 and56 are printed numeric tempo marks."
+  ],
+  "movements": {
+    "1": {
+      "recommendedBaseMap": {
+        "1": 20,
+        "4": 54,
+        "69": 135,
+        "196": 126,
+        "210": 100,
+        "217": 96,
+        "218": 46,
+        "219": 40
+      },
+      "sourceAnchors": {
+        "1": "Tempo ad lib.; waves, free timing",
+        "4": "Adagio",
+        "38": "rit.",
+        "39": "Meno mosso",
+        "41": "poco meno mosso",
+        "43": "rit.",
+        "45": "a tempo",
+        "64": "rit.",
+        "69": "Allegro quarter=135",
+        "216": "Ney ad libitum",
+        "217": "molto meno mosso; waves ad libitum",
+        "218": "morendo"
+      },
+      "confidence": "medium; high printed135 and absence of190tempochange",
+      "notes": "Previously supplied detailed report. Delete unsupported abrupt slowdown190. Ending fermata and waves remain separate. Early39/41/45and64expressive changes need local handling, not global scaling.",
+      "eightBarEvidence": []
+    },
+    "2": {
+      "recommendedBaseMap": {
+        "1": 139
+      },
+      "sourceAnchors": {
+        "1": "Allegro Assai"
+      },
+      "confidence": "high for139body",
+      "notes": "Stable body8-bar median near139; first8barDTW119 is an onset-boundary artifact. Chapter begins~3.9s before first decoded attack and contains~14s after music.",
+      "eightBarEvidence": [
+        {
+          "startMeasure": 1,
+          "endMeasureExclusive": 9,
+          "quarters": 32.0,
+          "referenceSeconds": 16.09269841269841,
+          "bpm": 119.30876666929694
+        },
+        {
+          "startMeasure": 9,
+          "endMeasureExclusive": 17,
+          "quarters": 32.0,
+          "referenceSeconds": 13.793741496598638,
+          "bpm": 139.19356111417977
+        },
+        {
+          "startMeasure": 17,
+          "endMeasureExclusive": 25,
+          "quarters": 32.0,
+          "referenceSeconds": 13.893696145124721,
+          "bpm": 138.19216858817842
+        },
+        {
+          "startMeasure": 25,
+          "endMeasureExclusive": 33,
+          "quarters": 32.0,
+          "referenceSeconds": 13.793741496598635,
+          "bpm": 139.1935611141798
+        },
+        {
+          "startMeasure": 33,
+          "endMeasureExclusive": 41,
+          "quarters": 32.0,
+          "referenceSeconds": 14.193560090702945,
+          "bpm": 135.27261573068176
+        },
+        {
+          "startMeasure": 41,
+          "endMeasureExclusive": 49,
+          "quarters": 32.0,
+          "referenceSeconds": 14.09360544217688,
+          "bpm": 136.23199598409073
+        },
+        {
+          "startMeasure": 49,
+          "endMeasureExclusive": 57,
+          "quarters": 32.0,
+          "referenceSeconds": 14.393469387755104,
+          "bpm": 133.3938294010889
+        },
+        {
+          "startMeasure": 57,
+          "endMeasureExclusive": 65,
+          "quarters": 30.0,
+          "referenceSeconds": 13.293968253968245,
+          "bpm": 135.39975164772193
+        },
+        {
+          "startMeasure": 65,
+          "endMeasureExclusive": 73,
+          "quarters": 28.0,
+          "referenceSeconds": 11.694693877551018,
+          "bpm": 143.65489320117274
+        },
+        {
+          "startMeasure": 73,
+          "endMeasureExclusive": 81,
+          "quarters": 28.0,
+          "referenceSeconds": 11.99455782312927,
+          "bpm": 140.06352087114317
+        },
+        {
+          "startMeasure": 81,
+          "endMeasureExclusive": 89,
+          "quarters": 30.0,
+          "referenceSeconds": 12.1944671201814,
+          "bpm": 147.60792597661487
+        },
+        {
+          "startMeasure": 89,
+          "endMeasureExclusive": 97,
+          "quarters": 32.0,
+          "referenceSeconds": 13.393922902494324,
+          "bpm": 143.34859278922997
+        },
+        {
+          "startMeasure": 97,
+          "endMeasureExclusive": 105,
+          "quarters": 32.0,
+          "referenceSeconds": 13.9936507936508,
+          "bpm": 137.2050816696914
+        },
+        {
+          "startMeasure": 105,
+          "endMeasureExclusive": 113,
+          "quarters": 32.0,
+          "referenceSeconds": 13.593832199546483,
+          "bpm": 141.24052524821184
+        },
+        {
+          "startMeasure": 113,
+          "endMeasureExclusive": 121,
+          "quarters": 44.0,
+          "referenceSeconds": 19.091337868480707,
+          "bpm": 138.2826084890871
+        },
+        {
+          "startMeasure": 121,
+          "endMeasureExclusive": 126,
+          "quarters": 30.0,
+          "referenceSeconds": 13.293968253968274,
+          "bpm": 135.39975164772164
+        }
+      ]
+    },
+    "3": {
+      "recommendedBaseMap": {
+        "1": 62,
+        "9": 63,
+        "19": 62,
+        "34": 40
+      },
+      "sourceAnchors": {
+        "1": "Adagio mistico",
+        "8": "rit.",
+        "9": "più mosso",
+        "16": "quasi a tempo",
+        "17": "quasi a tempo",
+        "18": "quasi a tempo",
+        "19": "quasi a tempo; quasi rit.",
+        "33": "molto ritardando"
+      },
+      "confidence": "medium for62body; low terminalDTW",
+      "notes": "Constant-tempo cross-correlation1–8 peaks63BPM;9–16peaks62BPM; multi-bar DTW medians60.6–61.9. Small source piùmosso9 can be realized62→63. Terminal33–34DTW is unreliable (onlyKudüm), so do not infer acceleration from it. Implement printedmoltorit with percussion timing inspection.",
+      "eightBarEvidence": [
+        {
+          "startMeasure": 1,
+          "endMeasureExclusive": 9,
+          "quarters": 104.0,
+          "referenceSeconds": 100.75428571428571,
+          "bpm": 61.93284936479129
+        },
+        {
+          "startMeasure": 9,
+          "endMeasureExclusive": 17,
+          "quarters": 104.0,
+          "referenceSeconds": 103.0532426303855,
+          "bpm": 60.551224209223676
+        },
+        {
+          "startMeasure": 17,
+          "endMeasureExclusive": 25,
+          "quarters": 104.0,
+          "referenceSeconds": 102.65342403628117,
+          "bpm": 60.787061499230404
+        },
+        {
+          "startMeasure": 25,
+          "endMeasureExclusive": 33,
+          "quarters": 104.0,
+          "referenceSeconds": 101.75383219954648,
+          "bpm": 61.324471669655814
+        }
+      ],
+      "localPerformanceEvents": [
+        {
+          "measure": 33,
+          "localOnset": 5,
+          "text": "molto ritardando",
+          "fromBpm": 62,
+          "toBpmAtNextMeasure": 40,
+          "confidence": "medium on printed location; low-medium numeric endpoint, supported terminal percussion deceleration"
+        }
+      ]
+    },
+    "4": {
+      "recommendedBaseMap": {
+        "1": 159
+      },
+      "sourceAnchors": {
+        "1": "Prestissimo",
+        "105": "fermata over opening dotted-quarter rest; Tuba tenuto quarter"
+      },
+      "confidence": "high for159body; medium expressive lastquarter",
+      "notes": "Stable multi-bar median159. First scoreattack≈chapter4.5s. m105start≈236.89s. Tuba sourcebeat1.5 corresponds≈237.46s, absolute1972.46 by coarseDTW; direct spectralattackabsolute1971.0 is more trustworthy for this last isolated tone. Keep sourcequarter; localperformance tempo63 for0.952s is plausible to reproduce broader tenuto; restore159 atlocal2.5. Openingrestfermata is separate.",
+      "eightBarEvidence": [
+        {
+          "startMeasure": 1,
+          "endMeasureExclusive": 9,
+          "quarters": 48.0,
+          "referenceSeconds": 18.99138321995465,
+          "bpm": 151.64772184544847
+        },
+        {
+          "startMeasure": 9,
+          "endMeasureExclusive": 17,
+          "quarters": 40.0,
+          "referenceSeconds": 14.693333333333332,
+          "bpm": 163.33938294010892
+        },
+        {
+          "startMeasure": 17,
+          "endMeasureExclusive": 25,
+          "quarters": 48.0,
+          "referenceSeconds": 18.391655328798187,
+          "bpm": 156.59275625345222
+        },
+        {
+          "startMeasure": 25,
+          "endMeasureExclusive": 33,
+          "quarters": 40.0,
+          "referenceSeconds": 14.893242630385487,
+          "bpm": 161.1469080013155
+        },
+        {
+          "startMeasure": 33,
+          "endMeasureExclusive": 41,
+          "quarters": 49.0,
+          "referenceSeconds": 19.09133786848072,
+          "bpm": 153.9965412719378
+        },
+        {
+          "startMeasure": 41,
+          "endMeasureExclusive": 49,
+          "quarters": 51.0,
+          "referenceSeconds": 19.791020408163277,
+          "bpm": 154.6155749876257
+        },
+        {
+          "startMeasure": 49,
+          "endMeasureExclusive": 57,
+          "quarters": 44.0,
+          "referenceSeconds": 16.09269841269841,
+          "bpm": 164.0495541702833
+        },
+        {
+          "startMeasure": 57,
+          "endMeasureExclusive": 65,
+          "quarters": 42.0,
+          "referenceSeconds": 15.692879818594108,
+          "bpm": 160.58238061659748
+        },
+        {
+          "startMeasure": 65,
+          "endMeasureExclusive": 73,
+          "quarters": 54.0,
+          "referenceSeconds": 21.490249433106555,
+          "bpm": 150.76604904402157
+        },
+        {
+          "startMeasure": 73,
+          "endMeasureExclusive": 81,
+          "quarters": 48.0,
+          "referenceSeconds": 18.19174603174605,
+          "bpm": 158.31355577272078
+        },
+        {
+          "startMeasure": 81,
+          "endMeasureExclusive": 89,
+          "quarters": 48.0,
+          "referenceSeconds": 17.791927437641732,
+          "bpm": 161.87116376761347
+        },
+        {
+          "startMeasure": 89,
+          "endMeasureExclusive": 97,
+          "quarters": 48.0,
+          "referenceSeconds": 17.691972789115624,
+          "bpm": 162.7856901165833
+        },
+        {
+          "startMeasure": 97,
+          "endMeasureExclusive": 105,
+          "quarters": 48.0,
+          "referenceSeconds": 19.591111111111132,
+          "bpm": 147.00544464609786
+        }
+      ],
+      "localPerformanceEvents": [
+        {
+          "measure": 105,
+          "localOnset": 0,
+          "tempo": 42,
+          "untilLocalOnset": 1.5,
+          "source": "fermata over dotted-quarter rest",
+          "confidence": "number is expressive realization, not printed"
+        },
+        {
+          "measure": 105,
+          "localOnset": 1.5,
+          "tempo": 63,
+          "untilLocalOnset": 2.5,
+          "source": "tenuto quarter E-flat2, one sourcequarter retained",
+          "confidence": "medium; direct reference harmonic plateau .7–1.0s"
+        },
+        {
+          "measure": 105,
+          "localOnset": 2.5,
+          "tempo": 159,
+          "source": "remaining notated rests",
+          "confidence": "body tempo high"
+        }
+      ]
+    },
+    "5": {
+      "recommendedBaseMap": {
+        "1": 105.5
+      },
+      "sourceAnchors": {
+        "1": "Andante Moderato",
+        "20": "rit.",
+        "21": "a tempo",
+        "48": "rit.",
+        "49": "a tempo",
+        "122": "poco rit."
+      },
+      "confidence": "medium-high for105.5body",
+      "notes": "Multi-bar median105.5, variation97–116 corresponds orchestral rubato/landmarkuncertainty. Preserve source rit20/restoration21 and rit48/restoration49; final122pocorit can gently lengthen last pulse.",
+      "eightBarEvidence": [
+        {
+          "startMeasure": 1,
+          "endMeasureExclusive": 9,
+          "quarters": 28.0,
+          "referenceSeconds": 16.692426303854873,
+          "bpm": 100.64444613495334
+        },
+        {
+          "startMeasure": 9,
+          "endMeasureExclusive": 17,
+          "quarters": 28.0,
+          "referenceSeconds": 16.092698412698415,
+          "bpm": 104.3951708356348
+        },
+        {
+          "startMeasure": 17,
+          "endMeasureExclusive": 25,
+          "quarters": 28.0,
+          "referenceSeconds": 15.992743764172339,
+          "bpm": 105.04764065335752
+        },
+        {
+          "startMeasure": 25,
+          "endMeasureExclusive": 33,
+          "quarters": 28.0,
+          "referenceSeconds": 16.692426303854873,
+          "bpm": 100.64444613495334
+        },
+        {
+          "startMeasure": 33,
+          "endMeasureExclusive": 41,
+          "quarters": 28.0,
+          "referenceSeconds": 14.593378684807249,
+          "bpm": 115.12070208587133
+        },
+        {
+          "startMeasure": 41,
+          "endMeasureExclusive": 49,
+          "quarters": 28.0,
+          "referenceSeconds": 17.29215419501135,
+          "bpm": 97.15388730946354
+        },
+        {
+          "startMeasure": 49,
+          "endMeasureExclusive": 57,
+          "quarters": 28.0,
+          "referenceSeconds": 15.093151927437631,
+          "bpm": 111.30875830819349
+        },
+        {
+          "startMeasure": 57,
+          "endMeasureExclusive": 65,
+          "quarters": 28.0,
+          "referenceSeconds": 17.19219954648527,
+          "bpm": 97.71873549149532
+        },
+        {
+          "startMeasure": 65,
+          "endMeasureExclusive": 73,
+          "quarters": 28.0,
+          "referenceSeconds": 15.393015873015884,
+          "bpm": 109.14040587361814
+        },
+        {
+          "startMeasure": 73,
+          "endMeasureExclusive": 81,
+          "quarters": 28.0,
+          "referenceSeconds": 15.692879818594093,
+          "bpm": 107.05492041106507
+        },
+        {
+          "startMeasure": 81,
+          "endMeasureExclusive": 89,
+          "quarters": 28.0,
+          "referenceSeconds": 15.692879818594093,
+          "bpm": 107.05492041106507
+        },
+        {
+          "startMeasure": 89,
+          "endMeasureExclusive": 97,
+          "quarters": 28.0,
+          "referenceSeconds": 15.592925170068042,
+          "bpm": 107.74116990087941
+        },
+        {
+          "startMeasure": 97,
+          "endMeasureExclusive": 105,
+          "quarters": 28.0,
+          "referenceSeconds": 15.992743764172332,
+          "bpm": 105.04764065335756
+        },
+        {
+          "startMeasure": 105,
+          "endMeasureExclusive": 113,
+          "quarters": 28.0,
+          "referenceSeconds": 15.992743764172332,
+          "bpm": 105.04764065335756
+        },
+        {
+          "startMeasure": 113,
+          "endMeasureExclusive": 121,
+          "quarters": 28.0,
+          "referenceSeconds": 14.49342403628117,
+          "bpm": 115.91463796232563
+        }
+      ]
+    },
+    "6": {
+      "recommendedBaseMap": {
+        "1": 174,
+        "31": 144,
+        "47": 148,
+        "49": 152,
+        "81": 168,
+        "86": 172,
+        "89": 172,
+        "126": 56
+      },
+      "sourceAnchors": {
+        "1": "Allegro Assai",
+        "25": "eighth=eighth metric equivalence",
+        "31": "meno mosso Moderato",
+        "47": "accel.",
+        "49": "più mosso Allegretto",
+        "81": "più mosso",
+        "82": "accel.",
+        "86": "poco più mosso",
+        "89": "Presto",
+        "109": "free rapidly moving string glissandi; each player a different tempo",
+        "126": "Lento quarter=56",
+        "132": "rit.",
+        "134": "morendo"
+      },
+      "confidence": "high174opening and152body; medium144/168–172sections; lowfreeglisstail",
+      "notes": "Unnotated opening Kanunimprovisation occupiesabout167s of reference; source notatedAllegro beginsnear chapter167.42s. Constant-tempo wholefirst24bar correlation stronglypeaks174BPM. Do not encode167s of improvisation as slower notatedAllegro. m31truecue≈231.6s,m49≈265.98s,m81≈322.95s,m113≈370.23s,m126≈401.0s. m31–49whole81quarter average≈141.4, compatible144withaccelerando47. m49–81constanttempo fitpeaks152. m81–113avg167.5,172roundedlatePresto is withinperformance variation. m113–125freegliss/percentrepeatDTW lowconfidence; no newslowdownmerelysubitopp. q56at126unchanged. Do not lengthenstringsbychapterduration.",
+      "eightBarEvidence": [
+        {
+          "startMeasure": 1,
+          "endMeasureExclusive": 9,
+          "quarters": 56.0,
+          "referenceSeconds": 78.26448979591837,
+          "bpm": 42.93134739345391
+        },
+        {
+          "startMeasure": 9,
+          "endMeasureExclusive": 17,
+          "quarters": 56.0,
+          "referenceSeconds": 67.56934240362813,
+          "bpm": 49.726693800405926
+        },
+        {
+          "startMeasure": 17,
+          "endMeasureExclusive": 25,
+          "quarters": 56.0,
+          "referenceSeconds": 46.87873015873015,
+          "bpm": 71.67429639461496
+        },
+        {
+          "startMeasure": 25,
+          "endMeasureExclusive": 33,
+          "quarters": 27.0,
+          "referenceSeconds": 19.091337868480736,
+          "bpm": 84.85523702739422
+        },
+        {
+          "startMeasure": 33,
+          "endMeasureExclusive": 41,
+          "quarters": 36.0,
+          "referenceSeconds": 28.087256235827653,
+          "bpm": 76.9032041387061
+        },
+        {
+          "startMeasure": 41,
+          "endMeasureExclusive": 49,
+          "quarters": 36.0,
+          "referenceSeconds": 15.093151927437646,
+          "bpm": 143.11126068196293
+        },
+        {
+          "startMeasure": 49,
+          "endMeasureExclusive": 57,
+          "quarters": 36.0,
+          "referenceSeconds": 14.29351473922901,
+          "bpm": 151.1174850557792
+        },
+        {
+          "startMeasure": 57,
+          "endMeasureExclusive": 65,
+          "quarters": 36.0,
+          "referenceSeconds": 13.89369614512475,
+          "bpm": 155.46618966170038
+        },
+        {
+          "startMeasure": 65,
+          "endMeasureExclusive": 73,
+          "quarters": 36.0,
+          "referenceSeconds": 14.49342403628117,
+          "bpm": 149.03310595156154
+        },
+        {
+          "startMeasure": 73,
+          "endMeasureExclusive": 81,
+          "quarters": 36.0,
+          "referenceSeconds": 14.29351473922901,
+          "bpm": 151.1174850557792
+        },
+        {
+          "startMeasure": 81,
+          "endMeasureExclusive": 89,
+          "quarters": 24.0,
+          "referenceSeconds": 8.396190476190498,
+          "bpm": 171.5063520871139
+        },
+        {
+          "startMeasure": 89,
+          "endMeasureExclusive": 97,
+          "quarters": 36.0,
+          "referenceSeconds": 12.594285714285718,
+          "bpm": 171.5063520871143
+        },
+        {
+          "startMeasure": 97,
+          "endMeasureExclusive": 105,
+          "quarters": 36.0,
+          "referenceSeconds": 12.994104308390035,
+          "bpm": 166.2292335613568
+        },
+        {
+          "startMeasure": 105,
+          "endMeasureExclusive": 113,
+          "quarters": 36.0,
+          "referenceSeconds": 13.293968253968217,
+          "bpm": 162.47970197726667
+        },
+        {
+          "startMeasure": 113,
+          "endMeasureExclusive": 121,
+          "quarters": 36.0,
+          "referenceSeconds": 20.39074829931974,
+          "bpm": 105.9303939361588
+        },
+        {
+          "startMeasure": 121,
+          "endMeasureExclusive": 129,
+          "quarters": 28.5,
+          "referenceSeconds": 13.793741496598614,
+          "bpm": 123.96926536731658
+        },
+        {
+          "startMeasure": 129,
+          "endMeasureExclusive": 136,
+          "quarters": 14.0,
+          "referenceSeconds": 15.393015873015884,
+          "bpm": 54.57020293680907
+        }
+      ],
+      "doNotEncodeAsNotatedMusic": {
+        "kind": "opening Kanun improvisation",
+        "referenceChapterSeconds": 167.42,
+        "scoreAllegroStartsAtReferenceAbsoluteSeconds": 2403.42,
+        "evidence": "whole24bar constant-tempo correlation at174BPM; first30bar restrictedDTW supports later orchestral segment",
+        "confidence": "high approximate entrance; several-second expressive/start threshold uncertainty"
+      }
+    },
+    "7": {
+      "recommendedBaseMap": {
+        "1": 57
+      },
+      "sourceAnchors": {
+        "1": "Andante maestoso"
+      },
+      "confidence": "high57mainbody; lowlatefade",
+      "notes": "Mainbody m17–65 robust8-bar medians56.5–58.1, choose57. Source containsno tempo changes99or111; remove old invented48/40. LateDTW static harmonics/waves spuriouslyaccelerates and must not drive newtempos. Finalwaves/freefade separate.",
+      "eightBarEvidence": [
+        {
+          "startMeasure": 1,
+          "endMeasureExclusive": 9,
+          "quarters": 24.0,
+          "referenceSeconds": 23.689251700680273,
+          "bpm": 60.7870614992304
+        },
+        {
+          "startMeasure": 9,
+          "endMeasureExclusive": 17,
+          "quarters": 24.0,
+          "referenceSeconds": 19.990929705215418,
+          "bpm": 72.03266787658802
+        },
+        {
+          "startMeasure": 17,
+          "endMeasureExclusive": 25,
+          "quarters": 24.0,
+          "referenceSeconds": 25.288526077097508,
+          "bpm": 56.9428204558008
+        },
+        {
+          "startMeasure": 25,
+          "endMeasureExclusive": 33,
+          "quarters": 24.0,
+          "referenceSeconds": 24.788752834467118,
+          "bpm": 58.090861190796794
+        },
+        {
+          "startMeasure": 33,
+          "endMeasureExclusive": 41,
+          "quarters": 24.0,
+          "referenceSeconds": 25.38848072562358,
+          "bpm": 56.718636123297664
+        },
+        {
+          "startMeasure": 41,
+          "endMeasureExclusive": 49,
+          "quarters": 24.0,
+          "referenceSeconds": 25.188571428571436,
+          "bpm": 57.16878402903809
+        },
+        {
+          "startMeasure": 49,
+          "endMeasureExclusive": 57,
+          "quarters": 24.0,
+          "referenceSeconds": 25.188571428571436,
+          "bpm": 57.16878402903809
+        },
+        {
+          "startMeasure": 57,
+          "endMeasureExclusive": 65,
+          "quarters": 24.0,
+          "referenceSeconds": 25.488435374149645,
+          "bpm": 56.49621009928475
+        },
+        {
+          "startMeasure": 65,
+          "endMeasureExclusive": 73,
+          "quarters": 24.0,
+          "referenceSeconds": 27.887346938775522,
+          "bpm": 51.63632105848602
+        },
+        {
+          "startMeasure": 73,
+          "endMeasureExclusive": 81,
+          "quarters": 24.0,
+          "referenceSeconds": 25.588390022675725,
+          "bpm": 56.27552177858442
+        },
+        {
+          "startMeasure": 81,
+          "endMeasureExclusive": 89,
+          "quarters": 24.0,
+          "referenceSeconds": 28.18721088435376,
+          "bpm": 51.08699849403403
+        },
+        {
+          "startMeasure": 89,
+          "endMeasureExclusive": 97,
+          "quarters": 24.0,
+          "referenceSeconds": 29.686530612244894,
+          "bpm": 48.50684705494143
+        },
+        {
+          "startMeasure": 97,
+          "endMeasureExclusive": 105,
+          "quarters": 24.0,
+          "referenceSeconds": 13.593832199546455,
+          "bpm": 105.93039393615909
+        },
+        {
+          "startMeasure": 105,
+          "endMeasureExclusive": 113,
+          "quarters": 24.0,
+          "referenceSeconds": 17.292154195011335,
+          "bpm": 83.27476055096882
+        }
+      ]
+    }
+  }
+}

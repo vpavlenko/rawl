@@ -1,0 +1,15 @@
+{
+  "changedMovement": 6,
+  "otherSixByteIdentical": true,
+  "onlyGraceOnOffChanged": true,
+  "heads": 16,
+  "measures": [
+    36,
+    37,
+    41,
+    47
+  ],
+  "removedEvents": 28,
+  "addedEvents": 28,
+  "sha256": "1eef2163b50b74ea0910d6b667b33663268eae2397e679ae0fc910e9542e65cf"
+}

@@ -1,110 +1,6 @@
 {
   "primary-triads": [
     {
-      "artist": "Assia",
-      "title": "Elle Est a Toi",
-      "slug": "lakh/Assia/Elle_Est_a_Toi",
-      "filename": "Elle Est a Toi.mid"
-    },
-    {
-      "artist": "Assia",
-      "title": "Elle Est a Toi.1",
-      "slug": "lakh/Assia/Elle_Est_a_Toi_1",
-      "filename": "Elle Est a Toi.1.mid"
-    },
-    {
-      "artist": "Battiato",
-      "title": "Vite parallele",
-      "slug": "lakh/Battiato/Vite_parallele",
-      "filename": "Vite parallele.mid"
-    },
-    {
-      "artist": "Depeche Mode",
-      "title": "I Sometimes Wish I Was Dead",
-      "slug": "lakh/Depeche_Mode/I_Sometimes_Wish_I_Was_Dead",
-      "filename": "I Sometimes Wish I Was Dead.mid"
-    },
-    {
-      "artist": "Eddy Grant",
-      "title": "Gimme Hope Jo'Anna.1",
-      "slug": "lakh/Eddy_Grant/Gimme_Hope_Jo_Anna_1",
-      "filename": "Gimme Hope Jo'Anna.1.mid"
-    },
-    {
-      "artist": "Fun Factory",
-      "title": "I Wanna Be With You",
-      "slug": "lakh/Fun_Factory/I_Wanna_Be_With_You",
-      "filename": "I Wanna Be With You.mid"
-    },
-    {
-      "artist": "Joni Mitchell",
-      "title": "Cactus Tree",
-      "slug": "lakh/Joni_Mitchell/Cactus_Tree",
-      "filename": "Cactus Tree.mid"
-    },
-    {
-      "artist": "Phish",
-      "title": "Bliss",
-      "slug": "lakh/Phish/Bliss",
-      "filename": "Bliss.mid"
-    },
-    {
-      "artist": "Sly",
-      "title": "Everyday People",
-      "slug": "lakh/Sly/Everyday_People",
-      "filename": "Everyday People.mid"
-    },
-    {
-      "artist": "Sly & The Family Stone",
-      "title": "Everyday People",
-      "slug": "lakh/Sly_The_Family_Stone/Everyday_People",
-      "filename": "Everyday People.mid"
-    },
-    {
-      "artist": "The Cranberries",
-      "title": "Just My Imagination",
-      "slug": "lakh/The_Cranberries/Just_My_Imagination",
-      "filename": "Just My Imagination.mid"
-    },
-    {
-      "artist": "Tom Petty and The Heartbreakers",
-      "title": "I Won't Back Down",
-      "slug": "lakh/Tom_Petty_and_The_Heartbreakers/I_Won_t_Back_Down",
-      "filename": "I Won't Back Down.mid"
-    }
-  ],
-  "primary-with-iv": [
-    {
-      "artist": "883",
-      "title": "Rotta x casa di Dio",
-      "slug": "lakh/883/Rotta_x_casa_di_Dio",
-      "filename": "Rotta x casa di Dio.mid"
-    },
-    {
-      "artist": "883",
-      "title": "Tieni il tempo",
-      "slug": "lakh/883/Tieni_il_tempo",
-      "filename": "Tieni il tempo.mid"
-    },
-    {
-      "artist": "883",
-      "title": "Tieni il tempo.1",
-      "slug": "lakh/883/Tieni_il_tempo_1",
-      "filename": "Tieni il tempo.1.mid"
-    },
-    {
-      "artist": "883",
-      "title": "Tieni il tempo.2",
-      "slug": "lakh/883/Tieni_il_tempo_2",
-      "filename": "Tieni il tempo.2.mid"
-    },
-    {
-      "artist": "883",
-      "title": "Tutto cio che ho",
-      "slug": "lakh/883/Tutto_cio_che_ho",
-      "filename": "Tutto cio che ho.mid"
-    },
-    {
       "artist": "ABBA",
       "title": "I Have a Dream.1",
       "slug": "lakh/ABBA/I_Have_a_Dream_1",
@@ -135,40 +31,72 @@
       "filename": "I Have a Dream.5.mid"
     },
     {
+      "artist": "Billy Ray Cyrus",
+      "title": "Achy Breaky Heart.1",
+      "slug": "lakh/Billy_Ray_Cyrus/Achy_Breaky_Heart_1",
+      "filename": "Achy Breaky Heart.1.mid"
+    },
+    {
+      "artist": "Boney M.",
+      "title": "Rivers Of Babylon.2",
+      "slug": "lakh/Boney_M/Rivers_Of_Babylon_2",
+      "filename": "Rivers Of Babylon.2.mid"
+    },
+    {
+      "artist": "Depeche Mode",
+      "title": "I Sometimes Wish I Was Dead",
+      "slug": "lakh/Depeche_Mode/I_Sometimes_Wish_I_Was_Dead",
+      "filename": "I Sometimes Wish I Was Dead.mid"
+    },
+    {
+      "artist": "Eddy Grant",
+      "title": "Gimme Hope Jo'Anna.1",
+      "slug": "lakh/Eddy_Grant/Gimme_Hope_Jo_Anna_1",
+      "filename": "Gimme Hope Jo'Anna.1.mid"
+    },
+    {
+      "artist": "Joni Mitchell",
+      "title": "Cactus Tree",
+      "slug": "lakh/Joni_Mitchell/Cactus_Tree",
+      "filename": "Cactus Tree.mid"
+    },
+    {
+      "artist": "Phish",
+      "title": "Bliss",
+      "slug": "lakh/Phish/Bliss",
+      "filename": "Bliss.mid"
+    },
+    {
+      "artist": "Sly",
+      "title": "Everyday People",
+      "slug": "lakh/Sly/Everyday_People",
+      "filename": "Everyday People.mid"
+    },
+    {
+      "artist": "Sly & The Family Stone",
+      "title": "Everyday People",
+      "slug": "lakh/Sly_The_Family_Stone/Everyday_People",
+      "filename": "Everyday People.mid"
+    }
+  ],
+  "primary-with-iv": [
+    {
+      "artist": "883",
+      "title": "Rotta x casa di Dio",
+      "slug": "lakh/883/Rotta_x_casa_di_Dio",
+      "filename": "Rotta x casa di Dio.mid"
+    },
+    {
       "artist": "Angelo Branduardi",
       "title": "La pulce d'acqua.1",
       "slug": "lakh/Angelo_Branduardi/La_pulce_d_acqua_1",
       "filename": "La pulce d'acqua.1.mid"
     },
     {
-      "artist": "Antonello Venditti",
-      "title": "Piero e Cinzia",
-      "slug": "lakh/Antonello_Venditti/Piero_e_Cinzia",
-      "filename": "Piero e Cinzia.mid"
-    },
-    {
-      "artist": "Antonello Venditti",
-      "title": "Sara",
-      "slug": "lakh/Antonello_Venditti/Sara",
-      "filename": "Sara.mid"
-    },
-    {
-      "artist": "Antonello Venditti",
-      "title": "Sotto il segno dei pesci.2",
-      "slug": "lakh/Antonello_Venditti/Sotto_il_segno_dei_pesci_2",
-      "filename": "Sotto il segno dei pesci.2.mid"
-    },
-    {
       "artist": "Arrested Development",
       "title": "Mr Wendal",
       "slug": "lakh/Arrested_Development/Mr_Wendal",
       "filename": "Mr Wendal.mid"
-    },
-    {
-      "artist": "Atomic Kitten",
-      "title": "It's OK",
-      "slug": "lakh/Atomic_Kitten/It_s_OK",
-      "filename": "It's OK.mid"
     },
     {
       "artist": "Battiato",
@@ -201,12 +129,6 @@
       "filename": "Badlands.mid"
     },
     {
-      "artist": "Bruce Springsteen",
-      "title": "Brilliant Disguise",
-      "slug": "lakh/Bruce_Springsteen/Brilliant_Disguise",
-      "filename": "Brilliant Disguise.mid"
-    },
-    {
       "artist": "Brunner & Brunner",
       "title": "Shananana (lass' uns leben).2",
       "slug": "lakh/Brunner_Brunner/Shananana_lass_uns_leben_2",
@@ -223,12 +145,6 @@
       "title": "Limbo Rock",
       "slug": "lakh/Checker_Chubby/Limbo_Rock",
       "filename": "Limbo Rock.mid"
-    },
-    {
-      "artist": "Chris Isaak",
-      "title": "Somebody's Crying",
-      "slug": "lakh/Chris_Isaak/Somebody_s_Crying",
-      "filename": "Somebody's Crying.mid"
     },
     {
       "artist": "Chumbawamba",
@@ -249,10 +165,10 @@
       "filename": "Down on the Corner.1.mid"
     },
     {
-      "artist": "Cyndi Lauper",
-      "title": "Time After Time",
-      "slug": "lakh/Cyndi_Lauper/Time_After_Time",
-      "filename": "Time After Time.mid"
+      "artist": "Creedence Clearwater Revival",
+      "title": "Down on the Corner.2",
+      "slug": "lakh/Creedence_Clearwater_Revival/Down_on_the_Corner_2",
+      "filename": "Down on the Corner.2.mid"
     },
     {
       "artist": "Danyel Gerard",
@@ -261,28 +177,10 @@
       "filename": "Butterfly.mid"
     },
     {
-      "artist": "De Deurzakkers",
-      "title": "Doe 'n stapje naar voren",
-      "slug": "lakh/De_Deurzakkers/Doe_n_stapje_naar_voren",
-      "filename": "Doe 'n stapje naar voren.mid"
-    },
-    {
       "artist": "Deep Blue Something",
       "title": "Breakfast At Tiffany's.2",
       "slug": "lakh/Deep_Blue_Something/Breakfast_At_Tiffany_s_2",
       "filename": "Breakfast At Tiffany's.2.mid"
-    },
-    {
-      "artist": "Dion",
-      "title": "A Teenager in Love",
-      "slug": "lakh/Dion/A_Teenager_in_Love",
-      "filename": "A Teenager in Love.mid"
-    },
-    {
-      "artist": "Dr. Dre",
-      "title": "Keep Their Heads Ringing",
-      "slug": "lakh/Dr_Dre/Keep_Their_Heads_Ringing",
-      "filename": "Keep Their Heads Ringing.mid"
     },
     {
       "artist": "Elvis Presley",
@@ -303,22 +201,10 @@
       "filename": "I Don't Want to Know [Early Take].mid"
     },
     {
-      "artist": "Fleetwood Mac",
-      "title": "Seven Wonders",
-      "slug": "lakh/Fleetwood_Mac/Seven_Wonders",
-      "filename": "Seven Wonders.mid"
-    },
-    {
-      "artist": "Green Day",
-      "title": "Do Da Da",
-      "slug": "lakh/Green_Day/Do_Da_Da",
-      "filename": "Do Da Da.mid"
-    },
-    {
-      "artist": "Green Day",
-      "title": "Minority",
-      "slug": "lakh/Green_Day/Minority",
-      "filename": "Minority.mid"
+      "artist": "Fun Factory",
+      "title": "I Wanna Be With You",
+      "slug": "lakh/Fun_Factory/I_Wanna_Be_With_You",
+      "filename": "I Wanna Be With You.mid"
     },
     {
       "artist": "Green Day",
@@ -346,12 +232,6 @@
     },
     {
       "artist": "Green Day",
-      "title": "When I Come Around.4",
-      "slug": "lakh/Green_Day/When_I_Come_Around_4",
-      "filename": "When I Come Around.4.mid"
-    },
-    {
-      "artist": "Green Day",
       "title": "When I Come Around.5",
       "slug": "lakh/Green_Day/When_I_Come_Around_5",
       "filename": "When I Come Around.5.mid"
@@ -375,28 +255,10 @@
       "filename": "I'm Gonna Love You Too.mid"
     },
     {
-      "artist": "Jackson Michael",
-      "title": "Will You Be There",
-      "slug": "lakh/Jackson_Michael/Will_You_Be_There",
-      "filename": "Will You Be There.mid"
-    },
-    {
       "artist": "Jay & The Americans",
       "title": "Let's Lock the Door",
       "slug": "lakh/Jay_The_Americans/Let_s_Lock_the_Door",
       "filename": "Let's Lock the Door.mid"
-    },
-    {
-      "artist": "John Denver",
-      "title": "Annie's Song.1",
-      "slug": "lakh/John_Denver/Annie_s_Song_1",
-      "filename": "Annie's Song.1.mid"
-    },
-    {
-      "artist": "John Denver",
-      "title": "Poems, Prayers and Promises",
-      "slug": "lakh/John_Denver/Poems_Prayers_and_Promises",
-      "filename": "Poems, Prayers and Promises.mid"
     },
     {
       "artist": "John Farnham",
@@ -405,16 +267,16 @@
       "filename": "Pressure Down.mid"
     },
     {
-      "artist": "John Robert",
-      "title": "Sad Eyes",
-      "slug": "lakh/John_Robert/Sad_Eyes",
-      "filename": "Sad Eyes.mid"
-    },
-    {
       "artist": "Journey",
       "title": "Any Way You Want It",
       "slug": "lakh/Journey/Any_Way_You_Want_It",
       "filename": "Any Way You Want It.mid"
+    },
+    {
+      "artist": "Kaempfert",
+      "title": "Wunderland Bei Nacht",
+      "slug": "lakh/Kaempfert/Wunderland_Bei_Nacht",
+      "filename": "Wunderland Bei Nacht.mid"
     },
     {
       "artist": "Kool & The Gang",
@@ -453,12 +315,6 @@
       "filename": "Heartbeat.mid"
     },
     {
-      "artist": "Nomadi",
-      "title": "Utopia",
-      "slug": "lakh/Nomadi/Utopia",
-      "filename": "Utopia.mid"
-    },
-    {
       "artist": "OMC",
       "title": "How Bizarre",
       "slug": "lakh/OMC/How_Bizarre",
@@ -471,24 +327,6 @@
       "filename": "How Bizarre.2.mid"
     },
     {
-      "artist": "Puff Daddy",
-      "title": "I'll Be Missing You",
-      "slug": "lakh/Puff_Daddy/I_ll_Be_Missing_You",
-      "filename": "I'll Be Missing You.mid"
-    },
-    {
-      "artist": "Puff Daddy",
-      "title": "I'll Be Missing You.1",
-      "slug": "lakh/Puff_Daddy/I_ll_Be_Missing_You_1",
-      "filename": "I'll Be Missing You.1.mid"
-    },
-    {
-      "artist": "Ranieri",
-      "title": "Rose rosse.2",
-      "slug": "lakh/Ranieri/Rose_rosse_2",
-      "filename": "Rose rosse.2.mid"
-    },
-    {
       "artist": "Rick",
       "title": "Fim de Semana",
       "slug": "lakh/Rick/Fim_de_Semana",
@@ -499,12 +337,6 @@
       "title": "When You Say Nothing At All",
       "slug": "lakh/Ronan_Keating/When_You_Say_Nothing_At_All",
       "filename": "When You Say Nothing At All.mid"
-    },
-    {
-      "artist": "Rossi Vasco",
-      "title": "Toffee",
-      "slug": "lakh/Rossi_Vasco/Toffee",
-      "filename": "Toffee.mid"
     },
     {
       "artist": "Roxette",
@@ -531,16 +363,10 @@
       "filename": "Cecilia.mid"
     },
     {
-      "artist": "Spice Girls",
-      "title": "Mama.1",
-      "slug": "lakh/Spice_Girls/Mama_1",
-      "filename": "Mama.1.mid"
-    },
-    {
-      "artist": "Spice Girls",
-      "title": "Mama.2",
-      "slug": "lakh/Spice_Girls/Mama_2",
-      "filename": "Mama.2.mid"
+      "artist": "Simon & Garfunkel",
+      "title": "The 59th Street Bridge Song",
+      "slug": "lakh/Simon_Garfunkel/The_59th_Street_Bridge_Song",
+      "filename": "The 59th Street Bridge Song.mid"
     },
     {
       "artist": "Sublime",
@@ -553,6 +379,12 @@
       "title": "Maggie Mae",
       "slug": "lakh/The_Beatles/Maggie_Mae",
       "filename": "Maggie Mae.mid"
+    },
+    {
+      "artist": "The Beatles",
+      "title": "Maggie Mae.1",
+      "slug": "lakh/The_Beatles/Maggie_Mae_1",
+      "filename": "Maggie Mae.1.mid"
     },
     {
       "artist": "The Beatles",
@@ -585,46 +417,16 @@
       "filename": "The Bells Of Rhymney.mid"
     },
     {
-      "artist": "The Byrds",
-      "title": "You Ain't Goin' Nowhere",
-      "slug": "lakh/The_Byrds/You_Ain_t_Goin_Nowhere",
-      "filename": "You Ain't Goin' Nowhere.mid"
-    },
-    {
       "artist": "The Cranberries",
       "title": "Away",
       "slug": "lakh/The_Cranberries/Away",
       "filename": "Away.mid"
     },
     {
-      "artist": "The Cranberries",
-      "title": "Free to Decide",
-      "slug": "lakh/The_Cranberries/Free_to_Decide",
-      "filename": "Free to Decide.mid"
-    },
-    {
-      "artist": "The Cranberries",
-      "title": "Free to Decide.1",
-      "slug": "lakh/The_Cranberries/Free_to_Decide_1",
-      "filename": "Free to Decide.1.mid"
-    },
-    {
-      "artist": "The Cranberries",
-      "title": "Free to Decide.2",
-      "slug": "lakh/The_Cranberries/Free_to_Decide_2",
-      "filename": "Free to Decide.2.mid"
-    },
-    {
       "artist": "The Cult",
       "title": "(She Sells) Sanctuary",
       "slug": "lakh/The_Cult/She_Sells_Sanctuary",
       "filename": "(She Sells) Sanctuary.mid"
-    },
-    {
-      "artist": "The Cure",
-      "title": "Boys Don't Cry",
-      "slug": "lakh/The_Cure/Boys_Don_t_Cry",
-      "filename": "Boys Don't Cry.mid"
     },
     {
       "artist": "The Everly Brothers",
@@ -637,12 +439,6 @@
       "title": "Don't Pick It Up",
       "slug": "lakh/The_Offspring/Don_t_Pick_It_Up",
       "filename": "Don't Pick It Up.mid"
-    },
-    {
-      "artist": "The Temptations",
-      "title": "Beauty Is Only Skin Deep",
-      "slug": "lakh/The_Temptations/Beauty_Is_Only_Skin_Deep",
-      "filename": "Beauty Is Only Skin Deep.mid"
     },
     {
       "artist": "Third Eye Blind",
@@ -693,22 +489,10 @@
       "filename": "I Still Haven't Found What I'm Looking For.3.mid"
     },
     {
-      "artist": "U2",
-      "title": "If God Will Send His Angels",
-      "slug": "lakh/U2/If_God_Will_Send_His_Angels",
-      "filename": "If God Will Send His Angels.mid"
-    },
-    {
       "artist": "Valens Ritchie",
       "title": "La Bamba",
       "slug": "lakh/Valens_Ritchie/La_Bamba",
       "filename": "La Bamba.mid"
-    },
-    {
-      "artist": "Valens Ritchie",
-      "title": "La Bamba.1",
-      "slug": "lakh/Valens_Ritchie/La_Bamba_1",
-      "filename": "La Bamba.1.mid"
     }
   ],
   "triads-with-vi": [
@@ -737,6 +521,30 @@
       "filename": "Nessun rimpianto.1.mid"
     },
     {
+      "artist": "883",
+      "title": "Tieni il tempo",
+      "slug": "lakh/883/Tieni_il_tempo",
+      "filename": "Tieni il tempo.mid"
+    },
+    {
+      "artist": "883",
+      "title": "Tieni il tempo.1",
+      "slug": "lakh/883/Tieni_il_tempo_1",
+      "filename": "Tieni il tempo.1.mid"
+    },
+    {
+      "artist": "883",
+      "title": "Tieni il tempo.2",
+      "slug": "lakh/883/Tieni_il_tempo_2",
+      "filename": "Tieni il tempo.2.mid"
+    },
+    {
+      "artist": "883",
+      "title": "Tutto cio che ho",
+      "slug": "lakh/883/Tutto_cio_che_ho",
+      "filename": "Tutto cio che ho.mid"
+    },
+    {
       "artist": "ABBA",
       "title": "Take a Chance on Me.3",
       "slug": "lakh/ABBA/Take_a_Chance_on_Me_3",
@@ -755,10 +563,22 @@
       "filename": "Gone Country.mid"
     },
     {
+      "artist": "Alan Jackson",
+      "title": "Where Were You (When the World Stopped Turning) (live, CMA Awards)",
+      "slug": "lakh/Alan_Jackson/Where_Were_You_When_the_World_Stopped_Turning_live_CMA_Awards",
+      "filename": "Where Were You (When the World Stopped Turning) (live, CMA Awards).mid"
+    },
+    {
       "artist": "All Saints",
       "title": "Pure Shoes.3",
       "slug": "lakh/All_Saints/Pure_Shoes_3",
       "filename": "Pure Shoes.3.mid"
+    },
+    {
+      "artist": "Amos, Tori",
+      "title": "Playboy Mommy",
+      "slug": "lakh/Amos_Tori/Playboy_Mommy",
+      "filename": "Playboy Mommy.mid"
     },
     {
       "artist": "Amy Grant",
@@ -767,10 +587,34 @@
       "filename": "Doubly Good to You.mid"
     },
     {
-      "artist": "Amy Grant",
-      "title": "Doubly Good to You.1",
-      "slug": "lakh/Amy_Grant/Doubly_Good_to_You_1",
-      "filename": "Doubly Good to You.1.mid"
+      "artist": "Antonello Venditti",
+      "title": "Piero e Cinzia",
+      "slug": "lakh/Antonello_Venditti/Piero_e_Cinzia",
+      "filename": "Piero e Cinzia.mid"
+    },
+    {
+      "artist": "Assia",
+      "title": "Elle Est a Toi",
+      "slug": "lakh/Assia/Elle_Est_a_Toi",
+      "filename": "Elle Est a Toi.mid"
+    },
+    {
+      "artist": "Assia",
+      "title": "Elle Est a Toi.1",
+      "slug": "lakh/Assia/Elle_Est_a_Toi_1",
+      "filename": "Elle Est a Toi.1.mid"
+    },
+    {
+      "artist": "Atomic Kitten",
+      "title": "It's OK",
+      "slug": "lakh/Atomic_Kitten/It_s_OK",
+      "filename": "It's OK.mid"
+    },
+    {
+      "artist": "Backstreet Boys",
+      "title": "I Need You Tonight",
+      "slug": "lakh/Backstreet_Boys/I_Need_You_Tonight",
+      "filename": "I Need You Tonight.mid"
     },
     {
       "artist": "Battiato",
@@ -785,34 +629,10 @@
       "filename": "Nel sole, nel vento, nel sorriso e nel pianto.1.mid"
     },
     {
-      "artist": "Bee Gees",
-      "title": "Massachusettes.1",
-      "slug": "lakh/Bee_Gees/Massachusettes_1",
-      "filename": "Massachusettes.1.mid"
-    },
-    {
       "artist": "Bette Midler",
-      "title": "The Rose",
-      "slug": "lakh/Bette_Midler/The_Rose",
-      "filename": "The Rose.mid"
-    },
-    {
-      "artist": "blink-182",
-      "title": "What's My Age Again.1",
-      "slug": "lakh/blink_182/What_s_My_Age_Again_1",
-      "filename": "What's My Age Again.1.mid"
-    },
-    {
-      "artist": "blink-182",
-      "title": "What's My Age Again.2",
-      "slug": "lakh/blink_182/What_s_My_Age_Again_2",
-      "filename": "What's My Age Again.2.mid"
-    },
-    {
-      "artist": "blink-182",
-      "title": "What's My Age Again.3",
-      "slug": "lakh/blink_182/What_s_My_Age_Again_3",
-      "filename": "What's My Age Again.3.mid"
+      "title": "From a Distance.2",
+      "slug": "lakh/Bette_Midler/From_a_Distance_2",
+      "filename": "From a Distance.2.mid"
     },
     {
       "artist": "Bloodhound Gang",
@@ -821,16 +641,16 @@
       "filename": "The Bad Touch.mid"
     },
     {
-      "artist": "Boney M.",
-      "title": "Rivers Of Babylon.2",
-      "slug": "lakh/Boney_M/Rivers_Of_Babylon_2",
-      "filename": "Rivers Of Babylon.2.mid"
-    },
-    {
       "artist": "Britney Spears",
       "title": "Before the Goodbye",
       "slug": "lakh/Britney_Spears/Before_the_Goodbye",
       "filename": "Before the Goodbye.mid"
+    },
+    {
+      "artist": "Bruce Springsteen",
+      "title": "Brilliant Disguise",
+      "slug": "lakh/Bruce_Springsteen/Brilliant_Disguise",
+      "filename": "Brilliant Disguise.mid"
     },
     {
       "artist": "Bruce Springsteen",
@@ -845,22 +665,10 @@
       "filename": "My Hometown.mid"
     },
     {
-      "artist": "Celine Dion",
-      "title": "Where Does My Heart Beat Now",
-      "slug": "lakh/Celine_Dion/Where_Does_My_Heart_Beat_Now",
-      "filename": "Where Does My Heart Beat Now.mid"
-    },
-    {
-      "artist": "Celine Dion",
-      "title": "Where Does My Heart Beat Now.1",
-      "slug": "lakh/Celine_Dion/Where_Does_My_Heart_Beat_Now_1",
-      "filename": "Where Does My Heart Beat Now.1.mid"
-    },
-    {
-      "artist": "Celine Dion",
-      "title": "Where Does My Heart Beat Now.2",
-      "slug": "lakh/Celine_Dion/Where_Does_My_Heart_Beat_Now_2",
-      "filename": "Where Does My Heart Beat Now.2.mid"
+      "artist": "Chris Isaak",
+      "title": "Somebody's Crying",
+      "slug": "lakh/Chris_Isaak/Somebody_s_Crying",
+      "filename": "Somebody's Crying.mid"
     },
     {
       "artist": "Collective Soul",
@@ -875,6 +683,12 @@
       "filename": "Argentina.mid"
     },
     {
+      "artist": "Counting Crows",
+      "title": "Raining in Baltimore",
+      "slug": "lakh/Counting_Crows/Raining_in_Baltimore",
+      "filename": "Raining in Baltimore.mid"
+    },
+    {
       "artist": "Cyndi Lauper",
       "title": "True Colors",
       "slug": "lakh/Cyndi_Lauper/True_Colors",
@@ -887,10 +701,52 @@
       "filename": "True Colors.2.mid"
     },
     {
+      "artist": "Dion",
+      "title": "A Teenager in Love",
+      "slug": "lakh/Dion/A_Teenager_in_Love",
+      "filename": "A Teenager in Love.mid"
+    },
+    {
+      "artist": "Dire Straits",
+      "title": "Romeo & Juliet",
+      "slug": "lakh/Dire_Straits/Romeo_Juliet",
+      "filename": "Romeo & Juliet.mid"
+    },
+    {
+      "artist": "Dire Straits",
+      "title": "Romeo & Juliet.2",
+      "slug": "lakh/Dire_Straits/Romeo_Juliet_2",
+      "filename": "Romeo & Juliet.2.mid"
+    },
+    {
+      "artist": "Dire Straits",
+      "title": "Romeo & Juliet.4",
+      "slug": "lakh/Dire_Straits/Romeo_Juliet_4",
+      "filename": "Romeo & Juliet.4.mid"
+    },
+    {
       "artist": "DJ Quicksilver",
       "title": "Bellisima",
       "slug": "lakh/DJ_Quicksilver/Bellisima",
       "filename": "Bellisima.mid"
+    },
+    {
+      "artist": "Don Henley",
+      "title": "Boys of Summer",
+      "slug": "lakh/Don_Henley/Boys_of_Summer",
+      "filename": "Boys of Summer.mid"
+    },
+    {
+      "artist": "Don Henley",
+      "title": "Boys of Summer.1",
+      "slug": "lakh/Don_Henley/Boys_of_Summer_1",
+      "filename": "Boys of Summer.1.mid"
+    },
+    {
+      "artist": "Don Henley",
+      "title": "Boys of Summer.2",
+      "slug": "lakh/Don_Henley/Boys_of_Summer_2",
+      "filename": "Boys of Summer.2.mid"
     },
     {
       "artist": "DULFER, CANDY",
@@ -930,12 +786,6 @@
     },
     {
       "artist": "Fleetwood Mac",
-      "title": "Everywhere",
-      "slug": "lakh/Fleetwood_Mac/Everywhere",
-      "filename": "Everywhere.mid"
-    },
-    {
-      "artist": "Fleetwood Mac",
       "title": "Gypsy.1",
       "slug": "lakh/Fleetwood_Mac/Gypsy_1",
       "filename": "Gypsy.1.mid"
@@ -954,9 +804,9 @@
     },
     {
       "artist": "Fleetwood Mac",
-      "title": "Never Going Back Again",
-      "slug": "lakh/Fleetwood_Mac/Never_Going_Back_Again",
-      "filename": "Never Going Back Again.mid"
+      "title": "Seven Wonders",
+      "slug": "lakh/Fleetwood_Mac/Seven_Wonders",
+      "filename": "Seven Wonders.mid"
     },
     {
       "artist": "Four Tops",
@@ -1043,16 +893,10 @@
       "filename": "Good Riddance (Time of Your Life).1.mid"
     },
     {
-      "artist": "Huey Lewis & The News",
-      "title": "Stuck With You",
-      "slug": "lakh/Huey_Lewis_The_News/Stuck_With_You",
-      "filename": "Stuck With You.mid"
-    },
-    {
-      "artist": "Jewel",
-      "title": "Life Uncommon",
-      "slug": "lakh/Jewel/Life_Uncommon",
-      "filename": "Life Uncommon.mid"
+      "artist": "Green Day",
+      "title": "Minority",
+      "slug": "lakh/Green_Day/Minority",
+      "filename": "Minority.mid"
     },
     {
       "artist": "Journey",
@@ -1085,6 +929,18 @@
       "filename": "Desiree.mid"
     },
     {
+      "artist": "Neil Diamond",
+      "title": "Sweet Caroline.4",
+      "slug": "lakh/Neil_Diamond/Sweet_Caroline_4",
+      "filename": "Sweet Caroline.4.mid"
+    },
+    {
+      "artist": "Neil Diamond",
+      "title": "Sweet Caroline.5",
+      "slug": "lakh/Neil_Diamond/Sweet_Caroline_5",
+      "filename": "Sweet Caroline.5.mid"
+    },
+    {
       "artist": "Nirvana",
       "title": "Molly's Lips",
       "slug": "lakh/Nirvana/Molly_s_Lips",
@@ -1097,22 +953,22 @@
       "filename": "Amore che prendi amore che dai.mid"
     },
     {
-      "artist": "Paola Turci",
-      "title": "Solo come me",
-      "slug": "lakh/Paola_Turci/Solo_come_me",
-      "filename": "Solo come me.mid"
+      "artist": "Nomadi",
+      "title": "Utopia",
+      "slug": "lakh/Nomadi/Utopia",
+      "filename": "Utopia.mid"
     },
     {
-      "artist": "Ramazzotti",
-      "title": "Ti sposero perche",
-      "slug": "lakh/Ramazzotti/Ti_sposero_perche",
-      "filename": "Ti sposero perche.mid"
+      "artist": "Puff Daddy",
+      "title": "I'll Be Missing You",
+      "slug": "lakh/Puff_Daddy/I_ll_Be_Missing_You",
+      "filename": "I'll Be Missing You.mid"
     },
     {
-      "artist": "Ramazzotti",
-      "title": "Ti sposero perche.1",
-      "slug": "lakh/Ramazzotti/Ti_sposero_perche_1",
-      "filename": "Ti sposero perche.1.mid"
+      "artist": "Puff Daddy",
+      "title": "I'll Be Missing You.1",
+      "slug": "lakh/Puff_Daddy/I_ll_Be_Missing_You_1",
+      "filename": "I'll Be Missing You.1.mid"
     },
     {
       "artist": "Real McCoy",
@@ -1131,12 +987,6 @@
       "title": "Time for Me to Fly",
       "slug": "lakh/REO_Speedwagon/Time_for_Me_to_Fly",
       "filename": "Time for Me to Fly.mid"
-    },
-    {
-      "artist": "RICHIE LIONEL",
-      "title": "Stuck on You.1",
-      "slug": "lakh/RICHIE_LIONEL/Stuck_on_You_1",
-      "filename": "Stuck on You.1.mid"
     },
     {
       "artist": "Righeira",
@@ -1164,33 +1014,21 @@
     },
     {
       "artist": "Simon & Garfunkel",
-      "title": "I Am a Rock",
-      "slug": "lakh/Simon_Garfunkel/I_Am_a_Rock",
-      "filename": "I Am a Rock.mid"
-    },
-    {
-      "artist": "Simon & Garfunkel",
-      "title": "The 59th Street Bridge Song",
-      "slug": "lakh/Simon_Garfunkel/The_59th_Street_Bridge_Song",
-      "filename": "The 59th Street Bridge Song.mid"
-    },
-    {
-      "artist": "Simon & Garfunkel",
       "title": "The Boxer.1",
       "slug": "lakh/Simon_Garfunkel/The_Boxer_1",
       "filename": "The Boxer.1.mid"
     },
     {
-      "artist": "Sixpence None the Richer",
-      "title": "There She Goes",
-      "slug": "lakh/Sixpence_None_the_Richer/There_She_Goes",
-      "filename": "There She Goes.mid"
+      "artist": "Spice Girls",
+      "title": "Mama.1",
+      "slug": "lakh/Spice_Girls/Mama_1",
+      "filename": "Mama.1.mid"
     },
     {
-      "artist": "Stevie Nicks",
-      "title": "Stand Back.1",
-      "slug": "lakh/Stevie_Nicks/Stand_Back_1",
-      "filename": "Stand Back.1.mid"
+      "artist": "Spice Girls",
+      "title": "Mama.2",
+      "slug": "lakh/Spice_Girls/Mama_2",
+      "filename": "Mama.2.mid"
     },
     {
       "artist": "The Beatles",
@@ -1206,21 +1044,9 @@
     },
     {
       "artist": "The Cranberries",
-      "title": "Joe",
-      "slug": "lakh/The_Cranberries/Joe",
-      "filename": "Joe.mid"
-    },
-    {
-      "artist": "The Cranberries",
       "title": "Wanted",
       "slug": "lakh/The_Cranberries/Wanted",
       "filename": "Wanted.mid"
-    },
-    {
-      "artist": "The Kelly Family",
-      "title": "First Time",
-      "slug": "lakh/The_Kelly_Family/First_Time",
-      "filename": "First Time.mid"
     },
     {
       "artist": "The Kelly Family",
@@ -1239,24 +1065,6 @@
       "title": "Good Time Woman",
       "slug": "lakh/The_Rolling_Stones/Good_Time_Woman",
       "filename": "Good Time Woman.mid"
-    },
-    {
-      "artist": "The Tony Rich Project",
-      "title": "Nobody Knows",
-      "slug": "lakh/The_Tony_Rich_Project/Nobody_Knows",
-      "filename": "Nobody Knows.mid"
-    },
-    {
-      "artist": "Three degrees the",
-      "title": "When Will I See You Again",
-      "slug": "lakh/Three_degrees_the/When_Will_I_See_You_Again",
-      "filename": "When Will I See You Again.mid"
-    },
-    {
-      "artist": "Three degrees the",
-      "title": "When Will I See You Again.1",
-      "slug": "lakh/Three_degrees_the/When_Will_I_See_You_Again_1",
-      "filename": "When Will I See You Again.1.mid"
     },
     {
       "artist": "Tina Turner",
@@ -1284,15 +1092,9 @@
     },
     {
       "artist": "Tom Petty and The Heartbreakers",
-      "title": "Learning to Fly",
-      "slug": "lakh/Tom_Petty_and_The_Heartbreakers/Learning_to_Fly",
-      "filename": "Learning to Fly.mid"
-    },
-    {
-      "artist": "Tom Petty and The Heartbreakers",
-      "title": "Learning to Fly.1",
-      "slug": "lakh/Tom_Petty_and_The_Heartbreakers/Learning_to_Fly_1",
-      "filename": "Learning to Fly.1.mid"
+      "title": "I Won't Back Down",
+      "slug": "lakh/Tom_Petty_and_The_Heartbreakers/I_Won_t_Back_Down",
+      "filename": "I Won't Back Down.mid"
     },
     {
       "artist": "Tozzi",
@@ -1331,6 +1133,12 @@
       "filename": "(Your Love Keeps Lifting Me) Higher & Higher.mid"
     },
     {
+      "artist": "Winger",
+      "title": "Miles Away",
+      "slug": "lakh/Winger/Miles_Away",
+      "filename": "Miles Away.mid"
+    },
+    {
       "artist": "Zucchero",
       "title": "Donne.2",
       "slug": "lakh/Zucchero/Donne_2",
@@ -1340,15 +1148,15 @@
   "triads-with-ii": [
     {
       "artist": "883",
-      "title": "Gli anni ('96)",
-      "slug": "lakh/883/Gli_anni_96",
-      "filename": "Gli anni ('96).mid"
+      "title": "Come mai (feat. Fiorello)",
+      "slug": "lakh/883/Come_mai_feat_Fiorello",
+      "filename": "Come mai (feat. Fiorello).mid"
     },
     {
       "artist": "883",
-      "title": "Gli anni ('96).1",
-      "slug": "lakh/883/Gli_anni_96_1",
-      "filename": "Gli anni ('96).1.mid"
+      "title": "Gli anni ('96)",
+      "slug": "lakh/883/Gli_anni_96",
+      "filename": "Gli anni ('96).mid"
     },
     {
       "artist": "883",
@@ -1363,28 +1171,10 @@
       "filename": "All Out Of Love.mid"
     },
     {
-      "artist": "Air Supply",
-      "title": "All Out Of Love.1",
-      "slug": "lakh/Air_Supply/All_Out_Of_Love_1",
-      "filename": "All Out Of Love.1.mid"
-    },
-    {
-      "artist": "Air Supply",
-      "title": "All Out Of Love.2",
-      "slug": "lakh/Air_Supply/All_Out_Of_Love_2",
-      "filename": "All Out Of Love.2.mid"
-    },
-    {
-      "artist": "Air Supply",
-      "title": "All Out Of Love.3",
-      "slug": "lakh/Air_Supply/All_Out_Of_Love_3",
-      "filename": "All Out Of Love.3.mid"
-    },
-    {
-      "artist": "Alabama",
-      "title": "When We Make Love",
-      "slug": "lakh/Alabama/When_We_Make_Love",
-      "filename": "When We Make Love.mid"
+      "artist": "Alanis Morissette",
+      "title": "That I Would Be Good",
+      "slug": "lakh/Alanis_Morissette/That_I_Would_Be_Good",
+      "filename": "That I Would Be Good.mid"
     },
     {
       "artist": "Alanis Morissette",
@@ -1399,22 +1189,16 @@
       "filename": "American Made.mid"
     },
     {
-      "artist": "Amos, Tori",
-      "title": "Playboy Mommy",
-      "slug": "lakh/Amos_Tori/Playboy_Mommy",
-      "filename": "Playboy Mommy.mid"
+      "artist": "Ana Belen",
+      "title": "Desde mi libertad",
+      "slug": "lakh/Ana_Belen/Desde_mi_libertad",
+      "filename": "Desde mi libertad.mid"
     },
     {
       "artist": "Angelo Branduardi",
       "title": "Il giocatore di biliardo",
       "slug": "lakh/Angelo_Branduardi/Il_giocatore_di_biliardo",
       "filename": "Il giocatore di biliardo.mid"
-    },
-    {
-      "artist": "Anna Oxa",
-      "title": "A lei",
-      "slug": "lakh/Anna_Oxa/A_lei",
-      "filename": "A lei.mid"
     },
     {
       "artist": "Antonello Venditti",
@@ -1441,6 +1225,12 @@
       "filename": "Sotto il segno dei pesci.1.mid"
     },
     {
+      "artist": "Antonello Venditti",
+      "title": "Sotto il segno dei pesci.2",
+      "slug": "lakh/Antonello_Venditti/Sotto_il_segno_dei_pesci_2",
+      "filename": "Sotto il segno dei pesci.2.mid"
+    },
+    {
       "artist": "Band Aid",
       "title": "Do They Know It's Christmas",
       "slug": "lakh/Band_Aid/Do_They_Know_It_s_Christmas",
@@ -1451,6 +1241,12 @@
       "title": "Old Apartment",
       "slug": "lakh/Barenaked_Ladies/Old_Apartment",
       "filename": "Old Apartment.mid"
+    },
+    {
+      "artist": "Bee Gees",
+      "title": "Massachusettes.1",
+      "slug": "lakh/Bee_Gees/Massachusettes_1",
+      "filename": "Massachusettes.1.mid"
     },
     {
       "artist": "Biagio Antonacci",
@@ -1471,18 +1267,6 @@
       "filename": "We Didn't Start the Fire.mid"
     },
     {
-      "artist": "Billy Joel",
-      "title": "We Didn't Start the Fire.2",
-      "slug": "lakh/Billy_Joel/We_Didn_t_Start_the_Fire_2",
-      "filename": "We Didn't Start the Fire.2.mid"
-    },
-    {
-      "artist": "blink-182",
-      "title": "Don't Leave Me",
-      "slug": "lakh/blink_182/Don_t_Leave_Me",
-      "filename": "Don't Leave Me.mid"
-    },
-    {
       "artist": "blink-182",
       "title": "Every Time I Look for You",
       "slug": "lakh/blink_182/Every_Time_I_Look_for_You",
@@ -1493,12 +1277,6 @@
       "title": "M+M's",
       "slug": "lakh/blink_182/M_M_s",
       "filename": "M+M's.mid"
-    },
-    {
-      "artist": "blink-182",
-      "title": "Online Songs",
-      "slug": "lakh/blink_182/Online_Songs",
-      "filename": "Online Songs.mid"
     },
     {
       "artist": "Blondie",
@@ -1543,12 +1321,6 @@
       "filename": "Dancing in the Dark.2.mid"
     },
     {
-      "artist": "Bruce Springsteen",
-      "title": "Dancing in the Dark.4",
-      "slug": "lakh/Bruce_Springsteen/Dancing_in_the_Dark_4",
-      "filename": "Dancing in the Dark.4.mid"
-    },
-    {
       "artist": "Brunner & Brunner",
       "title": "Eis im Vulkan.1",
       "slug": "lakh/Brunner_Brunner/Eis_im_Vulkan_1",
@@ -1571,12 +1343,6 @@
       "title": "Shananana (lass' uns leben).1",
       "slug": "lakh/Brunner_Brunner/Shananana_lass_uns_leben_1",
       "filename": "Shananana (lass' uns leben).1.mid"
-    },
-    {
-      "artist": "Bryan Adams",
-      "title": "It's Only Love",
-      "slug": "lakh/Bryan_Adams/It_s_Only_Love",
-      "filename": "It's Only Love.mid"
     },
     {
       "artist": "Bush",
@@ -1633,28 +1399,10 @@
       "filename": "Anna Begins.mid"
     },
     {
-      "artist": "Creedence Clearwater Revival",
-      "title": "Down on the Corner.2",
-      "slug": "lakh/Creedence_Clearwater_Revival/Down_on_the_Corner_2",
-      "filename": "Down on the Corner.2.mid"
-    },
-    {
-      "artist": "Dave Matthews Band",
-      "title": "Proudest Monkey",
-      "slug": "lakh/Dave_Matthews_Band/Proudest_Monkey",
-      "filename": "Proudest Monkey.mid"
-    },
-    {
       "artist": "David Byrne",
       "title": "Le Dernier empereur",
       "slug": "lakh/David_Byrne/Le_Dernier_empereur",
       "filename": "Le Dernier empereur.mid"
-    },
-    {
-      "artist": "Dire Straits",
-      "title": "Romeo & Juliet",
-      "slug": "lakh/Dire_Straits/Romeo_Juliet",
-      "filename": "Romeo & Juliet.mid"
     },
     {
       "artist": "Dire Straits",
@@ -1664,39 +1412,15 @@
     },
     {
       "artist": "Dire Straits",
-      "title": "Romeo & Juliet.2",
-      "slug": "lakh/Dire_Straits/Romeo_Juliet_2",
-      "filename": "Romeo & Juliet.2.mid"
-    },
-    {
-      "artist": "Dire Straits",
       "title": "Romeo & Juliet.3",
       "slug": "lakh/Dire_Straits/Romeo_Juliet_3",
       "filename": "Romeo & Juliet.3.mid"
-    },
-    {
-      "artist": "Dire Straits",
-      "title": "Romeo & Juliet.4",
-      "slug": "lakh/Dire_Straits/Romeo_Juliet_4",
-      "filename": "Romeo & Juliet.4.mid"
     },
     {
       "artist": "Dixie Chicks",
       "title": "Goodbye Earl",
       "slug": "lakh/Dixie_Chicks/Goodbye_Earl",
       "filename": "Goodbye Earl.mid"
-    },
-    {
-      "artist": "Don Henley",
-      "title": "Boys of Summer.1",
-      "slug": "lakh/Don_Henley/Boys_of_Summer_1",
-      "filename": "Boys of Summer.1.mid"
-    },
-    {
-      "artist": "Don Henley",
-      "title": "Boys of Summer.2",
-      "slug": "lakh/Don_Henley/Boys_of_Summer_2",
-      "filename": "Boys of Summer.2.mid"
     },
     {
       "artist": "Dune",
@@ -1718,15 +1442,15 @@
     },
     {
       "artist": "Enya",
+      "title": "Shepherd Moons",
+      "slug": "lakh/Enya/Shepherd_Moons",
+      "filename": "Shepherd Moons.mid"
+    },
+    {
+      "artist": "Enya",
       "title": "Shepherd Moons.1",
       "slug": "lakh/Enya/Shepherd_Moons_1",
       "filename": "Shepherd Moons.1.mid"
-    },
-    {
-      "artist": "Equipe 84",
-      "title": "29 settembre",
-      "slug": "lakh/Equipe_84/29_settembre",
-      "filename": "29 settembre.mid"
     },
     {
       "artist": "Erasure",
@@ -1771,12 +1495,6 @@
       "filename": "My Hero.mid"
     },
     {
-      "artist": "Gino Paoli",
-      "title": "Il cielo in una stanza",
-      "slug": "lakh/Gino_Paoli/Il_cielo_in_una_stanza",
-      "filename": "Il cielo in una stanza.mid"
-    },
-    {
       "artist": "Gordon Lightfoot",
       "title": "Rainy Day People",
       "slug": "lakh/Gordon_Lightfoot/Rainy_Day_People",
@@ -1819,12 +1537,6 @@
       "filename": "Let Her Cry.2.mid"
     },
     {
-      "artist": "Hot Chocolate",
-      "title": "It Started With a Kiss",
-      "slug": "lakh/Hot_Chocolate/It_Started_With_a_Kiss",
-      "filename": "It Started With a Kiss.mid"
-    },
-    {
       "artist": "Inner Circle",
       "title": "Sweat (A La La La Song)",
       "slug": "lakh/Inner_Circle/Sweat_A_La_La_La_Song",
@@ -1837,16 +1549,10 @@
       "filename": "Sweat (A La La La Song).1.mid"
     },
     {
-      "artist": "Jackie Wilson",
-      "title": "(Your Love Keeps Lifting Me) Higher & Higher",
-      "slug": "lakh/Jackie_Wilson/Your_Love_Keeps_Lifting_Me_Higher_Higher",
-      "filename": "(Your Love Keeps Lifting Me) Higher & Higher.mid"
-    },
-    {
-      "artist": "Jewel",
-      "title": "Foolish Games",
-      "slug": "lakh/Jewel/Foolish_Games",
-      "filename": "Foolish Games.mid"
+      "artist": "Jennifer Rush",
+      "title": "The Power of Love.1",
+      "slug": "lakh/Jennifer_Rush/The_Power_of_Love_1",
+      "filename": "The Power of Love.1.mid"
     },
     {
       "artist": "Jewel",
@@ -1856,15 +1562,15 @@
     },
     {
       "artist": "Jewel",
-      "title": "Innocence Maintained",
-      "slug": "lakh/Jewel/Innocence_Maintained",
-      "filename": "Innocence Maintained.mid"
+      "title": "Life Uncommon",
+      "slug": "lakh/Jewel/Life_Uncommon",
+      "filename": "Life Uncommon.mid"
     },
     {
-      "artist": "Joni Mitchell",
-      "title": "Both Sides, Now",
-      "slug": "lakh/Joni_Mitchell/Both_Sides_Now",
-      "filename": "Both Sides, Now.mid"
+      "artist": "John Robert",
+      "title": "Sad Eyes",
+      "slug": "lakh/John_Robert/Sad_Eyes",
+      "filename": "Sad Eyes.mid"
     },
     {
       "artist": "Junior Walker",
@@ -1897,12 +1603,6 @@
       "filename": "Keep It Comin' Love.mid"
     },
     {
-      "artist": "Kiss",
-      "title": "Hard Luck Woman",
-      "slug": "lakh/Kiss/Hard_Luck_Woman",
-      "filename": "Hard Luck Woman.mid"
-    },
-    {
       "artist": "Lit",
       "title": "My Own Worst Enemy",
       "slug": "lakh/Lit/My_Own_Worst_Enemy",
@@ -1915,28 +1615,34 @@
       "filename": "B-Day Song.mid"
     },
     {
-      "artist": "Madonna",
-      "title": "Like a Prayer.3",
-      "slug": "lakh/Madonna/Like_a_Prayer_3",
-      "filename": "Like a Prayer.3.mid"
-    },
-    {
-      "artist": "Mariah Carey",
-      "title": "Slipping Away",
-      "slug": "lakh/Mariah_Carey/Slipping_Away",
-      "filename": "Slipping Away.mid"
-    },
-    {
       "artist": "Marky Ramone",
       "title": "Blitzkrieg Bop",
       "slug": "lakh/Marky_Ramone/Blitzkrieg_Bop",
       "filename": "Blitzkrieg Bop.mid"
     },
     {
+      "artist": "Marx Richard",
+      "title": "Right Here Waiting.1",
+      "slug": "lakh/Marx_Richard/Right_Here_Waiting_1",
+      "filename": "Right Here Waiting.1.mid"
+    },
+    {
       "artist": "Mo-Do",
       "title": "Super Gut",
       "slug": "lakh/Mo_Do/Super_Gut",
       "filename": "Super Gut.mid"
+    },
+    {
+      "artist": "Mr. President",
+      "title": "Jo Jo Action",
+      "slug": "lakh/Mr_President/Jo_Jo_Action",
+      "filename": "Jo Jo Action.mid"
+    },
+    {
+      "artist": "Neil Diamond",
+      "title": "Kentucky Woman",
+      "slug": "lakh/Neil_Diamond/Kentucky_Woman",
+      "filename": "Kentucky Woman.mid"
     },
     {
       "artist": "Neil Diamond",
@@ -1946,21 +1652,15 @@
     },
     {
       "artist": "Nomadi",
-      "title": "Crescerai",
-      "slug": "lakh/Nomadi/Crescerai",
-      "filename": "Crescerai.mid"
-    },
-    {
-      "artist": "Nomadi",
       "title": "Il saggio",
       "slug": "lakh/Nomadi/Il_saggio",
       "filename": "Il saggio.mid"
     },
     {
-      "artist": "Opus",
-      "title": "Live Is Life",
-      "slug": "lakh/Opus/Live_Is_Life",
-      "filename": "Live Is Life.mid"
+      "artist": "Paola Turci",
+      "title": "Solo come me",
+      "slug": "lakh/Paola_Turci/Solo_come_me",
+      "filename": "Solo come me.mid"
     },
     {
       "artist": "Paoli",
@@ -1981,34 +1681,28 @@
       "filename": "Il cielo in una stanza.3.mid"
     },
     {
-      "artist": "Pooh",
-      "title": "Donne italiane",
-      "slug": "lakh/Pooh/Donne_italiane",
-      "filename": "Donne italiane.mid"
-    },
-    {
-      "artist": "Pooh",
-      "title": "Donne italiane.1",
-      "slug": "lakh/Pooh/Donne_italiane_1",
-      "filename": "Donne italiane.1.mid"
-    },
-    {
-      "artist": "Prince",
-      "title": "Do Me, Baby",
-      "slug": "lakh/Prince/Do_Me_Baby",
-      "filename": "Do Me, Baby.mid"
-    },
-    {
       "artist": "Radiohead",
       "title": "Fake Plastic Trees",
       "slug": "lakh/Radiohead/Fake_Plastic_Trees",
       "filename": "Fake Plastic Trees.mid"
     },
     {
-      "artist": "Radiohead",
-      "title": "High and Dry.2",
-      "slug": "lakh/Radiohead/High_and_Dry_2",
-      "filename": "High and Dry.2.mid"
+      "artist": "Ramazzotti",
+      "title": "Ti sposero perche",
+      "slug": "lakh/Ramazzotti/Ti_sposero_perche",
+      "filename": "Ti sposero perche.mid"
+    },
+    {
+      "artist": "Ramazzotti",
+      "title": "Ti sposero perche.1",
+      "slug": "lakh/Ramazzotti/Ti_sposero_perche_1",
+      "filename": "Ti sposero perche.1.mid"
+    },
+    {
+      "artist": "Ranieri",
+      "title": "Rose rosse.2",
+      "slug": "lakh/Ranieri/Rose_rosse_2",
+      "filename": "Rose rosse.2.mid"
     },
     {
       "artist": "Richard Marx",
@@ -2021,12 +1715,6 @@
       "title": "Right Here Waiting.1",
       "slug": "lakh/Richard_Marx/Right_Here_Waiting_1",
       "filename": "Right Here Waiting.1.mid"
-    },
-    {
-      "artist": "Ricky Nelson",
-      "title": "Poor Little Fool",
-      "slug": "lakh/Ricky_Nelson/Poor_Little_Fool",
-      "filename": "Poor Little Fool.mid"
     },
     {
       "artist": "Rogers Kenny",
@@ -2059,22 +1747,16 @@
       "filename": "The Boxer.mid"
     },
     {
-      "artist": "Simon & Garfunkel",
-      "title": "The Sound of Silence",
-      "slug": "lakh/Simon_Garfunkel/The_Sound_of_Silence",
-      "filename": "The Sound of Silence.mid"
-    },
-    {
-      "artist": "Simon Paul",
-      "title": "Mother and Child Reunion",
-      "slug": "lakh/Simon_Paul/Mother_and_Child_Reunion",
-      "filename": "Mother and Child Reunion.mid"
-    },
-    {
       "artist": "Simply Red",
       "title": "Holding Back The Years.5",
       "slug": "lakh/Simply_Red/Holding_Back_The_Years_5",
       "filename": "Holding Back The Years.5.mid"
+    },
+    {
+      "artist": "Sixpence None the Richer",
+      "title": "There She Goes",
+      "slug": "lakh/Sixpence_None_the_Richer/There_She_Goes",
+      "filename": "There She Goes.mid"
     },
     {
       "artist": "Smokie",
@@ -2087,12 +1769,6 @@
       "title": "If You Think You Know How to Love Me",
       "slug": "lakh/Smokie/If_You_Think_You_Know_How_to_Love_Me",
       "filename": "If You Think You Know How to Love Me.mid"
-    },
-    {
-      "artist": "Sonic Youth",
-      "title": "Pacific Coast Highway",
-      "slug": "lakh/Sonic_Youth/Pacific_Coast_Highway",
-      "filename": "Pacific Coast Highway.mid"
     },
     {
       "artist": "Sting",
@@ -2123,6 +1799,12 @@
       "title": "You Know What to Do",
       "slug": "lakh/The_Beatles/You_Know_What_to_Do",
       "filename": "You Know What to Do.mid"
+    },
+    {
+      "artist": "The Byrds",
+      "title": "You Ain't Goin' Nowhere",
+      "slug": "lakh/The_Byrds/You_Ain_t_Goin_Nowhere",
+      "filename": "You Ain't Goin' Nowhere.mid"
     },
     {
       "artist": "The Corrs",
@@ -2179,46 +1861,22 @@
       "filename": "Thirty-Three.1.mid"
     },
     {
-      "artist": "The Smashing Pumpkins",
-      "title": "Tonight, Tonight",
-      "slug": "lakh/The_Smashing_Pumpkins/Tonight_Tonight",
-      "filename": "Tonight, Tonight.mid"
-    },
-    {
-      "artist": "The Smashing Pumpkins",
-      "title": "Tonight, Tonight.1",
-      "slug": "lakh/The_Smashing_Pumpkins/Tonight_Tonight_1",
-      "filename": "Tonight, Tonight.1.mid"
-    },
-    {
-      "artist": "The Smashing Pumpkins",
-      "title": "Tonight, Tonight.2",
-      "slug": "lakh/The_Smashing_Pumpkins/Tonight_Tonight_2",
-      "filename": "Tonight, Tonight.2.mid"
-    },
-    {
-      "artist": "The Smashing Pumpkins",
-      "title": "Tonite (reprise)",
-      "slug": "lakh/The_Smashing_Pumpkins/Tonite_reprise",
-      "filename": "Tonite (reprise).mid"
-    },
-    {
       "artist": "The Tremeloes",
       "title": "Here Comes My Baby",
       "slug": "lakh/The_Tremeloes/Here_Comes_My_Baby",
       "filename": "Here Comes My Baby.mid"
     },
     {
-      "artist": "The Tremeloes",
-      "title": "Silence Is Golden",
-      "slug": "lakh/The_Tremeloes/Silence_Is_Golden",
-      "filename": "Silence Is Golden.mid"
-    },
-    {
       "artist": "The Troggs",
       "title": "Love Is All Around",
       "slug": "lakh/The_Troggs/Love_Is_All_Around",
       "filename": "Love Is All Around.mid"
+    },
+    {
+      "artist": "The Zombies",
+      "title": "Tell Her No (acoustic)",
+      "slug": "lakh/The_Zombies/Tell_Her_No_acoustic",
+      "filename": "Tell Her No (acoustic).mid"
     },
     {
       "artist": "Tupac",
@@ -2239,22 +1897,10 @@
       "filename": "Red Red Wine.3.mid"
     },
     {
-      "artist": "Ultravox",
-      "title": "Vienna",
-      "slug": "lakh/Ultravox/Vienna",
-      "filename": "Vienna.mid"
-    },
-    {
       "artist": "Vangelis",
       "title": "Hymne",
       "slug": "lakh/Vangelis/Hymne",
       "filename": "Hymne.mid"
-    },
-    {
-      "artist": "Winger",
-      "title": "Miles Away",
-      "slug": "lakh/Winger/Miles_Away",
-      "filename": "Miles Away.mid"
     },
     {
       "artist": "Yanni",
@@ -2295,16 +1941,16 @@
       "filename": "T'appartengo.mid"
     },
     {
-      "artist": "America",
-      "title": "Ventura Highway",
-      "slug": "lakh/America/Ventura_Highway",
-      "filename": "Ventura Highway.mid"
-    },
-    {
       "artist": "Amos, Tori",
       "title": "China",
       "slug": "lakh/Amos_Tori/China",
       "filename": "China.mid"
+    },
+    {
+      "artist": "Amy Grant",
+      "title": "Doubly Good to You.1",
+      "slug": "lakh/Amy_Grant/Doubly_Good_to_You_1",
+      "filename": "Doubly Good to You.1.mid"
     },
     {
       "artist": "Angelo Branduardi",
@@ -2349,12 +1995,6 @@
       "filename": "Parce Que C'Est Toi.mid"
     },
     {
-      "artist": "Backstreet Boys",
-      "title": "I Need You Tonight",
-      "slug": "lakh/Backstreet_Boys/I_Need_You_Tonight",
-      "filename": "I Need You Tonight.mid"
-    },
-    {
       "artist": "Band Aid",
       "title": "Feed the World",
       "slug": "lakh/Band_Aid/Feed_the_World",
@@ -2368,15 +2008,15 @@
     },
     {
       "artist": "Battiato",
+      "title": "Vite parallele",
+      "slug": "lakh/Battiato/Vite_parallele",
+      "filename": "Vite parallele.mid"
+    },
+    {
+      "artist": "Battiato",
       "title": "Vite parallele.1",
       "slug": "lakh/Battiato/Vite_parallele_1",
       "filename": "Vite parallele.1.mid"
-    },
-    {
-      "artist": "Bee Gees",
-      "title": "I Started a Joke.2",
-      "slug": "lakh/Bee_Gees/I_Started_a_Joke_2",
-      "filename": "I Started a Joke.2.mid"
     },
     {
       "artist": "Berte",
@@ -2386,15 +2026,15 @@
     },
     {
       "artist": "Bertie Higgins",
-      "title": "Key Largo",
-      "slug": "lakh/Bertie_Higgins/Key_Largo",
-      "filename": "Key Largo.mid"
-    },
-    {
-      "artist": "Bertie Higgins",
       "title": "Key Largo.1",
       "slug": "lakh/Bertie_Higgins/Key_Largo_1",
       "filename": "Key Largo.1.mid"
+    },
+    {
+      "artist": "Bette Midler",
+      "title": "The Rose",
+      "slug": "lakh/Bette_Midler/The_Rose",
+      "filename": "The Rose.mid"
     },
     {
       "artist": "Biagio Antonacci",
@@ -2413,12 +2053,6 @@
       "title": "Kiss the Rain",
       "slug": "lakh/Billie_Myers/Kiss_the_Rain",
       "filename": "Kiss the Rain.mid"
-    },
-    {
-      "artist": "Billy Ray Cyrus",
-      "title": "Achy Breaky Heart.1",
-      "slug": "lakh/Billy_Ray_Cyrus/Achy_Breaky_Heart_1",
-      "filename": "Achy Breaky Heart.1.mid"
     },
     {
       "artist": "blink-182",
@@ -2505,30 +2139,6 @@
       "filename": "That Summer.mid"
     },
     {
-      "artist": "Bruce Hornsby",
-      "title": "The End of the Innocence",
-      "slug": "lakh/Bruce_Hornsby/The_End_of_the_Innocence",
-      "filename": "The End of the Innocence.mid"
-    },
-    {
-      "artist": "Bruce Hornsby",
-      "title": "The End of the Innocence.1",
-      "slug": "lakh/Bruce_Hornsby/The_End_of_the_Innocence_1",
-      "filename": "The End of the Innocence.1.mid"
-    },
-    {
-      "artist": "Bruce Springsteen",
-      "title": "I'm On Fire",
-      "slug": "lakh/Bruce_Springsteen/I_m_On_Fire",
-      "filename": "I'm On Fire.mid"
-    },
-    {
-      "artist": "Bruce Springsteen",
-      "title": "I'm On Fire.1",
-      "slug": "lakh/Bruce_Springsteen/I_m_On_Fire_1",
-      "filename": "I'm On Fire.1.mid"
-    },
-    {
       "artist": "Bruce Springsteen",
       "title": "Streets of Philadelphia.1",
       "slug": "lakh/Bruce_Springsteen/Streets_of_Philadelphia_1",
@@ -2539,6 +2149,12 @@
       "title": "Streets of Philadelphia.2",
       "slug": "lakh/Bruce_Springsteen/Streets_of_Philadelphia_2",
       "filename": "Streets of Philadelphia.2.mid"
+    },
+    {
+      "artist": "Bryan Adams",
+      "title": "It's Only Love",
+      "slug": "lakh/Bryan_Adams/It_s_Only_Love",
+      "filename": "It's Only Love.mid"
     },
     {
       "artist": "Caterina Caselli",
@@ -2608,21 +2224,9 @@
     },
     {
       "artist": "Creedence Clearwater Revival",
-      "title": "Have You Ever Seen the Rain",
-      "slug": "lakh/Creedence_Clearwater_Revival/Have_You_Ever_Seen_the_Rain",
-      "filename": "Have You Ever Seen the Rain.mid"
-    },
-    {
-      "artist": "Creedence Clearwater Revival",
       "title": "Have You Ever Seen the Rain.2",
       "slug": "lakh/Creedence_Clearwater_Revival/Have_You_Ever_Seen_the_Rain_2",
       "filename": "Have You Ever Seen the Rain.2.mid"
-    },
-    {
-      "artist": "Crow Sheryl",
-      "title": "Strong Enough.1",
-      "slug": "lakh/Crow_Sheryl/Strong_Enough_1",
-      "filename": "Strong Enough.1.mid"
     },
     {
       "artist": "Cyndi Lauper",
@@ -2632,21 +2236,15 @@
     },
     {
       "artist": "Cyndi Lauper",
-      "title": "Time After Time.1",
-      "slug": "lakh/Cyndi_Lauper/Time_After_Time_1",
-      "filename": "Time After Time.1.mid"
+      "title": "Time After Time",
+      "slug": "lakh/Cyndi_Lauper/Time_After_Time",
+      "filename": "Time After Time.mid"
     },
     {
       "artist": "Cyndi Lauper",
       "title": "Time After Time.2",
       "slug": "lakh/Cyndi_Lauper/Time_After_Time_2",
       "filename": "Time After Time.2.mid"
-    },
-    {
-      "artist": "Cyndi Lauper",
-      "title": "Time After Time.3",
-      "slug": "lakh/Cyndi_Lauper/Time_After_Time_3",
-      "filename": "Time After Time.3.mid"
     },
     {
       "artist": "Darts",
@@ -2679,28 +2277,10 @@
       "filename": "But Not Tonight.mid"
     },
     {
-      "artist": "Depeche Mode",
-      "title": "Somebody",
-      "slug": "lakh/Depeche_Mode/Somebody",
-      "filename": "Somebody.mid"
-    },
-    {
-      "artist": "Depeche Mode",
-      "title": "Somebody.1",
-      "slug": "lakh/Depeche_Mode/Somebody_1",
-      "filename": "Somebody.1.mid"
-    },
-    {
-      "artist": "Depeche Mode",
-      "title": "Somebody.2",
-      "slug": "lakh/Depeche_Mode/Somebody_2",
-      "filename": "Somebody.2.mid"
-    },
-    {
-      "artist": "Depeche Mode",
-      "title": "Somebody.3",
-      "slug": "lakh/Depeche_Mode/Somebody_3",
-      "filename": "Somebody.3.mid"
+      "artist": "Dr. Dre",
+      "title": "Keep Their Heads Ringing",
+      "slug": "lakh/Dr_Dre/Keep_Their_Heads_Ringing",
+      "filename": "Keep Their Heads Ringing.mid"
     },
     {
       "artist": "Drupi",
@@ -2713,12 +2293,6 @@
       "title": "Sereno e.1",
       "slug": "lakh/Drupi/Sereno_e_1",
       "filename": "Sereno e.1.mid"
-    },
-    {
-      "artist": "Dune",
-      "title": "I Can't Stop Raving",
-      "slug": "lakh/Dune/I_Can_t_Stop_Raving",
-      "filename": "I Can't Stop Raving.mid"
     },
     {
       "artist": "Dusty Springfield",
@@ -2739,24 +2313,6 @@
       "filename": "May It Be.mid"
     },
     {
-      "artist": "Enya",
-      "title": "On Your Shore",
-      "slug": "lakh/Enya/On_Your_Shore",
-      "filename": "On Your Shore.mid"
-    },
-    {
-      "artist": "Enya",
-      "title": "On Your Shore.1",
-      "slug": "lakh/Enya/On_Your_Shore_1",
-      "filename": "On Your Shore.1.mid"
-    },
-    {
-      "artist": "Estefan Gloria",
-      "title": "Can't Stay Away From You.1",
-      "slug": "lakh/Estefan_Gloria/Can_t_Stay_Away_From_You_1",
-      "filename": "Can't Stay Away From You.1.mid"
-    },
-    {
       "artist": "Eurythmics",
       "title": "Here Comes the Rain Again",
       "slug": "lakh/Eurythmics/Here_Comes_the_Rain_Again",
@@ -2775,34 +2331,10 @@
       "filename": "Here Comes the Rain Again.4.mid"
     },
     {
-      "artist": "Fiorello",
-      "title": "Lei balla sola",
-      "slug": "lakh/Fiorello/Lei_balla_sola",
-      "filename": "Lei balla sola.mid"
-    },
-    {
-      "artist": "Firefall",
-      "title": "Just Remember I Love You",
-      "slug": "lakh/Firefall/Just_Remember_I_Love_You",
-      "filename": "Just Remember I Love You.mid"
-    },
-    {
-      "artist": "Fleetwood Mac",
-      "title": "Everywhere.2",
-      "slug": "lakh/Fleetwood_Mac/Everywhere_2",
-      "filename": "Everywhere.2.mid"
-    },
-    {
       "artist": "Godsmack",
       "title": "Moon Baby",
       "slug": "lakh/Godsmack/Moon_Baby",
       "filename": "Moon Baby.mid"
-    },
-    {
-      "artist": "Goo Goo Dolls",
-      "title": "Black Balloon",
-      "slug": "lakh/Goo_Goo_Dolls/Black_Balloon",
-      "filename": "Black Balloon.mid"
     },
     {
       "artist": "Green Day",
@@ -2835,16 +2367,22 @@
       "filename": "If Looks Could Kill.mid"
     },
     {
-      "artist": "Hole",
-      "title": "Doll Parts",
-      "slug": "lakh/Hole/Doll_Parts",
-      "filename": "Doll Parts.mid"
+      "artist": "Hot Chocolate",
+      "title": "It Started With a Kiss",
+      "slug": "lakh/Hot_Chocolate/It_Started_With_a_Kiss",
+      "filename": "It Started With a Kiss.mid"
     },
     {
       "artist": "Howard Carpendale",
       "title": "Kein Typ fur eine Nacht",
       "slug": "lakh/Howard_Carpendale/Kein_Typ_fur_eine_Nacht",
       "filename": "Kein Typ fur eine Nacht.mid"
+    },
+    {
+      "artist": "Huey Lewis & The News",
+      "title": "Stuck With You",
+      "slug": "lakh/Huey_Lewis_The_News/Stuck_With_You",
+      "filename": "Stuck With You.mid"
     },
     {
       "artist": "Jackson Browne",
@@ -2859,40 +2397,22 @@
       "filename": "The Power of Love.mid"
     },
     {
-      "artist": "Jennifer Rush",
-      "title": "The Power of Love.1",
-      "slug": "lakh/Jennifer_Rush/The_Power_of_Love_1",
-      "filename": "The Power of Love.1.mid"
-    },
-    {
       "artist": "Jewel",
       "title": "Foolish Games.2",
       "slug": "lakh/Jewel/Foolish_Games_2",
       "filename": "Foolish Games.2.mid"
     },
     {
-      "artist": "Jewel",
-      "title": "Foolish Games.3",
-      "slug": "lakh/Jewel/Foolish_Games_3",
-      "filename": "Foolish Games.3.mid"
+      "artist": "John Denver",
+      "title": "Annie's Song.1",
+      "slug": "lakh/John_Denver/Annie_s_Song_1",
+      "filename": "Annie's Song.1.mid"
     },
     {
-      "artist": "Jewel",
-      "title": "Hands",
-      "slug": "lakh/Jewel/Hands",
-      "filename": "Hands.mid"
-    },
-    {
-      "artist": "Jewel",
-      "title": "Hands.1",
-      "slug": "lakh/Jewel/Hands_1",
-      "filename": "Hands.1.mid"
-    },
-    {
-      "artist": "Jim Croce",
-      "title": "Operator",
-      "slug": "lakh/Jim_Croce/Operator",
-      "filename": "Operator.mid"
+      "artist": "John Denver",
+      "title": "Poems, Prayers and Promises",
+      "slug": "lakh/John_Denver/Poems_Prayers_and_Promises",
+      "filename": "Poems, Prayers and Promises.mid"
     },
     {
       "artist": "John Elton",
@@ -2911,12 +2431,6 @@
       "title": "Rock It Baby (We've Got a Date)",
       "slug": "lakh/Johnny_Nash/Rock_It_Baby_We_ve_Got_a_Date",
       "filename": "Rock It Baby (We've Got a Date).mid"
-    },
-    {
-      "artist": "Johnny Rivers",
-      "title": "Swayin' To the Music (Slow Dancin')",
-      "slug": "lakh/Johnny_Rivers/Swayin_To_the_Music_Slow_Dancin",
-      "filename": "Swayin' To the Music (Slow Dancin').mid"
     },
     {
       "artist": "Jon Secada",
@@ -2949,12 +2463,6 @@
       "filename": "Don't Stop Believin'.2.mid"
     },
     {
-      "artist": "Kaempfert",
-      "title": "Wunderland Bei Nacht",
-      "slug": "lakh/Kaempfert/Wunderland_Bei_Nacht",
-      "filename": "Wunderland Bei Nacht.mid"
-    },
-    {
       "artist": "Kiss",
       "title": "Turn on the Night",
       "slug": "lakh/Kiss/Turn_on_the_Night",
@@ -2973,6 +2481,12 @@
       "filename": "Tra palco e realta.1.mid"
     },
     {
+      "artist": "Madonna",
+      "title": "Like a Prayer.3",
+      "slug": "lakh/Madonna/Like_a_Prayer_3",
+      "filename": "Like a Prayer.3.mid"
+    },
+    {
       "artist": "Maria McKee",
       "title": "Show Me Heaven",
       "slug": "lakh/Maria_McKee/Show_Me_Heaven",
@@ -2985,34 +2499,10 @@
       "filename": "It Takes Me Away.mid"
     },
     {
-      "artist": "Mr. President",
-      "title": "Jo Jo Action",
-      "slug": "lakh/Mr_President/Jo_Jo_Action",
-      "filename": "Jo Jo Action.mid"
-    },
-    {
       "artist": "N-Trance",
       "title": "Da Ya Think I'm Sexy",
       "slug": "lakh/N_Trance/Da_Ya_Think_I_m_Sexy",
       "filename": "Da Ya Think I'm Sexy.mid"
-    },
-    {
-      "artist": "Natalie Imbruglia",
-      "title": "Left of the Middle",
-      "slug": "lakh/Natalie_Imbruglia/Left_of_the_Middle",
-      "filename": "Left of the Middle.mid"
-    },
-    {
-      "artist": "Neil Diamond",
-      "title": "Sweet Caroline.4",
-      "slug": "lakh/Neil_Diamond/Sweet_Caroline_4",
-      "filename": "Sweet Caroline.4.mid"
-    },
-    {
-      "artist": "Neil Diamond",
-      "title": "Sweet Caroline.5",
-      "slug": "lakh/Neil_Diamond/Sweet_Caroline_5",
-      "filename": "Sweet Caroline.5.mid"
     },
     {
       "artist": "Nek",
@@ -3028,9 +2518,15 @@
     },
     {
       "artist": "Nomadi",
-      "title": "Un giorno insieme.1",
-      "slug": "lakh/Nomadi/Un_giorno_insieme_1",
-      "filename": "Un giorno insieme.1.mid"
+      "title": "Crescerai",
+      "slug": "lakh/Nomadi/Crescerai",
+      "filename": "Crescerai.mid"
+    },
+    {
+      "artist": "Oleta Adams",
+      "title": "Get Here",
+      "slug": "lakh/Oleta_Adams/Get_Here",
+      "filename": "Get Here.mid"
     },
     {
       "artist": "Peter Cornelius",
@@ -3045,16 +2541,22 @@
       "filename": "Games Without Frontiers.1.mid"
     },
     {
-      "artist": "Phyllis Nelson",
-      "title": "Move Closer",
-      "slug": "lakh/Phyllis_Nelson/Move_Closer",
-      "filename": "Move Closer.mid"
-    },
-    {
       "artist": "Pooh",
       "title": "Come Saremo",
       "slug": "lakh/Pooh/Come_Saremo",
       "filename": "Come Saremo.mid"
+    },
+    {
+      "artist": "Pooh",
+      "title": "Donne italiane",
+      "slug": "lakh/Pooh/Donne_italiane",
+      "filename": "Donne italiane.mid"
+    },
+    {
+      "artist": "Pooh",
+      "title": "Donne italiane.1",
+      "slug": "lakh/Pooh/Donne_italiane_1",
+      "filename": "Donne italiane.1.mid"
     },
     {
       "artist": "Prince",
@@ -3079,6 +2581,12 @@
       "title": "One More Time",
       "slug": "lakh/Real_McCoy/One_More_Time",
       "filename": "One More Time.mid"
+    },
+    {
+      "artist": "RICHIE LIONEL",
+      "title": "Stuck on You.1",
+      "slug": "lakh/RICHIE_LIONEL/Stuck_on_You_1",
+      "filename": "Stuck on You.1.mid"
     },
     {
       "artist": "Ross",
@@ -3129,16 +2637,16 @@
       "filename": "When I'm With You.mid"
     },
     {
+      "artist": "Simon Paul",
+      "title": "Mother and Child Reunion",
+      "slug": "lakh/Simon_Paul/Mother_and_Child_Reunion",
+      "filename": "Mother and Child Reunion.mid"
+    },
+    {
       "artist": "Stewart Rod",
       "title": "Downtown Train",
       "slug": "lakh/Stewart_Rod/Downtown_Train",
       "filename": "Downtown Train.mid"
-    },
-    {
-      "artist": "Styx",
-      "title": "Come Sail Away.3",
-      "slug": "lakh/Styx/Come_Sail_Away_3",
-      "filename": "Come Sail Away.3.mid"
     },
     {
       "artist": "Sugar Ray",
@@ -3157,12 +2665,6 @@
       "title": "The Velocity of Love.1",
       "slug": "lakh/Suzanne_Ciani/The_Velocity_of_Love_1",
       "filename": "The Velocity of Love.1.mid"
-    },
-    {
-      "artist": "Texas",
-      "title": "Say What You Want",
-      "slug": "lakh/Texas/Say_What_You_Want",
-      "filename": "Say What You Want.mid"
     },
     {
       "artist": "The Beatles",
@@ -3184,27 +2686,9 @@
     },
     {
       "artist": "The Beatles",
-      "title": "Maggie Mae.1",
-      "slug": "lakh/The_Beatles/Maggie_Mae_1",
-      "filename": "Maggie Mae.1.mid"
-    },
-    {
-      "artist": "The Beatles",
       "title": "Not a Second Time",
       "slug": "lakh/The_Beatles/Not_a_Second_Time",
       "filename": "Not a Second Time.mid"
-    },
-    {
-      "artist": "The Byrds",
-      "title": "Turn! Turn! Turn!.1",
-      "slug": "lakh/The_Byrds/Turn_Turn_Turn_1",
-      "filename": "Turn! Turn! Turn!.1.mid"
-    },
-    {
-      "artist": "The Byrds",
-      "title": "Turn! Turn! Turn!.2",
-      "slug": "lakh/The_Byrds/Turn_Turn_Turn_2",
-      "filename": "Turn! Turn! Turn!.2.mid"
     },
     {
       "artist": "The Corrs",
@@ -3244,15 +2728,27 @@
     },
     {
       "artist": "The Cranberries",
-      "title": "Forever Yellow Skies",
-      "slug": "lakh/The_Cranberries/Forever_Yellow_Skies",
-      "filename": "Forever Yellow Skies.mid"
+      "title": "Joe",
+      "slug": "lakh/The_Cranberries/Joe",
+      "filename": "Joe.mid"
     },
     {
       "artist": "The Cranberries",
-      "title": "I'm Still Remembering",
-      "slug": "lakh/The_Cranberries/I_m_Still_Remembering",
-      "filename": "I'm Still Remembering.mid"
+      "title": "Twenty One",
+      "slug": "lakh/The_Cranberries/Twenty_One",
+      "filename": "Twenty One.mid"
+    },
+    {
+      "artist": "The Cranberries",
+      "title": "Twenty One.1",
+      "slug": "lakh/The_Cranberries/Twenty_One_1",
+      "filename": "Twenty One.1.mid"
+    },
+    {
+      "artist": "The Cranberries",
+      "title": "Twenty One.2",
+      "slug": "lakh/The_Cranberries/Twenty_One_2",
+      "filename": "Twenty One.2.mid"
     },
     {
       "artist": "The Cranberries",
@@ -3265,6 +2761,12 @@
       "title": "War Child.1",
       "slug": "lakh/The_Cranberries/War_Child_1",
       "filename": "War Child.1.mid"
+    },
+    {
+      "artist": "The Cure",
+      "title": "Boys Don't Cry",
+      "slug": "lakh/The_Cure/Boys_Don_t_Cry",
+      "filename": "Boys Don't Cry.mid"
     },
     {
       "artist": "The Cure",
@@ -3303,12 +2805,6 @@
       "filename": "I Wanna Be Free.mid"
     },
     {
-      "artist": "The Offspring",
-      "title": "All I Want",
-      "slug": "lakh/The_Offspring/All_I_Want",
-      "filename": "All I Want.mid"
-    },
-    {
       "artist": "The Pointer Sisters",
       "title": "Slow Hand.2",
       "slug": "lakh/The_Pointer_Sisters/Slow_Hand_2",
@@ -3321,24 +2817,6 @@
       "filename": "Unchained Melody.6.mid"
     },
     {
-      "artist": "The Smashing Pumpkins",
-      "title": "Today",
-      "slug": "lakh/The_Smashing_Pumpkins/Today",
-      "filename": "Today.mid"
-    },
-    {
-      "artist": "The Smashing Pumpkins",
-      "title": "Today.2",
-      "slug": "lakh/The_Smashing_Pumpkins/Today_2",
-      "filename": "Today.2.mid"
-    },
-    {
-      "artist": "The Smashing Pumpkins",
-      "title": "Today.3",
-      "slug": "lakh/The_Smashing_Pumpkins/Today_3",
-      "filename": "Today.3.mid"
-    },
-    {
       "artist": "The Stranglers",
       "title": "Golden Brown.1",
       "slug": "lakh/The_Stranglers/Golden_Brown_1",
@@ -3349,6 +2827,18 @@
       "title": "Come See About Me",
       "slug": "lakh/The_Supremes/Come_See_About_Me",
       "filename": "Come See About Me.mid"
+    },
+    {
+      "artist": "The Temptations",
+      "title": "Beauty Is Only Skin Deep",
+      "slug": "lakh/The_Temptations/Beauty_Is_Only_Skin_Deep",
+      "filename": "Beauty Is Only Skin Deep.mid"
+    },
+    {
+      "artist": "The Tremeloes",
+      "title": "Silence Is Golden",
+      "slug": "lakh/The_Tremeloes/Silence_Is_Golden",
+      "filename": "Silence Is Golden.mid"
     },
     {
       "artist": "The Tremeloes",
@@ -3367,6 +2857,18 @@
       "title": "Shes an Angel",
       "slug": "lakh/They_Might_Be_Giants/Shes_an_Angel",
       "filename": "Shes an Angel.mid"
+    },
+    {
+      "artist": "Three degrees the",
+      "title": "When Will I See You Again",
+      "slug": "lakh/Three_degrees_the/When_Will_I_See_You_Again",
+      "filename": "When Will I See You Again.mid"
+    },
+    {
+      "artist": "Three degrees the",
+      "title": "When Will I See You Again.1",
+      "slug": "lakh/Three_degrees_the/When_Will_I_See_You_Again_1",
+      "filename": "When Will I See You Again.1.mid"
     },
     {
       "artist": "Tom Petty and The Heartbreakers",
@@ -3397,6 +2899,12 @@
       "title": "It Ain't Me Baby",
       "slug": "lakh/Turtles/It_Ain_t_Me_Baby",
       "filename": "It Ain't Me Baby.mid"
+    },
+    {
+      "artist": "Ultravox",
+      "title": "Vienna",
+      "slug": "lakh/Ultravox/Vienna",
+      "filename": "Vienna.mid"
     },
     {
       "artist": "Van Halen",
@@ -3436,12 +2944,6 @@
     },
     {
       "artist": "Weezer",
-      "title": "Jamie",
-      "slug": "lakh/Weezer/Jamie",
-      "filename": "Jamie.mid"
-    },
-    {
-      "artist": "Weezer",
       "title": "Mykel & Carli",
       "slug": "lakh/Weezer/Mykel_Carli",
       "filename": "Mykel & Carli.mid"
@@ -3462,21 +2964,33 @@
   "mixed-sevenths": [
     {
       "artist": "883",
-      "title": "Come mai (feat. Fiorello)",
-      "slug": "lakh/883/Come_mai_feat_Fiorello",
-      "filename": "Come mai (feat. Fiorello).mid"
+      "title": "Gli anni ('96).1",
+      "slug": "lakh/883/Gli_anni_96_1",
+      "filename": "Gli anni ('96).1.mid"
     },
     {
-      "artist": "Alan Jackson",
-      "title": "Where Were You (When the World Stopped Turning) (live, CMA Awards)",
-      "slug": "lakh/Alan_Jackson/Where_Were_You_When_the_World_Stopped_Turning_live_CMA_Awards",
-      "filename": "Where Were You (When the World Stopped Turning) (live, CMA Awards).mid"
+      "artist": "Air Supply",
+      "title": "All Out Of Love.1",
+      "slug": "lakh/Air_Supply/All_Out_Of_Love_1",
+      "filename": "All Out Of Love.1.mid"
     },
     {
-      "artist": "Alanis Morissette",
-      "title": "That I Would Be Good",
-      "slug": "lakh/Alanis_Morissette/That_I_Would_Be_Good",
-      "filename": "That I Would Be Good.mid"
+      "artist": "Air Supply",
+      "title": "All Out Of Love.2",
+      "slug": "lakh/Air_Supply/All_Out_Of_Love_2",
+      "filename": "All Out Of Love.2.mid"
+    },
+    {
+      "artist": "Air Supply",
+      "title": "All Out Of Love.3",
+      "slug": "lakh/Air_Supply/All_Out_Of_Love_3",
+      "filename": "All Out Of Love.3.mid"
+    },
+    {
+      "artist": "Alabama",
+      "title": "When We Make Love",
+      "slug": "lakh/Alabama/When_We_Make_Love",
+      "filename": "When We Make Love.mid"
     },
     {
       "artist": "Amedeo Minghi",
@@ -3486,15 +3000,15 @@
     },
     {
       "artist": "America",
+      "title": "Ventura Highway",
+      "slug": "lakh/America/Ventura_Highway",
+      "filename": "Ventura Highway.mid"
+    },
+    {
+      "artist": "America",
       "title": "Ventura Highway.1",
       "slug": "lakh/America/Ventura_Highway_1",
       "filename": "Ventura Highway.1.mid"
-    },
-    {
-      "artist": "Ana Belen",
-      "title": "Desde mi libertad",
-      "slug": "lakh/Ana_Belen/Desde_mi_libertad",
-      "filename": "Desde mi libertad.mid"
     },
     {
       "artist": "Andrew Lloyd Webber",
@@ -3503,10 +3017,34 @@
       "filename": "Requiem: Pie Jesu.mid"
     },
     {
-      "artist": "Bette Midler",
-      "title": "From a Distance.2",
-      "slug": "lakh/Bette_Midler/From_a_Distance_2",
-      "filename": "From a Distance.2.mid"
+      "artist": "Anna Oxa",
+      "title": "A lei",
+      "slug": "lakh/Anna_Oxa/A_lei",
+      "filename": "A lei.mid"
+    },
+    {
+      "artist": "Antonello Venditti",
+      "title": "Sara",
+      "slug": "lakh/Antonello_Venditti/Sara",
+      "filename": "Sara.mid"
+    },
+    {
+      "artist": "Bee Gees",
+      "title": "I Started a Joke.2",
+      "slug": "lakh/Bee_Gees/I_Started_a_Joke_2",
+      "filename": "I Started a Joke.2.mid"
+    },
+    {
+      "artist": "Bertie Higgins",
+      "title": "Key Largo",
+      "slug": "lakh/Bertie_Higgins/Key_Largo",
+      "filename": "Key Largo.mid"
+    },
+    {
+      "artist": "Billy Joel",
+      "title": "We Didn't Start the Fire.2",
+      "slug": "lakh/Billy_Joel/We_Didn_t_Start_the_Fire_2",
+      "filename": "We Didn't Start the Fire.2.mid"
     },
     {
       "artist": "blink-182",
@@ -3515,28 +3053,196 @@
       "filename": "Dammit.1.mid"
     },
     {
+      "artist": "blink-182",
+      "title": "Don't Leave Me",
+      "slug": "lakh/blink_182/Don_t_Leave_Me",
+      "filename": "Don't Leave Me.mid"
+    },
+    {
+      "artist": "blink-182",
+      "title": "Online Songs",
+      "slug": "lakh/blink_182/Online_Songs",
+      "filename": "Online Songs.mid"
+    },
+    {
+      "artist": "blink-182",
+      "title": "What's My Age Again.1",
+      "slug": "lakh/blink_182/What_s_My_Age_Again_1",
+      "filename": "What's My Age Again.1.mid"
+    },
+    {
+      "artist": "blink-182",
+      "title": "What's My Age Again.2",
+      "slug": "lakh/blink_182/What_s_My_Age_Again_2",
+      "filename": "What's My Age Again.2.mid"
+    },
+    {
+      "artist": "blink-182",
+      "title": "What's My Age Again.3",
+      "slug": "lakh/blink_182/What_s_My_Age_Again_3",
+      "filename": "What's My Age Again.3.mid"
+    },
+    {
+      "artist": "Bruce Hornsby",
+      "title": "The End of the Innocence",
+      "slug": "lakh/Bruce_Hornsby/The_End_of_the_Innocence",
+      "filename": "The End of the Innocence.mid"
+    },
+    {
+      "artist": "Bruce Hornsby",
+      "title": "The End of the Innocence.1",
+      "slug": "lakh/Bruce_Hornsby/The_End_of_the_Innocence_1",
+      "filename": "The End of the Innocence.1.mid"
+    },
+    {
+      "artist": "Bruce Springsteen",
+      "title": "Dancing in the Dark.4",
+      "slug": "lakh/Bruce_Springsteen/Dancing_in_the_Dark_4",
+      "filename": "Dancing in the Dark.4.mid"
+    },
+    {
+      "artist": "Bruce Springsteen",
+      "title": "I'm On Fire",
+      "slug": "lakh/Bruce_Springsteen/I_m_On_Fire",
+      "filename": "I'm On Fire.mid"
+    },
+    {
+      "artist": "Bruce Springsteen",
+      "title": "I'm On Fire.1",
+      "slug": "lakh/Bruce_Springsteen/I_m_On_Fire_1",
+      "filename": "I'm On Fire.1.mid"
+    },
+    {
       "artist": "Carboni",
       "title": "Colori",
       "slug": "lakh/Carboni/Colori",
       "filename": "Colori.mid"
     },
     {
-      "artist": "Counting Crows",
-      "title": "Raining in Baltimore",
-      "slug": "lakh/Counting_Crows/Raining_in_Baltimore",
-      "filename": "Raining in Baltimore.mid"
+      "artist": "Celine Dion",
+      "title": "Where Does My Heart Beat Now",
+      "slug": "lakh/Celine_Dion/Where_Does_My_Heart_Beat_Now",
+      "filename": "Where Does My Heart Beat Now.mid"
     },
     {
-      "artist": "Don Henley",
-      "title": "Boys of Summer",
-      "slug": "lakh/Don_Henley/Boys_of_Summer",
-      "filename": "Boys of Summer.mid"
+      "artist": "Celine Dion",
+      "title": "Where Does My Heart Beat Now.1",
+      "slug": "lakh/Celine_Dion/Where_Does_My_Heart_Beat_Now_1",
+      "filename": "Where Does My Heart Beat Now.1.mid"
+    },
+    {
+      "artist": "Celine Dion",
+      "title": "Where Does My Heart Beat Now.2",
+      "slug": "lakh/Celine_Dion/Where_Does_My_Heart_Beat_Now_2",
+      "filename": "Where Does My Heart Beat Now.2.mid"
+    },
+    {
+      "artist": "Creedence Clearwater Revival",
+      "title": "Have You Ever Seen the Rain",
+      "slug": "lakh/Creedence_Clearwater_Revival/Have_You_Ever_Seen_the_Rain",
+      "filename": "Have You Ever Seen the Rain.mid"
+    },
+    {
+      "artist": "Crow Sheryl",
+      "title": "Strong Enough.1",
+      "slug": "lakh/Crow_Sheryl/Strong_Enough_1",
+      "filename": "Strong Enough.1.mid"
+    },
+    {
+      "artist": "Cyndi Lauper",
+      "title": "Time After Time.1",
+      "slug": "lakh/Cyndi_Lauper/Time_After_Time_1",
+      "filename": "Time After Time.1.mid"
+    },
+    {
+      "artist": "Cyndi Lauper",
+      "title": "Time After Time.3",
+      "slug": "lakh/Cyndi_Lauper/Time_After_Time_3",
+      "filename": "Time After Time.3.mid"
+    },
+    {
+      "artist": "Dave Matthews Band",
+      "title": "Proudest Monkey",
+      "slug": "lakh/Dave_Matthews_Band/Proudest_Monkey",
+      "filename": "Proudest Monkey.mid"
+    },
+    {
+      "artist": "De Deurzakkers",
+      "title": "Doe 'n stapje naar voren",
+      "slug": "lakh/De_Deurzakkers/Doe_n_stapje_naar_voren",
+      "filename": "Doe 'n stapje naar voren.mid"
+    },
+    {
+      "artist": "Depeche Mode",
+      "title": "Somebody",
+      "slug": "lakh/Depeche_Mode/Somebody",
+      "filename": "Somebody.mid"
+    },
+    {
+      "artist": "Depeche Mode",
+      "title": "Somebody.1",
+      "slug": "lakh/Depeche_Mode/Somebody_1",
+      "filename": "Somebody.1.mid"
+    },
+    {
+      "artist": "Depeche Mode",
+      "title": "Somebody.2",
+      "slug": "lakh/Depeche_Mode/Somebody_2",
+      "filename": "Somebody.2.mid"
+    },
+    {
+      "artist": "Depeche Mode",
+      "title": "Somebody.3",
+      "slug": "lakh/Depeche_Mode/Somebody_3",
+      "filename": "Somebody.3.mid"
+    },
+    {
+      "artist": "Dune",
+      "title": "I Can't Stop Raving",
+      "slug": "lakh/Dune/I_Can_t_Stop_Raving",
+      "filename": "I Can't Stop Raving.mid"
     },
     {
       "artist": "Enya",
-      "title": "Shepherd Moons",
-      "slug": "lakh/Enya/Shepherd_Moons",
-      "filename": "Shepherd Moons.mid"
+      "title": "On Your Shore",
+      "slug": "lakh/Enya/On_Your_Shore",
+      "filename": "On Your Shore.mid"
+    },
+    {
+      "artist": "Enya",
+      "title": "On Your Shore.1",
+      "slug": "lakh/Enya/On_Your_Shore_1",
+      "filename": "On Your Shore.1.mid"
+    },
+    {
+      "artist": "Equipe 84",
+      "title": "29 settembre",
+      "slug": "lakh/Equipe_84/29_settembre",
+      "filename": "29 settembre.mid"
+    },
+    {
+      "artist": "Estefan Gloria",
+      "title": "Can't Stay Away From You.1",
+      "slug": "lakh/Estefan_Gloria/Can_t_Stay_Away_From_You_1",
+      "filename": "Can't Stay Away From You.1.mid"
+    },
+    {
+      "artist": "Firefall",
+      "title": "Just Remember I Love You",
+      "slug": "lakh/Firefall/Just_Remember_I_Love_You",
+      "filename": "Just Remember I Love You.mid"
+    },
+    {
+      "artist": "Fleetwood Mac",
+      "title": "Everywhere",
+      "slug": "lakh/Fleetwood_Mac/Everywhere",
+      "filename": "Everywhere.mid"
+    },
+    {
+      "artist": "Fleetwood Mac",
+      "title": "Everywhere.2",
+      "slug": "lakh/Fleetwood_Mac/Everywhere_2",
+      "filename": "Everywhere.2.mid"
     },
     {
       "artist": "Fleetwood Mac",
@@ -3563,6 +3269,24 @@
       "filename": "Landslide.3.mid"
     },
     {
+      "artist": "Fleetwood Mac",
+      "title": "Never Going Back Again",
+      "slug": "lakh/Fleetwood_Mac/Never_Going_Back_Again",
+      "filename": "Never Going Back Again.mid"
+    },
+    {
+      "artist": "Gino Paoli",
+      "title": "Il cielo in una stanza",
+      "slug": "lakh/Gino_Paoli/Il_cielo_in_una_stanza",
+      "filename": "Il cielo in una stanza.mid"
+    },
+    {
+      "artist": "Goo Goo Dolls",
+      "title": "Black Balloon",
+      "slug": "lakh/Goo_Goo_Dolls/Black_Balloon",
+      "filename": "Black Balloon.mid"
+    },
+    {
       "artist": "Goo Goo Dolls",
       "title": "Broadway",
       "slug": "lakh/Goo_Goo_Dolls/Broadway",
@@ -3575,10 +3299,94 @@
       "filename": "Hate This Place.mid"
     },
     {
-      "artist": "Marx Richard",
-      "title": "Right Here Waiting.1",
-      "slug": "lakh/Marx_Richard/Right_Here_Waiting_1",
-      "filename": "Right Here Waiting.1.mid"
+      "artist": "Green Day",
+      "title": "Do Da Da",
+      "slug": "lakh/Green_Day/Do_Da_Da",
+      "filename": "Do Da Da.mid"
+    },
+    {
+      "artist": "Green Day",
+      "title": "When I Come Around.4",
+      "slug": "lakh/Green_Day/When_I_Come_Around_4",
+      "filename": "When I Come Around.4.mid"
+    },
+    {
+      "artist": "Hole",
+      "title": "Doll Parts",
+      "slug": "lakh/Hole/Doll_Parts",
+      "filename": "Doll Parts.mid"
+    },
+    {
+      "artist": "Jackie Wilson",
+      "title": "(Your Love Keeps Lifting Me) Higher & Higher",
+      "slug": "lakh/Jackie_Wilson/Your_Love_Keeps_Lifting_Me_Higher_Higher",
+      "filename": "(Your Love Keeps Lifting Me) Higher & Higher.mid"
+    },
+    {
+      "artist": "Jackson Michael",
+      "title": "Will You Be There",
+      "slug": "lakh/Jackson_Michael/Will_You_Be_There",
+      "filename": "Will You Be There.mid"
+    },
+    {
+      "artist": "Jewel",
+      "title": "Foolish Games",
+      "slug": "lakh/Jewel/Foolish_Games",
+      "filename": "Foolish Games.mid"
+    },
+    {
+      "artist": "Jewel",
+      "title": "Foolish Games.3",
+      "slug": "lakh/Jewel/Foolish_Games_3",
+      "filename": "Foolish Games.3.mid"
+    },
+    {
+      "artist": "Jewel",
+      "title": "Hands",
+      "slug": "lakh/Jewel/Hands",
+      "filename": "Hands.mid"
+    },
+    {
+      "artist": "Jewel",
+      "title": "Hands.1",
+      "slug": "lakh/Jewel/Hands_1",
+      "filename": "Hands.1.mid"
+    },
+    {
+      "artist": "Jewel",
+      "title": "Innocence Maintained",
+      "slug": "lakh/Jewel/Innocence_Maintained",
+      "filename": "Innocence Maintained.mid"
+    },
+    {
+      "artist": "Jim Croce",
+      "title": "Operator",
+      "slug": "lakh/Jim_Croce/Operator",
+      "filename": "Operator.mid"
+    },
+    {
+      "artist": "Johnny Rivers",
+      "title": "Swayin' To the Music (Slow Dancin')",
+      "slug": "lakh/Johnny_Rivers/Swayin_To_the_Music_Slow_Dancin",
+      "filename": "Swayin' To the Music (Slow Dancin').mid"
+    },
+    {
+      "artist": "Joni Mitchell",
+      "title": "Both Sides, Now",
+      "slug": "lakh/Joni_Mitchell/Both_Sides_Now",
+      "filename": "Both Sides, Now.mid"
+    },
+    {
+      "artist": "Kiss",
+      "title": "Hard Luck Woman",
+      "slug": "lakh/Kiss/Hard_Luck_Woman",
+      "filename": "Hard Luck Woman.mid"
+    },
+    {
+      "artist": "Mariah Carey",
+      "title": "Slipping Away",
+      "slug": "lakh/Mariah_Carey/Slipping_Away",
+      "filename": "Slipping Away.mid"
     },
     {
       "artist": "Marx Richard",
@@ -3587,10 +3395,10 @@
       "filename": "Right Here Waiting.3.mid"
     },
     {
-      "artist": "Neil Diamond",
-      "title": "Kentucky Woman",
-      "slug": "lakh/Neil_Diamond/Kentucky_Woman",
-      "filename": "Kentucky Woman.mid"
+      "artist": "Natalie Imbruglia",
+      "title": "Left of the Middle",
+      "slug": "lakh/Natalie_Imbruglia/Left_of_the_Middle",
+      "filename": "Left of the Middle.mid"
     },
     {
       "artist": "Nomadi",
@@ -3599,10 +3407,16 @@
       "filename": "Un giorno insieme.mid"
     },
     {
-      "artist": "Oleta Adams",
-      "title": "Get Here",
-      "slug": "lakh/Oleta_Adams/Get_Here",
-      "filename": "Get Here.mid"
+      "artist": "Nomadi",
+      "title": "Un giorno insieme.1",
+      "slug": "lakh/Nomadi/Un_giorno_insieme_1",
+      "filename": "Un giorno insieme.1.mid"
+    },
+    {
+      "artist": "Opus",
+      "title": "Live Is Life",
+      "slug": "lakh/Opus/Live_Is_Life",
+      "filename": "Live Is Life.mid"
     },
     {
       "artist": "Pet Shop Boys",
@@ -3611,16 +3425,94 @@
       "filename": "Before.mid"
     },
     {
+      "artist": "Phyllis Nelson",
+      "title": "Move Closer",
+      "slug": "lakh/Phyllis_Nelson/Move_Closer",
+      "filename": "Move Closer.mid"
+    },
+    {
+      "artist": "Prince",
+      "title": "Do Me, Baby",
+      "slug": "lakh/Prince/Do_Me_Baby",
+      "filename": "Do Me, Baby.mid"
+    },
+    {
+      "artist": "Radiohead",
+      "title": "High and Dry.2",
+      "slug": "lakh/Radiohead/High_and_Dry_2",
+      "filename": "High and Dry.2.mid"
+    },
+    {
+      "artist": "Ricky Nelson",
+      "title": "Poor Little Fool",
+      "slug": "lakh/Ricky_Nelson/Poor_Little_Fool",
+      "filename": "Poor Little Fool.mid"
+    },
+    {
+      "artist": "Rossi Vasco",
+      "title": "Toffee",
+      "slug": "lakh/Rossi_Vasco/Toffee",
+      "filename": "Toffee.mid"
+    },
+    {
       "artist": "Sarah McLachlan",
       "title": "Sweet Surrender",
       "slug": "lakh/Sarah_McLachlan/Sweet_Surrender",
       "filename": "Sweet Surrender.mid"
     },
     {
+      "artist": "Simon & Garfunkel",
+      "title": "I Am a Rock",
+      "slug": "lakh/Simon_Garfunkel/I_Am_a_Rock",
+      "filename": "I Am a Rock.mid"
+    },
+    {
+      "artist": "Simon & Garfunkel",
+      "title": "The Sound of Silence",
+      "slug": "lakh/Simon_Garfunkel/The_Sound_of_Silence",
+      "filename": "The Sound of Silence.mid"
+    },
+    {
+      "artist": "Sonic Youth",
+      "title": "Pacific Coast Highway",
+      "slug": "lakh/Sonic_Youth/Pacific_Coast_Highway",
+      "filename": "Pacific Coast Highway.mid"
+    },
+    {
       "artist": "Stevie Nicks",
       "title": "Landslide",
       "slug": "lakh/Stevie_Nicks/Landslide",
       "filename": "Landslide.mid"
+    },
+    {
+      "artist": "Stevie Nicks",
+      "title": "Stand Back.1",
+      "slug": "lakh/Stevie_Nicks/Stand_Back_1",
+      "filename": "Stand Back.1.mid"
+    },
+    {
+      "artist": "Styx",
+      "title": "Come Sail Away.3",
+      "slug": "lakh/Styx/Come_Sail_Away_3",
+      "filename": "Come Sail Away.3.mid"
+    },
+    {
+      "artist": "Texas",
+      "title": "Say What You Want",
+      "slug": "lakh/Texas/Say_What_You_Want",
+      "filename": "Say What You Want.mid"
+    },
+    {
+      "artist": "The Byrds",
+      "title": "Turn! Turn! Turn!.1",
+      "slug": "lakh/The_Byrds/Turn_Turn_Turn_1",
+      "filename": "Turn! Turn! Turn!.1.mid"
+    },
+    {
+      "artist": "The Byrds",
+      "title": "Turn! Turn! Turn!.2",
+      "slug": "lakh/The_Byrds/Turn_Turn_Turn_2",
+      "filename": "Turn! Turn! Turn!.2.mid"
     },
     {
       "artist": "The Corrs",
@@ -3636,27 +3528,135 @@
     },
     {
       "artist": "The Cranberries",
-      "title": "Twenty One",
-      "slug": "lakh/The_Cranberries/Twenty_One",
-      "filename": "Twenty One.mid"
+      "title": "Forever Yellow Skies",
+      "slug": "lakh/The_Cranberries/Forever_Yellow_Skies",
+      "filename": "Forever Yellow Skies.mid"
     },
     {
       "artist": "The Cranberries",
-      "title": "Twenty One.1",
-      "slug": "lakh/The_Cranberries/Twenty_One_1",
-      "filename": "Twenty One.1.mid"
+      "title": "Free to Decide",
+      "slug": "lakh/The_Cranberries/Free_to_Decide",
+      "filename": "Free to Decide.mid"
     },
     {
       "artist": "The Cranberries",
-      "title": "Twenty One.2",
-      "slug": "lakh/The_Cranberries/Twenty_One_2",
-      "filename": "Twenty One.2.mid"
+      "title": "Free to Decide.1",
+      "slug": "lakh/The_Cranberries/Free_to_Decide_1",
+      "filename": "Free to Decide.1.mid"
     },
     {
-      "artist": "The Zombies",
-      "title": "Tell Her No (acoustic)",
-      "slug": "lakh/The_Zombies/Tell_Her_No_acoustic",
-      "filename": "Tell Her No (acoustic).mid"
+      "artist": "The Cranberries",
+      "title": "Free to Decide.2",
+      "slug": "lakh/The_Cranberries/Free_to_Decide_2",
+      "filename": "Free to Decide.2.mid"
+    },
+    {
+      "artist": "The Cranberries",
+      "title": "I'm Still Remembering",
+      "slug": "lakh/The_Cranberries/I_m_Still_Remembering",
+      "filename": "I'm Still Remembering.mid"
+    },
+    {
+      "artist": "The Cranberries",
+      "title": "Intermission",
+      "slug": "lakh/The_Cranberries/Intermission",
+      "filename": "Intermission.mid"
+    },
+    {
+      "artist": "The Cranberries",
+      "title": "Just My Imagination",
+      "slug": "lakh/The_Cranberries/Just_My_Imagination",
+      "filename": "Just My Imagination.mid"
+    },
+    {
+      "artist": "The Kelly Family",
+      "title": "First Time",
+      "slug": "lakh/The_Kelly_Family/First_Time",
+      "filename": "First Time.mid"
+    },
+    {
+      "artist": "The Offspring",
+      "title": "All I Want",
+      "slug": "lakh/The_Offspring/All_I_Want",
+      "filename": "All I Want.mid"
+    },
+    {
+      "artist": "The Smashing Pumpkins",
+      "title": "Today",
+      "slug": "lakh/The_Smashing_Pumpkins/Today",
+      "filename": "Today.mid"
+    },
+    {
+      "artist": "The Smashing Pumpkins",
+      "title": "Today.2",
+      "slug": "lakh/The_Smashing_Pumpkins/Today_2",
+      "filename": "Today.2.mid"
+    },
+    {
+      "artist": "The Smashing Pumpkins",
+      "title": "Today.3",
+      "slug": "lakh/The_Smashing_Pumpkins/Today_3",
+      "filename": "Today.3.mid"
+    },
+    {
+      "artist": "The Smashing Pumpkins",
+      "title": "Tonight, Tonight",
+      "slug": "lakh/The_Smashing_Pumpkins/Tonight_Tonight",
+      "filename": "Tonight, Tonight.mid"
+    },
+    {
+      "artist": "The Smashing Pumpkins",
+      "title": "Tonight, Tonight.1",
+      "slug": "lakh/The_Smashing_Pumpkins/Tonight_Tonight_1",
+      "filename": "Tonight, Tonight.1.mid"
+    },
+    {
+      "artist": "The Smashing Pumpkins",
+      "title": "Tonight, Tonight.2",
+      "slug": "lakh/The_Smashing_Pumpkins/Tonight_Tonight_2",
+      "filename": "Tonight, Tonight.2.mid"
+    },
+    {
+      "artist": "The Smashing Pumpkins",
+      "title": "Tonite (reprise)",
+      "slug": "lakh/The_Smashing_Pumpkins/Tonite_reprise",
+      "filename": "Tonite (reprise).mid"
+    },
+    {
+      "artist": "The Tony Rich Project",
+      "title": "Nobody Knows",
+      "slug": "lakh/The_Tony_Rich_Project/Nobody_Knows",
+      "filename": "Nobody Knows.mid"
+    },
+    {
+      "artist": "Tom Petty and The Heartbreakers",
+      "title": "Learning to Fly",
+      "slug": "lakh/Tom_Petty_and_The_Heartbreakers/Learning_to_Fly",
+      "filename": "Learning to Fly.mid"
+    },
+    {
+      "artist": "Tom Petty and The Heartbreakers",
+      "title": "Learning to Fly.1",
+      "slug": "lakh/Tom_Petty_and_The_Heartbreakers/Learning_to_Fly_1",
+      "filename": "Learning to Fly.1.mid"
+    },
+    {
+      "artist": "U2",
+      "title": "If God Will Send His Angels",
+      "slug": "lakh/U2/If_God_Will_Send_His_Angels",
+      "filename": "If God Will Send His Angels.mid"
+    },
+    {
+      "artist": "Valens Ritchie",
+      "title": "La Bamba.1",
+      "slug": "lakh/Valens_Ritchie/La_Bamba_1",
+      "filename": "La Bamba.1.mid"
+    },
+    {
+      "artist": "Weezer",
+      "title": "Jamie",
+      "slug": "lakh/Weezer/Jamie",
+      "filename": "Jamie.mid"
     }
   ]
 }

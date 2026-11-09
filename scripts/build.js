@@ -55,6 +55,10 @@ measureFileSizesBeforeBuild(paths.appBuild)
   })
   .then(
     ({ stats, previousFileSizes, warnings }) => {
+      require('child_process').execFileSync(
+        process.execPath, ['--test', path.join(__dirname, 'rawl/spa-redirect.test.cjs')],
+        { stdio: 'inherit', env: { ...process.env, RAWL_HTML_DIR: paths.appBuild } }
+      );
       if (warnings.length) {
         console.log(chalk.yellow('Compiled with warnings.\n'));
         console.log(warnings.join('\n\n'));

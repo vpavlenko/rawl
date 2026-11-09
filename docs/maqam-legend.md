@@ -4,12 +4,12 @@ The `scaleLegend: "maqam"` corpus setting replaces the Western chord stairs,
 keyboard, and scale groups for pieces in the Abraham Salman, Ibrahim Al Aryan,
 and Riyad Al Sunbati corpora. Other corpora retain their existing legend.
 
-The compact legend shows all eight root ajnas in Rawl notation, using the
+The compact legend shows all nine root ajnas in Rawl notation, using the
 same root spans as the jins-1 brackets on `/maqam`, extending Kurd, Hijaz and
 Bayati through their stable fifth and prepending practical lower auxiliaries.
 The source brackets on `/maqam` retain their original spans. The legend has
 5 px padding. Its order matches the page: ajam, rast, hijaz, kurd,
-nahawand, bayati, saba, sikah (the root jins of huzzam). Note lengths and tonic
+nikriz, nahawand, bayati, saba, sikah (the root jins of huzzam). Note lengths and tonic
 columns align, and each name's baseline lies on its tonic line. Clicking the
 name, notes, or empty space in a row toggles its practice playback. Its Lucide
 play/stop icon appears on row hover or during playback. The standard piano-legend
@@ -17,8 +17,8 @@ fold control sits above the panel; there is no separate corner Stop button.
 The same Rawl playback clock, quartertone markers, tooltip and Shift-hover
 tonic recoloring apply. Its Maqamat link, followed by a Lucide square-arrow-out-up-right icon,
 opens `/maqam`, which renders one Rawl scale per maqam, with the lower
-auxiliaries prepended to its full scale. All eight rows fit the first desktop
-screen. There are no separate jins blocks or sayr diagrams on that screen.
+auxiliaries prepended to its full scale. All nine rows fit the first desktop screen in two columns at widths of
+1280 px and above; narrower screens use a single column. There are no separate jins blocks or sayr diagrams on that screen.
 The original book crops remain source evidence, without being rendered in the legend.
 
 Source: Johnny Farraj and Sami Abu Shumays, _Inside Arabic Music: Arabic Maqam
@@ -32,7 +32,7 @@ equal-width notes throughout. Visible note bars fill the complete column, ending
 note's start; the last note has the same width. Jins brackets use those same
 column edges. A shared column grid reserves space for the
 largest set of lower auxiliaries, so the tonic and following scale degrees
-align across all eight staves. Source sayr crops remain as source evidence but
+align across all nine staves. Source sayr crops remain as source evidence but
 are not rendered. No complete book pages are bundled.
 
 The title, source attribution and corpus link occupy a left sidebar. Each
@@ -43,10 +43,13 @@ Figure numbers and page references remain in source data and this document,
 without appearing under the maqam names.
 All displayed maqam and jins names use lowercase, including accessible labels.
 
-The reference order is Ajam, Rast, Hijaz, Kurd, Nahawand, Bayati, Saba, Huzzam.
+The reference order is Ajam, Rast, Hijaz, Kurd, Nikriz, Nahawand, Bayati, Saba, Huzzam.
+Nikriz uses the source C tonic and lower B-flat/B auxiliaries. Figure 24.45
+is printed descending; its scale is normalized to the ascending reference order.
+Its root jins spans C–D–E-flat–F-sharp–G, followed by Nahawand on G.
 Huzzam's second ascending shoulder is Sikah, from figure 24.23.
 Its available content height is observed on resize. A common pitch height is
-maximized across the eight staves, reserving the inter-stave gaps, bracket
+maximized across the taller column of staves, reserving the inter-stave gaps, bracket
 labels and the production renderer's upward playback expansion.
 Root-jins brackets sit above their notes, and the other brackets sit below
 their own notes, inside the open areas of each scale. Overlapping lower
@@ -140,6 +143,7 @@ The left sidebar explains: "Shift-hover: use this note as tonic."
 | -------- | ------------- | ------------------------ | ----- | ------------- |
 | Ajam     | 14.7          | 24.57 (Egyptian version) | 24.58 | 213, 405      |
 | Hijaz    | 14.12         | 24.33                    | 24.34 | 217, 393–394  |
+| Nikriz   | 14.5          | 24.45                    | 24.46 | 211, 399–400  |
 | Nahawand | 14.3          | 24.39                    | 24.40 | 209, 397      |
 | Kurd     | 14.14         | 24.51                    | 24.52 | 219, 402      |
 | Rast     | 14.1          | 24.1                     | 24.2  | 207, 379      |
@@ -152,7 +156,7 @@ Reproduce all crops with `python3 scripts/rawl/extract-maqam-figures.py /path/to
 coordinates, rendering scale, and output hashes.
 
 The figures use the standard tonic printed in the book (C for
-Ajam, Nahawand, and Rast; D for Hijaz, Kurd, Bayati, and Saba; E half-flat for
+Ajam, Nikriz, Nahawand, and Rast; D for Hijaz, Kurd, Bayati, and Saba; E half-flat for
 Huzzam). Qanun playback now uses the same register as the printed figures.
 Half-semitone values represent
 symbolic quarter tones, rather than measured performance intonation. The root
@@ -214,5 +218,5 @@ The previews use an independent Web Audio graph. Selecting
 another preview cancels the previous one. Stop, folding, navigation, and unmount
 cancel scheduled sources and UI timers, including a pending sample download.
 
-The reference page is a visual reference for these eight maqamat; it does not
+The reference page is a visual reference for these nine maqamat; it does not
 reproduce the book's prose or claim to cover the complete maqam system.

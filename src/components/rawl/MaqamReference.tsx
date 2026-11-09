@@ -17,6 +17,7 @@ import {
   fitMaqamNoteHeight,
   getMaqamNotationLayout,
   MAQAM_ROW_GAP,
+  splitMaqamColumns,
 } from "./legends/maqamNotationLayout";
 
 const Page = styled.main`
@@ -92,12 +93,19 @@ const Page = styled.main`
 `;
 
 const Staves = styled.div`
+  display: grid;
+  column-gap: 24px;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+`;
+
+const Column = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${MAQAM_ROW_GAP}px;
   min-width: 0;
   min-height: 0;
-  height: 100%;
 `;
 
 const MaqamLabel = styled.div<{ $fifthLineY: number }>`
@@ -131,9 +139,8 @@ const REFERENCE_ROWS = MAQAM_REFERENCE_SCALES.map((maqam) => {
       // Include the root jins's full core now that its bracket is above.
       // Saba keeps its source span; its extended six-note core overlaps Hijaz.
       end:
-        (group.start === 0
-          ? maqamRootJins(maqam).end
-          : group.end) + maqamLowerPitches(maqam).length,
+        (group.start === 0 ? maqamRootJins(maqam).end : group.end) +
+        maqamLowerPitches(maqam).length,
       above: group.start === 0,
     })),
   };
@@ -149,6 +156,16 @@ export default function MaqamReference() {
   const preview = useMaqamPreview();
   const stavesRef = useRef<HTMLDivElement>(null);
   const [availableHeight, setAvailableHeight] = useState(0);
+  const [columnCount, setColumnCount] = useState(() =>
+    window.matchMedia("(min-width: 1280px)").matches ? 2 : 1,
+  );
+  useLayoutEffect(() => {
+    const media = window.matchMedia("(min-width: 1280px)");
+    const update = () => setColumnCount(media.matches ? 2 : 1);
+    media.addEventListener("change", update);
+    update();
+    return () => media.removeEventListener("change", update);
+  }, []);
   useLayoutEffect(() => {
     const element = stavesRef.current;
     if (!element) return;
@@ -159,8 +176,8 @@ export default function MaqamReference() {
     return () => observer.disconnect();
   }, []);
   const noteHeight = useMemo(
-    () => fitMaqamNoteHeight(REFERENCE_ROWS, availableHeight),
-    [availableHeight],
+    () => fitMaqamNoteHeight(REFERENCE_ROWS, availableHeight, columnCount),
+    [availableHeight, columnCount],
   );
   return (
     <Page data-testid="maqam-reference">
@@ -180,56 +197,69 @@ export default function MaqamReference() {
         <span>Shift-hover: use this note as tonic.</span>
         <Link to="/corpus/riyad_al_sunbati">Riyad Al Sunbati</Link>
       </header>
-      <Staves ref={stavesRef}>
+      <Staves
+        ref={stavesRef}
+        style={{
+          gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
+        }}
+      >
         <NotePlaybackContext.Provider value={preview.registerNote}>
-          {REFERENCE_ROWS.map(({ maqam, pitches, groups }) => {
-            const active = preview.playing === maqam.name;
-            const lowerCount = maqamLowerPitches(maqam).length;
-            const { fifthLineY } = getMaqamNotationLayout(
-              pitches,
-              groups,
-              noteHeight,
-            );
-            return (
-              <section key={maqam.name} id={maqam.name.toLowerCase()}>
-                <MaqamLabel $fifthLineY={fifthLineY}>
-                  <h2>{maqam.name.toLowerCase()}</h2>
-                  <button
-                    type="button"
-                    aria-label={`${
-                      active ? "Stop" : "Play"
-                    } ${maqam.name.toLowerCase()}`}
-                    onClick={() =>
-                      active ? preview.stop() : preview.practice(maqam)
-                    }
-                  >
-                    {active ? <Square /> : <Play />}
-                  </button>
-                </MaqamLabel>
-                <figure>
-                  <MaqamRawlNotation
-                    name={maqam.name}
-                    tonic={maqam.tonic}
-                    pitches={pitches}
-                    startColumn={LOWER_COLUMNS - lowerCount}
-                    columnCount={COLUMN_COUNT}
-                    noteHeight={noteHeight}
-                    section={maqamPlaybackSection(maqam)}
-                    auxiliary={pitches.map((_, index) => index < lowerCount)}
-                    groups={groups}
-                    activeIndex={
-                      preview.active?.name === maqam.name
-                        ? preview.active.index
-                        : null
-                    }
-                    onNote={(pitch, index) =>
-                      preview.play(maqam, [pitch], index)
-                    }
-                  />
-                </figure>
-              </section>
-            );
-          })}
+          {splitMaqamColumns(REFERENCE_ROWS, columnCount).map(
+            (rows, column) => (
+              <Column key={column} data-testid="maqam-column">
+                {rows.map(({ maqam, pitches, groups }) => {
+                  const active = preview.playing === maqam.name;
+                  const lowerCount = maqamLowerPitches(maqam).length;
+                  const { fifthLineY } = getMaqamNotationLayout(
+                    pitches,
+                    groups,
+                    noteHeight,
+                  );
+                  return (
+                    <section key={maqam.name} id={maqam.name.toLowerCase()}>
+                      <MaqamLabel $fifthLineY={fifthLineY}>
+                        <h2>{maqam.name.toLowerCase()}</h2>
+                        <button
+                          type="button"
+                          aria-label={`${
+                            active ? "Stop" : "Play"
+                          } ${maqam.name.toLowerCase()}`}
+                          onClick={() =>
+                            active ? preview.stop() : preview.practice(maqam)
+                          }
+                        >
+                          {active ? <Square /> : <Play />}
+                        </button>
+                      </MaqamLabel>
+                      <figure>
+                        <MaqamRawlNotation
+                          name={maqam.name}
+                          tonic={maqam.tonic}
+                          pitches={pitches}
+                          startColumn={LOWER_COLUMNS - lowerCount}
+                          columnCount={COLUMN_COUNT}
+                          noteHeight={noteHeight}
+                          section={maqamPlaybackSection(maqam)}
+                          auxiliary={pitches.map(
+                            (_, index) => index < lowerCount,
+                          )}
+                          groups={groups}
+                          activeIndex={
+                            preview.active?.name === maqam.name
+                              ? preview.active.index
+                              : null
+                          }
+                          onNote={(pitch, index) =>
+                            preview.play(maqam, [pitch], index)
+                          }
+                        />
+                      </figure>
+                    </section>
+                  );
+                })}
+              </Column>
+            ),
+          )}
         </NotePlaybackContext.Provider>
         {preview.error && <div role="status">Audio unavailable</div>}
       </Staves>

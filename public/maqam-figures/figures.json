@@ -352,6 +352,45 @@
       ],
       "scale": 3,
       "sha256": "8c48c68a3d9c7ba9649c31748d90268a7b2caabc83dfe49b9cc43f8d873c75aa"
+    },
+    "nikriz-jins": {
+      "pdfPage": 246,
+      "printedPage": 211,
+      "referenceHeight": 1700,
+      "crop": [
+        318,
+        798,
+        514,
+        90
+      ],
+      "scale": 3,
+      "sha256": "1eb40031fec637cfb642fc71362ee845bd84d9fb4409e058de90e47eaa1a061e"
+    },
+    "nikriz-scale": {
+      "pdfPage": 434,
+      "printedPage": 399,
+      "referenceHeight": 1500,
+      "crop": [
+        286,
+        1230,
+        445,
+        103
+      ],
+      "scale": 3,
+      "sha256": "bc0c5dd5b4331ebbfd3a3cb95a011c347f14cef1c3fc9f41d21e166e37359090"
+    },
+    "nikriz-sayr": {
+      "pdfPage": 435,
+      "printedPage": 400,
+      "referenceHeight": 1500,
+      "crop": [
+        98,
+        106,
+        780,
+        500
+      ],
+      "scale": 3,
+      "sha256": "559790a51dccaa0a445916db44e06a2c2e4c36631d878e2966b9eb1ad173fac1"
     }
   }
 }

@@ -9,7 +9,11 @@ import { FoldButton } from "../editor/EditorStyles";
 import { NotePlaybackContext } from "../notePlayback";
 import { MAQAM_REFERENCE_SCALES } from "./maqamScales";
 import { MaqamRawlNotation } from "./MaqamRawlNotation";
-import { maqamLowerPitches, maqamPlaybackSection, maqamRootJins } from "./maqamPlayback";
+import {
+  maqamLowerPitches,
+  maqamPlaybackSection,
+  maqamRootJins,
+} from "./maqamPlayback";
 import { useMaqamPreview } from "./useMaqamPreview";
 import { getMaqamNotationLayout } from "./maqamNotationLayout";
 
@@ -75,8 +79,11 @@ const JINS_ROWS = MAQAM_REFERENCE_SCALES.map((maqam) => ({
   maqam,
   jins: maqamRootJins(maqam, true),
 }));
-const LOWER_COLUMNS = Math.max(...JINS_ROWS.map(({ maqam }) => maqamLowerPitches(maqam).length));
-const COLUMN_COUNT = LOWER_COLUMNS + Math.max(...JINS_ROWS.map(({ jins }) => jins.end + 1));
+const LOWER_COLUMNS = Math.max(
+  ...JINS_ROWS.map(({ maqam }) => maqamLowerPitches(maqam).length),
+);
+const COLUMN_COUNT =
+  LOWER_COLUMNS + Math.max(...JINS_ROWS.map(({ jins }) => jins.end + 1));
 
 const MaqamLegend: React.FC<{
   expanded: boolean;
@@ -96,7 +103,12 @@ const MaqamLegend: React.FC<{
         aria-expanded={expanded}
         onClick={() => onExpandedChange(!expanded)}
       >
-        <span style={{ display: "flex", transform: expanded ? undefined : "rotate(180deg)" }}>
+        <span
+          style={{
+            display: "flex",
+            transform: expanded ? undefined : "rotate(180deg)",
+          }}
+        >
           <ChevronDown />
         </span>
       </FoldButton>
@@ -110,13 +122,23 @@ const MaqamLegend: React.FC<{
         {expanded && (
           <Link
             to="/maqam"
-            style={{ color: "#e9b44c", fontSize: 12, padding: "7px 8px",
-              display: "inline-flex", alignItems: "center", gap: 5 }}
+            style={{
+              color: "#e9b44c",
+              fontSize: 12,
+              padding: "7px 8px",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 5,
+            }}
           >
             Maqamat <SquareArrowOutUpRight />
           </Link>
         )}
-        {!expanded && <Collapsed type="button" onClick={() => onExpandedChange(true)}>maqamat</Collapsed>}
+        {!expanded && (
+          <Collapsed type="button" onClick={() => onExpandedChange(true)}>
+            maqamat
+          </Collapsed>
+        )}
       </div>
       {expanded && (
         <div
@@ -131,24 +153,51 @@ const MaqamLegend: React.FC<{
             {JINS_ROWS.map(({ maqam, jins }) => {
               const active = preview.playing === maqam.name;
               const lowerCount = maqamLowerPitches(maqam).length;
-              const toggle = () => active ? preview.stop() : preview.practiceJins(maqam);
+              const toggle = () =>
+                active ? preview.stop() : preview.practiceJins(maqam);
               const layout = getMaqamNotationLayout(jins.pitches, [], 3.5);
               return (
-                <Row key={maqam.name} data-testid="jins-legend-row"
-                  data-playing={active || undefined} onClick={toggle}>
+                <Row
+                  key={maqam.name}
+                  data-testid="jins-legend-row"
+                  data-playing={active || undefined}
+                  onClick={toggle}
+                >
                   <div style={{ position: "relative", alignSelf: "stretch" }}>
                     <button
                       type="button"
                       aria-label={`${active ? "Stop" : "Play"} ${jins.name}`}
-                      style={{ display: "block", height: "100%", position: "relative" }}
+                      style={{
+                        display: "block",
+                        height: "100%",
+                        position: "relative",
+                      }}
                     >
-                      <svg width="64" height={layout.height} aria-hidden="true"
-                        style={{ display: "block" }}>
-                        <text x="64" y={layout.tonicLineY} textAnchor="end"
-                          dominantBaseline="alphabetic" fill="currentColor">{jins.name}</text>
+                      <svg
+                        width="64"
+                        height={layout.height}
+                        aria-hidden="true"
+                        style={{ display: "block" }}
+                      >
+                        <text
+                          x="64"
+                          y={layout.tonicLineY}
+                          textAnchor="end"
+                          dominantBaseline="alphabetic"
+                          fill="currentColor"
+                        >
+                          {jins.name}
+                        </text>
                       </svg>
-                      <span data-jins-transport aria-hidden="true"
-                        style={{ position: "absolute", right: 0, top: layout.tonicLineY + 4 }}>
+                      <span
+                        data-jins-transport
+                        aria-hidden="true"
+                        style={{
+                          position: "absolute",
+                          right: 0,
+                          top: layout.tonicLineY + 4,
+                        }}
+                      >
                         {active ? <Square /> : <Play />}
                       </span>
                     </button>
@@ -161,25 +210,33 @@ const MaqamLegend: React.FC<{
                     columnCount={COLUMN_COUNT}
                     noteHeight={3.5}
                     section={maqamPlaybackSection(maqam)}
-                    auxiliary={jins.pitches.map((_, index) => index < lowerCount)}
-                    activeIndex={preview.active?.name === maqam.name ? preview.active.index : null}
+                    auxiliary={jins.pitches.map(
+                      (_, index) => index < lowerCount,
+                    )}
+                    activeIndex={
+                      preview.active?.name === maqam.name
+                        ? preview.active.index
+                        : null
+                    }
                     onNote={toggle}
                   />
                 </Row>
               );
             })}
           </NotePlaybackContext.Provider>
-          {preview.error && <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "4px 8px 8px",
-              fontSize: 11,
-              color: "#aaa",
-            }}
-          >
-            Audio unavailable
-          </div>}
+          {preview.error && (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "4px 8px 8px",
+                fontSize: 11,
+                color: "#aaa",
+              }}
+            >
+              Audio unavailable
+            </div>
+          )}
         </div>
       )}
     </Panel>

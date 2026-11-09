@@ -1,5 +1,8 @@
 import { createMidiNumberToY } from "../noteCoordinates";
-import { QUARTER_TONE_MARKER_OFFSET, QUARTER_TONE_MARKER_SIZE } from "../pitchBend";
+import {
+  QUARTER_TONE_MARKER_OFFSET,
+  QUARTER_TONE_MARKER_SIZE,
+} from "../pitchBend";
 
 export type MaqamNotationGroup = {
   label: string;
@@ -34,10 +37,7 @@ export const getMaqamNotationLayout = (
     if (group.above) {
       // Root-jins brackets follow the normal note-top contour.
       return (
-        pitchToY(Math.max(...notes)) -
-        noteHeight -
-        BRACKET_GAP -
-        BRACKET_HEIGHT
+        pitchToY(Math.max(...notes)) - noteHeight - BRACKET_GAP - BRACKET_HEIGHT
       );
     }
     let top = pitchToY(Math.min(...notes)) + noteHeight + BRACKET_GAP;
@@ -82,20 +82,32 @@ export const getMaqamNotationLayout = (
   };
 };
 
+export const splitMaqamColumns = <T>(rows: T[], columnCount = 1): T[][] => {
+  if (columnCount === 1) return [rows];
+  const split = Math.floor(rows.length / 2);
+  return [rows.slice(0, split), rows.slice(split)];
+};
+
 export const fitMaqamNoteHeight = (
   rows: { pitches: number[]; groups: MaqamNotationGroup[] }[],
   availableHeight: number,
+  columnCount = 1,
 ) => {
   if (!availableHeight) return 3;
-  const gapHeight = (rows.length - 1) * MAQAM_ROW_GAP;
+  const columns = splitMaqamColumns(rows, columnCount);
   let low = 0;
   let high = availableHeight;
   for (let iteration = 0; iteration < 32; iteration++) {
     const middle = (low + high) / 2;
-    const height = rows.reduce(
-      (sum, row) =>
-        sum + getMaqamNotationLayout(row.pitches, row.groups, middle).height,
-      gapHeight,
+    const height = Math.max(
+      ...columns.map((column) =>
+        column.reduce(
+          (sum, row) =>
+            sum +
+            getMaqamNotationLayout(row.pitches, row.groups, middle).height,
+          (column.length - 1) * MAQAM_ROW_GAP,
+        ),
+      ),
     );
     if (height <= availableHeight) low = middle;
     else high = middle;

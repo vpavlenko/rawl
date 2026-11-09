@@ -64,6 +64,24 @@ export const MAQAM_SCALES: MaqamScale[] = [
     pages: [217, 393, 394],
   },
   {
+    name: "Nikriz",
+    sayrSize: [780, 500],
+    tonic: 0,
+    lower: [-2, -1],
+    jins: [0, 2, 3, 6, 7, 8, 9, 10],
+    // Figure 24.45 is printed descending; normalize to this page's ascending order.
+    scale: [0, 2, 3, 6, 7, 9, 10, 12],
+    coreLength: 5,
+    ghammaz: [7],
+    scaleGroups: [
+      { label: "Nikriz 1", start: 0, end: 4 },
+      { label: "Nahawand 5", start: 4, end: 7 },
+    ],
+    noteX: [7.3, 17.8, 29.8, 40.4, 51, 61.6, 72.5, 83.5, 88, 94.3],
+    figures: ["14.5", "24.45", "24.46"],
+    pages: [211, 399, 400],
+  },
+  {
     name: "Nahawand",
     sayrSize: [775, 401],
     tonic: 0,
@@ -178,7 +196,7 @@ export const MAQAM_SCALES: MaqamScale[] = [
 ];
 
 export const MAQAM_REFERENCE_SCALES = [
-  "Ajam", "Rast", "Hijaz", "Kurd", "Nahawand", "Bayati", "Saba", "Huzzam",
+  "Ajam", "Rast", "Hijaz", "Kurd", "Nikriz", "Nahawand", "Bayati", "Saba", "Huzzam",
 ].map((name) => MAQAM_SCALES.find((maqam) => maqam.name === name)!);
 
 export const maqamFigure = (

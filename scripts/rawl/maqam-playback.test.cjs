@@ -24,7 +24,7 @@ test("legend root ajnas include stable fifths and keep their practical lower not
   const cores = {
     Ajam: [0, 2, 4, 5, 7], Rast: [0, 2, 3.5, 5, 7],
     Hijaz: [0, 1, 4, 5, 7], Kurd: [0, 1, 3, 5, 7],
-    Nahawand: [0, 2, 3, 5, 7], Bayati: [0, 1.5, 3, 5, 7],
+    Nahawand: [0, 2, 3, 5, 7], Nikriz: [0, 2, 3, 6, 7], Bayati: [0, 1.5, 3, 5, 7],
     Saba: [0, 1.5, 3, 4, 7], Huzzam: [0, 1.5, 3.5],
   };
   for (const maqam of MAQAM_SCALES) {

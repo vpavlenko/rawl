@@ -77,7 +77,7 @@ test("fast legato rounds return to tonic, reach every lower note and repeat asce
   const ajam = MAQAM_SCALES.find((m) => m.name === "Ajam");
   const pitches = maqamPitches(ajam);
   assert.deepEqual(
-    maqamPracticeBlocks(ajam).map((block) =>
+    maqamPracticeBlocks(ajam).slice(0, 5).map((block) =>
       block.map((index) => pitches[index]),
     ),
     [
@@ -229,6 +229,24 @@ test("named family shoulders use their source intervals and practice the full br
   assert.deepEqual(hijaz.scale.slice(hijazkar.start, hijazkar.end + 1), [5, 7, 8, 11, 12, 13, 16]);
   assert.equal(bayati.alternateSource.figure, "24.17");
   assert.equal(hijaz.alternateSource.figure, "24.35");
+});
+
+test("Suznak, Shawq Afza and Nawa Athar preserve their parent scales and practice sourced branches", () => {
+  const cases = [
+    ["Rast", "Suznak", [0, 2, 3.5, 5, 7, 9, 10.5, 12], [7, 8, 11, 12], [0, 2, 3.5, 5, 7, 8, 11, 12], "24.5"],
+    ["Ajam", "Shawq Afza", [0, 2, 4, 5, 7, 9, 11, 12], [7, 8, 11, 12], [0, 2, 4, 5, 7, 8, 11, 12], "24.59"],
+    ["Nikriz", "Nawa Athar", [0, 2, 3, 6, 7, 9, 10, 12], [3, 6, 7, 8, 11, 12], [0, 2, 3, 6, 7, 8, 11, 12], "24.47"],
+  ];
+  for (const [parent, name, primary, branch, full, figure] of cases) {
+    const maqam = MAQAM_SCALES.find(m => m.name === parent);
+    const shoulder = maqam.namedShoulders.find(s => s.name === name);
+    assert.deepEqual(maqam.scale.slice(0, 8), primary);
+    assert.deepEqual(maqam.scale.slice(shoulder.start, shoulder.end + 1), branch);
+    const pitches = maqamPitches(maqam);
+    assert.deepEqual(maqamPracticeBlocks(maqam).at(-1).map(i => pitches[i]), [...full, ...full.slice().reverse()]);
+    assert.equal(maqam.alternateSource.figure, figure);
+    assert.equal(maqamPracticeBlocks(maqam, true).length, 4);
+  }
 });
 
 test("legend ajnas finish after four practice rounds without repeating the full core", () => {

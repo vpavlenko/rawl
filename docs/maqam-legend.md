@@ -55,8 +55,10 @@ traditionally named Shahnaz. Its source scale and sayr crops are archived as
 Practice plays the primary Hijaz scale, its Rast branch, then the complete
 Hijazkar branch through the source's upper extension.
 Family-maqam names sit above their corresponding shoulders without an extra
-bracket; the component jins brackets stay below. The verified names are
-Hijazkar, Bayati Shuri and Sikah. Bayati Shuri adds the Hijaz-on-4 branch from
+bracket; the component jins brackets stay below. The verified branch names are
+Hijazkar, Bayati Shuri, Sikah, Suznak, Shawq Afza and Nawa Athar.
+Other shoulders carry their parent maqam name; alternate ajnas alone do not
+establish a different maqam or sayr. Bayati Shuri adds the Hijaz-on-4 branch from
 figure 24.17 (printed 387), preserving the existing Nahawand and Rast branches.
 Its practice round uses D, E-half-flat, F, G, A-flat, B, C and D.
 Huzzam's second ascending shoulder is Sikah, from figure 24.23.
@@ -233,3 +235,23 @@ cancel scheduled sources and UI timers, including a pending sample download.
 
 The reference page is a visual reference for these nine maqamat; it does not
 reproduce the book's prose or claim to cover the complete maqam system.
+
+Suznak is added to Rast from figure 24.5 (printed 381), Shawq Afza to Ajam
+from figure 24.59 (printed 406), and Nawa Athar to Nikriz from figure 24.47
+(printed 400). The corresponding sayr figures are 24.6, 24.60 and 24.48
+(printed 381, 406 and 401). Their original book crops and hashes are archived
+under `public/maqam-figures/`.
+
+Suznak and Shawq Afza use Hijaz on degree 5. Nawa Athar uses Hijazkar centered
+on degree 5, whose displayed span begins on degree 3. Each added shoulder
+gets a complete ascent/descent practice round. Ajam and Rast retain their
+existing primary descending shoulders; those are separated from the newly
+appended ascending branches when generating playback.
+
+Maqam World sources, checked 2026-11-09:
+- https://www.maqamworld.com/en/maqam/suznak.php
+- https://www.maqamworld.com/en/maqam/shawq_afza.php
+- https://www.maqamworld.com/en/maqam/nawa_athar.php
+
+Husayni is not inferred solely from the existing Rast-on-4 branch in Bayati:
+its characteristic 5-to-4 melodic path is a separate source feature.

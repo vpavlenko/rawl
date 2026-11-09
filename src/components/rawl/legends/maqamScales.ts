@@ -36,17 +36,25 @@ export const MAQAM_SCALES: MaqamScale[] = [
     tonic: 0,
     lower: [-3, -1],
     jins: [0, 2, 4, 5, 7, 9],
-    scale: [0, 2, 4, 5, 7, 9, 11, 12, 10, 9, 7],
+    scale: [0, 2, 4, 5, 7, 9, 11, 12, 10, 9, 7, 7, 8, 11, 12],
     coreLength: 5,
     ghammaz: [7],
     scaleGroups: [
       { label: "Ajam 1", start: 0, end: 3 },
       { label: "Upper Ajam 5/8", start: 4, end: 7 },
       { label: "Nahawand 5", start: 8, end: 10 },
+      { label: "Hijaz 5", start: 11, end: 14 },
     ],
     noteX: [9.5, 21.6, 33.5, 45.5, 56.5, 67.5, 80, 91],
     figures: ["14.7", "24.57", "24.58"],
     pages: [213, 405, 405],
+    alternateSource: { name: "Shawq Afza", figure: "24.59", page: 406 },
+    practiceVariants: [{ start: 11, end: 14 }],
+    namedShoulders: [
+      { name: "Ajam", start: 4, end: 7 },
+      { name: "Ajam", start: 8, end: 10 },
+      { name: "Shawq Afza", start: 11, end: 14 },
+    ],
   },
   {
     name: "Hijaz",
@@ -70,7 +78,11 @@ export const MAQAM_SCALES: MaqamScale[] = [
     pages: [217, 393, 394],
     alternateSource: { name: "Hijazkar", figure: "24.35", page: 395 },
     practiceVariants: [{ start: 8, end: 12 }, { start: 13, end: 19 }],
-    namedShoulders: [{ name: "Hijazkar", start: 13, end: 19 }],
+    namedShoulders: [
+      { name: "Hijaz", start: 3, end: 7 },
+      { name: "Hijaz", start: 8, end: 12 },
+      { name: "Hijazkar", start: 13, end: 19 },
+    ],
   },
   {
     name: "Nikriz",
@@ -79,16 +91,23 @@ export const MAQAM_SCALES: MaqamScale[] = [
     lower: [-2, -1],
     jins: [0, 2, 3, 6, 7, 8, 9, 10],
     // Figure 24.45 is printed descending; normalize to this page's ascending order.
-    scale: [0, 2, 3, 6, 7, 9, 10, 12],
+    scale: [0, 2, 3, 6, 7, 9, 10, 12, 3, 6, 7, 8, 11, 12],
     coreLength: 5,
     ghammaz: [7],
     scaleGroups: [
       { label: "Nikriz 1", start: 0, end: 4 },
       { label: "Nahawand 5", start: 4, end: 7 },
+      { label: "Hijazkar 5", start: 8, end: 13 },
     ],
     noteX: [7.3, 17.8, 29.8, 40.4, 51, 61.6, 72.5, 83.5, 88, 94.3],
     figures: ["14.5", "24.45", "24.46"],
     pages: [211, 399, 400],
+    alternateSource: { name: "Nawa Athar", figure: "24.47", page: 400 },
+    practiceVariants: [{ start: 8, end: 13 }],
+    namedShoulders: [
+      { name: "Nikriz", start: 4, end: 7 },
+      { name: "Nawa Athar", start: 8, end: 13 },
+    ],
   },
   {
     name: "Nahawand",
@@ -107,6 +126,10 @@ export const MAQAM_SCALES: MaqamScale[] = [
     noteX: [10, 16, 23.3, 35.2, 46, 58, 69, 81, 92],
     figures: ["14.3", "24.39", "24.40"],
     pages: [209, 397, 397],
+    namedShoulders: [
+      { name: "Nahawand", start: 4, end: 7 },
+      { name: "Nahawand", start: 8, end: 10 },
+    ],
   },
   {
     name: "Kurd",
@@ -124,6 +147,7 @@ export const MAQAM_SCALES: MaqamScale[] = [
     noteX: [10, 23.5, 36, 49.5, 64, 77, 90],
     figures: ["14.14", "24.51", "24.52"],
     pages: [219, 402, 402],
+    namedShoulders: [{ name: "Kurd", start: 3, end: 7 }],
   },
   {
     name: "Rast",
@@ -131,17 +155,25 @@ export const MAQAM_SCALES: MaqamScale[] = [
     tonic: 0,
     lower: [-3, -1.5],
     jins: [0, 2, 3.5, 5, 7, 8, 9],
-    scale: [0, 2, 3.5, 5, 7, 9, 10.5, 12, 10, 9, 7],
+    scale: [0, 2, 3.5, 5, 7, 9, 10.5, 12, 10, 9, 7, 7, 8, 11, 12],
     coreLength: 5,
     ghammaz: [7],
     scaleGroups: [
       { label: "Rast 1", start: 0, end: 3 },
       { label: "Upper Rast 5/8", start: 4, end: 7 },
       { label: "Nahawand 5", start: 8, end: 10 },
+      { label: "Hijaz 5", start: 11, end: 14 },
     ],
     noteX: [8, 19.5, 31.2, 42, 53.5, 64.5, 76, 86.5, 92],
     figures: ["14.1", "24.1", "24.2"],
     pages: [207, 379, 379],
+    alternateSource: { name: "Suznak", figure: "24.5", page: 381 },
+    practiceVariants: [{ start: 11, end: 14 }],
+    namedShoulders: [
+      { name: "Rast", start: 4, end: 7 },
+      { name: "Rast", start: 8, end: 10 },
+      { name: "Suznak", start: 11, end: 14 },
+    ],
   },
   {
     name: "Bayati",
@@ -164,7 +196,11 @@ export const MAQAM_SCALES: MaqamScale[] = [
     pages: [215, 385, 386],
     alternateSource: { name: "Bayati Shuri", figure: "24.17", page: 387 },
     practiceVariants: [{ start: 8, end: 12 }, { start: 13, end: 17 }],
-    namedShoulders: [{ name: "Bayati Shuri", start: 13, end: 17 }],
+    namedShoulders: [
+      { name: "Bayati", start: 3, end: 7 },
+      { name: "Bayati", start: 8, end: 12 },
+      { name: "Bayati Shuri", start: 13, end: 17 },
+    ],
   },
   {
     name: "Saba",
@@ -184,6 +220,7 @@ export const MAQAM_SCALES: MaqamScale[] = [
     noteX: [14.5, 26, 38, 48.5, 59.5, 70.5, 81, 92],
     figures: ["14.16", "24.63", "24.64"],
     pages: [221, 408, 408],
+    namedShoulders: [{ name: "Saba", start: 5, end: 10 }],
   },
   {
     name: "Huzzam",
@@ -206,7 +243,10 @@ export const MAQAM_SCALES: MaqamScale[] = [
     figures: ["14.18", "24.21", "24.22"],
     pages: [223, 388, 388],
     alternateSource: { name: "Sikah", figure: "24.23", page: 389 },
-    namedShoulders: [{ name: "Sikah", start: 8, end: 13 }],
+    namedShoulders: [
+      { name: "Huzzam", start: 2, end: 7 },
+      { name: "Sikah", start: 8, end: 13 },
+    ],
   },
 ];
 

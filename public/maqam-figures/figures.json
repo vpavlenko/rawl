@@ -469,6 +469,123 @@
       ],
       "scale": 3,
       "sha256": "16533305af4e7f0dfcfb3779a828f06d51651426d678d6b8c80f673a7c8f3a60"
+    },
+    "suznak-jins": {
+      "pdfPage": 242,
+      "printedPage": 207,
+      "referenceHeight": 1700,
+      "crop": [
+        328,
+        1230,
+        493,
+        93
+      ],
+      "scale": 3,
+      "sha256": "88adcfaecc8c90866b3ef2236d330ae77630d7ff9d79ba7e33a88b7147426891"
+    },
+    "suznak-scale": {
+      "pdfPage": 416,
+      "printedPage": 381,
+      "referenceHeight": 1500,
+      "crop": [
+        310,
+        344,
+        400,
+        96
+      ],
+      "scale": 3,
+      "sha256": "0b9e98905a8399ddb6c9412024c5447cf694addb9f7f3234a60299e127af1000"
+    },
+    "suznak-sayr": {
+      "pdfPage": 416,
+      "printedPage": 381,
+      "referenceHeight": 1500,
+      "crop": [
+        140,
+        510,
+        740,
+        355
+      ],
+      "scale": 3,
+      "sha256": "3e75e5190655321d3cdfe4df7a2a900412622d7165fb391d5881fbf72e840367"
+    },
+    "shawq-afza-jins": {
+      "pdfPage": 248,
+      "printedPage": 213,
+      "referenceHeight": 1700,
+      "crop": [
+        352,
+        850,
+        444,
+        92
+      ],
+      "scale": 3,
+      "sha256": "40072412528329ff9ffef7abc16924cc741ae4c596e902e99901261d7062bbaa"
+    },
+    "shawq-afza-scale": {
+      "pdfPage": 441,
+      "printedPage": 406,
+      "referenceHeight": 1500,
+      "crop": [
+        285,
+        491,
+        410,
+        100
+      ],
+      "scale": 3,
+      "sha256": "5aad739897ae64d9c8e3380e2065f4ff7df93853168e1b3ddf681cccbee390fd"
+    },
+    "shawq-afza-sayr": {
+      "pdfPage": 441,
+      "printedPage": 406,
+      "referenceHeight": 1500,
+      "crop": [
+        200,
+        640,
+        580,
+        270
+      ],
+      "scale": 3,
+      "sha256": "39a033c3ec475bd89d726e1ea1a79ab03093eb0da22a8311ca9e42aa20aca08c"
+    },
+    "nawa-athar-jins": {
+      "pdfPage": 246,
+      "printedPage": 211,
+      "referenceHeight": 1700,
+      "crop": [
+        318,
+        798,
+        514,
+        90
+      ],
+      "scale": 3,
+      "sha256": "1eb40031fec637cfb642fc71362ee845bd84d9fb4409e058de90e47eaa1a061e"
+    },
+    "nawa-athar-scale": {
+      "pdfPage": 435,
+      "printedPage": 400,
+      "referenceHeight": 1500,
+      "crop": [
+        290,
+        1270,
+        400,
+        125
+      ],
+      "scale": 3,
+      "sha256": "7d434c2aef66d6be9b7ee4716f84721ebfadf6c8ed900ba7f376bcfe7f7da8e1"
+    },
+    "nawa-athar-sayr": {
+      "pdfPage": 436,
+      "printedPage": 401,
+      "referenceHeight": 1500,
+      "crop": [
+        115,
+        105,
+        790,
+        375
+      ],
+      "scale": 3,
+      "sha256": "4d754cf9dd2463a7a488cd15bee0910e22bbebf0da94a76b7aad8ce5354fa98d"
     }
   }
 }

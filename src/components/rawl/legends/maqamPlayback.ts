@@ -58,7 +58,10 @@ export const maqamPracticeBlocks = (maqam: MaqamScale, rootOnly = false): number
   const variants = rootOnly ? [] : (maqam.practiceVariants ?? [])
     .map(({ start, end }) => maqam.scale.slice(start, end + 1)
       .map((_, index) => tonic + start + index));
-  const tail = rootOnly ? [] : variants[0] ?? maqam.scale.slice(8).map((_, index) => tonic + 8 + index);
+  // Keep the original descending shoulder separate from added ascending branches.
+  const tailEnd = maqam.practiceVariants?.[0]?.start ?? maqam.scale.length;
+  const tail = rootOnly ? [] : maqam.scale.slice(8, tailEnd)
+    .map((_, index) => tonic + 8 + index);
   const ascendingAlternative =
     tail.length > 1 &&
     pitches[tail[0]] < pitches[tail[tail.length - 1]] &&

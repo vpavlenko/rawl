@@ -1,3 +1,4 @@
+import { groupInstrumentRows, toggleInstrumentMask, soloInstrumentMask } from "../instrumentVoiceGroups";
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
@@ -81,10 +82,11 @@ const VoiceCheckbox = styled.input`
 
 type MergedVoicesLegendProps = {
   voiceNames: string[];
+  sourceVoiceNames?: string[];
   notes: ColoredNotesInVoices;
   voiceMask: boolean[];
   setVoiceMask: (mask: boolean[]) => void;
-  onVoiceHover: (voiceIndex: number | null) => void;
+  onVoiceHover: (voiceIndex: number | number[] | null) => void;
   onForcedPanningChange?: (enabled: boolean) => void;
   slug: string;
   excludedVoices?: number[];
@@ -104,6 +106,7 @@ type MergedVoicesLegendProps = {
 
 const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
   voiceNames,
+  sourceVoiceNames = voiceNames,
   notes,
   voiceMask,
   setVoiceMask,
@@ -178,9 +181,10 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
   }, [flashing]);
 
   const order = displayedOrder.split(",").map(Number);
-  const sortedVoices = [...targetVoices].sort(
+  const sortedVoices = groupInstrumentRows([...targetVoices].sort(
     (a, b) => order.indexOf(a.voiceIndex) - order.indexOf(b.voiceIndex),
-  );
+  ), sourceVoiceNames, slug, excludedVoices);
+  const excludedGroups = groupInstrumentRows(excludedVoices.map((voiceIndex) => ({ voiceIndex })), sourceVoiceNames, slug);
 
   const handlePanningToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.checked;
@@ -269,7 +273,7 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
         )}
         <VoiceList $flashing={flashing}>
         {sortedVoices.map(
-          ({ voiceName, voiceIndex, isDrum }) =>
+          ({ voiceName, voiceIndex, isDrum, voiceMembers }) =>
             !excluded.has(voiceIndex) && (
               <VoiceRow key={voiceIndex}>
                 <VoiceCheckbox
@@ -277,15 +281,10 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                   type="checkbox"
                   onChange={(e) => {
                     e.stopPropagation();
-                    let newVoiceMask = voiceMask.map((value, i) =>
-                      i === voiceIndex ? !value : value,
-                    );
-                    if (newVoiceMask.filter((voice) => voice).length === 0) {
-                      newVoiceMask = allIncluded;
-                    }
-                    setVoiceMask(newVoiceMask);
+                    setVoiceMask(toggleInstrumentMask(voiceMask, voiceMembers, allIncluded));
                   }}
-                  checked={voiceMask[voiceIndex]}
+                  checked={voiceMembers.every((index) => voiceMask[index])}
+                  ref={(input) => { if (input) input.indeterminate = voiceMembers.some((index) => voiceMask[index]) && !voiceMembers.every((index) => voiceMask[index]); }}
                 />{" "}
                 <label
                   htmlFor={`voice-active-${voiceIndex}`}
@@ -293,17 +292,10 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                   onClick={(event) => {
                     event.preventDefault();
                     event.stopPropagation();
-                    const isSingleActive =
-                      voiceMask[voiceIndex] &&
-                      voiceMask.filter(Boolean).length === 1;
                     onVoiceHover(null);
-                    setVoiceMask(
-                      isSingleActive
-                        ? allIncluded
-                        : voiceMask.map((_, index) => index === voiceIndex),
-                    );
+                    setVoiceMask(soloInstrumentMask(voiceMask, voiceMembers, allIncluded));
                   }}
-                  onMouseEnter={() => onVoiceHover(voiceIndex)}
+                  onMouseEnter={() => onVoiceHover(voiceMembers.length > 1 ? voiceMembers : voiceIndex)}
                   onMouseLeave={() => onVoiceHover(null)}
                   style={{
                     margin: 0,
@@ -317,14 +309,14 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                     style={{
                       display: "inline-block",
                       cursor: "pointer",
-                      backgroundColor: voiceMask[voiceIndex] !== isDrum
+                      backgroundColor: voiceMembers.some((index) => voiceMask[index]) !== isDrum
                         ? "white"
                         : "black",
                       padding: "0px 6px",
                       fontSize: "12px",
                       marginRight: 5,
                       verticalAlign: "middle",
-                      color: voiceMask[voiceIndex] !== isDrum ? "black" : "white",
+                      color: voiceMembers.some((index) => voiceMask[index]) !== isDrum ? "black" : "white",
                     }}
                   >
                     {voiceName}
@@ -421,9 +413,9 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
         {excludedVoices.length > 0 && canEditArrangement && (
           <details style={{ marginTop: 8, background: "#111", padding: 6 }}>
             <summary style={{ cursor: "pointer" }}>
-              Removed voices ({excludedVoices.length})
+              Removed voices ({excludedGroups.length})
             </summary>
-            {excludedVoices.map((index) => (
+            {excludedGroups.map(({ voiceIndex: index }) => (
               <div key={index} style={{ marginTop: 6 }}>
                 {index + 1}. {voiceNames[index] || `Voice ${index + 1}`}{" "}
                 <button

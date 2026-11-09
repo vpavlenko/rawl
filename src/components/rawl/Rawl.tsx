@@ -1,6 +1,12 @@
+import { instrumentVoiceMembers } from "./instrumentVoiceGroups";
 import { EMPTY_TIME_SLIDER_DATA } from "../timeSliderData";
 import { buildTimeSliderData } from "../buildTimeSliderData";
 import { noteColorClass } from "./colors";
+import { getNotePitchAtTime } from "./pitchBend";
+import { getHoverColorPitchClass, getHoverTonicPreview } from "./hoverTonic";
+import { getNoteCentsFromTonic } from "./noteCents";
+import NoteCentsTooltip from "./NoteCentsTooltip";
+import { corpora } from "./corpora/corpora";
 import {
   faArrowUpRightFromSquare,
   faCopy,
@@ -131,7 +137,7 @@ export type RawlProps = {
   voiceNames: string[];
   voiceMask: VoiceMask;
   setVoiceMask: (mask: VoiceMask) => void;
-  onVoiceHover?: (voiceIndex: number | null) => void;
+  onVoiceHover?: (voiceIndex: number | number[] | null) => void;
   onForcedPanningChange?: (enabled: boolean) => void;
   setDrumVoices?: (voices: number[]) => void;
   enableManualRemeasuring?: boolean;
@@ -236,6 +242,8 @@ const Rawl: React.FC<RawlProps> = ({
     [saveAnalysis],
   );
 
+  const voiceMembers = useCallback((index: number) => instrumentVoiceMembers(voiceNames, index, slug), [voiceNames, slug]);
+
   // Missing or invalid saved offsets render at the original octave.
   const voiceOctaveShifts = useMemo<Record<number, number>>(() => {
     const shifts: Record<number, number> = {};
@@ -250,13 +258,15 @@ const Rawl: React.FC<RawlProps> = ({
     if (!Number.isInteger(voiceIndex) || voiceIndex < 0 || voiceIndex >= parsingResult.notes.length)
       return;
     const shifts = { ...analysisRef.current.voiceOctaveShifts };
-    const current = Number.isSafeInteger(shifts[voiceIndex]) ? shifts[voiceIndex] : 0;
-    const next = current + direction;
-    if (!Number.isSafeInteger(next)) return;
-    if (next === 0) delete shifts[voiceIndex];
-    else shifts[voiceIndex] = next;
+    for (const index of voiceMembers(voiceIndex)) {
+      const current = Number.isSafeInteger(shifts[index]) ? shifts[index] : 0;
+      const next = current + direction;
+      if (!Number.isSafeInteger(next)) return;
+      if (next === 0) delete shifts[index];
+      else shifts[index] = next;
+    }
     commitAnalysisUpdate({ voiceOctaveShifts: shifts });
-  }, [parsingResult.notes.length, commitAnalysisUpdate]);
+  }, [parsingResult.notes.length, commitAnalysisUpdate, voiceMembers]);
 
   const annotatedVoiceNames = useMemo(
     () => voiceNames.map((name, index) => {
@@ -277,11 +287,13 @@ const Rawl: React.FC<RawlProps> = ({
       );
       if (name === null) return;
       const next = { ...analysisRef.current.voiceNames };
-      if (name.trim()) next[voiceIndex] = name.trim();
-      else delete next[voiceIndex];
+      for (const index of voiceMembers(voiceIndex)) {
+        if (name.trim()) next[index] = name.trim();
+        else delete next[index];
+      }
       commitAnalysisUpdate({ voiceNames: next });
     },
-    [voiceNames, annotatedVoiceNames, commitAnalysisUpdate],
+    [voiceNames, annotatedVoiceNames, commitAnalysisUpdate, voiceMembers],
   );
 
   const renameVoicesWithInstrumentTimbres = useCallback(() => {
@@ -326,8 +338,11 @@ const Rawl: React.FC<RawlProps> = ({
       )
         return;
       const next = new Set(drumVoices);
-      if (next.has(voiceIndex)) next.delete(voiceIndex);
-      else next.add(voiceIndex);
+      const enabled = !next.has(voiceIndex);
+      for (const index of voiceMembers(voiceIndex)) {
+        if (nativeDrumVoices.includes(index)) continue;
+        if (enabled) next.add(index); else next.delete(index);
+      }
       commitAnalysisUpdate({ drumVoices: [...next].sort((a, b) => a - b) });
       setHoveredNote(null);
     },
@@ -336,6 +351,7 @@ const Rawl: React.FC<RawlProps> = ({
       parsingResult.notes.length,
       nativeDrumVoices,
       commitAnalysisUpdate,
+      voiceMembers,
     ],
   );
 
@@ -382,12 +398,14 @@ const Rawl: React.FC<RawlProps> = ({
       )
         return;
       const next = new Set(excludedVoices);
-      if (next.has(voiceIndex)) next.delete(voiceIndex);
-      else next.add(voiceIndex);
+      const enabled = !next.has(voiceIndex);
+      for (const index of voiceMembers(voiceIndex)) {
+        if (enabled) next.add(index); else next.delete(index);
+      }
       commitAnalysisUpdate({ excludedVoices: [...next].sort((a, b) => a - b) });
       setHoveredNote(null);
     },
-    [excludedVoices, parsingResult.notes.length, commitAnalysisUpdate],
+    [excludedVoices, parsingResult.notes.length, commitAnalysisUpdate, voiceMembers],
   );
 
   // Preserve slots and note.voiceIndex so MIDI channels, colors and saved indices
@@ -417,6 +435,24 @@ const Rawl: React.FC<RawlProps> = ({
   }, [notes]);
 
   const [hoveredNote, setHoveredNote] = useState<Note | null>(null);
+  const [hoveredTonicPitch, setHoveredTonicPitch] = useState<number | null>(null);
+  const showNoteCents = corpora.some(
+    corpus => corpus.showNoteCents && corpus.midis.includes(slug),
+  );
+  const [centsHover, setCentsHover] = useState<{
+    note: Note; time: number; x: number; y: number;
+  } | null>(null);
+
+  useEffect(() => {
+    const clear = () => setCentsHover(null);
+    clear();
+    window.addEventListener("blur", clear);
+    window.addEventListener("scroll", clear, true);
+    return () => {
+      window.removeEventListener("blur", clear);
+      window.removeEventListener("scroll", clear, true);
+    };
+  }, [slug]);
 
   useEffect(() => {
     selectedMeasureRef.current = null;
@@ -472,9 +508,20 @@ const Rawl: React.FC<RawlProps> = ({
   );
 
   const handleMouseEnter = useCallback(
-    (note: Note) => {
+    (note: Note, event?: React.MouseEvent, time?: number) => {
+      if (showNoteCents && event && !note.isDrum) {
+        setCentsHover({ note, time: time ?? note.span[0], x: event.clientX, y: event.clientY });
+      }
+      if (event?.type === "mousemove") {
+        if (!showProvisionalAnalysis && !onsetEditing && !enableManualRemeasuring &&
+            selectedMeasureRef.current) {
+          setHoveredNote((current) => current?.id === note.id ? current : note);
+          setHoveredTonicPitch(getNotePitchAtTime(note, time));
+        }
+        return;
+      }
       if (showProvisionalAnalysis) {
-        if (window.event instanceof MouseEvent && window.event.shiftKey) playNote(note);
+        if (event?.shiftKey) playNote(note);
         return;
       }
       if (onsetEditing) {
@@ -484,20 +531,20 @@ const Rawl: React.FC<RawlProps> = ({
       if (!enableManualRemeasuring) {
         if (selectedMeasureRef.current) {
           setHoveredNote(note);
-        } else if (
-          window.event instanceof MouseEvent &&
-          window.event.shiftKey
-        ) {
+          setHoveredTonicPitch(getNotePitchAtTime(note, time));
+        } else if (event?.shiftKey) {
           playNote(note);
         }
       }
     },
-    [showProvisionalAnalysis, enableManualRemeasuring, playNote, onsetEditing],
+    [showProvisionalAnalysis, enableManualRemeasuring, playNote, onsetEditing, showNoteCents],
   );
 
   const handleMouseLeave = useCallback(() => {
+    setCentsHover(null);
     if (!enableManualRemeasuring) {
       setHoveredNote(null);
+      setHoveredTonicPitch(null);
     }
   }, [enableManualRemeasuring]);
 
@@ -566,6 +613,17 @@ const Rawl: React.FC<RawlProps> = ({
     ? provisionalScoreAnalysis(analysis, displayedHarmony, harmonyGrid.measures) : analysis,
     [showProvisionalAnalysis, displayedHarmony, analysis, harmonyGrid]);
   const futureAnalysis = showProvisionalAnalysis ? scoreAnalysis : futureSavedAnalysis;
+  const hoveredCents = showNoteCents && centsHover
+    ? getNoteCentsFromTonic(centsHover.note, centsHover.time, scoreAnalysis, measuresAndBeats.measures)
+    : null;
+  const hoverTonicPreview = useMemo(() =>
+    !showProvisionalAnalysis && !onsetEditing && !enableManualRemeasuring &&
+      hoveredNote && hoveredTonicPitch != null && selectedMeasure != null
+      ? getHoverTonicPreview(hoveredNote, hoveredTonicPitch, selectedMeasure,
+          analysis, measuresAndBeats.measures)
+      : null,
+    [showProvisionalAnalysis, onsetEditing, enableManualRemeasuring, hoveredNote,
+      hoveredTonicPitch, selectedMeasure, analysis, measuresAndBeats]);
 
   useEffect(() => {
     setFirstTonic(Object.entries(scoreAnalysis.modulations)
@@ -600,14 +658,14 @@ const Rawl: React.FC<RawlProps> = ({
         voiceIndex >= notes.length ||
         !notes[voiceIndex].some((note) => !note.isDrum)
       ) return;
-      commitAnalysisUpdate({
-        strummingVoices: {
-          ...analysisRef.current.strummingVoices,
-          [voiceIndex]: !strummingVoices.includes(voiceIndex),
-        },
-      });
+      const next = { ...analysisRef.current.strummingVoices };
+      const enabled = !strummingVoices.includes(voiceIndex);
+      for (const index of voiceMembers(voiceIndex)) {
+        if (notes[index]?.some((note) => !note.isDrum)) next[index] = enabled;
+      }
+      commitAnalysisUpdate({ strummingVoices: next });
     },
-    [notes, strummingVoices, commitAnalysisUpdate],
+    [notes, strummingVoices, commitAnalysisUpdate, voiceMembers],
   );
 
   const selectMeasure = useCallback(
@@ -822,7 +880,7 @@ const Rawl: React.FC<RawlProps> = ({
         // Get the pitch class
         const colorPitchClass = note.isDrum
           ? "drum"
-          : getNoteColorPitchClass(
+          : getHoverColorPitchClass(note, hoverTonicPreview) ?? getNoteColorPitchClass(
               note,
               futureAnalysis,
               measuresAndBeats.measures,
@@ -843,7 +901,7 @@ const Rawl: React.FC<RawlProps> = ({
     );
 
     return result;
-  }, [notes, futureAnalysis, measuresAndBeats, arrangementVoiceMask, slug]);
+  }, [notes, futureAnalysis, hoverTonicPreview, measuresAndBeats, arrangementVoiceMask, slug]);
 
   // Update display geometry directly on each click without recalculating colors
   // or changing the source notes used for saved snippets and playback.
@@ -1126,6 +1184,7 @@ const Rawl: React.FC<RawlProps> = ({
       notes: displayNotes,
       voiceMask: arrangementVoiceMask,
       voiceNames: annotatedVoiceNames,
+      sourceVoiceNames: voiceNames,
       onRenameVoice: canEditVoices ? renameVoice : undefined,
       onRenameVoicesWithInstrumentTimbres: canEditVoices && parsingResult.instrumentNames?.length
         ? renameVoicesWithInstrumentTimbres : undefined,
@@ -1270,6 +1329,9 @@ const Rawl: React.FC<RawlProps> = ({
         overflow: usePageScroll ? "visible" : "hidden",
       }}
     >
+      {hoveredCents != null && centsHover && (
+        <NoteCentsTooltip cents={hoveredCents} x={centsHover.x} y={centsHover.y} />
+      )}
       {isEmbedded && (
         <>
           <div

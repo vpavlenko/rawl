@@ -7,6 +7,7 @@ import {
   parseMidi,
   writeMidi,
 } from "midi-file";
+import { normalizeMidiMeasures } from "./normalizeMidiMeasures";
 
 type EnhancedMidiEvent = MidiEvent & {
   absoluteTime: number;
@@ -106,6 +107,7 @@ function pushEventWithDeltaTime(
 }
 
 function transformMidi(inputData: Uint8Array): Uint8Array {
+  inputData = normalizeMidiMeasures(inputData);
   const midi: MidiData = parseMidi(inputData);
   const usedChannels = getUsedChannels(midi);
 

@@ -1,3 +1,4 @@
+import { voiceHoverContains } from "./instrumentVoiceGroups";
 import * as React from "react";
 import {
   useCallback,
@@ -104,7 +105,7 @@ export const Voice: React.FC<{
   sectionSpan?: MeasuresSpan;
   enableManualRemeasuring: boolean;
   hoveredColors: string[] | null;
-  hoveredVoiceIndex?: number | null;
+  hoveredVoiceIndex?: number | number[] | null;
   playbackMeasure: number | null;
   showPlaybackMeasureBottomBorder: boolean;
 }> = React.memo(({
@@ -332,6 +333,7 @@ export type SystemLayoutProps = {
   notes: ColoredNotesInVoices;
   sectionDetectionNotes?: ColoredNotesInVoices;
   voiceNames: string[];
+  sourceVoiceNames?: string[];
   voiceMask: VoiceMask;
   measuresAndBeats: MeasuresAndBeats;
   playbackMeasure: number | null;
@@ -348,9 +350,9 @@ export type SystemLayoutProps = {
   seek?: (ms: number) => void;
   hoveredColors: string[] | null;
   setHoveredColors: (colors: string[] | null) => void;
-  hoveredVoiceIndex?: number | null;
+  hoveredVoiceIndex?: number | number[] | null;
   usePageScroll?: boolean;
-  onVoiceHover?: (voiceIndex: number | null) => void;
+  onVoiceHover?: (voiceIndex: number | number[] | null) => void;
   onForcedPanningChange?: (enabled: boolean) => void;
 };
 
@@ -767,7 +769,7 @@ export const MergedSystemLayout: React.FC<
     setHoveredColors,
   } = props;
 
-  const [hoveredVoiceIndex, setHoveredVoiceIndex] = useState<number | null>(null);
+  const [hoveredVoiceIndex, setHoveredVoiceIndex] = useState<number | number[] | null>(null);
   // Rank the full arrangement so muting, hovering, and section boundaries
   // cannot change which voice is drawn on top.
   const voiceZIndices = useMemo(() => {
@@ -788,7 +790,7 @@ export const MergedSystemLayout: React.FC<
   }, [voiceNames, notes, props.drumVoices, props.nativeDrumVoices]);
   const { onVoiceHover } = props;
   const handleVoiceHover = useCallback(
-    (voiceIndex: number | null) => {
+    (voiceIndex: number | number[] | null) => {
       setHoveredVoiceIndex(voiceIndex);
       onVoiceHover?.(voiceIndex);
     },
@@ -809,7 +811,7 @@ export const MergedSystemLayout: React.FC<
   const flattenedNotes = useMemo(
     () => [
       notes.flatMap((voiceNotes, voiceIndex) =>
-        voiceMask[voiceIndex] || voiceIndex === hoveredVoiceIndex
+        voiceMask[voiceIndex] || voiceHoverContains(hoveredVoiceIndex, voiceIndex)
           ? voiceNotes
           : [],
       ),
@@ -837,6 +839,7 @@ export const MergedSystemLayout: React.FC<
       {!isEmbedded && (
         <MergedVoicesLegend
           voiceNames={voiceNames}
+          sourceVoiceNames={props.sourceVoiceNames}
           notes={notes}
           voiceMask={voiceMask}
           setVoiceMask={setVoiceMask}

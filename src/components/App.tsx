@@ -3,6 +3,7 @@ import {
   EMPTY_TIME_SLIDER_DATA,
 } from "./timeSliderData";
 import SnippetTimeSliderData from "./SnippetTimeSliderData";
+import { snapFirstMeasureSeek } from "./rawl/firstMeasureSeek";
 import { readTransposeSettings, saveTransposeSettings } from "./transposeStorage";
 import autoBindReact from "auto-bind/react";
 import { initializeApp as firebaseInitializeApp } from "firebase/app";
@@ -1035,6 +1036,11 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 
   seekRelativeInner(seekMs: number) {
+    seekMs = snapFirstMeasureSeek(
+      seekMs,
+      this.state.parsing,
+      this.state.analyses[this.currentAnnotationKey()]?.measures,
+    );
     if (this.originalAudio.isActive()) this.originalAudio.seekMs(seekMs);
     this.midiPlayer?.seekMs(seekMs);
     this.setState({
@@ -1051,14 +1057,14 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
   seekForRawl = (seekMs: number) => this.seekRelativeInner(seekMs);
 
-  hoveredVoiceIndex: number | null = null;
+  hoveredVoiceIndex: number | number[] | null = null;
 
-  handleVoiceHover = (voiceIndex: number | null) => {
+  handleVoiceHover = (voiceIndex: number | number[] | null) => {
     this.hoveredVoiceIndex = voiceIndex;
     this.midiPlayer?.setVoiceMask(
       voiceIndex === null
         ? this.state.voiceMask
-        : this.state.voiceMask.map((_, index) => index === voiceIndex),
+        : this.state.voiceMask.map((_, index) => Array.isArray(voiceIndex) ? voiceIndex.includes(index) : index === voiceIndex),
     );
   };
 
@@ -1067,7 +1073,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     this.midiPlayer?.setVoiceMask(
       this.hoveredVoiceIndex === null
         ? nextVoiceMask
-        : nextVoiceMask.map((_, index) => index === this.hoveredVoiceIndex),
+        : nextVoiceMask.map((_, index) => Array.isArray(this.hoveredVoiceIndex) ? this.hoveredVoiceIndex.includes(index) : index === this.hoveredVoiceIndex),
     );
     // Lakh and embedded players consume rawlProps rather than the route props.
     // Keep their controls in sync so subsequent clicks use the current mask.
@@ -1718,6 +1724,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                         <Route path="/old" render={() => <OldLandingPage />} />
                         <Route exact path="/orphans" component={OrphansPage} />
                         <Route exact path="/musescore-upload-tracker" component={MusescoreUploadTracker} />
+                        <Redirect exact from="/corpus/rei_korkus" to="/corpus/ibrahim_al_aryan" />
                         <Route
                           path="/corpus/:corpus?"
                           render={({ match }) =>

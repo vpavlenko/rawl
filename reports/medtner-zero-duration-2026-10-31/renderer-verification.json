@@ -1,0 +1,26 @@
+{
+  "matchesCleaned": true,
+  "panels": [
+    {
+      "id": "original",
+      "inputNotes": "3282",
+      "renderedNotes": 3085,
+      "zeroDurationInput": "197",
+      "zeroWidthNotes": 0
+    },
+    {
+      "id": "cleaned",
+      "inputNotes": "3085",
+      "renderedNotes": 3085,
+      "zeroDurationInput": "0",
+      "zeroWidthNotes": 0
+    },
+    {
+      "id": "probes",
+      "inputNotes": "4",
+      "renderedNotes": 2,
+      "zeroDurationInput": "2",
+      "zeroWidthNotes": 0
+    }
+  ]
+}

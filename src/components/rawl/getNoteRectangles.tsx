@@ -1,4 +1,6 @@
-import { pitchColor as paletteColor } from "./colors";
+import { voiceHoverContains } from "./instrumentVoiceGroups";
+import { interpolatedPitchColor } from "./colors";
+import { getPitchBendSamples } from "./pitchBend";
 import * as React from "react";
 import { SecondsConverter, SecondsSpan } from "./Rawl";
 import { ColoredNote, Note, PitchBendPoint } from "./parseMidi";
@@ -69,7 +71,7 @@ const GM_DRUM_KIT = {
   87: "🛢️",
 };
 
-type MouseEventHanlder = (note: Note, event?: React.MouseEvent) => void;
+type MouseEventHanlder = (note: Note, event?: React.MouseEvent, time?: number) => void;
 
 export const ModulationOnsetEditingContext = React.createContext<{
   active: boolean;
@@ -186,20 +188,6 @@ export type MouseHandlers = {
 
 let nextPitchBendGradientId = 0;
 
-const pitchBendToSemitones = (value: number) =>
-  ((Math.max(0, Math.min(16383, value)) - 8192) / 8192) * 2;
-
-const pitchColor = (pitch: number) => {
-  const lower = Math.floor(pitch);
-  const fraction = pitch - lower;
-  const color = paletteColor;
-  return fraction === 0
-    ? color(lower)
-    : `color-mix(in srgb, ${color(lower)} ${(1 - fraction) * 100}%, ${color(
-        lower + 1,
-      )})`;
-};
-
 const PitchBendNote: React.FC<{
   points: PitchBendPoint[];
   span: SecondsSpan;
@@ -225,20 +213,13 @@ const PitchBendNote: React.FC<{
     () => `pitch-bend-gradient-${nextPitchBendGradientId++}`,
   );
   const startX = secondsToX(span[0]);
-  const samples = points
-    .filter(
-      (point) => Number.isFinite(point.time) && Number.isFinite(point.value),
-    )
+  const samples = getPitchBendSamples(points, span)
     .map((point) => ({
       x: Math.max(0, Math.min(width, secondsToX(point.time) - startX)),
-      bend: pitchBendToSemitones(point.value),
-    }))
-    .sort((a, b) => a.x - b.x);
+      bend: point.bend,
+    }));
   if (!samples.length || width <= 0) return null;
 
-  // Cover the entire note, including time before/after the bend events.
-  if (samples[0].x > 0) samples.unshift({ x: 0, bend: 0 });
-  samples.push({ x: width, bend: samples[samples.length - 1].bend });
   const edge = (sample: (typeof samples)[number], bottom: boolean) =>
     `${sample.x} ${pitchToOffset(sample.bend) + (bottom ? height : 0)}`;
   const path = `M ${samples
@@ -303,7 +284,7 @@ const PitchBendNote: React.FC<{
               offset={stop.x / width}
               stopColor={
                 typeof colorPitchClass === "number"
-                  ? pitchColor(stop.pitch)
+                  ? interpolatedPitchColor(stop.pitch)
                   : "white"
               }
             />
@@ -334,17 +315,18 @@ export const getNoteRectangles = (
   hoveredColors: string[] | null,
   showSourceLocation: boolean = false,
   drumNoteToY?: (note: Note) => number,
-  hoveredVoiceIndex: number | null = null,
+  hoveredVoiceIndex: number | number[] | null = null,
   sectionEndX?: number,
   sectionStartX?: number,
 ) => {
+  const renderableNotes = notes.filter((note) => note.span[1] > note.span[0]);
   // Group durations in approximately 10% steps, then place higher pitches
   // above lower pitches in each group. Rank within each voice to preserve
   // the existing 1,000-layer voice bands.
   const durationBucket = (note: ColoredNote) =>
     Math.round(Math.log(Math.max(0.001, note.span[1] - note.span[0])) / Math.log(1.1));
   const notesByVoice = new Map<number, ColoredNote[]>();
-  notes.forEach((note) => {
+  renderableNotes.forEach((note) => {
     const voiceNotes = notesByVoice.get(note.voiceIndex) ?? [];
     voiceNotes.push(note);
     notesByVoice.set(note.voiceIndex, voiceNotes);
@@ -367,7 +349,7 @@ export const getNoteRectangles = (
     });
   });
 
-  return notes.map((note) => (
+  return renderableNotes.map((note) => (
     <NoteRectangle
       key={`nr_${note.id}`}
       note={note}
@@ -418,7 +400,7 @@ const NoteRectangle = React.memo(({
   hoveredColors: string[] | null;
   showSourceLocation: boolean;
   drumNoteToY?: (note: Note) => number;
-  hoveredVoiceIndex: number | null;
+  hoveredVoiceIndex: number | number[] | null;
   sectionEndX?: number;
   sectionStartX?: number;
 }) => {
@@ -497,12 +479,12 @@ const NoteRectangle = React.memo(({
     : undefined;
 
   const isOtherVoice =
-    hoveredVoiceIndex !== null && voiceIndex !== hoveredVoiceIndex;
+    hoveredVoiceIndex !== null && !voiceHoverContains(hoveredVoiceIndex, voiceIndex);
   const isHighlighted =
     !isOtherVoice &&
     (isDrum || !hoveredColors || hoveredColors.includes(color));
   const showFullNote =
-    voiceIndex === hoveredVoiceIndex || (isActive && isHighlighted);
+    voiceHoverContains(hoveredVoiceIndex, voiceIndex) || (isActive && isHighlighted);
   const collapsedHeight = (isOtherVoice ? 1 : 0.5) * heightScale;
 
   // Adjust height and top position for notes under the cursor
@@ -527,6 +509,15 @@ const NoteRectangle = React.memo(({
         Number.isFinite(point.value) &&
         point.value !== 8192,
     );
+
+  const fractionalColor = typeof note.colorPitchClass === "number" &&
+    !Number.isInteger(note.colorPitchClass);
+  const previewAtPointer = (event: React.MouseEvent<HTMLDivElement>) => {
+    const fraction = width > 0
+      ? (event.clientX - event.currentTarget.getBoundingClientRect().left) / width : 0;
+    const time = displaySpan[0] + fraction * (displaySpan[1] - displaySpan[0]);
+    handleMouseEnter(note, event, time);
+  };
 
   geometryRef.current = {
     showFullNote, noteUnderCursor: !!noteUnderCursor, baseHeight, baseTop,
@@ -591,7 +582,7 @@ const NoteRectangle = React.memo(({
   }
 
   return isDrum ? (
-    isActive || voiceIndex === hoveredVoiceIndex ? (
+    isActive || voiceHoverContains(hoveredVoiceIndex, voiceIndex) ? (
       <DrumEmoji
         key={`nr_${note.id}`}
         collapsed={!showFullNote}
@@ -620,11 +611,12 @@ const NoteRectangle = React.memo(({
   ) : (
     <div
       ref={elementRef}
+      data-note-id={note.id}
       data-modulation-onset-note={handleNoteClick ? "true" : undefined}
       data-modulation-onset-allowed={handleNoteClick && onsetEditing.active && onsetEditing.isAllowed(note) ? "true" : undefined}
       key={`nr_${note.id}`}
       className={`${
-        hasPitchBend ? "pitch-bend-note" : color
+        hasPitchBend ? "pitch-bend-note" : fractionalColor ? "fractional-pitch-note" : color
       } voiceShape-${voiceIndex} ${
         noteUnderCursor ? "note-under-cursor" : ""
       }`}
@@ -655,6 +647,8 @@ const NoteRectangle = React.memo(({
           (10 + stackingPriority +
             (noteUnderCursor ? 100 : 0)),
         boxSizing: "border-box",
+        backgroundColor: !hasPitchBend && fractionalColor
+          ? interpolatedPitchColor(note.colorPitchClass as number) : undefined,
         display: "grid",
         boxShadow: showFullNote && !hasPitchBend ? "0 0 0px 0.5px black" : "",
         cursor: onsetCursor ?? (enableManualRemeasuring
@@ -670,7 +664,8 @@ const NoteRectangle = React.memo(({
           handleNoteClick(note, e);
         }
       }}
-      onMouseEnter={(e) => !isDrum && handleMouseEnter(note)}
+      onMouseEnter={previewAtPointer}
+      onMouseMove={previewAtPointer}
       onMouseLeave={() => !isDrum && handleMouseLeave()}
     >
       {hasPitchBend && (

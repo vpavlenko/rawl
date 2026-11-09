@@ -14,6 +14,7 @@ import * as React from "react";
 import { useState } from "react";
 import { slugify } from "transliteration";
 import { FOOTER_HEIGHT } from "../AppFooter";
+import { normalizeMidiMeasures } from "./normalizeMidiMeasures";
 
 const saveMidi = async (
   title: string,
@@ -41,7 +42,9 @@ const saveMidi = async (
     slug = `${slug}-${randomChars}`;
   }
 
-  const firestoreBlob = Bytes.fromUint8Array(new Uint8Array(midi));
+  const firestoreBlob = Bytes.fromUint8Array(
+    normalizeMidiMeasures(new Uint8Array(midi)),
+  );
 
   const docRef = await addDoc(collection(firestore, "midis"), {
     blob: firestoreBlob,

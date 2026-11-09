@@ -1,0 +1,28 @@
+{
+  "id": "xSTLKcNxhPkD1uKyCkMj",
+  "slug": "piano-sonatina-in-c-major-op-20-no-1-by-friedrich-kuhlau",
+  "originalSha256": "8264eaa185c8ae4aaa5ac8cef3539edfc94ed764c375bd49d4eec651adacd377",
+  "fixedSha256": "afa7e0338b26344adfd280e698b35c1b4a393c248f53704f1f788cf37aebbf8c",
+  "originalBytes": 24393,
+  "fixedBytes": 24417,
+  "addedMeters": [
+    {
+      "tick": 213120,
+      "numerator": 1,
+      "denominator": 8
+    },
+    {
+      "tick": 247920,
+      "numerator": 1,
+      "denominator": 8
+    },
+    {
+      "tick": 259680,
+      "numerator": 1,
+      "denominator": 8
+    }
+  ],
+  "published": true,
+  "remoteBytesVerified": true,
+  "checkedAt": "2026-10-31T10:02:56.329Z"
+}

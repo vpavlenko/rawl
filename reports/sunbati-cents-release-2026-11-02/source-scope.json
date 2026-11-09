@@ -1,0 +1,19 @@
+{
+  "baseline": "d2a68d41cb654e3969e1cb9c411dabc713d7b1b8",
+  "changed": [
+    "components/rawl/Rawl.tsx",
+    "components/rawl/getNoteRectangles.tsx"
+  ],
+  "new": [
+    "components/rawl/noteCents.ts",
+    "components/rawl/NoteCentsTooltip.tsx"
+  ],
+  "typescript": true,
+  "focusedTests": 8,
+  "bundledJsonParity": 12,
+  "range": [
+    -450,
+    749
+  ],
+  "position": "bottom-right"
+}

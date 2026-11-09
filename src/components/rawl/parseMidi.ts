@@ -242,7 +242,10 @@ function calculateMeasureAndBeats(timeEvents, timebase) {
     }
   });
 
-  if (measures.length >= 2) {
+  if (measures.length === 1) {
+    // A sub-bar clip still needs a complete first bar to render its notes.
+    while (measures.length === 1) createNewBeat(Infinity, lastTick);
+  } else {
     measures.push(2 * measures.at(-1) - measures.at(-2));
     measuresInTicks.push(2 * measuresInTicks.at(-1) - measuresInTicks.at(-2));
   }

@@ -1,0 +1,140 @@
+--- public/src/components/rawl/Rawl.tsx
++++ release/src/components/rawl/Rawl.tsx
+@@ -4,6 +4,9 @@
+ import { noteColorClass } from "./colors";
+ import { getNotePitchAtTime } from "./pitchBend";
+ import { getHoverColorPitchClass, getHoverTonicPreview } from "./hoverTonic";
++import { getNoteCentsFromTonic } from "./noteCents";
++import NoteCentsTooltip from "./NoteCentsTooltip";
++import { corpora } from "./corpora/corpora";
+ import {
+   faArrowUpRightFromSquare,
+   faCopy,
+@@ -433,6 +436,22 @@
+ 
+   const [hoveredNote, setHoveredNote] = useState<Note | null>(null);
+   const [hoveredTonicPitch, setHoveredTonicPitch] = useState<number | null>(null);
++  const showNoteCents = corpora.find(corpus => corpus.slug === "riyad_al_sunbati")
++    ?.midis.includes(slug) ?? false;
++  const [centsHover, setCentsHover] = useState<{
++    note: Note; time: number; x: number; y: number;
++  } | null>(null);
++
++  useEffect(() => {
++    const clear = () => setCentsHover(null);
++    clear();
++    window.addEventListener("blur", clear);
++    window.addEventListener("scroll", clear, true);
++    return () => {
++      window.removeEventListener("blur", clear);
++      window.removeEventListener("scroll", clear, true);
++    };
++  }, [slug]);
+ 
+   useEffect(() => {
+     selectedMeasureRef.current = null;
+@@ -489,6 +508,9 @@
+ 
+   const handleMouseEnter = useCallback(
+     (note: Note, event?: React.MouseEvent, time?: number) => {
++      if (showNoteCents && event && !note.isDrum) {
++        setCentsHover({ note, time: time ?? note.span[0], x: event.clientX, y: event.clientY });
++      }
+       if (event?.type === "mousemove") {
+         if (!showProvisionalAnalysis && !onsetEditing && !enableManualRemeasuring &&
+             selectedMeasureRef.current) {
+@@ -514,10 +536,11 @@
+         }
+       }
+     },
+-    [showProvisionalAnalysis, enableManualRemeasuring, playNote, onsetEditing],
++    [showProvisionalAnalysis, enableManualRemeasuring, playNote, onsetEditing, showNoteCents],
+   );
+ 
+   const handleMouseLeave = useCallback(() => {
++    setCentsHover(null);
+     if (!enableManualRemeasuring) {
+       setHoveredNote(null);
+       setHoveredTonicPitch(null);
+@@ -589,6 +612,9 @@
+     ? provisionalScoreAnalysis(analysis, displayedHarmony, harmonyGrid.measures) : analysis,
+     [showProvisionalAnalysis, displayedHarmony, analysis, harmonyGrid]);
+   const futureAnalysis = showProvisionalAnalysis ? scoreAnalysis : futureSavedAnalysis;
++  const hoveredCents = showNoteCents && centsHover
++    ? getNoteCentsFromTonic(centsHover.note, centsHover.time, scoreAnalysis, measuresAndBeats.measures)
++    : null;
+   const hoverTonicPreview = useMemo(() =>
+     !showProvisionalAnalysis && !onsetEditing && !enableManualRemeasuring &&
+       hoveredNote && hoveredTonicPitch != null && selectedMeasure != null
+@@ -1302,6 +1328,9 @@
+         overflow: usePageScroll ? "visible" : "hidden",
+       }}
+     >
++      {hoveredCents != null && centsHover && (
++        <NoteCentsTooltip cents={hoveredCents} x={centsHover.x} y={centsHover.y} />
++      )}
+       {isEmbedded && (
+         <>
+           <div
+--- public/src/components/rawl/getNoteRectangles.tsx
++++ release/src/components/rawl/getNoteRectangles.tsx
+@@ -664,7 +664,7 @@
+         }
+       }}
+       onMouseEnter={previewAtPointer}
+-      onMouseMove={hasPitchBend ? previewAtPointer : undefined}
++      onMouseMove={previewAtPointer}
+       onMouseLeave={() => !isDrum && handleMouseLeave()}
+     >
+       {hasPitchBend && (
+--- public/src/components/rawl/noteCents.ts
++++ release/src/components/rawl/noteCents.ts
+@@ -0,0 +1,14 @@
++import { getTonic } from "./analysis";
++import type { Analysis } from "./analysis";
++import type { Note } from "./parseMidi";
++import { getNotePitchAtTime } from "./pitchBend";
++
++export function getNoteCentsFromTonic(
++  note: Note, time: number, analysis: Analysis, measures: number[],
++): number | null {
++  if (note.isDrum) return null;
++  const tonic = getTonic((note.span[0] + note.span[1]) / 2, analysis, measures);
++  if (tonic == null) return null;
++  const cents = Math.round((getNotePitchAtTime(note, time) - tonic) * 100);
++  return Number.isFinite(cents) ? (((cents + 450) % 1200) + 1200) % 1200 - 450 : null;
++}
+--- public/src/components/rawl/NoteCentsTooltip.tsx
++++ release/src/components/rawl/NoteCentsTooltip.tsx
+@@ -0,0 +1,31 @@
++import * as React from "react";
++import { createPortal } from "react-dom";
++
++export default function NoteCentsTooltip({ cents, x, y }: {
++  cents: number; x: number; y: number;
++}) {
++  return createPortal(
++    <div
++      role="tooltip"
++      style={{
++        position: "fixed",
++        left: Math.max(4, Math.min(x + 12, window.innerWidth - 76)),
++        top: Math.max(4, Math.min(y + 12, window.innerHeight - 32)),
++        zIndex: 100000001,
++        pointerEvents: "none",
++        padding: "4px 7px",
++        border: "1px solid #666",
++        borderRadius: 4,
++        background: "#111",
++        color: "white",
++        fontSize: 13,
++        lineHeight: "18px",
++        fontVariantNumeric: "tabular-nums",
++        whiteSpace: "nowrap",
++      }}
++    >
++      {cents}¢
++    </div>,
++    document.body,
++  );
++}

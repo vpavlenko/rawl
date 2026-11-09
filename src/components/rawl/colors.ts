@@ -19,6 +19,13 @@ export const RAWL_COLORS = [
 export const pitchColor = (pitch: number) =>
   `var(--pitch-color-${((pitch % 12) + 12) % 12})`;
 
+export const interpolatedPitchColor = (pitch: number) => {
+  const lower = Math.floor(pitch);
+  const fraction = pitch - lower;
+  return fraction === 0 ? pitchColor(lower)
+    : `color-mix(in srgb, ${pitchColor(lower)} ${(1 - fraction) * 100}%, ${pitchColor(lower + 1)})`;
+};
+
 export const noteColorClass = (pitch: number | "default" | "drum") =>
   `noteColor_${pitch}_colors`;
 

@@ -1,0 +1,99 @@
+{
+  "baseline": "2b24f6f5c658d2e8cd415d7255dfb886f49769f3",
+  "main": "/static/js/main.06e9f5b5.js?v=hover-tonic-06e9f5b5",
+  "vendor": "/static/js/1.fc02549b.chunk.js?v=hover-tonic-06e9f5b5",
+  "version": "hover-tonic-06e9f5b5",
+  "paths": [
+    "index.html",
+    "asset-manifest.json",
+    "static/js/main.06e9f5b5.js",
+    "static/js/main.06e9f5b5.js.map",
+    "static/js/1.fc02549b.chunk.js",
+    "static/js/1.fc02549b.chunk.js.map"
+  ],
+  "sha256": {
+    "index.html": "c817f40e2607541040e9bdca4ef6d3be95fa68117297578d9253c61cee372d61",
+    "asset-manifest.json": "6de8a954b9d5ef01137c2cc1677c428ac5b79deb4e15c139094992a39eff1c72",
+    "static/js/main.06e9f5b5.js": "06e9f5b5791e513d8702bd6412bf8692421befddc519d2242569745bf4bb7b1e",
+    "static/js/main.06e9f5b5.js.map": "e44fe95c88c54ea5aff315911e77a13780ca074a6e57f1e0fb8fd00161218ea5",
+    "static/js/1.fc02549b.chunk.js": "e8043afe0273f7ab25653f2cc6d11495cacfa53ac6a2300022058486bbf2dfe3",
+    "static/js/1.fc02549b.chunk.js.map": "91d6cceface05f9e1e670bf17d52aa2d6dd737d2f1194dd3e3eee2ee11b4ad67"
+  },
+  "checks": {
+    "typescript": true,
+    "hoverTests": 5,
+    "bundledJsonParity": 12,
+    "catalogParity": true,
+    "globalCssUnchanged": true,
+    "workerUnchanged": true,
+    "sourceScope": [
+      "components/rawl/Rawl.tsx",
+      "components/rawl/getNoteRectangles.tsx",
+      "components/rawl/colors.ts",
+      "components/rawl/pitchBend.ts",
+      "components/rawl/hoverTonic.ts"
+    ]
+  },
+  "commit": "d2a68d41cb654e3969e1cb9c411dabc713d7b1b8",
+  "publicUrl": "https://rawl.rocks/f/riyad-al-sunbati-taqsim-sekah",
+  "deployed": true,
+  "publicAssets": [
+    {
+      "path": "index.html",
+      "status": 200,
+      "sha256": "c817f40e2607541040e9bdca4ef6d3be95fa68117297578d9253c61cee372d61",
+      "matches": true
+    },
+    {
+      "path": "asset-manifest.json",
+      "status": 200,
+      "sha256": "6de8a954b9d5ef01137c2cc1677c428ac5b79deb4e15c139094992a39eff1c72",
+      "matches": true
+    },
+    {
+      "path": "/static/js/main.06e9f5b5.js?v=hover-tonic-06e9f5b5",
+      "status": 200,
+      "sha256": "06e9f5b5791e513d8702bd6412bf8692421befddc519d2242569745bf4bb7b1e",
+      "matches": true
+    },
+    {
+      "path": "/static/js/1.fc02549b.chunk.js?v=hover-tonic-06e9f5b5",
+      "status": 200,
+      "sha256": "e8043afe0273f7ab25653f2cc6d11495cacfa53ac6a2300022058486bbf2dfe3",
+      "matches": true
+    },
+    {
+      "path": "/static/css/main.92fc25a5.css",
+      "status": 200,
+      "sha256": "78fb35aa0ce35240691f930b2de6064b224c4bea7a5b754615df7c700ec8bcd1",
+      "matches": true
+    },
+    {
+      "path": "/static/js/midi-synth.2fd4ae50.js",
+      "status": 200,
+      "sha256": "37a768582fd0d61de8b3193c0e29b8e04d96a347cf77c120f7d720fd80442062",
+      "matches": true
+    }
+  ],
+  "deploymentRun": "https://github.com/vpavlenko/rawl/actions/runs/41329004672",
+  "deploymentStatus": "success",
+  "freshEntryUrl": "https://rawl.rocks/?p=/f/riyad-al-sunbati-taqsim-sekah&v=d2a68d41c",
+  "publicBrowserChecks": {
+    "route": "https://rawl.rocks/f/riyad-al-sunbati-taqsim-sekah",
+    "loadedMain": "https://rawl.rocks/static/js/main.06e9f5b5.js?v=hover-tonic-06e9f5b5",
+    "bentNotes": 1588,
+    "hoveredNoteId": "0_160_279_46",
+    "hoveredStops": [
+      "var(--pitch-color-0)",
+      "var(--pitch-color-0)"
+    ],
+    "afterLeaveStops": [
+      "color-mix(in srgb, var(--pitch-color-8) 68.9208984375%, var(--pitch-color-9))",
+      "color-mix(in srgb, var(--pitch-color-8) 68.9208984375%, var(--pitch-color-9))"
+    ],
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "savedAnalysisUnchanged": true
+  },
+  "screenshot": "public-hover.jpg"
+}

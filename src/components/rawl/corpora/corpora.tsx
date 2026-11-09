@@ -61,6 +61,13 @@ export const corpora: CorpusEntry[] = [
     midis: ["rei-korkus-ibrahim-al-aryan-samai-bayati"],
   },
   {
+    slug: "muhammad_abd_al_wahhab",
+    scaleLegend: "maqam",
+    showNoteCents: true,
+    composerName: "Muhammad 'Abd al-Wahhab",
+    midis: ["muhammad-abd-al-wahhab-inta-omri"],
+  },
+  {
     slug: "riyad_al_sunbati",
     scaleLegend: "maqam",
     showNoteCents: true,
@@ -73,6 +80,8 @@ export const corpora: CorpusEntry[] = [
       "riyad-al-sunbati-taqsim-kurd",
       "riyad-al-sunbati-taqsim-sekah",
       "mohamed-elabyad-al-atlal",
+      "riyad-al-sunbati-awwidt-ayni",
+      "riyad-al-sunbati-arouh-limeen",
     ],
   },
   {

@@ -1,0 +1,279 @@
+{
+  "originalSource": "https://freesound.org/people/barisbozkurt/sounds/211133/",
+  "author": "barisbozkurt",
+  "license": "CC0-1.0",
+  "derivedBank": "https://github.com/joetessy/qanun/tree/781775a018735ba9e7f83f9d84d8ef326bcbc5f2/public/samples/qanun",
+  "revision": "781775a018735ba9e7f83f9d84d8ef326bcbc5f2",
+  "files": [
+    {
+      "file": "qanun-A3.flac",
+      "sha256": "e5da4d78357d933f6f336221d6d7ae95fcf7e02f5c03e589e5955b9c7833be45",
+      "bytes": 106394,
+      "original": "qanun-A3.m4a",
+      "samples": 54552,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=55654,asetpts=N/SR/TB,afade=t=out:ss=53890:ns=662"
+    },
+    {
+      "file": "qanun-A4.flac",
+      "sha256": "61ab25e2e9a570a8a2c73c39880207d09f810081c8569f7f3536219506a547dd",
+      "bytes": 60487,
+      "original": "qanun-A4.m4a",
+      "samples": 27430,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=28532,asetpts=N/SR/TB,afade=t=out:ss=26768:ns=662"
+    },
+    {
+      "file": "qanun-A5.flac",
+      "sha256": "e37c9a95ca826c0c05ea2fab3a0e0760648520bd5b619bede1dc4d08ff2c73df",
+      "bytes": 50193,
+      "original": "qanun-A5.m4a",
+      "samples": 20541,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=21643,asetpts=N/SR/TB,afade=t=out:ss=19879:ns=662"
+    },
+    {
+      "file": "qanun-B3.flac",
+      "sha256": "e2ae59dd87623d3ce9c76a4f0d304ccd5ee79f1ab43591eb1d5682520f204b30",
+      "bytes": 130829,
+      "original": "qanun-B3.m4a",
+      "samples": 68355,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=69457,asetpts=N/SR/TB,afade=t=out:ss=66150:ns=2205"
+    },
+    {
+      "file": "qanun-B4.flac",
+      "sha256": "71817d9e9c5223a290518442a0577ec29c23d798768c6fcc866d17f7e2de8309",
+      "bytes": 78356,
+      "original": "qanun-B4.m4a",
+      "samples": 37750,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=38852,asetpts=N/SR/TB,afade=t=out:ss=37088:ns=662"
+    },
+    {
+      "file": "qanun-B5.flac",
+      "sha256": "510fa8aff52fe637da32024567794030c673a5d6c7a719f2e3f074a006cc5d53",
+      "bytes": 57615,
+      "original": "qanun-B5.m4a",
+      "samples": 25931,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=27033,asetpts=N/SR/TB,afade=t=out:ss=25269:ns=662"
+    },
+    {
+      "file": "qanun-Cs4.flac",
+      "sha256": "197fc6035bfe65cfb6dcdf1041899041f0733e4d1bba8f07df436382b61006f6",
+      "bytes": 99940,
+      "original": "qanun-Cs4.m4a",
+      "samples": 50274,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=51376,asetpts=N/SR/TB,afade=t=out:ss=49612:ns=662"
+    },
+    {
+      "file": "qanun-Cs5.flac",
+      "sha256": "95dfa9286a52bc00782bdbab73b4c10b6f80c50b8973a22df55bbcac5e088dac",
+      "bytes": 90725,
+      "original": "qanun-Cs5.m4a",
+      "samples": 45291,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=46393,asetpts=N/SR/TB,afade=t=out:ss=44629:ns=662"
+    },
+    {
+      "file": "qanun-Cs6.flac",
+      "sha256": "dde31319c7e331c491b361481342c101f4abe9902b1f20881aa2199ab9dd7c61",
+      "bytes": 62432,
+      "original": "qanun-Cs6.m4a",
+      "samples": 28841,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=29943,asetpts=N/SR/TB,afade=t=out:ss=28179:ns=662"
+    },
+    {
+      "file": "qanun-Ds4.flac",
+      "sha256": "37bf5882547da79a206c5f929e87350dfd73f9f272ab5c181780a02200486e86",
+      "bytes": 104257,
+      "original": "qanun-Ds4.m4a",
+      "samples": 52435,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=53537,asetpts=N/SR/TB,afade=t=out:ss=51773:ns=662"
+    },
+    {
+      "file": "qanun-Ds5.flac",
+      "sha256": "dd90ed4ac619a91bb79dc38bf549fc354ab46d7c6f5e73d26920c630c88ee60f",
+      "bytes": 82506,
+      "original": "qanun-Ds5.m4a",
+      "samples": 40528,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=41630,asetpts=N/SR/TB,afade=t=out:ss=39866:ns=662"
+    },
+    {
+      "file": "qanun-Ds6.flac",
+      "sha256": "2e3726f398fa3824fe77c2d3e92058da76a454e83e6a0281d62cb0678b5c0ae7",
+      "bytes": 51669,
+      "original": "qanun-Ds6.m4a",
+      "samples": 22535,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=23637,asetpts=N/SR/TB,afade=t=out:ss=21873:ns=662"
+    },
+    {
+      "file": "qanun-F3.flac",
+      "sha256": "c7c0c4e7e022344df222cbd27845a7c88206870ad0a75107f3027c7a2447f7fc",
+      "bytes": 120328,
+      "original": "qanun-F3.m4a",
+      "samples": 64641,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=65743,asetpts=N/SR/TB,afade=t=out:ss=63979:ns=662"
+    },
+    {
+      "file": "qanun-F4.flac",
+      "sha256": "23af0d33e68fe824386e43beeb56c61bc8391d86857f73b0c7d5d0131f476e80",
+      "bytes": 99488,
+      "original": "qanun-F4.m4a",
+      "samples": 49745,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=50847,asetpts=N/SR/TB,afade=t=out:ss=49083:ns=662"
+    },
+    {
+      "file": "qanun-F5.flac",
+      "sha256": "13136a53252acada8af4e64bb6cb41d6f226c483ace39c1b6e2f0aa3045a683b",
+      "bytes": 86436,
+      "original": "qanun-F5.m4a",
+      "samples": 41359,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=42461,asetpts=N/SR/TB,afade=t=out:ss=40697:ns=662"
+    },
+    {
+      "file": "qanun-G3.flac",
+      "sha256": "b3cddca7ab68ecdbb9768a6652a15e22c670cafb8e1d68e3c3f887b564ac5fdb",
+      "bytes": 104314,
+      "original": "qanun-G3.m4a",
+      "samples": 52788,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=53890,asetpts=N/SR/TB,afade=t=out:ss=52126:ns=662"
+    },
+    {
+      "file": "qanun-G4.flac",
+      "sha256": "f705045aa31ed83d4e6580613449fe1d306060b404680e42a74a4d5a549a3cb7",
+      "bytes": 70470,
+      "original": "qanun-G4.m4a",
+      "samples": 31704,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=32806,asetpts=N/SR/TB,afade=t=out:ss=31042:ns=662"
+    },
+    {
+      "file": "qanun-G5.flac",
+      "sha256": "aec345fb557cbeea87c14a78c59cbb9bad74b5b0b7216325fbfb5f70d02819de",
+      "bytes": 87338,
+      "original": "qanun-G5.m4a",
+      "samples": 42601,
+      "sampleRate": 44100,
+      "filter": "apad=pad_len=1102,afftdn=nr=6:nf=-65:gs=10,atrim=start_sample=1102:end_sample=43703,asetpts=N/SR/TB,afade=t=out:ss=41939:ns=662"
+    }
+  ],
+  "originalFiles": [
+    {
+      "file": "qanun-A3.m4a",
+      "sha256": "48dfdd45ce665477cc2c7faa90261494cd417248940174607ec4d9ee538c457f",
+      "bytes": 16230
+    },
+    {
+      "file": "qanun-A4.m4a",
+      "sha256": "3af73a18ab027b1134dbc612ce40ad675bff8eeb75e33aed4e681a717381c411",
+      "bytes": 8796
+    },
+    {
+      "file": "qanun-A5.m4a",
+      "sha256": "78cd2fa7dc2fce69d4614a69b570460bfddc186dd7e5c5b6a6275f4d5ac20528",
+      "bytes": 6924
+    },
+    {
+      "file": "qanun-B3.m4a",
+      "sha256": "f4ed7465423c0c84ebd561393ada0b634ed6fbfc9ddba101d02b3c3567408dbf",
+      "bytes": 21701
+    },
+    {
+      "file": "qanun-B4.m4a",
+      "sha256": "8e30d824575e04ff94668434fd84162e44e70f1e95c7bbaed5482162b5fb395c",
+      "bytes": 11640
+    },
+    {
+      "file": "qanun-B5.m4a",
+      "sha256": "e603d2ea934d30b5f6ff76a6d38956e5faff766515f3f68d1aa893b280a99b64",
+      "bytes": 8367
+    },
+    {
+      "file": "qanun-Cs4.m4a",
+      "sha256": "fa9c92b3d6eda8d77198c088c40d02d7a0a17606dbdfb07c0d90fc31d449ad3e",
+      "bytes": 15131
+    },
+    {
+      "file": "qanun-Cs5.m4a",
+      "sha256": "fdb80f37faeda328bc91de04a25448cbb57018f1e7fd1db78b2c5e29b060a71c",
+      "bytes": 13751
+    },
+    {
+      "file": "qanun-Cs6.m4a",
+      "sha256": "8a8c9fa78359a30263d2e18eb933b38af39be2f2882dea3b5d8d35f272de90dd",
+      "bytes": 9234
+    },
+    {
+      "file": "qanun-Ds4.m4a",
+      "sha256": "9ee8bfd093c5206f1b0ab935eb5bdf097174c095dd6c6aefcc770947db659908",
+      "bytes": 15709
+    },
+    {
+      "file": "qanun-Ds5.m4a",
+      "sha256": "13ececc4b1ce0a33cbcf18a44a10816c1b8dfa20686ccb2d688b85cfc2907dc2",
+      "bytes": 12563
+    },
+    {
+      "file": "qanun-Ds6.m4a",
+      "sha256": "d99973a680ea70b60a44d9cf58882691bdd1e4ebbf561fe8a81cd82f59a7a3f6",
+      "bytes": 7437
+    },
+    {
+      "file": "qanun-F3.m4a",
+      "sha256": "3fc5fc513c484c62b3b166e5f72aeea886d0217794d492f227e7fe3b063068e4",
+      "bytes": 19083
+    },
+    {
+      "file": "qanun-F4.m4a",
+      "sha256": "5f8493951366e9e47220f9611c8623eb85f53269a641778acb7f719de0a242eb",
+      "bytes": 15026
+    },
+    {
+      "file": "qanun-F5.m4a",
+      "sha256": "3ab3e0dbb60bf447d5adc6dd9167bb6162b8cd0e743e09ceee1c3b951becf292",
+      "bytes": 12659
+    },
+    {
+      "file": "qanun-G3.m4a",
+      "sha256": "825444a392406c159569ae034c5aa57c2c49eea94c7c1f5ddf1c16cf460c7f29",
+      "bytes": 15783
+    },
+    {
+      "file": "qanun-G4.m4a",
+      "sha256": "b251de3710346783cd1cafe93771be76417f9b6738920eb69b04ecd9dbbefe3f",
+      "bytes": 9941
+    },
+    {
+      "file": "qanun-G5.m4a",
+      "sha256": "775d693d373e6ac3fed16a05a9b0d17c23230cc89fdc32476c1b9b82f12dd60f",
+      "bytes": 13080
+    }
+  ],
+  "processing": {
+    "date": "2026-11-09",
+    "script": "scripts/rawl/denoise-qanun-samples.py",
+    "command": "python3 scripts/rawl/denoise-qanun-samples.py public/audio/qanun",
+    "ffmpeg": "ffmpeg version 9.0.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "noiseReductionDb": 6,
+    "noiseFloorDb": -65,
+    "gainSmooth": 10,
+    "delayCompensationSamples": 1102,
+    "endFadeSeconds": 0.015,
+    "B3CleanEndSeconds": 1.55,
+    "B3EndFadeSeconds": 0.05,
+    "output": "24-bit mono FLAC, 44100 Hz",
+    "normalization": false,
+    "retuning": false
+  }
+}

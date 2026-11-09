@@ -24,6 +24,8 @@ export type MaqamScale = {
   // Source crop proportions reserve space before lazy images load.
   sayrSize: [number, number];
   alternateSource?: { name: string; figure: string; page: number };
+  // Inclusive ascending branches in scale, practiced after the primary scale.
+  practiceVariants?: { start: number; end: number }[];
 };
 
 export const MAQAM_SCALES: MaqamScale[] = [
@@ -51,17 +53,22 @@ export const MAQAM_SCALES: MaqamScale[] = [
     tonic: 2,
     lower: [-3.5, -2],
     jins: [0, 1, 4, 5, 7, 8],
-    scale: [0, 1, 4, 5, 7, 8, 10, 12, 5, 7, 8.5, 10, 12],
+    scale: [0, 1, 4, 5, 7, 8, 10, 12, 5, 7, 8.5, 10, 12,
+      5, 7, 8, 11, 12, 13, 16],
     coreLength: 4,
     ghammaz: [5],
     scaleGroups: [
       { label: "Hijaz 1", start: 0, end: 2 },
       { label: "Nahawand 4", start: 3, end: 7 },
       { label: "Rast 4", start: 8, end: 12 },
+      { label: "Nikriz 4", start: 13, end: 17 },
+      { label: "Hijazkar 8", start: 15, end: 19 },
     ],
     noteX: [12, 23, 35.7, 47, 58, 70, 80.5, 91],
     figures: ["14.12", "24.33", "24.34"],
     pages: [217, 393, 394],
+    alternateSource: { name: "Hijazkar", figure: "24.35", page: 395 },
+    practiceVariants: [{ start: 8, end: 12 }, { start: 13, end: 19 }],
   },
   {
     name: "Nikriz",

@@ -391,6 +391,45 @@
       ],
       "scale": 3,
       "sha256": "559790a51dccaa0a445916db44e06a2c2e4c36631d878e2966b9eb1ad173fac1"
+    },
+    "hijazkar-jins": {
+      "pdfPage": 252,
+      "printedPage": 217,
+      "referenceHeight": 1700,
+      "crop": [
+        330,
+        1378,
+        490,
+        91
+      ],
+      "scale": 3,
+      "sha256": "84d0eef221579872314f40557c640812628c24a2720dafecfabf147072aefe89"
+    },
+    "hijazkar-scale": {
+      "pdfPage": 430,
+      "printedPage": 395,
+      "referenceHeight": 1500,
+      "crop": [
+        260,
+        104,
+        490,
+        110
+      ],
+      "scale": 3,
+      "sha256": "989bc4ecf4a1fb1c02ff7a18a29efe72ea84b9aacfbbde88b3ebfa5bca143c8d"
+    },
+    "hijazkar-sayr": {
+      "pdfPage": 430,
+      "printedPage": 395,
+      "referenceHeight": 1500,
+      "crop": [
+        145,
+        275,
+        730,
+        355
+      ],
+      "scale": 3,
+      "sha256": "82474a788dc6d1f446f5e6cd5d19f6c70732fe79fd3693a52bda2af0d3b426d6"
     }
   }
 }

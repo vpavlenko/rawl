@@ -47,6 +47,13 @@ The reference order is Ajam, Rast, Hijaz, Kurd, Nikriz, Nahawand, Bayati, Saba, 
 Nikriz uses the source C tonic and lower B-flat/B auxiliaries. Figure 24.45
 is printed descending; its scale is normalized to the ascending reference order.
 Its root jins spans C–D–E-flat–F-sharp–G, followed by Nahawand on G.
+Hijaz includes the Hijazkar branch from figure 24.35 (printed 395), with
+Nikriz on degree 4 and Hijazkar on degree 8. The book's C-based figure is
+transposed to Hijaz's existing D tonic for comparison; this transposition is
+traditionally named Shahnaz. Its source scale and sayr crops are archived as
+`hijazkar-*`. The primary Nahawand and Rast branches remain unchanged.
+Practice plays the primary Hijaz scale, its Rast branch, then the complete
+Hijazkar branch through the source's upper extension.
 Huzzam's second ascending shoulder is Sikah, from figure 24.23.
 Its available content height is observed on resize. A common pitch height is
 maximized across the taller column of staves, reserving the inter-stave gaps, bracket
@@ -102,7 +109,8 @@ attacks and an 800 ms pause between blocks. The user approved these turns:
 Saba's first round reaches its characteristic degree 4. Its second round goes
 down to the lowest auxiliary and back to 1, then up to degree 4 and back to 1.
 Saba has an extra final round through every displayed upper extension, up to
-the last note and back to the tonic. The compact root-jins exercise stays
+the last note and back to the tonic, without repeating the peak note. Its third
+round also reaches degree 4; its fourth already includes that degree. The compact root-jins exercise stays
 within its shorter displayed range.
 
 When a shoulder descends, the final descent uses its alternate notes (Ajam,

@@ -55,7 +55,10 @@ export const maqamPracticeBlocks = (maqam: MaqamScale, rootOnly = false): number
     ...outward.slice(0, -1).reverse(),
   ];
   const below = [tonic, ...lower.map((_, index) => index).reverse()];
-  const tail = rootOnly ? [] : maqam.scale.slice(8).map((_, index) => tonic + 8 + index);
+  const variants = rootOnly ? [] : (maqam.practiceVariants ?? [])
+    .map(({ start, end }) => maqam.scale.slice(start, end + 1)
+      .map((_, index) => tonic + start + index));
+  const tail = rootOnly ? [] : variants[0] ?? maqam.scale.slice(8).map((_, index) => tonic + 8 + index);
   const ascendingAlternative =
     tail.length > 1 &&
     pitches[tail[0]] < pitches[tail[tail.length - 1]] &&
@@ -81,7 +84,7 @@ export const maqamPracticeBlocks = (maqam: MaqamScale, rootOnly = false): number
     [
       tonic,
       ...(lower7 < 0 ? [] : [lower7]),
-      ...returnToTonic(ascending.slice(0, 3)),
+      ...returnToTonic(ascending.slice(0, maqam.name === "Saba" ? 4 : 3)),
     ],
     returnToTonic(ascending.slice(0, 5)),
   ];
@@ -89,16 +92,16 @@ export const maqamPracticeBlocks = (maqam: MaqamScale, rootOnly = false): number
   if (maqam.name === "Saba") {
     blocks[1].push(...returnToTonic(ascending.slice(0, 4)).slice(1));
   }
-  if (ascendingAlternative) {
+  for (const branch of variants.length ? variants : ascendingAlternative ? [tail] : []) {
     const alternative = [
-      ...ascending.filter((index) => pitches[index] < pitches[tail[0]]),
-      ...tail,
+      ...ascending.filter((index) => pitches[index] < pitches[branch[0]]),
+      ...branch,
     ];
     blocks.push([...alternative, ...alternative.slice().reverse()]);
   }
   if (maqam.name === "Saba" && !rootOnly) {
     const complete = maqam.scale.map((_, index) => tonic + index);
-    blocks.push([...complete, ...complete.slice().reverse()]);
+    blocks.push(returnToTonic(complete));
   }
   return blocks;
 };

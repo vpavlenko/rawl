@@ -126,6 +126,8 @@ test("fast legato rounds return to tonic, reach every lower note and repeat asce
   };
   assert.deepEqual(blockPitches("Kurd")[1], [0, -2, 0]);
   assert.deepEqual(blockPitches("Saba")[0], [0, 1.5, 3, 4, 3, 1.5, 0]);
+  assert.deepEqual(blockPitches("Saba")[2], [0, -2, 0, 1.5, 3, 4, 3, 1.5, 0]);
+  assert.deepEqual(blockPitches("Saba")[3], [0, 1.5, 3, 4, 7, 4, 3, 1.5, 0]);
   assert.deepEqual(
     blockPitches("Saba")[1],
     [0, -2, -3.5, -2, 0, 1.5, 3, 4, 3, 1.5, 0],
@@ -140,6 +142,8 @@ test("fast legato rounds return to tonic, reach every lower note and repeat asce
     blockPitches("Hijaz")[5],
     [0, 1, 4, 5, 7, 8.5, 10, 12, 12, 10, 8.5, 7, 5, 4, 1, 0],
   );
+  assert.deepEqual(blockPitches("Hijaz")[6],
+    [0, 1, 4, 5, 7, 8, 11, 12, 13, 16, 16, 13, 12, 11, 8, 7, 5, 4, 1, 0]);
   assert.deepEqual(
     blockPitches("Huzzam")[4].slice(8),
     [12, 10.5, 8.5, 7.5, 4.5, 3.5, 1.5, 0],
@@ -202,7 +206,14 @@ test("Saba adds a full-range final ascent and descent, including every upper ext
   const blocks = maqamPracticeBlocks(saba);
   assert.equal(blocks.length, 6);
   assert.deepEqual(blocks[5].map((index) => pitches[index]),
-    [...saba.scale, ...saba.scale.slice().reverse()]);
+    [...saba.scale, ...saba.scale.slice(0, -1).reverse()]);
+  const events = maqamPracticeEvents(saba).filter(event => event.block === 5);
+  assert.equal(events.filter(event => event.midi === 60 + saba.tonic + saba.scale.at(-1)).length, 1);
+  assert.ok(events.every((event, index) => index === 0 || event.midi !== events[index - 1].midi));
+  for (const rootOnly of [false, true]) {
+    const rounds = maqamPracticeBlocks(saba, rootOnly);
+    for (const index of [2, 3]) assert.ok(rounds[index].some(i => pitches[i] === 4));
+  }
   assert.equal(maqamPracticeBlocks(saba, true).length, 4);
 });
 

@@ -243,6 +243,7 @@ export default function MaqamReference() {
                           pitches={pitches}
                           startColumn={LOWER_COLUMNS - lowerCount}
                           columnCount={COLUMN_COUNT}
+                          minimumColumnWidth={20}
                           noteHeight={noteHeight}
                           section={maqamPlaybackSection(maqam)}
                           auxiliary={pitches.map(

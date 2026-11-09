@@ -57,6 +57,7 @@ export const MaqamRawlNotation: React.FC<{
   pitches: number[];
   startColumn: number;
   columnCount: number;
+  minimumColumnWidth?: number;
   noteHeight: number;
   auxiliary?: boolean[];
   ghammaz?: number[];
@@ -70,6 +71,7 @@ export const MaqamRawlNotation: React.FC<{
   pitches,
   startColumn,
   columnCount,
+  minimumColumnWidth = 26,
   noteHeight,
   auxiliary = [],
   ghammaz = [],
@@ -113,7 +115,7 @@ export const MaqamRawlNotation: React.FC<{
     observer.observe(element);
     return () => observer.disconnect();
   }, []);
-  const minimumWidth = columnCount * 26;
+  const minimumWidth = columnCount * minimumColumnWidth;
   const drawingWidth = Math.max(minimumWidth, width);
   const base = 60 + tonic;
   const midiPitches = pitches.map((pitch) => base + pitch);

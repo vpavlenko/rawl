@@ -68,6 +68,7 @@ import Lakh from "./lakh/Lakh";
 import { lakhAnalysisKey } from "./lakh/catalog";
 import Histograms from "./rawl/Histograms";
 import OldLandingPage from "./rawl/OldLandingPage";
+import MaqamReference from "./rawl/MaqamReference";
 import Rawl, { RawlProps } from "./rawl/Rawl";
 import { ShortcutHelp } from "./rawl/ShortcutHelp";
 import {
@@ -1722,6 +1723,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     <SearchContent>
                       <Switch>
                         <Route path="/old" render={() => <OldLandingPage />} />
+                        <Route exact path="/maqam" component={MaqamReference} />
                         <Route exact path="/orphans" component={OrphansPage} />
                         <Route exact path="/musescore-upload-tracker" component={MusescoreUploadTracker} />
                         <Redirect exact from="/corpus/rei_korkus" to="/corpus/ibrahim_al_aryan" />

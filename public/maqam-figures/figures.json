@@ -1,0 +1,357 @@
+{
+  "source": "Johnny Farraj, Sami Abu Shumays - Inside Arabic Music_ Arabic Maqam Performance and Theory in the 20th Century (2019, Oxford University Press) - libgen.lc.pdf",
+  "sha256": "741bfe87cdb9b329b884c469df443f0370b338cd049baf00762c3e85d12707d5",
+  "figures": {
+    "ajam-jins": {
+      "pdfPage": 248,
+      "printedPage": 213,
+      "referenceHeight": 1700,
+      "crop": [
+        352,
+        850,
+        444,
+        92
+      ],
+      "scale": 3,
+      "sha256": "40072412528329ff9ffef7abc16924cc741ae4c596e902e99901261d7062bbaa"
+    },
+    "ajam-scale": {
+      "pdfPage": 440,
+      "printedPage": 405,
+      "referenceHeight": 1500,
+      "crop": [
+        232,
+        641,
+        546,
+        105
+      ],
+      "scale": 3,
+      "sha256": "3eb10e836df315b8c9b06df8a2ce04511a7270ed131f3933ec907d309e35aa92"
+    },
+    "ajam-sayr": {
+      "pdfPage": 440,
+      "printedPage": 405,
+      "referenceHeight": 1500,
+      "crop": [
+        98,
+        805,
+        800,
+        351
+      ],
+      "scale": 3,
+      "sha256": "5d1177dd981604b8ed16f3252d72c2fa485e96817301bab953d985a2dd67205e"
+    },
+    "hijaz-jins": {
+      "pdfPage": 252,
+      "printedPage": 217,
+      "referenceHeight": 1700,
+      "crop": [
+        330,
+        1378,
+        490,
+        91
+      ],
+      "scale": 3,
+      "sha256": "84d0eef221579872314f40557c640812628c24a2720dafecfabf147072aefe89"
+    },
+    "hijaz-scale": {
+      "pdfPage": 428,
+      "printedPage": 393,
+      "referenceHeight": 1500,
+      "crop": [
+        205,
+        1260,
+        638,
+        100
+      ],
+      "scale": 3,
+      "sha256": "d6b2c7a718a8ddb3a7db72b953f846607f154aec0c4e104375f4342ec5f38ada"
+    },
+    "hijaz-sayr": {
+      "pdfPage": 429,
+      "printedPage": 394,
+      "referenceHeight": 1500,
+      "crop": [
+        95,
+        104,
+        786,
+        293
+      ],
+      "scale": 3,
+      "sha256": "5345d1d31ec10ad8ba23b2c68f9d1da8946625f89283d6d217c183dfaa3cbaaa"
+    },
+    "nahawand-jins": {
+      "pdfPage": 244,
+      "printedPage": 209,
+      "referenceHeight": 1700,
+      "crop": [
+        336,
+        900,
+        477,
+        96
+      ],
+      "scale": 3,
+      "sha256": "846555fda65c928d0d01e82982bf64b38dd2245424d8e572313cedbca6ce9ebe"
+    },
+    "nahawand-scale": {
+      "pdfPage": 432,
+      "printedPage": 397,
+      "referenceHeight": 1500,
+      "crop": [
+        240,
+        103,
+        535,
+        100
+      ],
+      "scale": 3,
+      "sha256": "1e2fd5403de110f5c015faf10c20957e17685909da02f2ef48567bc8ff0b494d"
+    },
+    "nahawand-sayr": {
+      "pdfPage": 432,
+      "printedPage": 397,
+      "referenceHeight": 1500,
+      "crop": [
+        118,
+        260,
+        775,
+        401
+      ],
+      "scale": 3,
+      "sha256": "2015f35e1fbdd9b3b97bf150065044c7188c1f33983551dcb7013ba63a08a5e5"
+    },
+    "kurd-jins": {
+      "pdfPage": 254,
+      "printedPage": 219,
+      "referenceHeight": 1700,
+      "crop": [
+        370,
+        1250,
+        408,
+        88
+      ],
+      "scale": 3,
+      "sha256": "1e4fb8c0c83e6675de025a129908d88d21aeee693d1c3beb2adbb585fd0adce6"
+    },
+    "kurd-scale": {
+      "pdfPage": 437,
+      "printedPage": 402,
+      "referenceHeight": 1500,
+      "crop": [
+        287,
+        908,
+        403,
+        89
+      ],
+      "scale": 3,
+      "sha256": "14797a09c21158e8b91bac3c93028b9845b7f94a9d0c726e1cd305ac34ab2313"
+    },
+    "kurd-sayr": {
+      "pdfPage": 437,
+      "printedPage": 402,
+      "referenceHeight": 1500,
+      "crop": [
+        98,
+        1066,
+        785,
+        315
+      ],
+      "scale": 3,
+      "sha256": "17ab4be5a66ff2270804490b6d50ca05598e4a914244dc9b44330dbcd188f193"
+    },
+    "rast-jins": {
+      "pdfPage": 242,
+      "printedPage": 207,
+      "referenceHeight": 1700,
+      "crop": [
+        328,
+        1230,
+        493,
+        93
+      ],
+      "scale": 3,
+      "sha256": "88adcfaecc8c90866b3ef2236d330ae77630d7ff9d79ba7e33a88b7147426891"
+    },
+    "rast-scale": {
+      "pdfPage": 414,
+      "printedPage": 379,
+      "referenceHeight": 1500,
+      "crop": [
+        240,
+        102,
+        535,
+        100
+      ],
+      "scale": 3,
+      "sha256": "08cd5177ae110b5759fe5416d558067ad534a4b39dcb88ef7453c9b0007758ed"
+    },
+    "rast-sayr": {
+      "pdfPage": 414,
+      "printedPage": 379,
+      "referenceHeight": 1500,
+      "crop": [
+        118,
+        265,
+        775,
+        490
+      ],
+      "scale": 3,
+      "sha256": "d9f1b83e6ca3dac9294e7cf6826fee75222b7bb6b4c241bf269ee8e82ea57e7d"
+    },
+    "bayati-jins": {
+      "pdfPage": 250,
+      "printedPage": 215,
+      "referenceHeight": 1700,
+      "crop": [
+        328,
+        1452,
+        495,
+        94
+      ],
+      "scale": 3,
+      "sha256": "a15c92405d35cb8850d5f881f75d3ad53033c0544c108be5cb51620fae196b36"
+    },
+    "bayati-scale": {
+      "pdfPage": 420,
+      "printedPage": 385,
+      "referenceHeight": 1500,
+      "crop": [
+        195,
+        1260,
+        622,
+        110
+      ],
+      "scale": 3,
+      "sha256": "8d1a96d6c03067ded635d31b44fb029dbb527555ff61de09fe06b6576a2d97c1"
+    },
+    "bayati-sayr": {
+      "pdfPage": 421,
+      "printedPage": 386,
+      "referenceHeight": 1500,
+      "crop": [
+        95,
+        104,
+        785,
+        474
+      ],
+      "scale": 3,
+      "sha256": "659839228d4ef51fd35264d447d21878da18f64acc9a7f9fc072de3e5f42bb33"
+    },
+    "saba-jins": {
+      "pdfPage": 256,
+      "printedPage": 221,
+      "referenceHeight": 1700,
+      "crop": [
+        310,
+        696,
+        512,
+        89
+      ],
+      "scale": 3,
+      "sha256": "b4225557c4e90edecca479f9790b32d563ac5a4dbf49a60c6c14291014c86192"
+    },
+    "saba-scale": {
+      "pdfPage": 443,
+      "printedPage": 408,
+      "referenceHeight": 1500,
+      "crop": [
+        235,
+        240,
+        541,
+        115
+      ],
+      "scale": 3,
+      "sha256": "b7a0230efc394a74bf2567d454bb025b4ccde1d3159981c71cded22fcc9226af"
+    },
+    "saba-sayr": {
+      "pdfPage": 443,
+      "printedPage": 408,
+      "referenceHeight": 1500,
+      "crop": [
+        99,
+        394,
+        776,
+        485
+      ],
+      "scale": 3,
+      "sha256": "93d1f1fdcd36d16585a08b393e4adec0534e4433a0c3d328dc3c524fd976a5f5"
+    },
+    "sikah-jins": {
+      "pdfPage": 258,
+      "printedPage": 223,
+      "referenceHeight": 1700,
+      "crop": [
+        366,
+        1258,
+        365,
+        83
+      ],
+      "scale": 3,
+      "sha256": "94f521557a6b229ce08d192277ca5caa8e2626fbc5f5205e518ec8a1572a19be"
+    },
+    "sikah-scale": {
+      "pdfPage": 424,
+      "printedPage": 389,
+      "referenceHeight": 1500,
+      "crop": [
+        320,
+        593,
+        404,
+        89
+      ],
+      "scale": 3,
+      "sha256": "a538b6f03dbf33f0dd0aede8445956b50e6c93d4f3ccfea39a058d7f2777dfbc"
+    },
+    "sikah-sayr": {
+      "pdfPage": 424,
+      "printedPage": 389,
+      "referenceHeight": 1500,
+      "crop": [
+        118,
+        720,
+        778,
+        383
+      ],
+      "scale": 3,
+      "sha256": "9dd59aba50a8db3257cce247101a4a090d0515d5f7e17a2cbc56515ce1f3d732"
+    },
+    "huzzam-jins": {
+      "pdfPage": 258,
+      "printedPage": 223,
+      "referenceHeight": 1700,
+      "crop": [
+        366,
+        1258,
+        365,
+        83
+      ],
+      "scale": 3,
+      "sha256": "94f521557a6b229ce08d192277ca5caa8e2626fbc5f5205e518ec8a1572a19be"
+    },
+    "huzzam-scale": {
+      "pdfPage": 423,
+      "printedPage": 388,
+      "referenceHeight": 1500,
+      "crop": [
+        280,
+        450,
+        415,
+        90
+      ],
+      "scale": 3,
+      "sha256": "d599845b65c7e8a05915689302c52af12515bee3ea59f5906abee3aee49aafbd"
+    },
+    "huzzam-sayr": {
+      "pdfPage": 423,
+      "printedPage": 388,
+      "referenceHeight": 1500,
+      "crop": [
+        96,
+        600,
+        780,
+        480
+      ],
+      "scale": 3,
+      "sha256": "8c48c68a3d9c7ba9649c31748d90268a7b2caabc83dfe49b9cc43f8d873c75aa"
+    }
+  }
+}

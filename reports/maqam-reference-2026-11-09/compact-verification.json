@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-09",
+  "environment": "Google Chrome, existing http://localhost:3000 server",
+  "layout": {
+    "viewport": {
+      "width": 1728,
+      "height": 941
+    },
+    "staves": 8,
+    "noteOccurrences": 103,
+    "lastStaveBottom": 707,
+    "pageScrollHeight": 941,
+    "sayrImages": 0,
+    "separateJinsBlocks": 0,
+    "notes": "One full maqam sequence per row, with lower auxiliaries prepended and source bracket indices shifted accordingly. No stave borders."
+  },
+  "playback": {
+    "implementation": "Production useNotePlaybackClock, NotePlaybackContext, PlaybackSectionContext and getNoteRectangles. Separate timeline sections per stave; occurrence-specific spans and displaySpan for drawing. Web Audio currentTime drives clock.advance on animation frames.",
+    "repeatedPitchCheck": {
+      "auditioned": "Ajam-12, the second fifth",
+      "height": 12,
+      "earlierOccurrence": "Ajam-6",
+      "earlierHeight": 6,
+      "otherStavesGrownNotes": 0
+    },
+    "staveSwitching": "Kurd-0 only, then Hijaz-0 only; Stop cleared all active/grown notes.",
+    "keyboard": "Enter and Space audition the selected occurrence.",
+    "sequence": "Full Ajam playback highlighted only Ajam-0 at the first sampled frame.",
+    "legendRegression": "Qanun compact legend highlighted one target; folding stopped preview; Theory opened the compact page."
+  },
+  "validation": {
+    "typescript": "npx tsc --noEmit --pretty false passed",
+    "focusedTests": "14 passed: maqam-playback, qanun-playback, note-rendering, hover-tonic, note-cents; pre-existing SSR useLayoutEffect warnings only",
+    "mainPlaybackChecks": "node scripts/rawl/check-playback-index.cjs passed",
+    "geometry": "All tonic/fifth occurrence bottom edges match their production guides within 0.01 CSS pixels on all eight merged staves.",
+    "console": "No application compile or runtime errors observed on final affected pages.",
+    "diffCheck": "git diff --check passed"
+  },
+  "screenshots": [
+    "compact-reference.jpg",
+    "compact-playback.jpg"
+  ],
+  "limitations": [
+    "Local changes only, uncommitted and undeployed.",
+    "First-screen fit verified at actual Chrome viewport 1728 x 941; no physical mobile-device claim.",
+    "Qanun samples and nominal tuning unchanged from prior sample audit."
+  ],
+  "preservedConcurrentEdits": [
+    "src/players/MIDIPlayer.js",
+    "src/players/midiTimbre.js",
+    "scripts/rawl/midi-timbre.test.cjs",
+    "public/rawl-oud-1e42128ba5cd.sf2",
+    "public/rawl-oud-SOURCES.md"
+  ],
+  "supersededBy": "final-verification.json"
+}

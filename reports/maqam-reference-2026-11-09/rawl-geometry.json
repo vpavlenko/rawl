@@ -1,0 +1,347 @@
+[
+  {
+    "fifthNotes": [
+      56
+    ],
+    "guides": [
+      {
+        "bottom": 112,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 56,
+        "kind": "fifth"
+      }
+    ],
+    "index": 0,
+    "tonicNotes": [
+      112
+    ]
+  },
+  {
+    "fifthNotes": [
+      80,
+      80
+    ],
+    "guides": [
+      {
+        "bottom": 136,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 80,
+        "kind": "fifth"
+      },
+      {
+        "bottom": 40,
+        "kind": "tonic"
+      }
+    ],
+    "index": 1,
+    "tonicNotes": [
+      136,
+      40
+    ]
+  },
+  {
+    "fifthNotes": [
+      48
+    ],
+    "guides": [
+      {
+        "bottom": 104,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 48,
+        "kind": "fifth"
+      }
+    ],
+    "index": 2,
+    "tonicNotes": [
+      104
+    ]
+  },
+  {
+    "fifthNotes": [
+      80,
+      80
+    ],
+    "guides": [
+      {
+        "bottom": 136,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 80,
+        "kind": "fifth"
+      },
+      {
+        "bottom": 40,
+        "kind": "tonic"
+      }
+    ],
+    "index": 3,
+    "tonicNotes": [
+      136,
+      40,
+      40
+    ]
+  },
+  {
+    "fifthNotes": [
+      48
+    ],
+    "guides": [
+      {
+        "bottom": 104,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 48,
+        "kind": "fifth"
+      }
+    ],
+    "index": 4,
+    "tonicNotes": [
+      104
+    ]
+  },
+  {
+    "fifthNotes": [
+      80,
+      80
+    ],
+    "guides": [
+      {
+        "bottom": 136,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 80,
+        "kind": "fifth"
+      },
+      {
+        "bottom": 40,
+        "kind": "tonic"
+      }
+    ],
+    "index": 5,
+    "tonicNotes": [
+      136,
+      40
+    ]
+  },
+  {
+    "fifthNotes": [
+      48
+    ],
+    "guides": [
+      {
+        "bottom": 104,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 48,
+        "kind": "fifth"
+      }
+    ],
+    "index": 6,
+    "tonicNotes": [
+      104
+    ]
+  },
+  {
+    "fifthNotes": [
+      80
+    ],
+    "guides": [
+      {
+        "bottom": 136,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 80,
+        "kind": "fifth"
+      },
+      {
+        "bottom": 40,
+        "kind": "tonic"
+      }
+    ],
+    "index": 7,
+    "tonicNotes": [
+      136,
+      40
+    ]
+  },
+  {
+    "fifthNotes": [
+      56
+    ],
+    "guides": [
+      {
+        "bottom": 112,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 56,
+        "kind": "fifth"
+      }
+    ],
+    "index": 8,
+    "tonicNotes": [
+      112
+    ]
+  },
+  {
+    "fifthNotes": [
+      80,
+      80
+    ],
+    "guides": [
+      {
+        "bottom": 136,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 80,
+        "kind": "fifth"
+      },
+      {
+        "bottom": 40,
+        "kind": "tonic"
+      }
+    ],
+    "index": 9,
+    "tonicNotes": [
+      136,
+      40
+    ]
+  },
+  {
+    "fifthNotes": [
+      48
+    ],
+    "guides": [
+      {
+        "bottom": 104,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 48,
+        "kind": "fifth"
+      }
+    ],
+    "index": 10,
+    "tonicNotes": [
+      104
+    ]
+  },
+  {
+    "fifthNotes": [
+      80,
+      80
+    ],
+    "guides": [
+      {
+        "bottom": 136,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 80,
+        "kind": "fifth"
+      },
+      {
+        "bottom": 40,
+        "kind": "tonic"
+      }
+    ],
+    "index": 11,
+    "tonicNotes": [
+      136,
+      40,
+      40
+    ]
+  },
+  {
+    "fifthNotes": [
+      48
+    ],
+    "guides": [
+      {
+        "bottom": 104,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 48,
+        "kind": "fifth"
+      }
+    ],
+    "index": 12,
+    "tonicNotes": [
+      104
+    ]
+  },
+  {
+    "fifthNotes": [
+      104
+    ],
+    "guides": [
+      {
+        "bottom": 160,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 104,
+        "kind": "fifth"
+      },
+      {
+        "bottom": 64,
+        "kind": "tonic"
+      }
+    ],
+    "index": 13,
+    "tonicNotes": [
+      160,
+      64
+    ]
+  },
+  {
+    "fifthNotes": [],
+    "guides": [
+      {
+        "bottom": 76,
+        "kind": "tonic"
+      }
+    ],
+    "index": 14,
+    "tonicNotes": [
+      76
+    ]
+  },
+  {
+    "fifthNotes": [
+      80
+    ],
+    "guides": [
+      {
+        "bottom": 136,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 80,
+        "kind": "fifth"
+      },
+      {
+        "bottom": 40,
+        "kind": "tonic"
+      }
+    ],
+    "index": 15,
+    "tonicNotes": [
+      136,
+      40
+    ]
+  }
+]

@@ -1,0 +1,99 @@
+{
+  "originalSource": "https://freesound.org/people/barisbozkurt/sounds/211133/",
+  "author": "barisbozkurt",
+  "license": "CC0-1.0",
+  "derivedBank": "https://github.com/joetessy/qanun/tree/781775a018735ba9e7f83f9d84d8ef326bcbc5f2/public/samples/qanun",
+  "revision": "781775a018735ba9e7f83f9d84d8ef326bcbc5f2",
+  "files": [
+    {
+      "file": "qanun-A3.m4a",
+      "sha256": "48dfdd45ce665477cc2c7faa90261494cd417248940174607ec4d9ee538c457f",
+      "bytes": 16230
+    },
+    {
+      "file": "qanun-A4.m4a",
+      "sha256": "3af73a18ab027b1134dbc612ce40ad675bff8eeb75e33aed4e681a717381c411",
+      "bytes": 8796
+    },
+    {
+      "file": "qanun-A5.m4a",
+      "sha256": "78cd2fa7dc2fce69d4614a69b570460bfddc186dd7e5c5b6a6275f4d5ac20528",
+      "bytes": 6924
+    },
+    {
+      "file": "qanun-B3.m4a",
+      "sha256": "f4ed7465423c0c84ebd561393ada0b634ed6fbfc9ddba101d02b3c3567408dbf",
+      "bytes": 21701
+    },
+    {
+      "file": "qanun-B4.m4a",
+      "sha256": "8e30d824575e04ff94668434fd84162e44e70f1e95c7bbaed5482162b5fb395c",
+      "bytes": 11640
+    },
+    {
+      "file": "qanun-B5.m4a",
+      "sha256": "e603d2ea934d30b5f6ff76a6d38956e5faff766515f3f68d1aa893b280a99b64",
+      "bytes": 8367
+    },
+    {
+      "file": "qanun-Cs4.m4a",
+      "sha256": "fa9c92b3d6eda8d77198c088c40d02d7a0a17606dbdfb07c0d90fc31d449ad3e",
+      "bytes": 15131
+    },
+    {
+      "file": "qanun-Cs5.m4a",
+      "sha256": "fdb80f37faeda328bc91de04a25448cbb57018f1e7fd1db78b2c5e29b060a71c",
+      "bytes": 13751
+    },
+    {
+      "file": "qanun-Cs6.m4a",
+      "sha256": "8a8c9fa78359a30263d2e18eb933b38af39be2f2882dea3b5d8d35f272de90dd",
+      "bytes": 9234
+    },
+    {
+      "file": "qanun-Ds4.m4a",
+      "sha256": "9ee8bfd093c5206f1b0ab935eb5bdf097174c095dd6c6aefcc770947db659908",
+      "bytes": 15709
+    },
+    {
+      "file": "qanun-Ds5.m4a",
+      "sha256": "13ececc4b1ce0a33cbcf18a44a10816c1b8dfa20686ccb2d688b85cfc2907dc2",
+      "bytes": 12563
+    },
+    {
+      "file": "qanun-Ds6.m4a",
+      "sha256": "d99973a680ea70b60a44d9cf58882691bdd1e4ebbf561fe8a81cd82f59a7a3f6",
+      "bytes": 7437
+    },
+    {
+      "file": "qanun-F3.m4a",
+      "sha256": "3fc5fc513c484c62b3b166e5f72aeea886d0217794d492f227e7fe3b063068e4",
+      "bytes": 19083
+    },
+    {
+      "file": "qanun-F4.m4a",
+      "sha256": "5f8493951366e9e47220f9611c8623eb85f53269a641778acb7f719de0a242eb",
+      "bytes": 15026
+    },
+    {
+      "file": "qanun-F5.m4a",
+      "sha256": "3ab3e0dbb60bf447d5adc6dd9167bb6162b8cd0e743e09ceee1c3b951becf292",
+      "bytes": 12659
+    },
+    {
+      "file": "qanun-G3.m4a",
+      "sha256": "825444a392406c159569ae034c5aa57c2c49eea94c7c1f5ddf1c16cf460c7f29",
+      "bytes": 15783
+    },
+    {
+      "file": "qanun-G4.m4a",
+      "sha256": "b251de3710346783cd1cafe93771be76417f9b6738920eb69b04ecd9dbbefe3f",
+      "bytes": 9941
+    },
+    {
+      "file": "qanun-G5.m4a",
+      "sha256": "775d693d373e6ac3fed16a05a9b0d17c23230cc89fdc32476c1b9b82f12dd60f",
+      "bytes": 13080
+    }
+  ]
+}

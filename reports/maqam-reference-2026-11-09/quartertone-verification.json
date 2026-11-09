@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-09",
+  "environment": "Google Chrome, existing http://localhost:3000",
+  "classification": "Sounding MIDI pitch at the note midpoint, including bends; fractional semitone in inclusive [0.25, 0.75]. Independent of tonic recoloring.",
+  "reference": {
+    "path": "/maqam",
+    "markers": 14,
+    "contrast": "Black on light fills and white on dark fills observed.",
+    "shiftHover": "Hijaz alternate 8.5 marker changed from white on blue to black on tonic white; marker count remained 14. Release restored colors.",
+    "screenshot": "quartertone-reference.jpg"
+  },
+  "song": {
+    "path": "/f/riyad-al-sunbati-taqsim-sekah",
+    "markers": 517,
+    "placement": "Markers follow bent ribbons. Both black and white observed; checked at default height and height 10.",
+    "screenshot": "quartertone-song.jpg"
+  },
+  "validation": {
+    "typescript": "npx tsc --noEmit --pretty false passed",
+    "tests": "11 passed: quartertone, note-rendering, hover-tonic. Existing server-render useLayoutEffect warnings only.",
+    "chrome": "No error or warning logs on either page.",
+    "diff": "git diff --check passed"
+  },
+  "status": "Local changes, uncommitted and undeployed. Concurrent player/timbre/SoundFont edits preserved."
+}

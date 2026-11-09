@@ -1,0 +1,81 @@
+{
+  "date": "2026-11-09",
+  "environment": "Google Chrome, existing http://localhost:3000",
+  "layout": {
+    "order": [
+      "ajam",
+      "rast",
+      "hijaz",
+      "kurd",
+      "nahawand",
+      "bayati",
+      "saba",
+      "huzzam"
+    ],
+    "notes": 108,
+    "viewport": {
+      "height": 997,
+      "width": 1728
+    },
+    "singleViewport": true,
+    "fifthAlignment": "Every title center matches its production gray fifth guide within 0.05 CSS pixels. Titles and icon buttons share the same right edge.",
+    "degreeAlignment": "Degrees 1 through 5 match exact x coordinates across all rows; all notes have equal measured width.",
+    "density": "Common pitch height maximized against the available content height; above/below jins brackets stay within stave space.",
+    "responsive": [
+      {
+        "client": 544,
+        "controlsFit": true,
+        "height": 600,
+        "last": 565.9609375,
+        "namesOnFifth": true,
+        "scroll": 544,
+        "width": 1280
+      },
+      {
+        "client": 704,
+        "controlsFit": true,
+        "height": 760,
+        "last": 725.9609375,
+        "namesOnFifth": true,
+        "scroll": 704,
+        "width": 1280
+      }
+    ],
+    "rootBracketOffset": "All eight jins-1 brackets lowered by two semitones; lower bracket positions unchanged. See jins-1-offset.json."
+  },
+  "theory": {
+    "primary": "Huzzam replaces Sikah; its ascending alternate shoulder is Sikah.",
+    "sourceReview": "huzzam-source-review.md",
+    "rootBrackets": "Ajam/Rast/Nahawand reach degree 5; Hijaz/Kurd/Bayati degree 4; Huzzam degree 3. Saba keeps its existing five-note bracket.",
+    "huzzamLower": "Practical reference and exercises use C and D; optional raised E-flat approach remains in original source transcription/compact figure."
+  },
+  "playback": {
+    "timing": "220 ms legato note durations meet the next attack; 800 ms pauses between rounds.",
+    "sustain": "Every recording rings through its full natural decay, including across pauses. Stop/fold/replacement cancel all ringing sources.",
+    "round2": "Every displayed lower auxiliary to the lowest note and back.",
+    "ascendingAlternatives": "Round 5 first ascends/descends on the first shoulder, then repeats a full ascent/descent on the ascending alternate in Hijaz, Bayati and Huzzam/Sikah.",
+    "saba": "Round 1 reaches degree 4. Round 2 reaches the lowest auxiliary, returns to 1, then reaches degree 4 and returns. Exact Chrome trace saved in saba-practice.json.",
+    "reuse": "Production note playback clock and contexts, with occurrence-specific interval subscriptions and audio-clock timing.",
+    "browser": "Fast up/down phrase, pauses, Stop, lowest Huzzam auxiliary, Saba fourth in both rounds, individual repeated-note isolation and compact legend fold cancellation checked."
+  },
+  "hover": {
+    "reuse": "Existing NoteCentsTooltip and shared getPitchCentsFromTonic. Corpus retains two-decimal formatting; reference uses compact numeric text.",
+    "browser": "Huzzam tooltip showed 1.5; note height remained 10.6624 px before and after hover, with no active playback.",
+    "shiftPreview": {
+      "reuse": "Production getHoverColorPitchClass from hoverTonic.ts",
+      "browser": "Shift-hover on huzzam degree 3 made that note tonic white, recolored only huzzam, kept note height 10.6624 px and playback inactive. Key release without pointer movement and pointer leave both restored colors.",
+      "finalPreviewCount": 0
+    }
+  },
+  "validation": {
+    "typescript": "npx tsc --noEmit --pretty false passed",
+    "tests": "Latest: 14 passed across maqam-playback, qanun-playback, note-cents and hover-tonic. Existing SSR useLayoutEffect warnings only. Earlier note-rendering checks also passed.",
+    "console": "Fresh final Chrome tab: no error or warning logs.",
+    "diff": "git diff --check passed"
+  },
+  "screenshots": [
+    "tonic-preview-reference.jpg",
+    "shift-hover.jpg"
+  ],
+  "status": "Local, uncommitted, undeployed. Concurrent MIDIPlayer/timbre/SoundFont edits preserved untouched."
+}

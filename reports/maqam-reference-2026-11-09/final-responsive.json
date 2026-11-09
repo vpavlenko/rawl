@@ -1,0 +1,20 @@
+[
+  {
+    "client": 544,
+    "controlsFit": true,
+    "height": 600,
+    "last": 565.9609375,
+    "namesOnFifth": true,
+    "scroll": 544,
+    "width": 1280
+  },
+  {
+    "client": 704,
+    "controlsFit": true,
+    "height": 760,
+    "last": 725.9609375,
+    "namesOnFifth": true,
+    "scroll": 704,
+    "width": 1280
+  }
+]

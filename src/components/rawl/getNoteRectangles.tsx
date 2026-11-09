@@ -1,6 +1,7 @@
 import { voiceHoverContains } from "./instrumentVoiceGroups";
-import { interpolatedPitchColor } from "./colors";
-import { getPitchBendSamples } from "./pitchBend";
+import { contrastingPitchColor, interpolatedPitchColor } from "./colors";
+import { getNotePitchAtTime, getPitchBendSamples, isQuarterTonePitch } from "./pitchBend";
+import Asterisk from "../icons/Asterisk";
 import * as React from "react";
 import { SecondsConverter, SecondsSpan } from "./Rawl";
 import { ColoredNote, Note, PitchBendPoint } from "./parseMidi";
@@ -318,6 +319,7 @@ export const getNoteRectangles = (
   hoveredVoiceIndex: number | number[] | null = null,
   sectionEndX?: number,
   sectionStartX?: number,
+  getNoteAttributes?: (note: ColoredNote) => React.HTMLAttributes<HTMLDivElement>,
 ) => {
   const renderableNotes = notes.filter((note) => note.span[1] > note.span[0]);
   // Group durations in approximately 10% steps, then place higher pitches
@@ -367,6 +369,7 @@ export const getNoteRectangles = (
       hoveredVoiceIndex={hoveredVoiceIndex}
       sectionEndX={sectionEndX}
       sectionStartX={sectionStartX}
+      attributes={getNoteAttributes?.(note)}
     />
   ));
 };
@@ -387,6 +390,7 @@ const NoteRectangle = React.memo(({
   hoveredVoiceIndex,
   sectionEndX,
   sectionStartX,
+  attributes,
 }: {
   note: ColoredNote;
   stackingPriority: number;
@@ -403,6 +407,7 @@ const NoteRectangle = React.memo(({
   hoveredVoiceIndex: number | number[] | null;
   sectionEndX?: number;
   sectionStartX?: number;
+  attributes?: React.HTMLAttributes<HTMLDivElement>;
 }) => {
   const onsetEditing = React.useContext(ModulationOnsetEditingContext);
   const onsetCursor = onsetEditing.active && handleNoteClick
@@ -512,6 +517,12 @@ const NoteRectangle = React.memo(({
 
   const fractionalColor = typeof note.colorPitchClass === "number" &&
     !Number.isInteger(note.colorPitchClass);
+  const middlePitch = getNotePitchAtTime(note, (note.span[0] + note.span[1]) / 2);
+  const quarterTone = !isDrum && isQuarterTonePitch(middlePitch);
+  const middleBend = middlePitch - midiNumber;
+  const markerColorPitch = typeof note.colorPitchClass === "number"
+    ? note.colorPitchClass + (hasPitchBend ? middleBend : 0) : 0;
+  const markerSize = Math.min(12, baseHeight, width);
   const previewAtPointer = (event: React.MouseEvent<HTMLDivElement>) => {
     const fraction = width > 0
       ? (event.clientX - event.currentTarget.getBoundingClientRect().left) / width : 0;
@@ -610,6 +621,7 @@ const NoteRectangle = React.memo(({
     ) : null
   ) : (
     <div
+      {...attributes}
       ref={elementRef}
       data-note-id={note.id}
       data-modulation-onset-note={handleNoteClick ? "true" : undefined}
@@ -657,6 +669,7 @@ const NoteRectangle = React.memo(({
           ? "pointer"
           : "default"),
         opacity: noteUnderCursor ? 1 : undefined,
+        ...attributes?.style,
       }}
       onClick={(e) => {
         e.stopPropagation();
@@ -681,6 +694,21 @@ const NoteRectangle = React.memo(({
           colorPitchClass={note.colorPitchClass}
           outlined={showFullNote}
           interactive={!!handleNoteClick}
+        />
+      )}
+      {quarterTone && showFullNote && (
+        <Asterisk
+          data-quartertone="true"
+          width={markerSize}
+          height={markerSize}
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: `calc(50% + ${hasPitchBend ? midiNumberToY(number + middleBend) - midiNumberToY(number) : 0}px)`,
+            transform: "translate(-50%, -50%)",
+            color: contrastingPitchColor(markerColorPitch),
+            pointerEvents: "none",
+          }}
         />
       )}
       {showSourceLocation && sourceLocationText && showFullNote && (

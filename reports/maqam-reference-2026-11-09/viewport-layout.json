@@ -1,0 +1,444 @@
+{
+  "available": 925,
+  "content": {
+    "height": 941,
+    "scrollHeight": 941
+  },
+  "rows": [
+    {
+      "bottom": 143.2890625,
+      "brackets": [
+        {
+          "end": 6,
+          "label": "‘Ajam 1",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "above",
+          "start": 2
+        },
+        {
+          "end": 9,
+          "label": "Upper ‘Ajam 5/8",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "below",
+          "start": 6
+        },
+        {
+          "end": 12,
+          "label": "Nahawand 5",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "below",
+          "start": 10
+        }
+      ],
+      "degreeX": [
+        625.703,
+        699.328,
+        772.953,
+        846.578,
+        920.203
+      ],
+      "name": "ajam",
+      "noteHeight": 10.6624,
+      "top": 38,
+      "widths": [
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953
+      ]
+    },
+    {
+      "bottom": 256.578125,
+      "brackets": [
+        {
+          "end": 6,
+          "label": "Rast 1",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "above",
+          "start": 2
+        },
+        {
+          "end": 9,
+          "label": "Upper Rast 5/8",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "below",
+          "start": 6
+        },
+        {
+          "end": 12,
+          "label": "Nahawand 5",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "below",
+          "start": 10
+        }
+      ],
+      "degreeX": [
+        625.703,
+        699.328,
+        772.953,
+        846.578,
+        920.203
+      ],
+      "name": "rast",
+      "noteHeight": 10.6624,
+      "top": 151.2890625,
+      "widths": [
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953
+      ]
+    },
+    {
+      "bottom": 372.53125,
+      "brackets": [
+        {
+          "end": 5,
+          "label": "Hijaz 1",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "above",
+          "start": 2
+        },
+        {
+          "end": 9,
+          "label": "Nahawand 4",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "below",
+          "start": 5
+        },
+        {
+          "end": 14,
+          "label": "Rast 4",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "below",
+          "start": 10
+        }
+      ],
+      "degreeX": [
+        625.703,
+        699.328,
+        772.953,
+        846.578,
+        920.203
+      ],
+      "name": "hijaz",
+      "noteHeight": 10.6624,
+      "top": 264.578125,
+      "widths": [
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953
+      ]
+    },
+    {
+      "bottom": 480.4921875,
+      "brackets": [
+        {
+          "end": 4,
+          "label": "Kurd 1",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "above",
+          "start": 1
+        },
+        {
+          "end": 8,
+          "label": "Nahawand 4",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "below",
+          "start": 4
+        }
+      ],
+      "degreeX": [
+        625.703,
+        699.328,
+        772.953,
+        846.578,
+        920.203
+      ],
+      "name": "kurd",
+      "noteHeight": 10.6624,
+      "top": 380.53125,
+      "widths": [
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953
+      ]
+    },
+    {
+      "bottom": 599.109375,
+      "brackets": [
+        {
+          "end": 7,
+          "label": "Nahawand 1",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "above",
+          "start": 3
+        },
+        {
+          "end": 10,
+          "label": "Hijaz 5",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "below",
+          "start": 7
+        },
+        {
+          "end": 13,
+          "label": "Kurd 5",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "below",
+          "start": 11
+        }
+      ],
+      "degreeX": [
+        625.703,
+        699.328,
+        772.953,
+        846.578,
+        920.203
+      ],
+      "name": "nahawand",
+      "noteHeight": 10.6624,
+      "top": 488.4921875,
+      "widths": [
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953
+      ]
+    },
+    {
+      "bottom": 715.0625,
+      "brackets": [
+        {
+          "end": 5,
+          "label": "Bayati 1",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "above",
+          "start": 2
+        },
+        {
+          "end": 9,
+          "label": "Nahawand 4",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "below",
+          "start": 5
+        },
+        {
+          "end": 14,
+          "label": "Rast 4",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "below",
+          "start": 10
+        }
+      ],
+      "degreeX": [
+        625.703,
+        699.328,
+        772.953,
+        846.578,
+        920.203
+      ],
+      "name": "bayati",
+      "noteHeight": 10.6624,
+      "top": 607.109375,
+      "widths": [
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953
+      ]
+    },
+    {
+      "bottom": 847.0078125,
+      "brackets": [
+        {
+          "end": 6,
+          "label": "Saba 1",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "above",
+          "start": 2
+        },
+        {
+          "end": 10,
+          "label": "‘Ajam 6",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "below",
+          "start": 7
+        },
+        {
+          "end": 7,
+          "label": "Hijaz 3",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "below",
+          "start": 4
+        },
+        {
+          "end": 12,
+          "label": "Nikriz 6",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "below",
+          "start": 7
+        }
+      ],
+      "degreeX": [
+        625.703,
+        699.328,
+        772.953,
+        846.578,
+        920.203
+      ],
+      "name": "saba",
+      "noteHeight": 10.6624,
+      "top": 723.0625,
+      "widths": [
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953
+      ]
+    },
+    {
+      "bottom": 962.9609375,
+      "brackets": [
+        {
+          "end": 5,
+          "label": "Sikah 1",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "above",
+          "start": 3
+        },
+        {
+          "end": 8,
+          "label": "Upper Rast 3/6",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "below",
+          "start": 5
+        },
+        {
+          "end": 10,
+          "label": "Rast 6",
+          "labelFits": true,
+          "notesClear": true,
+          "placement": "below",
+          "start": 9
+        }
+      ],
+      "degreeX": [
+        625.703,
+        699.328,
+        772.953,
+        846.578,
+        920.203
+      ],
+      "name": "sikah",
+      "noteHeight": 10.6624,
+      "top": 855.0078125,
+      "widths": [
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953
+      ]
+    }
+  ],
+  "viewport": {
+    "height": 997,
+    "width": 1728
+  }
+}

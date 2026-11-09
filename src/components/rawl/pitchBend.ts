@@ -4,6 +4,11 @@ import type { SecondsSpan } from "./Rawl";
 export const pitchBendToSemitones = (value: number) =>
   (Math.max(0, Math.min(16383, value)) - 8192) / 4096;
 
+export const isQuarterTonePitch = (pitch: number) => {
+  const fraction = pitch - Math.floor(pitch);
+  return fraction >= 0.25 && fraction <= 0.75;
+};
+
 // The parser can retain inherited state and a new bend at the same onset.
 // Match the final value at each timestamp in both the ribbon and hover reference.
 export function getPitchBendSamples(points: PitchBendPoint[], span: SecondsSpan) {

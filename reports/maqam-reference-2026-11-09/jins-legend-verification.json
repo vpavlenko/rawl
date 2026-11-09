@@ -1,0 +1,22 @@
+{
+  "images": 0,
+  "labels": [
+    "ajam",
+    "rast",
+    "hijaz",
+    "kurd",
+    "nahawand",
+    "bayati",
+    "saba",
+    "sikah"
+  ],
+  "notes": 51,
+  "quartertones": 8,
+  "rows": 8,
+  "source": "http://localhost:3000/f/riyad-al-sunbati-taqsim-sekah",
+  "practice": "Rast practice highlighted exactly its current tonic; Stop cleared it. Sikah note audition worked. Folding during Saba practice cancelled playback; reopening had no active notes.",
+  "ajam": "All /maqam bracket labels read ajam without an apostrophe.",
+  "console": "No errors or warnings in song or theory tab.",
+  "typescript": "passed",
+  "tests": "10 passed: maqam-playback, quartertone, qanun-playback"
+}

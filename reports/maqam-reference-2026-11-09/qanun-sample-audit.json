@@ -1,0 +1,149 @@
+{
+  "method": "Fundamental spectral peak within 3 percent of the nominal pitch, 80-800 ms excerpt; nominal pitch labels retained, no calibration or retuning of source files",
+  "samples": [
+    {
+      "file": "qanun-A3.m4a",
+      "midi": 57,
+      "duration": 1.237,
+      "fundamentalHz": 219.874,
+      "nominalOffsetCents": -0.99,
+      "peak": 0.1828
+    },
+    {
+      "file": "qanun-A4.m4a",
+      "midi": 69,
+      "duration": 0.622,
+      "fundamentalHz": 438.907,
+      "nominalOffsetCents": -4.3,
+      "peak": 0.1731
+    },
+    {
+      "file": "qanun-A5.m4a",
+      "midi": 81,
+      "duration": 0.466,
+      "fundamentalHz": 883.366,
+      "nominalOffsetCents": 6.61,
+      "peak": 0.7276
+    },
+    {
+      "file": "qanun-B3.m4a",
+      "midi": 59,
+      "duration": 1.68,
+      "fundamentalHz": 248.809,
+      "nominalOffsetCents": 13.05,
+      "peak": 0.2417
+    },
+    {
+      "file": "qanun-B4.m4a",
+      "midi": 71,
+      "duration": 0.856,
+      "fundamentalHz": 496.273,
+      "nominalOffsetCents": 8.36,
+      "peak": 0.2115
+    },
+    {
+      "file": "qanun-B5.m4a",
+      "midi": 83,
+      "duration": 0.588,
+      "fundamentalHz": 1003.481,
+      "nominalOffsetCents": 27.33,
+      "peak": 0.2978
+    },
+    {
+      "file": "qanun-Cs4.m4a",
+      "midi": 61,
+      "duration": 1.14,
+      "fundamentalHz": 276.904,
+      "nominalOffsetCents": -1.74,
+      "peak": 0.1732
+    },
+    {
+      "file": "qanun-Cs5.m4a",
+      "midi": 73,
+      "duration": 1.027,
+      "fundamentalHz": 547.246,
+      "nominalOffsetCents": -22.38,
+      "peak": 0.1315
+    },
+    {
+      "file": "qanun-Cs6.m4a",
+      "midi": 85,
+      "duration": 0.654,
+      "fundamentalHz": 1111.988,
+      "nominalOffsetCents": 5.08,
+      "peak": 0.334
+    },
+    {
+      "file": "qanun-Ds4.m4a",
+      "midi": 63,
+      "duration": 1.189,
+      "fundamentalHz": 310.381,
+      "nominalOffsetCents": -4.16,
+      "peak": 0.2852
+    },
+    {
+      "file": "qanun-Ds5.m4a",
+      "midi": 75,
+      "duration": 0.919,
+      "fundamentalHz": 618.07,
+      "nominalOffsetCents": -11.68,
+      "peak": 0.2012
+    },
+    {
+      "file": "qanun-Ds6.m4a",
+      "midi": 87,
+      "duration": 0.511,
+      "fundamentalHz": 1219.822,
+      "nominalOffsetCents": -34.69,
+      "peak": 0.3238
+    },
+    {
+      "file": "qanun-F3.m4a",
+      "midi": 53,
+      "duration": 1.466,
+      "fundamentalHz": 173.78,
+      "nominalOffsetCents": -8.29,
+      "peak": 0.1804
+    },
+    {
+      "file": "qanun-F4.m4a",
+      "midi": 65,
+      "duration": 1.128,
+      "fundamentalHz": 348.4,
+      "nominalOffsetCents": -4.11,
+      "peak": 0.2469
+    },
+    {
+      "file": "qanun-F5.m4a",
+      "midi": 77,
+      "duration": 0.938,
+      "fundamentalHz": 694.614,
+      "nominalOffsetCents": -9.55,
+      "peak": 0.4592
+    },
+    {
+      "file": "qanun-G3.m4a",
+      "midi": 55,
+      "duration": 1.197,
+      "fundamentalHz": 194.976,
+      "nominalOffsetCents": -9.04,
+      "peak": 0.2152
+    },
+    {
+      "file": "qanun-G4.m4a",
+      "midi": 67,
+      "duration": 0.719,
+      "fundamentalHz": 390.962,
+      "nominalOffsetCents": -4.57,
+      "peak": 0.2508
+    },
+    {
+      "file": "qanun-G5.m4a",
+      "midi": 79,
+      "duration": 0.966,
+      "fundamentalHz": 782.261,
+      "nominalOffsetCents": -3.82,
+      "peak": 0.6089
+    }
+  ]
+}

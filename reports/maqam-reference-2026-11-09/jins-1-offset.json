@@ -1,0 +1,336 @@
+{
+  "before": [
+    {
+      "brackets": [
+        {
+          "placement": "above",
+          "top": 20.6484375
+        },
+        {
+          "placement": "below",
+          "top": 53.9765625
+        },
+        {
+          "placement": "below",
+          "top": 53.9765625
+        }
+      ],
+      "name": "ajam",
+      "noteHeight": 5.3312
+    },
+    {
+      "brackets": [
+        {
+          "placement": "above",
+          "top": 20.6484375
+        },
+        {
+          "placement": "below",
+          "top": 53.9765625
+        },
+        {
+          "placement": "below",
+          "top": 53.9765625
+        }
+      ],
+      "name": "rast",
+      "noteHeight": 5.3312
+    },
+    {
+      "brackets": [
+        {
+          "placement": "above",
+          "top": 31.3125
+        },
+        {
+          "placement": "below",
+          "top": 64.640625
+        },
+        {
+          "placement": "below",
+          "top": 64.640625
+        }
+      ],
+      "name": "hijaz",
+      "noteHeight": 5.3312
+    },
+    {
+      "brackets": [
+        {
+          "placement": "above",
+          "top": 31.3125
+        },
+        {
+          "placement": "below",
+          "top": 64.640625
+        }
+      ],
+      "name": "kurd",
+      "noteHeight": 5.3312
+    },
+    {
+      "brackets": [
+        {
+          "placement": "above",
+          "top": 20.6484375
+        },
+        {
+          "placement": "below",
+          "top": 53.9765625
+        },
+        {
+          "placement": "below",
+          "top": 53.9765625
+        }
+      ],
+      "name": "nahawand",
+      "noteHeight": 5.3312
+    },
+    {
+      "brackets": [
+        {
+          "placement": "above",
+          "top": 31.3125
+        },
+        {
+          "placement": "below",
+          "top": 64.640625
+        },
+        {
+          "placement": "below",
+          "top": 64.640625
+        }
+      ],
+      "name": "bayati",
+      "noteHeight": 5.3312
+    },
+    {
+      "brackets": [
+        {
+          "placement": "above",
+          "top": 36.6484375
+        },
+        {
+          "placement": "below",
+          "top": 64.640625
+        },
+        {
+          "placement": "below",
+          "top": 91.296875
+        },
+        {
+          "placement": "below",
+          "top": 82.640625
+        }
+      ],
+      "name": "saba",
+      "noteHeight": 5.3312
+    },
+    {
+      "brackets": [
+        {
+          "placement": "above",
+          "top": 39.3125
+        },
+        {
+          "placement": "below",
+          "top": 72.6328125
+        },
+        {
+          "placement": "below",
+          "top": 45.9765625
+        },
+        {
+          "placement": "below",
+          "top": 72.6328125
+        },
+        {
+          "placement": "below",
+          "top": 35.3203125
+        }
+      ],
+      "name": "huzzam",
+      "noteHeight": 5.3312
+    }
+  ],
+  "after": [
+    {
+      "brackets": [
+        {
+          "label": "‘ajam 1",
+          "placement": "above",
+          "top": 31.3125
+        },
+        {
+          "label": "upper ‘ajam 5/8",
+          "placement": "below",
+          "top": 53.9765625
+        },
+        {
+          "label": "nahawand 5",
+          "placement": "below",
+          "top": 53.9765625
+        }
+      ],
+      "name": "ajam",
+      "noteHeight": 5.3312
+    },
+    {
+      "brackets": [
+        {
+          "label": "rast 1",
+          "placement": "above",
+          "top": 31.3125
+        },
+        {
+          "label": "upper rast 5/8",
+          "placement": "below",
+          "top": 53.9765625
+        },
+        {
+          "label": "nahawand 5",
+          "placement": "below",
+          "top": 53.9765625
+        }
+      ],
+      "name": "rast",
+      "noteHeight": 5.3312
+    },
+    {
+      "brackets": [
+        {
+          "label": "hijaz 1",
+          "placement": "above",
+          "top": 41.9765625
+        },
+        {
+          "label": "nahawand 4",
+          "placement": "below",
+          "top": 64.640625
+        },
+        {
+          "label": "rast 4",
+          "placement": "below",
+          "top": 64.640625
+        }
+      ],
+      "name": "hijaz",
+      "noteHeight": 5.3312
+    },
+    {
+      "brackets": [
+        {
+          "label": "kurd 1",
+          "placement": "above",
+          "top": 41.9765625
+        },
+        {
+          "label": "nahawand 4",
+          "placement": "below",
+          "top": 64.640625
+        }
+      ],
+      "name": "kurd",
+      "noteHeight": 5.3312
+    },
+    {
+      "brackets": [
+        {
+          "label": "nahawand 1",
+          "placement": "above",
+          "top": 31.3125
+        },
+        {
+          "label": "hijaz 5",
+          "placement": "below",
+          "top": 53.9765625
+        },
+        {
+          "label": "kurd 5",
+          "placement": "below",
+          "top": 53.9765625
+        }
+      ],
+      "name": "nahawand",
+      "noteHeight": 5.3312
+    },
+    {
+      "brackets": [
+        {
+          "label": "bayati 1",
+          "placement": "above",
+          "top": 41.9765625
+        },
+        {
+          "label": "nahawand 4",
+          "placement": "below",
+          "top": 64.640625
+        },
+        {
+          "label": "rast 4",
+          "placement": "below",
+          "top": 64.640625
+        }
+      ],
+      "name": "bayati",
+      "noteHeight": 5.3312
+    },
+    {
+      "brackets": [
+        {
+          "label": "saba 1",
+          "placement": "above",
+          "top": 47.3046875
+        },
+        {
+          "label": "‘ajam 6",
+          "placement": "below",
+          "top": 64.640625
+        },
+        {
+          "label": "hijaz 3",
+          "placement": "below",
+          "top": 91.296875
+        },
+        {
+          "label": "nikriz 6",
+          "placement": "below",
+          "top": 82.640625
+        }
+      ],
+      "name": "saba",
+      "noteHeight": 5.3312
+    },
+    {
+      "brackets": [
+        {
+          "label": "sikah 1",
+          "placement": "above",
+          "top": 49.9765625
+        },
+        {
+          "label": "hijaz 3",
+          "placement": "below",
+          "top": 72.6328125
+        },
+        {
+          "label": "rast 6",
+          "placement": "below",
+          "top": 45.9765625
+        },
+        {
+          "label": "upper rast 3/6",
+          "placement": "below",
+          "top": 72.6328125
+        },
+        {
+          "label": "rast 6",
+          "placement": "below",
+          "top": 35.3203125
+        }
+      ],
+      "name": "huzzam",
+      "noteHeight": 5.3312
+    }
+  ]
+}

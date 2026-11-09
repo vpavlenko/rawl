@@ -1,0 +1,201 @@
+[
+  {
+    "fifthNotes": [
+      24,
+      24
+    ],
+    "guides": [
+      {
+        "bottom": 45,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 24,
+        "kind": "fifth"
+      },
+      {
+        "bottom": 9,
+        "kind": "tonic"
+      }
+    ],
+    "index": 0,
+    "tonicNotes": [
+      45,
+      9
+    ]
+  },
+  {
+    "fifthNotes": [
+      24,
+      24
+    ],
+    "guides": [
+      {
+        "bottom": 45,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 24,
+        "kind": "fifth"
+      },
+      {
+        "bottom": 9,
+        "kind": "tonic"
+      }
+    ],
+    "index": 1,
+    "tonicNotes": [
+      45,
+      9,
+      9
+    ]
+  },
+  {
+    "fifthNotes": [
+      24,
+      24
+    ],
+    "guides": [
+      {
+        "bottom": 45,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 24,
+        "kind": "fifth"
+      },
+      {
+        "bottom": 9,
+        "kind": "tonic"
+      }
+    ],
+    "index": 2,
+    "tonicNotes": [
+      45,
+      9
+    ]
+  },
+  {
+    "fifthNotes": [
+      24
+    ],
+    "guides": [
+      {
+        "bottom": 45,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 24,
+        "kind": "fifth"
+      },
+      {
+        "bottom": 9,
+        "kind": "tonic"
+      }
+    ],
+    "index": 3,
+    "tonicNotes": [
+      45,
+      9
+    ]
+  },
+  {
+    "fifthNotes": [
+      24,
+      24
+    ],
+    "guides": [
+      {
+        "bottom": 45,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 24,
+        "kind": "fifth"
+      },
+      {
+        "bottom": 9,
+        "kind": "tonic"
+      }
+    ],
+    "index": 4,
+    "tonicNotes": [
+      45,
+      9
+    ]
+  },
+  {
+    "fifthNotes": [
+      24,
+      24
+    ],
+    "guides": [
+      {
+        "bottom": 45,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 24,
+        "kind": "fifth"
+      },
+      {
+        "bottom": 9,
+        "kind": "tonic"
+      }
+    ],
+    "index": 5,
+    "tonicNotes": [
+      45,
+      9,
+      9
+    ]
+  },
+  {
+    "fifthNotes": [
+      33
+    ],
+    "guides": [
+      {
+        "bottom": 54,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 33,
+        "kind": "fifth"
+      },
+      {
+        "bottom": 18,
+        "kind": "tonic"
+      }
+    ],
+    "index": 6,
+    "tonicNotes": [
+      54,
+      18
+    ]
+  },
+  {
+    "fifthNotes": [
+      24
+    ],
+    "guides": [
+      {
+        "bottom": 45,
+        "kind": "tonic"
+      },
+      {
+        "bottom": 24,
+        "kind": "fifth"
+      },
+      {
+        "bottom": 9,
+        "kind": "tonic"
+      }
+    ],
+    "index": 7,
+    "tonicNotes": [
+      45,
+      9
+    ]
+  }
+]

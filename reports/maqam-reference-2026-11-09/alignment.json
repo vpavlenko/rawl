@@ -1,0 +1,259 @@
+{
+  "rows": [
+    {
+      "bottom": 110,
+      "buttonText": "",
+      "degrees": [
+        625.703,
+        699.328,
+        772.953,
+        846.578,
+        920.203
+      ],
+      "icon": true,
+      "name": "Ajam",
+      "playUnderName": true,
+      "references": 0,
+      "widths": [
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953
+      ]
+    },
+    {
+      "bottom": 187.5,
+      "buttonText": "",
+      "degrees": [
+        625.703,
+        699.328,
+        772.953,
+        846.578,
+        920.203
+      ],
+      "icon": true,
+      "name": "Hijaz",
+      "playUnderName": true,
+      "references": 0,
+      "widths": [
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953
+      ]
+    },
+    {
+      "bottom": 266.5,
+      "buttonText": "",
+      "degrees": [
+        625.703,
+        699.328,
+        772.953,
+        846.578,
+        920.203
+      ],
+      "icon": true,
+      "name": "Nahawand",
+      "playUnderName": true,
+      "references": 0,
+      "widths": [
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953
+      ]
+    },
+    {
+      "bottom": 339.5,
+      "buttonText": "",
+      "degrees": [
+        625.703,
+        699.328,
+        772.953,
+        846.578,
+        920.203
+      ],
+      "icon": true,
+      "name": "Kurd",
+      "playUnderName": true,
+      "references": 0,
+      "widths": [
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953
+      ]
+    },
+    {
+      "bottom": 415.5,
+      "buttonText": "",
+      "degrees": [
+        625.703,
+        699.328,
+        772.953,
+        846.578,
+        920.203
+      ],
+      "icon": true,
+      "name": "Rast",
+      "playUnderName": true,
+      "references": 0,
+      "widths": [
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953
+      ]
+    },
+    {
+      "bottom": 493,
+      "buttonText": "",
+      "degrees": [
+        625.703,
+        699.328,
+        772.953,
+        846.578,
+        920.203
+      ],
+      "icon": true,
+      "name": "Bayati",
+      "playUnderName": true,
+      "references": 0,
+      "widths": [
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953
+      ]
+    },
+    {
+      "bottom": 595.5,
+      "buttonText": "",
+      "degrees": [
+        625.703,
+        699.328,
+        772.953,
+        846.578,
+        920.203
+      ],
+      "icon": true,
+      "name": "Saba",
+      "playUnderName": true,
+      "references": 0,
+      "widths": [
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953
+      ]
+    },
+    {
+      "bottom": 673,
+      "buttonText": "",
+      "degrees": [
+        625.703,
+        699.328,
+        772.953,
+        846.578,
+        920.203
+      ],
+      "icon": true,
+      "name": "Sikah",
+      "playUnderName": true,
+      "references": 0,
+      "widths": [
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953,
+        55.953
+      ]
+    }
+  ],
+  "viewport": {
+    "height": 941,
+    "width": 1728
+  },
+  "verification": {
+    "degrees": "Degrees 1 through 5 match exact x coordinates across all eight rows.",
+    "widths": "All 103 notes have identical measured width, including auxiliaries.",
+    "controls": "Lucide play icon beneath every maqam name; play highlights one current occurrence; Stop clears it.",
+    "headers": "Title, source attribution and corpus link in left sidebar; row names left of staves.",
+    "typescript": "npx tsc --noEmit --pretty false passed",
+    "console": "No compile or runtime errors observed on final Chrome page.",
+    "diff": "git diff --check passed",
+    "screenshot": "aligned-reference.jpg",
+    "status": "Local, uncommitted."
+  },
+  "supersededBy": "final-verification.json"
+}

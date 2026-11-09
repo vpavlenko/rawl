@@ -18,6 +18,7 @@ export type CorpusEntry = {
   sections?: CorpusSection[];
   showComposerTimeline?: boolean;
   showNoteCents?: boolean;
+  scaleLegend?: "maqam";
   // A name overrides the collection slug; null means no single composer.
   composerName?: string | null;
   // Thematic collections remain directly accessible but are not composer groups.
@@ -35,18 +36,21 @@ export const MUSESCORE_TOP_100_SLUG = "top_100_musescore_composers";
 export const corpora: CorpusEntry[] = [
   {
     slug: "abraham_salman",
+    scaleLegend: "maqam",
     composerName: "Abraham Salman",
     showNoteCents: true,
     midis: ["abraham-salman-taksim-bayat-mawzoun"],
   },
   {
     slug: "ibrahim_al_aryan",
+    scaleLegend: "maqam",
     composerName: "Ibrahim Al Aryan",
     showNoteCents: true,
     midis: ["rei-korkus-ibrahim-al-aryan-samai-bayati"],
   },
   {
     slug: "riyad_al_sunbati",
+    scaleLegend: "maqam",
     showNoteCents: true,
     composerName: "Riyad Al Sunbati",
     midis: [

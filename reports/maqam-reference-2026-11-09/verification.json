@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-09",
+  "environment": "Local development server, http://localhost:3000, Google Chrome",
+  "existingWorkCommits": [
+    "00ef5ec96",
+    "d162b965f",
+    "0a538ba47",
+    "dc1457847"
+  ],
+  "checks": {
+    "typeScript": "passed: npx tsc --noEmit --pretty false",
+    "focusedTests": "13 passed: qanun-playback, note-rendering, hover-tonic, note-cents; existing SSR useLayoutEffect warnings only",
+    "existingRegressionTests": "32 passed, 1 build-dependent check skipped before the initial commits",
+    "sourceFigures": "24 crops visually reviewed; source and output hashes recorded in public/maqam-figures/figures.json",
+    "reference": "16 native Rawl rolls, 150 note targets, original sayr diagrams and source citations; stable Sikah anchor after reserving image proportions",
+    "arabicLegend": "Eight original extended jins figures in requested order, Qanun footer, no chord stairs; preview and fold cancellation verified in Chrome",
+    "folding": "Fold/unfold verified; folding cancels preview and clears active-note state",
+    "theoryLink": "Navigates from the Arabic score legend to /maqam",
+    "westernRegression": "Moonlight Sonata score renders with original major/minor chord stairs, keyboard and Western scale controls",
+    "console": "No compile or runtime errors on final affected pages; intermediate shared-export and public JSON import errors fixed before final verification",
+    "rendererReuse": "Production TonalGrid and getNoteRectangles called directly; production score and reference share the original Y formula through noteCoordinates.ts",
+    "geometry": "All tonic and fifth note bottom edges match the corresponding production guide exactly across all 16 rolls, including fractional Sikah; rawl-geometry.json",
+    "keyboard": "Space note audition activates preview; Stop clears active state without starting score playback on /maqam"
+  },
+  "audio": {
+    "source": "18 actual CC0 qanun samples, Baris Bozkurt / joetessy/qanun, pinned revision 781775a018735ba9e7f83f9d84d8ef326bcbc5f2",
+    "currentBehavior": "One recorded pluck per note; quarter-tone ratios, 850 ms spacing; no tremolo; every figure pitch within one nominal semitone of a source sample",
+    "register": "Matches the printed reference",
+    "decoding": "All 18 bundled files decoded successfully with FFmpeg",
+    "rejectedExperiment": "Artificial repeated-pluck oud tremolo and the small three-note oud bank removed after user feedback; user selected sampled qanun",
+    "limitation": "Nominal source labels retained; measured source fundamentals vary approximately -35 to +27 cents across the bank, with no per-sample correction. User has not yet approved timbre quality."
+  },
+  "limitations": [
+    "Local only; no deployment",
+    "Mobile viewport capability did not change the actual Chrome viewport; no mobile or physical-device verification claimed",
+    "New maqam implementation remains uncommitted; the user's initial commit request was completed before this implementation"
+  ],
+  "screenshots": [
+    "reference.jpg",
+    "sikah.jpg",
+    "legend.jpg"
+  ],
+  "concurrentEdits": "Unrelated MIDIPlayer.js, midiTimbre.js, midi-timbre.test.cjs and root public oud SoundFont/source files preserved untouched.",
+  "supersededBy": "final-verification.json"
+}

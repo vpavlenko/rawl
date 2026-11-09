@@ -723,8 +723,9 @@ const Beat: React.FC<{ second: number; secondsToX: (number) => number }> = ({
   />
 );
 
-const TonalGrid: React.FC<{
-  analysis: Analysis;
+export const TonalGrid: React.FC<{
+  analysis?: Analysis;
+  tonic?: number;
   measures: number[];
   midiNumberToY: (number) => number;
   noteHeight: number;
@@ -734,6 +735,7 @@ const TonalGrid: React.FC<{
 }> = React.memo(
   ({
     analysis,
+    tonic: standaloneTonic,
     measures,
     midiNumberToY,
     noteHeight,
@@ -742,7 +744,10 @@ const TonalGrid: React.FC<{
     sectionSpan,
   }) => {
     if (!measures?.length) return null;
-    const modulations = getModulations(analysis, measures);
+    const modulations: { measure: number; tonic: number; time: number }[] =
+      standaloneTonic !== undefined
+        ? [{ measure: 0, tonic: standaloneTonic, time: measures[0] }]
+        : getModulations(analysis, measures);
     const hasBoundaryModulation = modulations.some(
       ({ time }) => time === measures[sectionSpan?.[1]],
     );

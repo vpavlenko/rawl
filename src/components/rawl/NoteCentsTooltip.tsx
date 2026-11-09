@@ -1,8 +1,16 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
 
-export default function NoteCentsTooltip({ cents, x, y }: {
-  cents: number; x: number; y: number;
+export default function NoteCentsTooltip({
+  cents,
+  x,
+  y,
+  compact = false,
+}: {
+  cents: number;
+  x: number;
+  y: number;
+  compact?: boolean;
 }) {
   return createPortal(
     <div
@@ -24,7 +32,9 @@ export default function NoteCentsTooltip({ cents, x, y }: {
         whiteSpace: "nowrap",
       }}
     >
-      {(cents / 100).toFixed(2)}
+      {compact
+        ? Number((cents / 100).toFixed(2)).toString()
+        : (cents / 100).toFixed(2)}
     </div>,
     document.body,
   );

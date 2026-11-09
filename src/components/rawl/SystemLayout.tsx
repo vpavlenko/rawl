@@ -23,6 +23,7 @@ import { PlaybackSectionContext } from "./notePlayback";
 import { getSortedVoices, VoiceZIndicesContext } from "./voiceOrder";
 
 import HarmonyOverlay from "./HarmonyOverlay";
+import { createMidiNumberToY } from "./noteCoordinates";
 
 const SECTION_RIGHT_MARGIN = 20;
 
@@ -171,8 +172,8 @@ export const Voice: React.FC<{
     ? drumTop + drumRowCount * drumRowHeight
     : pitchedHeight;
 
-  const midiNumberToY = useCallback(
-    (midiNumber) => pitchedHeight - (midiNumber - midiRange[0] + 1) * noteHeight,
+  const midiNumberToY = useMemo(
+    () => createMidiNumberToY(pitchedHeight, midiRange, noteHeight),
     [pitchedHeight, midiRange, noteHeight],
   );
   const drumNoteToY = useCallback(

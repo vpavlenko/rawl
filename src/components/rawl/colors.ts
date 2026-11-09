@@ -26,6 +26,25 @@ export const interpolatedPitchColor = (pitch: number) => {
     : `color-mix(in srgb, ${pitchColor(lower)} ${(1 - fraction) * 100}%, ${pitchColor(lower + 1)})`;
 };
 
+// Contrast against the same sRGB interpolation used by note fills/gradients.
+export const contrastingPitchColor = (pitch: number): "black" | "white" => {
+  const rgb = (index: number) => {
+    const color = RAWL_COLORS[((index % 12) + 12) % 12].background;
+    const hex = color === "white" ? "ffffff" : color === "red" ? "ff0000" : color.slice(1);
+    return [0, 2, 4].map((offset) => parseInt(hex.slice(offset, offset + 2), 16) / 255);
+  };
+  const lower = Math.floor(pitch);
+  const fraction = pitch - lower;
+  const from = rgb(lower);
+  const to = rgb(lower + 1);
+  const linear = from.map((channel, index) => {
+    const mixed = channel * (1 - fraction) + to[index] * fraction;
+    return mixed <= 0.04045 ? mixed / 12.92 : ((mixed + 0.055) / 1.055) ** 2.4;
+  });
+  const luminance = linear[0] * 0.2126 + linear[1] * 0.7152 + linear[2] * 0.0722;
+  return luminance > 0.179 ? "black" : "white";
+};
+
 export const noteColorClass = (pitch: number | "default" | "drum") =>
   `noteColor_${pitch}_colors`;
 

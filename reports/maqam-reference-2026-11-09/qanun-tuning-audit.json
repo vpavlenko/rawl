@@ -1,0 +1,1189 @@
+{
+  "reference": "A4=440 Hz; intentional half-semitones remain exactly 50 cents",
+  "method": "Dominant fundamental, Hann window from 80 ms to min(800 ms, sample end minus 25 ms); 16x zero padding and log-parabolic peak interpolation. Corrections rounded to integer cents for identical Web Audio and SoundFont fine-tuning.",
+  "sampleRate": 44100,
+  "font": {
+    "file": "rawl-qanun-0d39d9c6c2dc.sf2",
+    "sha256": "0d39d9c6c2dc79c49f8cb70a1f1413d481dd1935cf3f6904a58fa09e566c99d7"
+  },
+  "commands": [
+    "node scripts/rawl/render-qanun-tuning.cjs OUTPUT_DIRECTORY",
+    "python3 scripts/rawl/audit-qanun-tuning.py OUTPUT_DIRECTORY REPORT.json"
+  ],
+  "dependencies": {
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "ffmpeg": "ffmpeg version 9.0.1 Copyright (c) 2000-2026 the FFmpeg developers"
+  },
+  "limitations": "Dominant fundamental calibration over matching source-time windows preserves natural beating, inharmonicity and within-note drift; it does not force every instantaneous partial to concert pitch. Preview waveform uses independent linear resampling; browser scheduler rate is also covered by playback tests. Synth measurements use production WASM.",
+  "sourceSamples": [
+    {
+      "midi": 53,
+      "nominalHz": 174.61412,
+      "measuredHz": 173.74543,
+      "offsetCents": -8.634,
+      "file": "qanun-F3.flac",
+      "sha256": "c7c0c4e7e022344df222cbd27845a7c88206870ad0a75107f3027c7a2447f7fc",
+      "correctionCents": 9
+    },
+    {
+      "midi": 55,
+      "nominalHz": 195.99772,
+      "measuredHz": 194.98045,
+      "offsetCents": -9.009,
+      "file": "qanun-G3.flac",
+      "sha256": "b3cddca7ab68ecdbb9768a6652a15e22c670cafb8e1d68e3c3f887b564ac5fdb",
+      "correctionCents": 9
+    },
+    {
+      "midi": 57,
+      "nominalHz": 220.0,
+      "measuredHz": 219.85275,
+      "offsetCents": -1.159,
+      "file": "qanun-A3.flac",
+      "sha256": "e5da4d78357d933f6f336221d6d7ae95fcf7e02f5c03e589e5955b9c7833be45",
+      "correctionCents": 1
+    },
+    {
+      "midi": 59,
+      "nominalHz": 246.94165,
+      "measuredHz": 248.87674,
+      "offsetCents": 13.513,
+      "file": "qanun-B3.flac",
+      "sha256": "e2ae59dd87623d3ce9c76a4f0d304ccd5ee79f1ab43591eb1d5682520f204b30",
+      "correctionCents": -14
+    },
+    {
+      "midi": 61,
+      "nominalHz": 277.18263,
+      "measuredHz": 276.88513,
+      "offsetCents": -1.859,
+      "file": "qanun-Cs4.flac",
+      "sha256": "197fc6035bfe65cfb6dcdf1041899041f0733e4d1bba8f07df436382b61006f6",
+      "correctionCents": 2
+    },
+    {
+      "midi": 63,
+      "nominalHz": 311.12698,
+      "measuredHz": 310.37755,
+      "offsetCents": -4.175,
+      "file": "qanun-Ds4.flac",
+      "sha256": "37bf5882547da79a206c5f929e87350dfd73f9f272ab5c181780a02200486e86",
+      "correctionCents": 4
+    },
+    {
+      "midi": 65,
+      "nominalHz": 349.22823,
+      "measuredHz": 348.41766,
+      "offsetCents": -4.023,
+      "file": "qanun-F4.flac",
+      "sha256": "23af0d33e68fe824386e43beeb56c61bc8391d86857f73b0c7d5d0131f476e80",
+      "correctionCents": 4
+    },
+    {
+      "midi": 67,
+      "nominalHz": 391.99544,
+      "measuredHz": 390.96516,
+      "offsetCents": -4.556,
+      "file": "qanun-G4.flac",
+      "sha256": "f705045aa31ed83d4e6580613449fe1d306060b404680e42a74a4d5a549a3cb7",
+      "correctionCents": 5
+    },
+    {
+      "midi": 69,
+      "nominalHz": 440.0,
+      "measuredHz": 438.82352,
+      "offsetCents": -4.635,
+      "file": "qanun-A4.flac",
+      "sha256": "61ab25e2e9a570a8a2c73c39880207d09f810081c8569f7f3536219506a547dd",
+      "correctionCents": 5
+    },
+    {
+      "midi": 71,
+      "nominalHz": 493.8833,
+      "measuredHz": 496.23759,
+      "offsetCents": 8.233,
+      "file": "qanun-B4.flac",
+      "sha256": "71817d9e9c5223a290518442a0577ec29c23d798768c6fcc866d17f7e2de8309",
+      "correctionCents": -8
+    },
+    {
+      "midi": 73,
+      "nominalHz": 554.36526,
+      "measuredHz": 547.25825,
+      "offsetCents": -22.338,
+      "file": "qanun-Cs5.flac",
+      "sha256": "95dfa9286a52bc00782bdbab73b4c10b6f80c50b8973a22df55bbcac5e088dac",
+      "correctionCents": 22
+    },
+    {
+      "midi": 75,
+      "nominalHz": 622.25397,
+      "measuredHz": 618.08679,
+      "offsetCents": -11.633,
+      "file": "qanun-Ds5.flac",
+      "sha256": "dd90ed4ac619a91bb79dc38bf549fc354ab46d7c6f5e73d26920c630c88ee60f",
+      "correctionCents": 12
+    },
+    {
+      "midi": 77,
+      "nominalHz": 698.45646,
+      "measuredHz": 694.64269,
+      "offsetCents": -9.479,
+      "file": "qanun-F5.flac",
+      "sha256": "13136a53252acada8af4e64bb6cb41d6f226c483ace39c1b6e2f0aa3045a683b",
+      "correctionCents": 9
+    },
+    {
+      "midi": 79,
+      "nominalHz": 783.99087,
+      "measuredHz": 782.26504,
+      "offsetCents": -3.815,
+      "file": "qanun-G5.flac",
+      "sha256": "aec345fb557cbeea87c14a78c59cbb9bad74b5b0b7216325fbfb5f70d02819de",
+      "correctionCents": 4
+    },
+    {
+      "midi": 81,
+      "nominalHz": 880.0,
+      "measuredHz": 883.19731,
+      "offsetCents": 6.279,
+      "file": "qanun-A5.flac",
+      "sha256": "e37c9a95ca826c0c05ea2fab3a0e0760648520bd5b619bede1dc4d08ff2c73df",
+      "correctionCents": -6
+    },
+    {
+      "midi": 83,
+      "nominalHz": 987.7666,
+      "measuredHz": 1003.54669,
+      "offsetCents": 27.439,
+      "file": "qanun-B5.flac",
+      "sha256": "510fa8aff52fe637da32024567794030c673a5d6c7a719f2e3f074a006cc5d53",
+      "correctionCents": -27
+    },
+    {
+      "midi": 85,
+      "nominalHz": 1108.73052,
+      "measuredHz": 1112.05193,
+      "offsetCents": 5.178,
+      "file": "qanun-Cs6.flac",
+      "sha256": "dde31319c7e331c491b361481342c101f4abe9902b1f20881aa2199ab9dd7c61",
+      "correctionCents": -5
+    },
+    {
+      "midi": 87,
+      "nominalHz": 1244.50793,
+      "measuredHz": 1219.82729,
+      "offsetCents": -34.678,
+      "file": "qanun-Ds6.flac",
+      "sha256": "2e3726f398fa3824fe77c2d3e92058da76a454e83e6a0281d62cb0678b5c0ae7",
+      "correctionCents": 35
+    }
+  ],
+  "previewNotes": [
+    {
+      "midi": 48,
+      "nominalHz": 130.81278,
+      "measuredHz": 130.84042,
+      "offsetCents": 0.366,
+      "source": "qanun-F3.flac"
+    },
+    {
+      "midi": 53,
+      "nominalHz": 174.61412,
+      "measuredHz": 174.65102,
+      "offsetCents": 0.366,
+      "source": "qanun-F3.flac"
+    },
+    {
+      "midi": 53.5,
+      "nominalHz": 179.7307,
+      "measuredHz": 179.76864,
+      "offsetCents": 0.365,
+      "source": "qanun-F3.flac"
+    },
+    {
+      "midi": 54,
+      "nominalHz": 184.99721,
+      "measuredHz": 185.03628,
+      "offsetCents": 0.366,
+      "source": "qanun-F3.flac"
+    },
+    {
+      "midi": 54.5,
+      "nominalHz": 190.41804,
+      "measuredHz": 190.41701,
+      "offsetCents": -0.009,
+      "source": "qanun-G3.flac"
+    },
+    {
+      "midi": 55,
+      "nominalHz": 195.99772,
+      "measuredHz": 195.99665,
+      "offsetCents": -0.009,
+      "source": "qanun-G3.flac"
+    },
+    {
+      "midi": 55.5,
+      "nominalHz": 201.74089,
+      "measuredHz": 201.73993,
+      "offsetCents": -0.008,
+      "source": "qanun-G3.flac"
+    },
+    {
+      "midi": 56,
+      "nominalHz": 207.65235,
+      "measuredHz": 207.65103,
+      "offsetCents": -0.011,
+      "source": "qanun-G3.flac"
+    },
+    {
+      "midi": 56.5,
+      "nominalHz": 213.73703,
+      "measuredHz": 213.71739,
+      "offsetCents": -0.159,
+      "source": "qanun-A3.flac"
+    },
+    {
+      "midi": 57,
+      "nominalHz": 220.0,
+      "measuredHz": 219.97977,
+      "offsetCents": -0.159,
+      "source": "qanun-A3.flac"
+    },
+    {
+      "midi": 57.5,
+      "nominalHz": 226.44649,
+      "measuredHz": 226.42551,
+      "offsetCents": -0.16,
+      "source": "qanun-A3.flac"
+    },
+    {
+      "midi": 58,
+      "nominalHz": 233.08188,
+      "measuredHz": 233.06057,
+      "offsetCents": -0.158,
+      "source": "qanun-A3.flac"
+    },
+    {
+      "midi": 58.5,
+      "nominalHz": 239.9117,
+      "measuredHz": 239.84431,
+      "offsetCents": -0.486,
+      "source": "qanun-B3.flac"
+    },
+    {
+      "midi": 59,
+      "nominalHz": 246.94165,
+      "measuredHz": 246.87228,
+      "offsetCents": -0.486,
+      "source": "qanun-B3.flac"
+    },
+    {
+      "midi": 59.5,
+      "nominalHz": 254.17759,
+      "measuredHz": 254.10623,
+      "offsetCents": -0.486,
+      "source": "qanun-B3.flac"
+    },
+    {
+      "midi": 60,
+      "nominalHz": 261.62557,
+      "measuredHz": 261.55208,
+      "offsetCents": -0.486,
+      "source": "qanun-B3.flac"
+    },
+    {
+      "midi": 60.5,
+      "nominalHz": 269.29178,
+      "measuredHz": 269.31371,
+      "offsetCents": 0.141,
+      "source": "qanun-Cs4.flac"
+    },
+    {
+      "midi": 61,
+      "nominalHz": 277.18263,
+      "measuredHz": 277.20519,
+      "offsetCents": 0.141,
+      "source": "qanun-Cs4.flac"
+    },
+    {
+      "midi": 61.5,
+      "nominalHz": 285.3047,
+      "measuredHz": 285.32795,
+      "offsetCents": 0.141,
+      "source": "qanun-Cs4.flac"
+    },
+    {
+      "midi": 62,
+      "nominalHz": 293.66477,
+      "measuredHz": 293.68872,
+      "offsetCents": 0.141,
+      "source": "qanun-Cs4.flac"
+    },
+    {
+      "midi": 62.5,
+      "nominalHz": 302.2698,
+      "measuredHz": 302.23922,
+      "offsetCents": -0.175,
+      "source": "qanun-Ds4.flac"
+    },
+    {
+      "midi": 63,
+      "nominalHz": 311.12698,
+      "measuredHz": 311.0955,
+      "offsetCents": -0.175,
+      "source": "qanun-Ds4.flac"
+    },
+    {
+      "midi": 63.5,
+      "nominalHz": 320.2437,
+      "measuredHz": 320.2113,
+      "offsetCents": -0.175,
+      "source": "qanun-Ds4.flac"
+    },
+    {
+      "midi": 64,
+      "nominalHz": 329.62756,
+      "measuredHz": 329.59423,
+      "offsetCents": -0.175,
+      "source": "qanun-Ds4.flac"
+    },
+    {
+      "midi": 64.5,
+      "nominalHz": 339.28638,
+      "measuredHz": 339.2819,
+      "offsetCents": -0.023,
+      "source": "qanun-F4.flac"
+    },
+    {
+      "midi": 65,
+      "nominalHz": 349.22823,
+      "measuredHz": 349.2236,
+      "offsetCents": -0.023,
+      "source": "qanun-F4.flac"
+    },
+    {
+      "midi": 65.5,
+      "nominalHz": 359.4614,
+      "measuredHz": 359.45662,
+      "offsetCents": -0.023,
+      "source": "qanun-F4.flac"
+    },
+    {
+      "midi": 66,
+      "nominalHz": 369.99442,
+      "measuredHz": 369.98953,
+      "offsetCents": -0.023,
+      "source": "qanun-F4.flac"
+    },
+    {
+      "midi": 66.5,
+      "nominalHz": 380.83609,
+      "measuredHz": 380.93377,
+      "offsetCents": 0.444,
+      "source": "qanun-G4.flac"
+    },
+    {
+      "midi": 67,
+      "nominalHz": 391.99544,
+      "measuredHz": 392.09599,
+      "offsetCents": 0.444,
+      "source": "qanun-G4.flac"
+    },
+    {
+      "midi": 67.5,
+      "nominalHz": 403.48178,
+      "measuredHz": 403.58524,
+      "offsetCents": 0.444,
+      "source": "qanun-G4.flac"
+    },
+    {
+      "midi": 68,
+      "nominalHz": 415.3047,
+      "measuredHz": 415.41115,
+      "offsetCents": 0.444,
+      "source": "qanun-G4.flac"
+    },
+    {
+      "midi": 68.5,
+      "nominalHz": 427.47405,
+      "measuredHz": 427.56416,
+      "offsetCents": 0.365,
+      "source": "qanun-A4.flac"
+    },
+    {
+      "midi": 69,
+      "nominalHz": 440.0,
+      "measuredHz": 440.09273,
+      "offsetCents": 0.365,
+      "source": "qanun-A4.flac"
+    },
+    {
+      "midi": 69.5,
+      "nominalHz": 452.89298,
+      "measuredHz": 452.98846,
+      "offsetCents": 0.365,
+      "source": "qanun-A4.flac"
+    },
+    {
+      "midi": 70,
+      "nominalHz": 466.16376,
+      "measuredHz": 466.26222,
+      "offsetCents": 0.366,
+      "source": "qanun-A4.flac"
+    },
+    {
+      "midi": 70.5,
+      "nominalHz": 479.8234,
+      "measuredHz": 479.88799,
+      "offsetCents": 0.233,
+      "source": "qanun-B4.flac"
+    },
+    {
+      "midi": 71,
+      "nominalHz": 493.8833,
+      "measuredHz": 493.94976,
+      "offsetCents": 0.233,
+      "source": "qanun-B4.flac"
+    },
+    {
+      "midi": 71.5,
+      "nominalHz": 508.35519,
+      "measuredHz": 508.42357,
+      "offsetCents": 0.233,
+      "source": "qanun-B4.flac"
+    },
+    {
+      "midi": 72,
+      "nominalHz": 523.25113,
+      "measuredHz": 523.32148,
+      "offsetCents": 0.233,
+      "source": "qanun-B4.flac"
+    },
+    {
+      "midi": 72.5,
+      "nominalHz": 538.58356,
+      "measuredHz": 538.47848,
+      "offsetCents": -0.338,
+      "source": "qanun-Cs5.flac"
+    },
+    {
+      "midi": 73,
+      "nominalHz": 554.36526,
+      "measuredHz": 554.2571,
+      "offsetCents": -0.338,
+      "source": "qanun-Cs5.flac"
+    },
+    {
+      "midi": 73.5,
+      "nominalHz": 570.6094,
+      "measuredHz": 570.49801,
+      "offsetCents": -0.338,
+      "source": "qanun-Cs5.flac"
+    },
+    {
+      "midi": 74,
+      "nominalHz": 587.32954,
+      "measuredHz": 587.21492,
+      "offsetCents": -0.338,
+      "source": "qanun-Cs5.flac"
+    },
+    {
+      "midi": 74.5,
+      "nominalHz": 604.5396,
+      "measuredHz": 604.66776,
+      "offsetCents": 0.367,
+      "source": "qanun-Ds5.flac"
+    },
+    {
+      "midi": 75,
+      "nominalHz": 622.25397,
+      "measuredHz": 622.38597,
+      "offsetCents": 0.367,
+      "source": "qanun-Ds5.flac"
+    },
+    {
+      "midi": 75.5,
+      "nominalHz": 640.4874,
+      "measuredHz": 640.62304,
+      "offsetCents": 0.367,
+      "source": "qanun-Ds5.flac"
+    },
+    {
+      "midi": 76,
+      "nominalHz": 659.25511,
+      "measuredHz": 659.39488,
+      "offsetCents": 0.367,
+      "source": "qanun-Ds5.flac"
+    },
+    {
+      "midi": 76.5,
+      "nominalHz": 678.57276,
+      "measuredHz": 678.3849,
+      "offsetCents": -0.479,
+      "source": "qanun-F5.flac"
+    },
+    {
+      "midi": 77,
+      "nominalHz": 698.45646,
+      "measuredHz": 698.26318,
+      "offsetCents": -0.479,
+      "source": "qanun-F5.flac"
+    },
+    {
+      "midi": 77.5,
+      "nominalHz": 718.9228,
+      "measuredHz": 718.72406,
+      "offsetCents": -0.479,
+      "source": "qanun-F5.flac"
+    },
+    {
+      "midi": 78,
+      "nominalHz": 739.98885,
+      "measuredHz": 739.78398,
+      "offsetCents": -0.479,
+      "source": "qanun-F5.flac"
+    },
+    {
+      "midi": 78.5,
+      "nominalHz": 761.67217,
+      "measuredHz": 761.75348,
+      "offsetCents": 0.185,
+      "source": "qanun-G5.flac"
+    },
+    {
+      "midi": 79,
+      "nominalHz": 783.99087,
+      "measuredHz": 784.07455,
+      "offsetCents": 0.185,
+      "source": "qanun-G5.flac"
+    },
+    {
+      "midi": 79.5,
+      "nominalHz": 806.96356,
+      "measuredHz": 807.04973,
+      "offsetCents": 0.185,
+      "source": "qanun-G5.flac"
+    },
+    {
+      "midi": 80,
+      "nominalHz": 830.6094,
+      "measuredHz": 830.69803,
+      "offsetCents": 0.185,
+      "source": "qanun-G5.flac"
+    },
+    {
+      "midi": 80.5,
+      "nominalHz": 854.94811,
+      "measuredHz": 855.08579,
+      "offsetCents": 0.279,
+      "source": "qanun-A5.flac"
+    },
+    {
+      "midi": 81,
+      "nominalHz": 880.0,
+      "measuredHz": 880.14178,
+      "offsetCents": 0.279,
+      "source": "qanun-A5.flac"
+    },
+    {
+      "midi": 81.5,
+      "nominalHz": 905.78597,
+      "measuredHz": 905.93191,
+      "offsetCents": 0.279,
+      "source": "qanun-A5.flac"
+    },
+    {
+      "midi": 82,
+      "nominalHz": 932.32752,
+      "measuredHz": 932.4775,
+      "offsetCents": 0.278,
+      "source": "qanun-A5.flac"
+    },
+    {
+      "midi": 82.5,
+      "nominalHz": 959.6468,
+      "measuredHz": 959.89119,
+      "offsetCents": 0.441,
+      "source": "qanun-B5.flac"
+    },
+    {
+      "midi": 83,
+      "nominalHz": 987.7666,
+      "measuredHz": 988.01708,
+      "offsetCents": 0.439,
+      "source": "qanun-B5.flac"
+    },
+    {
+      "midi": 83.5,
+      "nominalHz": 1016.71037,
+      "measuredHz": 1016.96802,
+      "offsetCents": 0.439,
+      "source": "qanun-B5.flac"
+    },
+    {
+      "midi": 84,
+      "nominalHz": 1046.50226,
+      "measuredHz": 1046.76758,
+      "offsetCents": 0.439,
+      "source": "qanun-B5.flac"
+    },
+    {
+      "midi": 84.5,
+      "nominalHz": 1077.16712,
+      "measuredHz": 1077.27808,
+      "offsetCents": 0.178,
+      "source": "qanun-Cs6.flac"
+    },
+    {
+      "midi": 85,
+      "nominalHz": 1108.73052,
+      "measuredHz": 1108.84495,
+      "offsetCents": 0.179,
+      "source": "qanun-Cs6.flac"
+    },
+    {
+      "midi": 85.5,
+      "nominalHz": 1141.21881,
+      "measuredHz": 1141.33659,
+      "offsetCents": 0.179,
+      "source": "qanun-Cs6.flac"
+    },
+    {
+      "midi": 86,
+      "nominalHz": 1174.65907,
+      "measuredHz": 1174.77967,
+      "offsetCents": 0.178,
+      "source": "qanun-Cs6.flac"
+    },
+    {
+      "midi": 86.5,
+      "nominalHz": 1209.07921,
+      "measuredHz": 1209.30394,
+      "offsetCents": 0.322,
+      "source": "qanun-Ds6.flac"
+    },
+    {
+      "midi": 87,
+      "nominalHz": 1244.50793,
+      "measuredHz": 1244.73906,
+      "offsetCents": 0.321,
+      "source": "qanun-Ds6.flac"
+    },
+    {
+      "midi": 96,
+      "nominalHz": 2093.00452,
+      "measuredHz": 2093.39361,
+      "offsetCents": 0.322,
+      "source": "qanun-Ds6.flac"
+    }
+  ],
+  "soundfontNotes": [
+    {
+      "midi": 48,
+      "nominalHz": 130.81278,
+      "measuredHz": 130.84042,
+      "offsetCents": 0.366,
+      "source": "qanun-F3.flac"
+    },
+    {
+      "midi": 53,
+      "nominalHz": 174.61412,
+      "measuredHz": 174.651,
+      "offsetCents": 0.366,
+      "source": "qanun-F3.flac"
+    },
+    {
+      "midi": 53.5,
+      "nominalHz": 179.7307,
+      "measuredHz": 179.76866,
+      "offsetCents": 0.366,
+      "source": "qanun-F3.flac"
+    },
+    {
+      "midi": 54,
+      "nominalHz": 184.99721,
+      "measuredHz": 185.0363,
+      "offsetCents": 0.366,
+      "source": "qanun-F3.flac"
+    },
+    {
+      "midi": 54.5,
+      "nominalHz": 190.41804,
+      "measuredHz": 190.4583,
+      "offsetCents": 0.366,
+      "source": "qanun-F3.flac"
+    },
+    {
+      "midi": 55,
+      "nominalHz": 195.99772,
+      "measuredHz": 195.99668,
+      "offsetCents": -0.009,
+      "source": "qanun-G3.flac"
+    },
+    {
+      "midi": 55.5,
+      "nominalHz": 201.74089,
+      "measuredHz": 201.73987,
+      "offsetCents": -0.009,
+      "source": "qanun-G3.flac"
+    },
+    {
+      "midi": 56,
+      "nominalHz": 207.65235,
+      "measuredHz": 207.65124,
+      "offsetCents": -0.009,
+      "source": "qanun-G3.flac"
+    },
+    {
+      "midi": 56.5,
+      "nominalHz": 213.73703,
+      "measuredHz": 213.73595,
+      "offsetCents": -0.009,
+      "source": "qanun-G3.flac"
+    },
+    {
+      "midi": 57,
+      "nominalHz": 220.0,
+      "measuredHz": 219.97978,
+      "offsetCents": -0.159,
+      "source": "qanun-A3.flac"
+    },
+    {
+      "midi": 57.5,
+      "nominalHz": 226.44649,
+      "measuredHz": 226.42566,
+      "offsetCents": -0.159,
+      "source": "qanun-A3.flac"
+    },
+    {
+      "midi": 58,
+      "nominalHz": 233.08188,
+      "measuredHz": 233.06049,
+      "offsetCents": -0.159,
+      "source": "qanun-A3.flac"
+    },
+    {
+      "midi": 58.5,
+      "nominalHz": 239.9117,
+      "measuredHz": 239.88964,
+      "offsetCents": -0.159,
+      "source": "qanun-A3.flac"
+    },
+    {
+      "midi": 59,
+      "nominalHz": 246.94165,
+      "measuredHz": 246.87227,
+      "offsetCents": -0.486,
+      "source": "qanun-B3.flac"
+    },
+    {
+      "midi": 59.5,
+      "nominalHz": 254.17759,
+      "measuredHz": 254.10622,
+      "offsetCents": -0.486,
+      "source": "qanun-B3.flac"
+    },
+    {
+      "midi": 60,
+      "nominalHz": 261.62557,
+      "measuredHz": 261.55208,
+      "offsetCents": -0.486,
+      "source": "qanun-B3.flac"
+    },
+    {
+      "midi": 60.5,
+      "nominalHz": 269.29178,
+      "measuredHz": 269.21616,
+      "offsetCents": -0.486,
+      "source": "qanun-B3.flac"
+    },
+    {
+      "midi": 61,
+      "nominalHz": 277.18263,
+      "measuredHz": 277.20523,
+      "offsetCents": 0.141,
+      "source": "qanun-Cs4.flac"
+    },
+    {
+      "midi": 61.5,
+      "nominalHz": 285.3047,
+      "measuredHz": 285.3279,
+      "offsetCents": 0.141,
+      "source": "qanun-Cs4.flac"
+    },
+    {
+      "midi": 62,
+      "nominalHz": 293.66477,
+      "measuredHz": 293.68872,
+      "offsetCents": 0.141,
+      "source": "qanun-Cs4.flac"
+    },
+    {
+      "midi": 62.5,
+      "nominalHz": 302.2698,
+      "measuredHz": 302.2944,
+      "offsetCents": 0.141,
+      "source": "qanun-Cs4.flac"
+    },
+    {
+      "midi": 63,
+      "nominalHz": 311.12698,
+      "measuredHz": 311.0955,
+      "offsetCents": -0.175,
+      "source": "qanun-Ds4.flac"
+    },
+    {
+      "midi": 63.5,
+      "nominalHz": 320.2437,
+      "measuredHz": 320.21131,
+      "offsetCents": -0.175,
+      "source": "qanun-Ds4.flac"
+    },
+    {
+      "midi": 64,
+      "nominalHz": 329.62756,
+      "measuredHz": 329.59423,
+      "offsetCents": -0.175,
+      "source": "qanun-Ds4.flac"
+    },
+    {
+      "midi": 64.5,
+      "nominalHz": 339.28638,
+      "measuredHz": 339.25204,
+      "offsetCents": -0.175,
+      "source": "qanun-Ds4.flac"
+    },
+    {
+      "midi": 65,
+      "nominalHz": 349.22823,
+      "measuredHz": 349.2236,
+      "offsetCents": -0.023,
+      "source": "qanun-F4.flac"
+    },
+    {
+      "midi": 65.5,
+      "nominalHz": 359.4614,
+      "measuredHz": 359.4566,
+      "offsetCents": -0.023,
+      "source": "qanun-F4.flac"
+    },
+    {
+      "midi": 66,
+      "nominalHz": 369.99442,
+      "measuredHz": 369.9895,
+      "offsetCents": -0.023,
+      "source": "qanun-F4.flac"
+    },
+    {
+      "midi": 66.5,
+      "nominalHz": 380.83609,
+      "measuredHz": 380.83103,
+      "offsetCents": -0.023,
+      "source": "qanun-F4.flac"
+    },
+    {
+      "midi": 67,
+      "nominalHz": 391.99544,
+      "measuredHz": 392.09603,
+      "offsetCents": 0.444,
+      "source": "qanun-G4.flac"
+    },
+    {
+      "midi": 67.5,
+      "nominalHz": 403.48178,
+      "measuredHz": 403.58531,
+      "offsetCents": 0.444,
+      "source": "qanun-G4.flac"
+    },
+    {
+      "midi": 68,
+      "nominalHz": 415.3047,
+      "measuredHz": 415.41113,
+      "offsetCents": 0.444,
+      "source": "qanun-G4.flac"
+    },
+    {
+      "midi": 68.5,
+      "nominalHz": 427.47405,
+      "measuredHz": 427.58371,
+      "offsetCents": 0.444,
+      "source": "qanun-G4.flac"
+    },
+    {
+      "midi": 69,
+      "nominalHz": 440.0,
+      "measuredHz": 440.09276,
+      "offsetCents": 0.365,
+      "source": "qanun-A4.flac"
+    },
+    {
+      "midi": 69.5,
+      "nominalHz": 452.89298,
+      "measuredHz": 452.98848,
+      "offsetCents": 0.365,
+      "source": "qanun-A4.flac"
+    },
+    {
+      "midi": 70,
+      "nominalHz": 466.16376,
+      "measuredHz": 466.26231,
+      "offsetCents": 0.366,
+      "source": "qanun-A4.flac"
+    },
+    {
+      "midi": 70.5,
+      "nominalHz": 479.8234,
+      "measuredHz": 479.92454,
+      "offsetCents": 0.365,
+      "source": "qanun-A4.flac"
+    },
+    {
+      "midi": 71,
+      "nominalHz": 493.8833,
+      "measuredHz": 493.94978,
+      "offsetCents": 0.233,
+      "source": "qanun-B4.flac"
+    },
+    {
+      "midi": 71.5,
+      "nominalHz": 508.35519,
+      "measuredHz": 508.42361,
+      "offsetCents": 0.233,
+      "source": "qanun-B4.flac"
+    },
+    {
+      "midi": 72,
+      "nominalHz": 523.25113,
+      "measuredHz": 523.32152,
+      "offsetCents": 0.233,
+      "source": "qanun-B4.flac"
+    },
+    {
+      "midi": 72.5,
+      "nominalHz": 538.58356,
+      "measuredHz": 538.65614,
+      "offsetCents": 0.233,
+      "source": "qanun-B4.flac"
+    },
+    {
+      "midi": 73,
+      "nominalHz": 554.36526,
+      "measuredHz": 554.257,
+      "offsetCents": -0.338,
+      "source": "qanun-Cs5.flac"
+    },
+    {
+      "midi": 73.5,
+      "nominalHz": 570.6094,
+      "measuredHz": 570.49796,
+      "offsetCents": -0.338,
+      "source": "qanun-Cs5.flac"
+    },
+    {
+      "midi": 74,
+      "nominalHz": 587.32954,
+      "measuredHz": 587.21485,
+      "offsetCents": -0.338,
+      "source": "qanun-Cs5.flac"
+    },
+    {
+      "midi": 74.5,
+      "nominalHz": 604.5396,
+      "measuredHz": 604.42149,
+      "offsetCents": -0.338,
+      "source": "qanun-Cs5.flac"
+    },
+    {
+      "midi": 75,
+      "nominalHz": 622.25397,
+      "measuredHz": 622.38594,
+      "offsetCents": 0.367,
+      "source": "qanun-Ds5.flac"
+    },
+    {
+      "midi": 75.5,
+      "nominalHz": 640.4874,
+      "measuredHz": 640.62324,
+      "offsetCents": 0.367,
+      "source": "qanun-Ds5.flac"
+    },
+    {
+      "midi": 76,
+      "nominalHz": 659.25511,
+      "measuredHz": 659.39484,
+      "offsetCents": 0.367,
+      "source": "qanun-Ds5.flac"
+    },
+    {
+      "midi": 76.5,
+      "nominalHz": 678.57276,
+      "measuredHz": 678.71661,
+      "offsetCents": 0.367,
+      "source": "qanun-Ds5.flac"
+    },
+    {
+      "midi": 77,
+      "nominalHz": 698.45646,
+      "measuredHz": 698.26313,
+      "offsetCents": -0.479,
+      "source": "qanun-F5.flac"
+    },
+    {
+      "midi": 77.5,
+      "nominalHz": 718.9228,
+      "measuredHz": 718.724,
+      "offsetCents": -0.479,
+      "source": "qanun-F5.flac"
+    },
+    {
+      "midi": 78,
+      "nominalHz": 739.98885,
+      "measuredHz": 739.78398,
+      "offsetCents": -0.479,
+      "source": "qanun-F5.flac"
+    },
+    {
+      "midi": 78.5,
+      "nominalHz": 761.67217,
+      "measuredHz": 761.46146,
+      "offsetCents": -0.479,
+      "source": "qanun-F5.flac"
+    },
+    {
+      "midi": 79,
+      "nominalHz": 783.99087,
+      "measuredHz": 784.07462,
+      "offsetCents": 0.185,
+      "source": "qanun-G5.flac"
+    },
+    {
+      "midi": 79.5,
+      "nominalHz": 806.96356,
+      "measuredHz": 807.04975,
+      "offsetCents": 0.185,
+      "source": "qanun-G5.flac"
+    },
+    {
+      "midi": 80,
+      "nominalHz": 830.6094,
+      "measuredHz": 830.69806,
+      "offsetCents": 0.185,
+      "source": "qanun-G5.flac"
+    },
+    {
+      "midi": 80.5,
+      "nominalHz": 854.94811,
+      "measuredHz": 855.03932,
+      "offsetCents": 0.185,
+      "source": "qanun-G5.flac"
+    },
+    {
+      "midi": 81,
+      "nominalHz": 880.0,
+      "measuredHz": 880.14178,
+      "offsetCents": 0.279,
+      "source": "qanun-A5.flac"
+    },
+    {
+      "midi": 81.5,
+      "nominalHz": 905.78597,
+      "measuredHz": 905.932,
+      "offsetCents": 0.279,
+      "source": "qanun-A5.flac"
+    },
+    {
+      "midi": 82,
+      "nominalHz": 932.32752,
+      "measuredHz": 932.47746,
+      "offsetCents": 0.278,
+      "source": "qanun-A5.flac"
+    },
+    {
+      "midi": 82.5,
+      "nominalHz": 959.6468,
+      "measuredHz": 959.8016,
+      "offsetCents": 0.279,
+      "source": "qanun-A5.flac"
+    },
+    {
+      "midi": 83,
+      "nominalHz": 987.7666,
+      "measuredHz": 988.01699,
+      "offsetCents": 0.439,
+      "source": "qanun-B5.flac"
+    },
+    {
+      "midi": 83.5,
+      "nominalHz": 1016.71037,
+      "measuredHz": 1016.96798,
+      "offsetCents": 0.439,
+      "source": "qanun-B5.flac"
+    },
+    {
+      "midi": 84,
+      "nominalHz": 1046.50226,
+      "measuredHz": 1046.76766,
+      "offsetCents": 0.439,
+      "source": "qanun-B5.flac"
+    },
+    {
+      "midi": 84.5,
+      "nominalHz": 1077.16712,
+      "measuredHz": 1077.43986,
+      "offsetCents": 0.438,
+      "source": "qanun-B5.flac"
+    },
+    {
+      "midi": 85,
+      "nominalHz": 1108.73052,
+      "measuredHz": 1108.84489,
+      "offsetCents": 0.179,
+      "source": "qanun-Cs6.flac"
+    },
+    {
+      "midi": 85.5,
+      "nominalHz": 1141.21881,
+      "measuredHz": 1141.33652,
+      "offsetCents": 0.179,
+      "source": "qanun-Cs6.flac"
+    },
+    {
+      "midi": 86,
+      "nominalHz": 1174.65907,
+      "measuredHz": 1174.77963,
+      "offsetCents": 0.178,
+      "source": "qanun-Cs6.flac"
+    },
+    {
+      "midi": 86.5,
+      "nominalHz": 1209.07921,
+      "measuredHz": 1209.20334,
+      "offsetCents": 0.178,
+      "source": "qanun-Cs6.flac"
+    },
+    {
+      "midi": 87,
+      "nominalHz": 1244.50793,
+      "measuredHz": 1244.7391,
+      "offsetCents": 0.322,
+      "source": "qanun-Ds6.flac"
+    },
+    {
+      "midi": 96,
+      "nominalHz": 2093.00452,
+      "measuredHz": 2093.3936,
+      "offsetCents": 0.322,
+      "source": "qanun-Ds6.flac"
+    }
+  ],
+  "maxAbsoluteOffsetCents": {
+    "preview": 0.486,
+    "soundfont": 0.486
+  },
+  "toleranceCents": 1.0,
+  "synthMessages": [
+    "fluidsynth: warning: Instrument \"CM-64/32\": Some invalid generators were discarded"
+  ]
+}

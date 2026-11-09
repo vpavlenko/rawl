@@ -2,7 +2,8 @@
 """Package the cleaned qanun recordings for the existing MIDI synthesizers.
 
 All bank-0 programs share one qanun instrument. Retain the bundled GM bank's
-percussion kits. No sample loops, normalization or retuning.
+percussion kits. Shared per-sample tuning and peak levels are applied as
+SoundFont metadata/gain; cleaned source recordings remain unchanged.
 Requires FFmpeg; run from any directory with Python 3.
 """
 import hashlib
@@ -44,6 +45,7 @@ def gen(operator, amount):
 def main():
     manifest = json.loads((BANK / "manifest.json").read_text())
     levels = json.loads((ROOT / "src/sampler/qanunLevels.json").read_text())
+    tuning = json.loads((ROOT / "src/sampler/qanunTuning.json").read_text())
     # LIST chunks share their tag; identify them by their four-byte list type.
     lists = {data[:4]: data[4:] for key, data in chunks(GM.read_bytes()[12:]) if key == b"LIST"}
     info, sdta, pdta = (dict(chunks(lists[key])) for key in [b"INFO", b"sdta", b"pdta"])
@@ -55,12 +57,18 @@ def main():
     imod_end = len(pdta[b"imod"]) // 10 - 1
     qanun_instrument = len(instruments)
     instruments.append(name("Clean qanun") + struct.pack("<H", len(ibags)))
-    pitches = [53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87]
+    pitches = [sample["midi"] for sample in tuning["samples"]]
     inputs = []
     for index, pitch in enumerate(pitches):
         label = ["C", "Cs", "D", "Ds", "E", "F", "Fs", "G", "Gs", "A", "As", "B"][pitch % 12]
         filename = f"qanun-{label}{pitch // 12 - 1}.flac"
         entry = next(entry for entry in manifest["files"] if entry["file"] == filename)
+        calibration = tuning["samples"][index]
+        if calibration["file"] != filename or calibration["sha256"] != entry["sha256"]:
+            raise ValueError(f"Stale tuning calibration: {filename}")
+        correction = calibration["correctionCents"]
+        if not isinstance(correction, int) or not -99 <= correction <= 99:
+            raise ValueError(f"Invalid tuning correction: {filename}")
         source = BANK / filename
         if hashlib.sha256(source.read_bytes()).hexdigest() != entry["sha256"]:
             raise ValueError(f"Clean sample hash mismatch: {source}")
@@ -82,10 +90,10 @@ def main():
         # Three-millisecond attack and a two-second release let each unlooped
         # recording ring naturally after short note-offs, as in the reference.
         igens.extend([gen(43, low | high << 8), gen(34, -10057), gen(38, 1200),
-                      gen(54, 0), gen(58, pitch), gen(53, sample_id)])
+                      gen(52, correction), gen(54, 0), gen(58, pitch), gen(53, sample_id)])
         inputs.append({"file": filename, "sha256": entry["sha256"], "midi": pitch,
                        "keyRange": [low, high], "pcmSamples": len(raw) // 2,
-                       "gain": sample_gain})
+                       "gain": sample_gain, "tuningCorrectionCents": correction})
     instruments.append(name("EOI") + struct.pack("<H", len(ibags)))
     ibags.append(struct.pack("<HH", len(igens), imod_end))
     igens.append(gen(0, 0))
@@ -174,7 +182,7 @@ def main():
         "base": {"file": GM.name, "sha256": hashlib.sha256(GM.read_bytes()).hexdigest()},
         "samples": inputs, "bank0": "All 128 programs use cleaned qanun",
         "percussion": "Original GM bank-128 percussion kits retained", "loops": False,
-        "levels": levels,
+        "levels": levels, "tuning": tuning,
     }, indent=2) + "\n")
     print(filename)
 

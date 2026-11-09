@@ -197,10 +197,31 @@ timing. A 15 ms end fade avoids abrupt endings. B3's noisy final 130 ms are
 excluded, with a 50 ms fade before the 1.55 s clean endpoint. Full processing
 commands, source/output hashes and the signal audit are recorded alongside
 the bank and under `reports/maqam-reference-2026-11-09/`.
-The source labels are nominal pitches: an audit of the recordings found
-fundamental offsets of about -35 to +27 cents across the complete bank.
-No per-sample tuning correction is applied. Quarter-tone shifts therefore
-preserve the intended playback ratio rather than guaranteeing concert tuning.
+The source labels are nominal pitches: the original recordings have dominant
+fundamental offsets of about -35 to +27 cents. `src/sampler/qanunTuning.json`
+records measured frequencies, original file hashes, and integer-cent corrections
+for all 18 samples, referenced to A4 = 440 Hz. The Web Audio sampler adds the
+correction to its playback-rate exponent; the SoundFont uses the same correction
+in each zone's fineTune generator. Intentional MIDI bends and quarter-tone
+intervals remain relative to these calibrated bases. Source files are unchanged.
+
+The tuning audit measures all semitones and half-semitones from F3 to D-sharp6,
+plus C3 and C7 (71 pitches), in both the actual FluidSynth WASM output and an
+independently resampled preview waveform. All dominant fundamental estimates
+are within 0.5 cents over corresponding source-time windows. Natural string
+beating, inharmonic partials and within-pluck pitch drift remain; this is base
+pitch calibration, not a claim that every instantaneous partial is equal-tempered.
+The report is `reports/maqam-reference-2026-11-09/qanun-tuning-audit.json`.
+Reproduce with FFmpeg, NumPy 2.4.6 and SciPy 1.17.1:
+
+```sh
+node scripts/rawl/render-qanun-tuning.cjs /private/tmp/rawl-qanun-tuning
+python3 scripts/rawl/audit-qanun-tuning.py /private/tmp/rawl-qanun-tuning reports/maqam-reference-2026-11-09/qanun-tuning-audit.json
+```
+
+The four C4/C5/D5/C6 output regressions are also checked directly by
+`scripts/rawl/qanun-soundfont.test.cjs`, without Python dependencies. The builder
+rejects stale calibration when sample hashes change.
 
 The earlier three-note oud bank and artificial tremolo were removed after user
 feedback; their pitch shifting and repeated attacks were not convincing. The

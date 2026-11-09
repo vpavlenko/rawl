@@ -50,6 +50,41 @@ test("the real synth plays the cleaned qanun bank, preserves bends, tails and GM
   assert.notDeepEqual(play(0, 6144), play(0), "quartertone bends must change the rendered audio");
   for (const pitch of [53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87])
     assert.ok(audible(play(0, 8192, pitch)), `recorded pitch ${pitch} must sound`);
+  // Measure actual output, so a nominal root-key label alone cannot pass.
+  const calibration = require("../../public/audio/qanun/soundfont.json");
+  for (const pitch of [60, 72, 74, 84]) {
+    const zone = calibration.samples.find(({ keyRange }) =>
+      keyRange[0] <= pitch && pitch <= keyRange[1]);
+    const rate = 2 ** ((pitch - zone.midi + zone.tuningCorrectionCents / 100) / 12);
+    const mono = [];
+    const append = (pcm) => {
+      for (let i = 0; i < pcm.length; i += 2)
+        mono.push((pcm[i] + pcm[i + 1]) / 2);
+    };
+    append(play(0, 8192, pitch));
+    while (mono.length < 44100) append(render());
+    const begin = Math.round(0.08 * 44100 / rate);
+    const end = Math.min(Math.round(0.8 * 44100 / rate),
+      Math.round((zone.pcmSamples - 0.025 * 44100) / rate));
+    const window = mono.slice(begin, end).map((value, i, values) =>
+      value * 0.5 * (1 - Math.cos(2 * Math.PI * i / (values.length - 1))));
+    const target = 440 * 2 ** ((pitch - 69) / 12);
+    let measured = 0, strongest = -Infinity;
+    for (let frequency = target * 2 ** (-45 / 1200);
+      frequency <= target * 2 ** (45 / 1200); frequency += 0.04) {
+      const coefficient = 2 * Math.cos(2 * Math.PI * frequency / 44100);
+      let previous = 0, older = 0;
+      for (const value of window) {
+        const current = value + coefficient * previous - older;
+        older = previous;
+        previous = current;
+      }
+      const power = previous * previous + older * older - coefficient * previous * older;
+      if (power > strongest) { strongest = power; measured = frequency; }
+    }
+    const cents = 1200 * Math.log2(measured / target);
+    assert.ok(Math.abs(cents) < 1, `MIDI ${pitch}: ${cents.toFixed(2)} cents`);
+  }
   play(0, 8192, 59);
   core._tp_note_off(0, 59);
   assert.ok(audible(render()), "short MIDI notes must retain the natural ringing tail");

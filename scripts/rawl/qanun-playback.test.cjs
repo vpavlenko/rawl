@@ -112,8 +112,9 @@ test("recorded qanun plucks preserve quarter tones without repeated attacks and 
     const levels = require("../../src/sampler/qanunLevels.json");
     assert.ok(Math.abs(gainRamps[0] * 0.2 - levels.samplePeak * levels.previewGain) < 1e-6,
       "quiet recordings are calibrated to the shared audible peak target");
-    assert.equal(sources[0].playbackRate.value, 1);
-    assert.equal(sources[1].playbackRate.value, 2 ** (0.5 / 12));
+    // A4 is 5 cents flat; C-sharp4 is 2 cents flat in the recordings.
+    assert.equal(sources[0].playbackRate.value, 2 ** (0.05 / 12));
+    assert.equal(sources[1].playbackRate.value, 2 ** (0.52 / 12));
     assert.ok(
       Math.abs(sources[1].starts[0] - sources[0].starts[0] - 0.85) < 1e-9,
     );
@@ -154,7 +155,7 @@ test("recorded qanun plucks preserve quarter tones without repeated attacks and 
       Math.abs(sources[3].starts[0] - sources[2].starts[0] - 1.02) < 1e-9,
     );
     assert.ok(
-      Math.abs(sources[2].stops[0] - sources[2].starts[0] - 2) < 1e-9,
+      Math.abs(sources[2].stops[0] - sources[2].starts[0] - 2 / 2 ** (0.05 / 12)) < 1e-9,
       "sustain lets the complete recording ring past its short attack window",
     );
     fireAt(40);

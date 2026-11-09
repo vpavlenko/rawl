@@ -1,25 +1,11 @@
 // CC0 qanun recordings by Baris Bozkurt. See public/audio/qanun/SOURCES.md.
 import levels from "./qanunLevels.json";
-export const QANUN_SAMPLES = [
-  { midi: 53, url: "/audio/qanun/qanun-F3.flac" },
-  { midi: 55, url: "/audio/qanun/qanun-G3.flac" },
-  { midi: 57, url: "/audio/qanun/qanun-A3.flac" },
-  { midi: 59, url: "/audio/qanun/qanun-B3.flac" },
-  { midi: 61, url: "/audio/qanun/qanun-Cs4.flac" },
-  { midi: 63, url: "/audio/qanun/qanun-Ds4.flac" },
-  { midi: 65, url: "/audio/qanun/qanun-F4.flac" },
-  { midi: 67, url: "/audio/qanun/qanun-G4.flac" },
-  { midi: 69, url: "/audio/qanun/qanun-A4.flac" },
-  { midi: 71, url: "/audio/qanun/qanun-B4.flac" },
-  { midi: 73, url: "/audio/qanun/qanun-Cs5.flac" },
-  { midi: 75, url: "/audio/qanun/qanun-Ds5.flac" },
-  { midi: 77, url: "/audio/qanun/qanun-F5.flac" },
-  { midi: 79, url: "/audio/qanun/qanun-G5.flac" },
-  { midi: 81, url: "/audio/qanun/qanun-A5.flac" },
-  { midi: 83, url: "/audio/qanun/qanun-B5.flac" },
-  { midi: 85, url: "/audio/qanun/qanun-Cs6.flac" },
-  { midi: 87, url: "/audio/qanun/qanun-Ds6.flac" },
-];
+import tuning from "./qanunTuning.json";
+export const QANUN_SAMPLES = tuning.samples.map((sample) => ({
+  midi: sample.midi,
+  url: `/audio/qanun/${sample.file}`,
+  correctionCents: sample.correctionCents,
+}));
 export const nearestQanunSample = (midi: number) =>
   QANUN_SAMPLES.reduce((best, sample) =>
     Math.abs(sample.midi - midi) < Math.abs(best.midi - midi) ? sample : best,
@@ -105,7 +91,10 @@ export const playQanun = (
       const gain = audio.createGain();
       source.buffer = decoded[index];
       // One recorded pluck, with no repeated attacks or synthetic tremolo.
-      source.playbackRate.value = 2 ** ((midi - selected[index].midi) / 12);
+      source.playbackRate.value =
+        2 **
+        ((midi - selected[index].midi + selected[index].correctionCents / 100) /
+          12);
       // Sustain: the attack/highlight duration does not choke the recording.
       const duration = decoded[index].duration / source.playbackRate.value;
       const buffer = decoded[index];

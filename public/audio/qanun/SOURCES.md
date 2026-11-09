@@ -32,7 +32,16 @@ The before/after signal audit is in
 `reports/maqam-reference-2026-11-09/qanun-denoise-audit.json`.
 
 The player selects the nearest recorded note and applies a playback-rate ratio
-for the target pitch. Every note in the eight book figures, including lower
+for the target pitch, including the per-sample base-pitch correction recorded in
+`src/sampler/qanunTuning.json` (A4 = 440 Hz). The same integer-cent corrections
+are encoded in the SoundFont's fineTune generators. The original and cleaned
+recordings are not rewritten for calibration. Measured source frequencies,
+hashes and correction values are retained in that shared table; the builder
+rejects calibration whose source hashes no longer match. The reproducible
+71-pitch output audit is recorded in
+`reports/maqam-reference-2026-11-09/qanun-tuning-audit.json`.
+
+Every note in the eight book figures, including lower
 auxiliaries and quarter tones, is within one semitone of a recorded sample.
 Each note plays one recorded pluck, without tremolo, loops, or synthetic attacks.
 The reference now plays in the printed register rather than the previous oud

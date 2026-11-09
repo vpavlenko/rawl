@@ -1,4 +1,5 @@
 import { createMidiNumberToY } from "../noteCoordinates";
+import { QUARTER_TONE_MARKER_OFFSET, QUARTER_TONE_MARKER_SIZE } from "../pitchBend";
 
 export type MaqamNotationGroup = {
   label: string;
@@ -63,7 +64,7 @@ export const getMaqamNotationLayout = (
     ),
   );
   const bottom = Math.max(
-    pitchHeight,
+    pitchHeight + QUARTER_TONE_MARKER_OFFSET + QUARTER_TONE_MARKER_SIZE / 2,
     ...groups.map(
       (group, index) =>
         groupTops[index] +
@@ -74,6 +75,7 @@ export const getMaqamNotationLayout = (
   const topPadding = EDGE_PADDING - top;
   return {
     topPadding,
+    tonicLineY: pitchToY(0) + noteHeight + topPadding,
     fifthLineY: pitchToY(7) + noteHeight + topPadding,
     height: Math.max(CONTROL_HEIGHT, bottom - top + 2 * EDGE_PADDING),
     groupTops: groupTops.map((position) => position + topPadding),

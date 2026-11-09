@@ -1,6 +1,9 @@
 import type { Note, PitchBendPoint } from "./parseMidi";
 import type { SecondsSpan } from "./Rawl";
 
+export const QUARTER_TONE_MARKER_SIZE = 2;
+export const QUARTER_TONE_MARKER_OFFSET = 2;
+
 export const pitchBendToSemitones = (value: number) =>
   (Math.max(0, Math.min(16383, value)) - 8192) / 4096;
 
@@ -24,6 +27,15 @@ export function getPitchBendSamples(points: PitchBendPoint[], span: SecondsSpan)
     samples.unshift({ time: span[0], bend: 0 });
   samples.push({ time: span[1], bend: samples[samples.length - 1].bend });
   return samples;
+}
+
+// Repeated controller values and inherited state at the onset do not make a
+// note a curve. Preserve every actual change, even a single pitch-wheel step.
+export function getStaticPitchBend(note: Note): number | null {
+  if (note.isDrum || !note.pitchBend?.length) return 0;
+  const samples = getPitchBendSamples(note.pitchBend, note.span);
+  const bend = samples[0].bend;
+  return samples.every((sample) => sample.bend === bend) ? bend : null;
 }
 
 export function getNotePitchAtTime(note: Note, time = note.span[0]) {

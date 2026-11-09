@@ -84,6 +84,7 @@ import Blog from "./rawl/blog/Blog";
 import Book from "./rawl/book/Book";
 import BookOnStyles from "./rawl/book/BookOnStyles";
 import Corpus from "./rawl/corpora/Corpus";
+import { usesQanunTimbre } from "./rawl/corpora/corpora";
 import OrphansPage from "./rawl/corpora/OrphansPage";
 import MusescoreUploadTracker from "./rawl/corpora/MusescoreUploadTracker";
 import Structures, { StructuresProps } from "./rawl/corpora/Structures";
@@ -1222,7 +1223,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
           this.midiPlayer.setPlaybackStartedCallback(midiShouldAutoPlay ? playbackStartedCallback : undefined);
 
           this.midiPlayer
-            .loadData(transformedBuffer, this.state.currentMidi?.slug || "", midiShouldAutoPlay, [], [], this.state.transpose)
+            .loadData(transformedBuffer, this.state.currentMidi?.slug || "", midiShouldAutoPlay, [], [], this.state.transpose,
+              usesQanunTimbre(this.state.currentMidi?.slug) ? "qanun" : undefined)
             .then((parsingResult) => {
               this.setState({ parsing: parsingResult }, () => {
                 this.setupMidiPlayer(() => {

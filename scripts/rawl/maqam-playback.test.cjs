@@ -20,15 +20,15 @@ const {
   createSectionPlaybackClock,
 } = require("../../src/components/rawl/playbackIndex");
 
-test("legend root ajnas match the reference brackets and keep their practical lower notes", () => {
+test("legend root ajnas include stable fifths and keep their practical lower notes", () => {
   const cores = {
     Ajam: [0, 2, 4, 5, 7], Rast: [0, 2, 3.5, 5, 7],
-    Hijaz: [0, 1, 4, 5], Kurd: [0, 1, 3, 5],
-    Nahawand: [0, 2, 3, 5, 7], Bayati: [0, 1.5, 3, 5],
+    Hijaz: [0, 1, 4, 5, 7], Kurd: [0, 1, 3, 5, 7],
+    Nahawand: [0, 2, 3, 5, 7], Bayati: [0, 1.5, 3, 5, 7],
     Saba: [0, 1.5, 3, 4, 7], Huzzam: [0, 1.5, 3.5],
   };
   for (const maqam of MAQAM_SCALES) {
-    const jins = maqamRootJins(maqam);
+    const jins = maqamRootJins(maqam, true);
     assert.deepEqual(jins.pitches, [...maqamLowerPitches(maqam), ...cores[maqam.name]]);
     assert.equal(jins.name, maqam.name === "Huzzam" ? "sikah" : maqam.name.toLowerCase());
     assert.ok(!jins.name.includes("‘"));
@@ -193,5 +193,39 @@ test("Rawl event subscriptions highlight one repeated occurrence and stay dark d
     remove();
     clock.reset();
     assert.equal(active.size, 0);
+  }
+});
+
+test("Saba adds a full-range final ascent and descent, including every upper extension", () => {
+  const saba = MAQAM_SCALES.find((maqam) => maqam.name === "Saba");
+  const pitches = maqamPitches(saba);
+  const blocks = maqamPracticeBlocks(saba);
+  assert.equal(blocks.length, 6);
+  assert.deepEqual(blocks[5].map((index) => pitches[index]),
+    [...saba.scale, ...saba.scale.slice().reverse()]);
+  assert.equal(maqamPracticeBlocks(saba, true).length, 4);
+});
+
+test("legend ajnas finish after four practice rounds without repeating the full core", () => {
+  for (const maqam of MAQAM_SCALES) {
+    const blocks = maqamPracticeBlocks(maqam, true);
+    assert.equal(blocks.length, 4, maqam.name);
+    const events = maqamPracticeEvents(maqam, true);
+    assert.equal(events.at(-1).block, 3);
+    assert.equal(events.at(-1).midi, 60 + maqam.tonic);
+    assert.ok(maqamPracticeBlocks(maqam).length >= 5);
+  }
+});
+
+test("Kurd, Hijaz and Bayati legend rounds reach their stable fifth without changing source brackets", () => {
+  for (const name of ["Kurd", "Hijaz", "Bayati"]) {
+    const maqam = MAQAM_SCALES.find((m) => m.name === name);
+    assert.equal(maqamRootJins(maqam).end, 3);
+    const jins = maqamRootJins(maqam, true);
+    assert.equal(jins.pitches.at(-1), 7);
+    const finalRound = maqamPracticeBlocks(maqam, true).at(-1);
+    assert.equal(Math.max(...finalRound.map((index) => jins.pitches[index])), 7);
+    assert.equal(maqamPracticeEvents(maqam, true).filter((event) => event.block === 3)
+      .some((event) => event.midi === 60 + maqam.tonic + 7), true);
   }
 });

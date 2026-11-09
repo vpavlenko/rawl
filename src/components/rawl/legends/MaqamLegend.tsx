@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import ArrowDown from "../../icons/ArrowDown";
-import ArrowUp from "../../icons/ArrowUp";
+import ChevronDown from "../../icons/ChevronDown";
+import SquareArrowOutUpRight from "../../icons/SquareArrowOutUpRight";
 import Play from "../../icons/Play";
 import Square from "../../icons/Square";
+import { FoldButton } from "../editor/EditorStyles";
 import { NotePlaybackContext } from "../notePlayback";
 import { MAQAM_REFERENCE_SCALES } from "./maqamScales";
 import { MaqamRawlNotation } from "./MaqamRawlNotation";
 import { maqamLowerPitches, maqamPlaybackSection, maqamRootJins } from "./maqamPlayback";
 import { useMaqamPreview } from "./useMaqamPreview";
+import { getMaqamNotationLayout } from "./maqamNotationLayout";
 
 const Panel = styled.div`
   position: fixed;
@@ -20,8 +22,10 @@ const Panel = styled.div`
   color: white;
   background: black;
   border: 1px solid #666;
+  padding: 5px;
+  box-sizing: border-box;
 `;
-const Fold = styled.button`
+const Collapsed = styled.button`
   display: flex;
   align-items: center;
   gap: 8px;
@@ -37,6 +41,14 @@ const Row = styled.div`
   align-items: center;
   padding: 2px 6px;
   gap: 4px;
+  cursor: pointer;
+  [data-jins-transport] {
+    opacity: 0;
+  }
+  &:hover [data-jins-transport],
+  &[data-playing="true"] [data-jins-transport] {
+    opacity: 1;
+  }
   & > div > button {
     border: 0;
     background: transparent;
@@ -61,7 +73,7 @@ const Row = styled.div`
 
 const JINS_ROWS = MAQAM_REFERENCE_SCALES.map((maqam) => ({
   maqam,
-  jins: maqamRootJins(maqam),
+  jins: maqamRootJins(maqam, true),
 }));
 const LOWER_COLUMNS = Math.max(...JINS_ROWS.map(({ maqam }) => maqamLowerPitches(maqam).length));
 const COLUMN_COUNT = LOWER_COLUMNS + Math.max(...JINS_ROWS.map(({ jins }) => jins.end + 1));
@@ -76,6 +88,18 @@ const MaqamLegend: React.FC<{
   }, [expanded]);
   return (
     <Panel data-testid="maqam-legend" aria-label="maqamat">
+      <FoldButton
+        type="button"
+        position="top"
+        isFolded={!expanded}
+        aria-label={expanded ? "Collapse legend" : "Expand legend"}
+        aria-expanded={expanded}
+        onClick={() => onExpandedChange(!expanded)}
+      >
+        <span style={{ display: "flex", transform: expanded ? undefined : "rotate(180deg)" }}>
+          <ChevronDown />
+        </span>
+      </FoldButton>
       <div
         style={{
           display: "flex",
@@ -86,20 +110,13 @@ const MaqamLegend: React.FC<{
         {expanded && (
           <Link
             to="/maqam"
-            style={{ color: "#e9b44c", fontSize: 12, padding: "7px 8px" }}
+            style={{ color: "#e9b44c", fontSize: 12, padding: "7px 8px",
+              display: "inline-flex", alignItems: "center", gap: 5 }}
           >
-            Theory
+            Maqamat <SquareArrowOutUpRight />
           </Link>
         )}
-        <Fold
-          type="button"
-          aria-label={expanded ? "Collapse legend" : "Expand legend"}
-          aria-expanded={expanded}
-          onClick={() => onExpandedChange(!expanded)}
-        >
-          {!expanded && "maqamat"}
-          {expanded ? <ArrowDown /> : <ArrowUp />}
-        </Fold>
+        {!expanded && <Collapsed type="button" onClick={() => onExpandedChange(true)}>maqamat</Collapsed>}
       </div>
       {expanded && (
         <div
@@ -114,16 +131,26 @@ const MaqamLegend: React.FC<{
             {JINS_ROWS.map(({ maqam, jins }) => {
               const active = preview.playing === maqam.name;
               const lowerCount = maqamLowerPitches(maqam).length;
+              const toggle = () => active ? preview.stop() : preview.practiceJins(maqam);
+              const layout = getMaqamNotationLayout(jins.pitches, [], 3.5);
               return (
-                <Row key={maqam.name} data-testid="jins-legend-row">
-                  <div>
+                <Row key={maqam.name} data-testid="jins-legend-row"
+                  data-playing={active || undefined} onClick={toggle}>
+                  <div style={{ position: "relative", alignSelf: "stretch" }}>
                     <button
                       type="button"
                       aria-label={`${active ? "Stop" : "Play"} ${jins.name}`}
-                      onClick={() => active ? preview.stop() : preview.practiceJins(maqam)}
+                      style={{ display: "block", height: "100%", position: "relative" }}
                     >
-                      {jins.name}
-                      {active ? <Square /> : <Play />}
+                      <svg width="64" height={layout.height} aria-hidden="true"
+                        style={{ display: "block" }}>
+                        <text x="64" y={layout.tonicLineY} textAnchor="end"
+                          dominantBaseline="alphabetic" fill="currentColor">{jins.name}</text>
+                      </svg>
+                      <span data-jins-transport aria-hidden="true"
+                        style={{ position: "absolute", right: 0, top: layout.tonicLineY + 4 }}>
+                        {active ? <Square /> : <Play />}
+                      </span>
                     </button>
                   </div>
                   <MaqamRawlNotation
@@ -136,13 +163,13 @@ const MaqamLegend: React.FC<{
                     section={maqamPlaybackSection(maqam)}
                     auxiliary={jins.pitches.map((_, index) => index < lowerCount)}
                     activeIndex={preview.active?.name === maqam.name ? preview.active.index : null}
-                    onNote={(pitch, index) => preview.play(maqam, [pitch], index)}
+                    onNote={toggle}
                   />
                 </Row>
               );
             })}
           </NotePlaybackContext.Provider>
-          <div
+          {preview.error && <div
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -151,13 +178,8 @@ const MaqamLegend: React.FC<{
               color: "#aaa",
             }}
           >
-            <span>{preview.error ? "Audio unavailable" : "Qanun"}</span>
-            {preview.playing && (
-              <button type="button" onClick={preview.stop}>
-                Stop
-              </button>
-            )}
-          </div>
+            Audio unavailable
+          </div>}
         </div>
       )}
     </Panel>

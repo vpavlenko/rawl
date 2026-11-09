@@ -6,7 +6,8 @@ import { getNotePitchAtTime } from "./pitchBend";
 import { getHoverColorPitchClass, getHoverTonicPreview } from "./hoverTonic";
 import { getNoteCentsFromTonic } from "./noteCents";
 import NoteCentsTooltip from "./NoteCentsTooltip";
-import { corpora } from "./corpora/corpora";
+import { corpora, usesQanunTimbre } from "./corpora/corpora";
+import { playQanun } from "../../sampler/qanun";
 import {
   faArrowUpRightFromSquare,
   faCopy,
@@ -466,15 +467,26 @@ const Rawl: React.FC<RawlProps> = ({
     setHoveredNote(null);
   }, [showProvisionalAnalysis]);
 
+  const qanunAudition = useRef<(() => void) | null>(null);
+  const arabicTimbre = parsingResult.timbre === "qanun" || usesQanunTimbre(slug);
+  useEffect(() => () => qanunAudition.current?.(), [slug]);
   const playNote = useCallback(
     (note: Note) => {
       const duration = note.span[1] - note.span[0];
+      if (arabicTimbre && !note.isDrum) {
+        qanunAudition.current = playQanun([{
+          midi: getNotePitchAtTime(note, (note.span[0] + note.span[1]) / 2) + transpose,
+          start: 0,
+          duration,
+        }], () => {}, () => {});
+        return;
+      }
       playRawMidiNote(
         note.note.midiNumber + (note.isDrum ? 0 : transpose),
         duration * 1000,
       );
     },
-    [transpose],
+    [transpose, arabicTimbre],
   );
 
   const [shiftHeld, setShiftHeld] = useState(false);

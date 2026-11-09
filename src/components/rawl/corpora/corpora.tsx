@@ -33,7 +33,19 @@ export type CorpusEntry = {
 
 export const MUSESCORE_TOP_100_SLUG = "top_100_musescore_composers";
 
+export const usesQanunTimbre = (slug?: string) => corpora.some(
+  (corpus) => corpus.scaleLegend === "maqam" && corpus.midis.includes(slug ?? ""),
+);
+
 export const corpora: CorpusEntry[] = [
+  {
+    slug: "arabic_traditional",
+    composerName: null,
+    showComposerTimeline: false,
+    showNoteCents: true,
+    scaleLegend: "maqam",
+    midis: ["samai-bayati-qadim"],
+  },
   {
     slug: "abraham_salman",
     scaleLegend: "maqam",

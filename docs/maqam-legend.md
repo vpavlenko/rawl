@@ -5,13 +5,18 @@ keyboard, and scale groups for pieces in the Abraham Salman, Ibrahim Al Aryan,
 and Riyad Al Sunbati corpora. Other corpora retain their existing legend.
 
 The compact legend shows all eight root ajnas in Rawl notation, using the
-same root spans as the jins-1 brackets on `/maqam`, with practical lower
-auxiliaries prepended. Its order matches the page: ajam, rast, hijaz, kurd,
+same root spans as the jins-1 brackets on `/maqam`, extending Kurd, Hijaz and
+Bayati through their stable fifth and prepending practical lower auxiliaries.
+The source brackets on `/maqam` retain their original spans. The legend has
+5 px padding. Its order matches the page: ajam, rast, hijaz, kurd,
 nahawand, bayati, saba, sikah (the root jins of huzzam). Note lengths and tonic
-columns align. Each row has a Lucide play/stop button and individual note
-targets; practice rounds stay within that root jins and its lower notes.
+columns align, and each name's baseline lies on its tonic line. Clicking the
+name, notes, or empty space in a row toggles its practice playback. Its Lucide
+play/stop icon appears on row hover or during playback. The standard piano-legend
+fold control sits above the panel; there is no separate corner Stop button.
 The same Rawl playback clock, quartertone markers, tooltip and Shift-hover
-tonic recoloring apply. Its Theory link opens `/maqam`, which renders one Rawl scale per maqam, with the lower
+tonic recoloring apply. Its Maqamat link, followed by a Lucide square-arrow-out-up-right icon,
+opens `/maqam`, which renders one Rawl scale per maqam, with the lower
 auxiliaries prepended to its full scale. All eight rows fit the first desktop
 screen. There are no separate jins blocks or sayr diagrams on that screen.
 The original book crops remain source evidence, without being rendered in the legend.
@@ -81,7 +86,8 @@ Individual-note audition registers only that drawing's attack. Stop, replacement
 and unmount clear the shared clock and animation frame. The compact legend
 uses the same occurrence-specific registration for its root-jins notes.
 
-The page and legend practice buttons use five rounds, at 220 ms between
+The page practice buttons use five rounds; compact legend ajnas use only the
+first four. Both use 220 ms between
 attacks and an 800 ms pause between blocks. The user approved these turns:
 
 1. 1–2–3–2–1
@@ -92,6 +98,9 @@ attacks and an 800 ms pause between blocks. The user approved these turns:
 
 Saba's first round reaches its characteristic degree 4. Its second round goes
 down to the lowest auxiliary and back to 1, then up to degree 4 and back to 1.
+Saba has an extra final round through every displayed upper extension, up to
+the last note and back to the tonic. The compact root-jins exercise stays
+within its shorter displayed range.
 
 When a shoulder descends, the final descent uses its alternate notes (Ajam,
 Nahawand and Rast). When the second shoulder ascends, round 5 first ascends and
@@ -115,12 +124,17 @@ pitch positions, guides, playback and the tooltip's original tonic stay fixed.
 Pressing or releasing Shift updates the preview without moving the pointer.
 Mouse leave and window blur clear it. There is no separate tonic control.
 
-The shared note renderer marks quartertone pitches with Lucide's asterisk, on
-both this page and song scores. The sounding pitch's fractional semitone must
-be in the inclusive 0.25–0.75 window; MIDI bends are sampled at the note's
-midpoint. Tonic recoloring does not change eligibility. The marker follows the
-bend ribbon and chooses black or white for contrast against its interpolated
-fill. Collapsed notes and drums have no marker.
+The shared note renderer marks quartertone intervals with a 2 px white dot on
+both this page and song scores. Eligibility uses the currently colored interval
+from the active tonic, including hover tonicization, in the inclusive 0.25–0.75
+fractional-semitone window. MIDI bends are sampled at the note midpoint. A white
+tonic has no dot, including Sikah's fractional absolute tonic. The dot's center
+sits 2 px below the note's fixed lower edge, at the former tick's center, and
+does not move when playback expands the note upward. Notation reserves space
+below its lowest note so the whole dot remains visible. Static bends use the
+standard voice-shaped rectangle at their exact sounding height and color;
+changing bends retain the ribbon. Collapsed notes and drums have no marker.
+The left sidebar explains: "Shift-hover: use this note as tonic."
 
 | Row      | Extended jins | Maqam scale              | Sayr  | Printed pages |
 | -------- | ------------- | ------------------------ | ----- | ------------- |
@@ -150,12 +164,19 @@ Qanun previews use 18 actual CC0 isolated-note recordings by Barış Bozkurt,
 sliced by the joetessy/qanun project and pinned to a specific source revision.
 The F3–D-sharp6 bank covers every book note within one nominal semitone of a
 recorded source. Each attack plays one recorded pluck. Sustain stays on: every
-sample runs through its full natural decay, overlapping subsequent notes and
+sample runs through its cleaned natural decay, overlapping subsequent notes and
 block pauses, with a short fade only at the recording's end. Its 220 ms attack
 window does not choke its audio tail. Stop, replacement and folding cut all
 ringing sources. There is no tremolo or repeated synthetic attack.
 Sample sources, the verbatim upstream notice, revision, and per-file hashes are
 recorded under `public/audio/qanun/`.
+Playback uses gently denoised 24-bit FLAC derivatives; the original M4A files
+remain intact. FFmpeg FFT denoising is limited to 6 dB, with a -65 dB noise
+floor and smoothed gain. Its measured delay is compensated to preserve attack
+timing. A 15 ms end fade avoids abrupt endings. B3's noisy final 130 ms are
+excluded, with a 50 ms fade before the 1.55 s clean endpoint. Full processing
+commands, source/output hashes and the signal audit are recorded alongside
+the bank and under `reports/maqam-reference-2026-11-09/`.
 The source labels are nominal pitches: an audit of the recordings found
 fundamental offsets of about -35 to +27 cents across the complete bank.
 No per-sample tuning correction is applied. Quarter-tone shifts therefore
@@ -164,8 +185,32 @@ preserve the intended playback ratio rather than guaranteeing concert tuning.
 The earlier three-note oud bank and artificial tremolo were removed after user
 feedback; their pitch shifting and repeated attacks were not convincing. The
 user explicitly selected sampled qanun and dropped the tremolo requirement.
-The previews use an independent Web Audio graph, without changing score playback,
-MIDI instruments, annotations, or the Western legend's piano sampler. Selecting
+The same cleaned recordings now supply Arabic MIDI playback and note auditions.
+`usesQanunTimbre` selects every corpus configured with the maqam legend,
+including Arabic traditional, Abraham Salman, Ibrahim Al Aryan and Riyad Al
+Sunbati. The timbre choice crosses the UI/worker boundary before playback starts.
+A generated SoundFont packages the same 18 clean samples for the existing
+MIDI sequencer, preserving bends, velocities, seeking, mute and per-port state.
+All melodic programs use qanun; source bank/program messages cannot switch
+them away. GM percussion is retained, and later non-Arabic files restore GM.
+`RAWL_TIMBRE:qanun` is supported for portable MIDI. A corpus's qanun choice
+takes precedence over an older oud tag. Original recordings remain recordings.
+
+Score clicks and Shift-hover auditions use sampled qanun, including bent
+pitch. Source instrument labels and saved voice names remain intact.
+The Edit score workflow is unchanged.
+
+`qanunLevels.json` calibrates each sample to a common 0.85 peak. Preview gain
+is 0.75; MIDI output receives a further 2x gain for the sparse Arabic mix,
+with soft limiting only above a 0.95 peak to contain unusually loud overlaps.
+This raises quiet recordings without compressing their attacks. Full preview
+practice overlaps are checked against clipping. The cleaned FLAC files remain
+unchanged; level calibration is applied by the sampler and SoundFont builder.
+Rebuild the bank with `python3 scripts/rawl/build-qanun-soundfont.py`;
+`public/audio/qanun/soundfont.json` records source hashes, key ranges, levels
+and the content-addressed output name.
+
+The previews use an independent Web Audio graph. Selecting
 another preview cancels the previous one. Stop, folding, navigation, and unmount
 cancel scheduled sources and UI timers, including a pending sample download.
 

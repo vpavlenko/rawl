@@ -10,10 +10,11 @@ export const maqamPitches = (maqam: MaqamScale) => [
   ...maqam.scale,
 ];
 
-export const maqamRootJins = (maqam: MaqamScale) => {
+export const maqamRootJins = (maqam: MaqamScale, includeStableFifth = false) => {
   const group = maqam.scaleGroups.find((group) => group.start === 0)!;
   // Match the root bracket on /maqam, including its approved core extension.
-  const end = Math.max(group.end, Math.min(5, maqam.coreLength) - 1);
+  const end = Math.max(group.end, Math.min(5, maqam.coreLength) - 1,
+    includeStableFifth && ["Kurd", "Hijaz", "Bayati"].includes(maqam.name) ? 4 : 0);
   return {
     name: group.label.replace(/ 1$/, "").toLowerCase(),
     end,
@@ -46,7 +47,7 @@ export const maqamPracticeBlocks = (maqam: MaqamScale, rootOnly = false): number
   const pitches = maqamPitches(maqam);
   const lower = maqamLowerPitches(maqam);
   const tonic = lower.length;
-  const ascending = maqam.scale.slice(0, rootOnly ? maqamRootJins(maqam).end + 1 : 8)
+  const ascending = maqam.scale.slice(0, rootOnly ? maqamRootJins(maqam, true).end + 1 : 8)
     .map((_, index) => tonic + index);
   const lower7 = lower.indexOf(maqam.scale[6] - 12);
   const returnToTonic = (outward: number[]) => [
@@ -83,8 +84,8 @@ export const maqamPracticeBlocks = (maqam: MaqamScale, rootOnly = false): number
       ...returnToTonic(ascending.slice(0, 3)),
     ],
     returnToTonic(ascending.slice(0, 5)),
-    [...ascending, ...descending],
   ];
+  if (!rootOnly) blocks.push([...ascending, ...descending]);
   if (maqam.name === "Saba") {
     blocks[1].push(...returnToTonic(ascending.slice(0, 4)).slice(1));
   }
@@ -94,6 +95,10 @@ export const maqamPracticeBlocks = (maqam: MaqamScale, rootOnly = false): number
       ...tail,
     ];
     blocks.push([...alternative, ...alternative.slice().reverse()]);
+  }
+  if (maqam.name === "Saba" && !rootOnly) {
+    const complete = maqam.scale.map((_, index) => tonic + index);
+    blocks.push([...complete, ...complete.slice().reverse()]);
   }
   return blocks;
 };

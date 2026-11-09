@@ -60,6 +60,7 @@ export type MidiSource = {
 };
 
 export type ParsingResult = {
+  timbre?: "qanun" | "oud";
   notes: NotesInVoices;
   measuresAndBeats?: MeasuresAndBeats;
   displayOptions?: MidiDisplayOptions;

@@ -39,6 +39,7 @@ test("recorded qanun plucks preserve quarter tones without repeated attacks and 
   };
   const sources = [],
     events = new Map();
+  const gainRamps = [];
   let nextId = 0,
     resolvePending,
     audioInstance;
@@ -50,7 +51,7 @@ test("recorded qanun plucks preserve quarter tones without repeated attacks and 
     destination = {};
     async resume() {}
     async decodeAudioData(data) {
-      return { duration: 2, data };
+      return { duration: 2, data, getChannelData: () => new Float32Array([0.2, -0.2]) };
     }
     createBufferSource() {
       const node = {
@@ -73,7 +74,7 @@ test("recorded qanun plucks preserve quarter tones without repeated attacks and 
       return {
         gain: {
           setValueAtTime() {},
-          linearRampToValueAtTime() {},
+          linearRampToValueAtTime(value) { gainRamps.push(value); },
           exponentialRampToValueAtTime() {},
         },
         connect() {},
@@ -88,7 +89,7 @@ test("recorded qanun plucks preserve quarter tones without repeated attacks and 
   };
   global.clearTimeout = (id) => events.delete(id);
   global.fetch = async (url) => {
-    if (url.endsWith("qanun-F3.m4a"))
+    if (url.endsWith("qanun-F3.flac"))
       await new Promise((resolve) => {
         resolvePending = resolve;
       });
@@ -108,6 +109,9 @@ test("recorded qanun plucks preserve quarter tones without repeated attacks and 
     );
     await new Promise((resolve) => setImmediate(resolve));
     assert.equal(sources.length, 2);
+    const levels = require("../../src/sampler/qanunLevels.json");
+    assert.ok(Math.abs(gainRamps[0] * 0.2 - levels.samplePeak * levels.previewGain) < 1e-6,
+      "quiet recordings are calibrated to the shared audible peak target");
     assert.equal(sources[0].playbackRate.value, 1);
     assert.equal(sources[1].playbackRate.value, 2 ** (0.5 / 12));
     assert.ok(

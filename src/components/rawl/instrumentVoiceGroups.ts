@@ -2,6 +2,7 @@
 export type VoiceHover = number | number[] | null;
 
 export const usesInstrumentGroups = (slug?: string): boolean =>
+  slug === "samai-bayati-qadim" ||
   /^fazil-say-istanbul-symphony-0[1-7]-/.test(slug || "");
 
 export function instrumentVoiceMembers(names: string[], index: number, slug?: string): number[] {

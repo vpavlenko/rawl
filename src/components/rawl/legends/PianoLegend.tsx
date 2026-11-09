@@ -10,7 +10,7 @@ import { FoldButtonWithIcon } from "../editor/FoldButtonWithIcon";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 import ChordStairs from "./ChordStairs";
 import { CHROMATIC_CHORDS, MAJOR_MODE, MINOR_MODE, Mode } from "./chords";
-import { corpora } from "../corpora/corpora";
+import { usesQanunTimbre } from "../corpora/corpora";
 import MaqamLegend from "./MaqamLegend";
 
 const PIANO_KEYBOARD_REPETITIONS = 2;
@@ -468,9 +468,7 @@ export const FoldablePianoLegend: React.FC<{
     showGuitarChords,
   ]);
 
-  return corpora.some(
-    corpus => corpus.scaleLegend === "maqam" && corpus.midis.includes(slug ?? ""),
-  ) ? (
+  return usesQanunTimbre(slug) ? (
     <MaqamLegend
       key={slug}
       expanded={showLegend}

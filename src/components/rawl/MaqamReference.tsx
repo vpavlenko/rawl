@@ -177,6 +177,7 @@ export default function MaqamReference() {
           Johnny Farraj · Sami Abu Shumays · 2019
         </span>
         <span style={{ color: "#999" }}>Qanun</span>
+        <span>Shift-hover: use this note as tonic.</span>
         <Link to="/corpus/riyad_al_sunbati">Riyad Al Sunbati</Link>
       </header>
       <Staves ref={stavesRef}>

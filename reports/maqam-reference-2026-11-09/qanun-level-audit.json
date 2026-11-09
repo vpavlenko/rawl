@@ -1,0 +1,43 @@
+{
+  "previewPracticePeaks": [
+    {
+      "maqam": "Ajam",
+      "peak": 0.92179
+    },
+    {
+      "maqam": "Hijaz",
+      "peak": 0.86532
+    },
+    {
+      "maqam": "Nahawand",
+      "peak": 0.85759
+    },
+    {
+      "maqam": "Kurd",
+      "peak": 0.87217
+    },
+    {
+      "maqam": "Rast",
+      "peak": 0.83909
+    },
+    {
+      "maqam": "Bayati",
+      "peak": 0.84749
+    },
+    {
+      "maqam": "Saba",
+      "peak": 0.84749
+    },
+    {
+      "maqam": "Huzzam",
+      "peak": 0.84668
+    }
+  ],
+  "levels": {
+    "samplePeak": 0.85,
+    "previewGain": 0.75,
+    "midiGain": 2
+  },
+  "maximumPeak": 0.92179,
+  "method": "Mix full cleaned ringing samples with shared per-sample peak calibration, playback-rate resampling, attack/end fades and complete practice overlaps; verify all sequences remain below full scale. No clipping or dynamic compression."
+}

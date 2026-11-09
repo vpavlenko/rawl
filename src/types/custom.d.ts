@@ -23,6 +23,8 @@ declare module "*/MIDIPlayer" {
       shouldAutoPlay?: boolean,
       excludedVoices?: number[],
       drumVoices?: number[],
+      transpose?: number,
+      timbre?: "qanun",
     ): Promise<any>;
     isPlaying(): boolean;
     togglePause(): boolean;

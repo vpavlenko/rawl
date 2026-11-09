@@ -1,0 +1,219 @@
+{
+  "file": "rawl-qanun-a0f8c57af1af.sf2",
+  "sha256": "a0f8c57af1af0ecfe7795e7b6a1173c451ac2dc8a540f11a2fe069a2fab06308",
+  "bytes": 3425488,
+  "builder": "scripts/rawl/build-qanun-soundfont.py",
+  "command": "python3 scripts/rawl/build-qanun-soundfont.py",
+  "base": {
+    "file": "2MBGMGS.SF2",
+    "sha256": "4c7576aeaec8397a6e9a0f57186ba1f7dae5e78b41d2440dc22b3530f9f4cf82"
+  },
+  "samples": [
+    {
+      "file": "qanun-F3.flac",
+      "sha256": "c7c0c4e7e022344df222cbd27845a7c88206870ad0a75107f3027c7a2447f7fc",
+      "midi": 53,
+      "keyRange": [
+        0,
+        54
+      ],
+      "pcmSamples": 64641,
+      "gain": 4.71513816129685
+    },
+    {
+      "file": "qanun-G3.flac",
+      "sha256": "b3cddca7ab68ecdbb9768a6652a15e22c670cafb8e1d68e3c3f887b564ac5fdb",
+      "midi": 55,
+      "keyRange": [
+        55,
+        56
+      ],
+      "pcmSamples": 52788,
+      "gain": 3.904235387008618
+    },
+    {
+      "file": "qanun-A3.flac",
+      "sha256": "e5da4d78357d933f6f336221d6d7ae95fcf7e02f5c03e589e5955b9c7833be45",
+      "midi": 57,
+      "keyRange": [
+        57,
+        58
+      ],
+      "pcmSamples": 54552,
+      "gain": 4.6508385161027315
+    },
+    {
+      "file": "qanun-B3.flac",
+      "sha256": "e2ae59dd87623d3ce9c76a4f0d304ccd5ee79f1ab43591eb1d5682520f204b30",
+      "midi": 59,
+      "keyRange": [
+        59,
+        60
+      ],
+      "pcmSamples": 68355,
+      "gain": 3.498027749460111
+    },
+    {
+      "file": "qanun-Cs4.flac",
+      "sha256": "197fc6035bfe65cfb6dcdf1041899041f0733e4d1bba8f07df436382b61006f6",
+      "midi": 61,
+      "keyRange": [
+        61,
+        62
+      ],
+      "pcmSamples": 50274,
+      "gain": 4.905237363727484
+    },
+    {
+      "file": "qanun-Ds4.flac",
+      "sha256": "37bf5882547da79a206c5f929e87350dfd73f9f272ab5c181780a02200486e86",
+      "midi": 63,
+      "keyRange": [
+        63,
+        64
+      ],
+      "pcmSamples": 52435,
+      "gain": 2.9255786377420625
+    },
+    {
+      "file": "qanun-F4.flac",
+      "sha256": "23af0d33e68fe824386e43beeb56c61bc8391d86857f73b0c7d5d0131f476e80",
+      "midi": 65,
+      "keyRange": [
+        65,
+        66
+      ],
+      "pcmSamples": 49745,
+      "gain": 3.4379292338772864
+    },
+    {
+      "file": "qanun-G4.flac",
+      "sha256": "f705045aa31ed83d4e6580613449fe1d306060b404680e42a74a4d5a549a3cb7",
+      "midi": 67,
+      "keyRange": [
+        67,
+        68
+      ],
+      "pcmSamples": 31704,
+      "gain": 3.363485491662653
+    },
+    {
+      "file": "qanun-A4.flac",
+      "sha256": "61ab25e2e9a570a8a2c73c39880207d09f810081c8569f7f3536219506a547dd",
+      "midi": 69,
+      "keyRange": [
+        69,
+        70
+      ],
+      "pcmSamples": 27430,
+      "gain": 4.798183635085075
+    },
+    {
+      "file": "qanun-B4.flac",
+      "sha256": "71817d9e9c5223a290518442a0577ec29c23d798768c6fcc866d17f7e2de8309",
+      "midi": 71,
+      "keyRange": [
+        71,
+        72
+      ],
+      "pcmSamples": 37750,
+      "gain": 4.002760153815926
+    },
+    {
+      "file": "qanun-Cs5.flac",
+      "sha256": "95dfa9286a52bc00782bdbab73b4c10b6f80c50b8973a22df55bbcac5e088dac",
+      "midi": 73,
+      "keyRange": [
+        73,
+        74
+      ],
+      "pcmSamples": 45291,
+      "gain": 6.297898379577697
+    },
+    {
+      "file": "qanun-Ds5.flac",
+      "sha256": "dd90ed4ac619a91bb79dc38bf549fc354ab46d7c6f5e73d26920c630c88ee60f",
+      "midi": 75,
+      "keyRange": [
+        75,
+        76
+      ],
+      "pcmSamples": 40528,
+      "gain": 4.123243535816267
+    },
+    {
+      "file": "qanun-F5.flac",
+      "sha256": "13136a53252acada8af4e64bb6cb41d6f226c483ace39c1b6e2f0aa3045a683b",
+      "midi": 77,
+      "keyRange": [
+        77,
+        78
+      ],
+      "pcmSamples": 41359,
+      "gain": 1.8273586230580372
+    },
+    {
+      "file": "qanun-G5.flac",
+      "sha256": "aec345fb557cbeea87c14a78c59cbb9bad74b5b0b7216325fbfb5f70d02819de",
+      "midi": 79,
+      "keyRange": [
+        79,
+        80
+      ],
+      "pcmSamples": 42601,
+      "gain": 1.390984673902717
+    },
+    {
+      "file": "qanun-A5.flac",
+      "sha256": "e37c9a95ca826c0c05ea2fab3a0e0760648520bd5b619bede1dc4d08ff2c73df",
+      "midi": 81,
+      "keyRange": [
+        81,
+        82
+      ],
+      "pcmSamples": 20541,
+      "gain": 1.1700066931911097
+    },
+    {
+      "file": "qanun-B5.flac",
+      "sha256": "510fa8aff52fe637da32024567794030c673a5d6c7a719f2e3f074a006cc5d53",
+      "midi": 83,
+      "keyRange": [
+        83,
+        84
+      ],
+      "pcmSamples": 25931,
+      "gain": 2.84882550100943
+    },
+    {
+      "file": "qanun-Cs6.flac",
+      "sha256": "dde31319c7e331c491b361481342c101f4abe9902b1f20881aa2199ab9dd7c61",
+      "midi": 85,
+      "keyRange": [
+        85,
+        86
+      ],
+      "pcmSamples": 28841,
+      "gain": 2.540060930255092
+    },
+    {
+      "file": "qanun-Ds6.flac",
+      "sha256": "2e3726f398fa3824fe77c2d3e92058da76a454e83e6a0281d62cb0678b5c0ae7",
+      "midi": 87,
+      "keyRange": [
+        87,
+        127
+      ],
+      "pcmSamples": 22535,
+      "gain": 2.6328221159047516
+    }
+  ],
+  "bank0": "All 128 programs use cleaned qanun",
+  "percussion": "Original GM bank-128 percussion kits retained",
+  "loops": false,
+  "levels": {
+    "samplePeak": 0.85,
+    "previewGain": 0.75,
+    "midiGain": 2
+  }
+}

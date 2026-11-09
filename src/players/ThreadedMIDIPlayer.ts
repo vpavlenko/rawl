@@ -157,11 +157,12 @@ export default class ThreadedMIDIPlayer extends EventEmitter {
   }
 
   async loadData(data: ArrayBuffer | Uint8Array, filepath: string, shouldAutoPlay = true,
-                 excludedVoices: number[] = [], drumVoices: number[] = [], transpose = 0) {
+                 excludedVoices: number[] = [], drumVoices: number[] = [], transpose = 0,
+                 timbre?: "qanun") {
     this.state.isPlaying = shouldAutoPlay;
     this.state.isPaused = !shouldAutoPlay;
     this.waitingForStart = shouldAutoPlay;
-    return this.control('loadData', [data, filepath, shouldAutoPlay, excludedVoices, drumVoices, transpose], 0);
+    return this.control('loadData', [data, filepath, shouldAutoPlay, excludedVoices, drumVoices, transpose, timbre], 0);
   }
 
   isPlaying() { return this.state.isPlaying; }

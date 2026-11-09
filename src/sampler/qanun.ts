@@ -1,23 +1,24 @@
 // CC0 qanun recordings by Baris Bozkurt. See public/audio/qanun/SOURCES.md.
+import levels from "./qanunLevels.json";
 export const QANUN_SAMPLES = [
-  { midi: 53, url: "/audio/qanun/qanun-F3.m4a" },
-  { midi: 55, url: "/audio/qanun/qanun-G3.m4a" },
-  { midi: 57, url: "/audio/qanun/qanun-A3.m4a" },
-  { midi: 59, url: "/audio/qanun/qanun-B3.m4a" },
-  { midi: 61, url: "/audio/qanun/qanun-Cs4.m4a" },
-  { midi: 63, url: "/audio/qanun/qanun-Ds4.m4a" },
-  { midi: 65, url: "/audio/qanun/qanun-F4.m4a" },
-  { midi: 67, url: "/audio/qanun/qanun-G4.m4a" },
-  { midi: 69, url: "/audio/qanun/qanun-A4.m4a" },
-  { midi: 71, url: "/audio/qanun/qanun-B4.m4a" },
-  { midi: 73, url: "/audio/qanun/qanun-Cs5.m4a" },
-  { midi: 75, url: "/audio/qanun/qanun-Ds5.m4a" },
-  { midi: 77, url: "/audio/qanun/qanun-F5.m4a" },
-  { midi: 79, url: "/audio/qanun/qanun-G5.m4a" },
-  { midi: 81, url: "/audio/qanun/qanun-A5.m4a" },
-  { midi: 83, url: "/audio/qanun/qanun-B5.m4a" },
-  { midi: 85, url: "/audio/qanun/qanun-Cs6.m4a" },
-  { midi: 87, url: "/audio/qanun/qanun-Ds6.m4a" },
+  { midi: 53, url: "/audio/qanun/qanun-F3.flac" },
+  { midi: 55, url: "/audio/qanun/qanun-G3.flac" },
+  { midi: 57, url: "/audio/qanun/qanun-A3.flac" },
+  { midi: 59, url: "/audio/qanun/qanun-B3.flac" },
+  { midi: 61, url: "/audio/qanun/qanun-Cs4.flac" },
+  { midi: 63, url: "/audio/qanun/qanun-Ds4.flac" },
+  { midi: 65, url: "/audio/qanun/qanun-F4.flac" },
+  { midi: 67, url: "/audio/qanun/qanun-G4.flac" },
+  { midi: 69, url: "/audio/qanun/qanun-A4.flac" },
+  { midi: 71, url: "/audio/qanun/qanun-B4.flac" },
+  { midi: 73, url: "/audio/qanun/qanun-Cs5.flac" },
+  { midi: 75, url: "/audio/qanun/qanun-Ds5.flac" },
+  { midi: 77, url: "/audio/qanun/qanun-F5.flac" },
+  { midi: 79, url: "/audio/qanun/qanun-G5.flac" },
+  { midi: 81, url: "/audio/qanun/qanun-A5.flac" },
+  { midi: 83, url: "/audio/qanun/qanun-B5.flac" },
+  { midi: 85, url: "/audio/qanun/qanun-Cs6.flac" },
+  { midi: 87, url: "/audio/qanun/qanun-Ds6.flac" },
 ];
 export const nearestQanunSample = (midi: number) =>
   QANUN_SAMPLES.reduce((best, sample) =>
@@ -32,6 +33,7 @@ export type QanunScheduledNote = {
 };
 let context: AudioContext | null = null;
 const buffers = new Map<string, Promise<AudioBuffer>>();
+const sampleGains = new WeakMap<AudioBuffer, number>();
 let stopPrevious: (() => void) | null = null;
 
 export const playQanun = (
@@ -106,10 +108,18 @@ export const playQanun = (
       source.playbackRate.value = 2 ** ((midi - selected[index].midi) / 12);
       // Sustain: the attack/highlight duration does not choke the recording.
       const duration = decoded[index].duration / source.playbackRate.value;
+      const buffer = decoded[index];
+      if (!sampleGains.has(buffer)) {
+        const pcm = buffer.getChannelData(0);
+        let peak = 0;
+        for (const sample of pcm) peak = Math.max(peak, Math.abs(sample));
+        sampleGains.set(buffer, peak > 0 ? levels.samplePeak / peak : 1);
+      }
+      const level = levels.previewGain * sampleGains.get(buffer)!;
       gain.gain.setValueAtTime(0, noteStart);
-      gain.gain.linearRampToValueAtTime(0.7, noteStart + 0.003);
+      gain.gain.linearRampToValueAtTime(level, noteStart + 0.003);
       gain.gain.setValueAtTime(
-        0.7,
+        level,
         noteStart + Math.max(0.003, duration - 0.04),
       );
       gain.gain.linearRampToValueAtTime(0, noteStart + duration);

@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-09",
+  "scope": {
+    "timbre": "Cleaned sampled qanun for Arabic corpus MIDI playback, note clicks and Shift-hover auditions, plus existing maqam reference/legend previews. Edit score and editor MIDI generation unchanged at user request.",
+    "corpora": [
+      "arabic_traditional",
+      "abraham_salman",
+      "ibrahim_al_aryan",
+      "riyad_al_sunbati"
+    ],
+    "quartertones": "White 1.5 by 4 pixel tick, 2 pixels above the note or bent ribbon. Eligibility remains sounding fractional semitone 0.25 through 0.75, independent of recoloring.",
+    "saba": "Extra final round ascends every displayed pitch through relative 15 semitones and descends back to tonic. Compact root-jins exercises remain within their own range.",
+    "leftPanel": "Shift-hover: use this note as tonic.",
+    "levels": {
+      "samplePeak": 0.85,
+      "previewGain": 0.75,
+      "midiGain": 2
+    },
+    "previewMaximumPeak": 0.92179,
+    "midiHeadroom": "2x gain, soft limiting only above 0.95 for unexpected overlap peaks."
+  },
+  "soundfont": {
+    "file": "rawl-qanun-a0f8c57af1af.sf2",
+    "sha256": "a0f8c57af1af0ecfe7795e7b6a1173c451ac2dc8a540f11a2fe069a2fab06308"
+  },
+  "validation": {
+    "typescript": "npx tsc --noEmit --pretty false passed",
+    "tests": "17 passed: midi-timbre, qanun-soundfont, qanun-playback, maqam-playback, quartertone. Existing SSR useLayoutEffect warnings only.",
+    "realSynth": "All 18 recorded keys render; multiple GM programs select identical qanun audio; quartertone bends change rendered audio; natural note-off tails remain; panic silences them; native GM percussion remains audible. No new native synth warnings beyond the inherited GM baseline.",
+    "ports": "Existing production port parsing, synthesis, mute, drums, seeking and hand-splitting regression passed.",
+    "editor": "Both editor files byte-identical to HEAD; Edit score navigation changes removed.",
+    "chrome": [
+      "/maqam: 14 white ticks, all above their notes. Approved sidebar copy visible. Saba relative pitch 15 observed active in its final round.",
+      "Sekah: 517 white ticks. MIDI playback and note audition exercised at 100 percent volume; no errors/warnings on the affected page."
+    ],
+    "unrelatedWarning": "Pieces timeline reports duplicate React key tj_hill; outside this task and unchanged.",
+    "diff": "git diff --check passed"
+  },
+  "status": "Local, uncommitted, undeployed. Concurrent score layout changes preserved."
+}

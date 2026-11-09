@@ -1,0 +1,22 @@
+{
+  "reference": {
+    "count": 14,
+    "gap": 0
+  },
+  "song": {
+    "count": 517,
+    "firstGaps": [
+      -0.0027,
+      -0.0071,
+      -0.0068,
+      0.0029,
+      0.0027,
+      -0.0005,
+      0.0044,
+      0.0005
+    ],
+    "maxAbsoluteGap": 0.0076
+  },
+  "tests": "4 passed",
+  "console": "No errors or warnings on either affected page."
+}

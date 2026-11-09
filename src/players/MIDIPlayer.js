@@ -13,6 +13,7 @@ import {
 import { GM_DRUM_KITS, GM_INSTRUMENTS } from "./gm-patch-map";
 import MIDIFilePlayer from "./MIDIFilePlayer";
 import MIDIPortSynth from "./MIDIPortSynth";
+import { applyMidiTimbreGain, getMidiTimbre, OUD_SOUNDFONT, QANUN_SOUNDFONT } from "./midiTimbre";
 import Player from "./Player";
 
 // Define the progressive soundfont loading sequence
@@ -109,18 +110,25 @@ export default class MIDIPlayer extends Player {
             (controller === 0 || controller === 32)
           )
             return;
+          if (this.activeTimbre === "qanun" && channel % 16 !== 9 &&
+              !this.drumChannels.has(channel) && (controller === 0 || controller === 32))
+            value = 0;
           this.core._tp_control_change(channel, controller, value);
         },
         programChange: (channel, program) => {
           if (this.drumChannels.has(channel)) this.applyDrumPreset(channel);
-          else this.core._tp_program_change(channel, program);
+          else this.core._tp_program_change(channel,
+            this.activeTimbre === "qanun" && channel % 16 !== 9 ? 0 : program);
         },
         panic: () => {
           this.soundingNotes.forEach((notes) => notes.clear());
           this.core._tp_panic();
         },
         panicChannel: this.panicChannel,
-        render: this.core._tp_render,
+        render: (buffer, samples) => {
+          this.core._tp_render(buffer, samples);
+          applyMidiTimbreGain(this.core.HEAPF32, buffer >> 2, samples, this.activeTimbre);
+        },
         reset: () => {
           this.soundingNotes.forEach((notes) => notes.clear());
           this.sustainPedals.fill(0);
@@ -259,6 +267,7 @@ export default class MIDIPlayer extends Player {
     excludedVoices = [],
     drumVoices = [],
     transpose = 0,
+    requestedTimbre,
   ) {
     this.midiFilePlayer.panic();
     this.transpose = Number.isFinite(transpose)
@@ -266,8 +275,17 @@ export default class MIDIPlayer extends Player {
       : 0;
     this.filepathMeta = this.metadataFromFilepath(filepath);
 
-    // Load custom Soundfont if present in the metadata response.
-    if (!filepath.startsWith("f:")) {
+    const midiFile = new MIDIFile(data);
+    this.activeTimbre = requestedTimbre === "qanun" ? "qanun" : getMidiTimbre(midiFile);
+    // Corpus timbres and portable tags await their sample bank before any note.
+    // Background GM downloads only stage data and cannot replace this timbre.
+    if (this.activeTimbre === "qanun") {
+      this.core._tp_set_ch10_melodic(false);
+      await this.setParameter("soundfont", QANUN_SOUNDFONT);
+    } else if (this.activeTimbre === "oud") {
+      await this.setParameter("soundfont", OUD_SOUNDFONT);
+    } else if (!filepath.startsWith("f:") ||
+        [OUD_SOUNDFONT, QANUN_SOUNDFONT].includes(this.currentSoundfont)) {
       this.core._tp_set_ch10_melodic(false);
 
       // Use the best available soundfont based on current loading state
@@ -294,9 +312,9 @@ export default class MIDIPlayer extends Player {
       }
     }
 
-    const midiFile = new MIDIFile(data);
     const useTrackLoops = filepath.includes("SoundFont MIDI");
     const result = this.midiFilePlayer.load(midiFile, useTrackLoops);
+    result.timbre = this.activeTimbre;
 
     this.activeChannels = Object.keys(this.midiFilePlayer.channelsInUse)
       .map(Number)
@@ -399,6 +417,7 @@ export default class MIDIPlayer extends Player {
   }
 
   getVoiceName(index) {
+    if (this.currentSoundfont === OUD_SOUNDFONT) return "Oud";
     const ch = this.activeChannels[index];
     const pgm = this.midiFilePlayer.channelProgramNums[ch] ?? 0;
     const instrumentName =
@@ -449,7 +468,8 @@ export default class MIDIPlayer extends Player {
       if (event.channel !== channel) continue;
       switch (event.subtype) {
         case MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE:
-          this.core._tp_program_change(channel, event.param1);
+          this.core._tp_program_change(channel,
+            this.activeTimbre === "qanun" ? 0 : event.param1);
           break;
         case MIDIEvents.EVENT_MIDI_CONTROLLER:
           this.midiFilePlayer.synth.controlChange(
@@ -580,7 +600,9 @@ export default class MIDIPlayer extends Player {
           return; // Don't update params or load the soundfont
         }
 
-        const url = `${SOUNDFONT_URL_PATH}/${value}`;
+        const url = [OUD_SOUNDFONT, QANUN_SOUNDFONT].includes(value)
+          ? `/${value}`
+          : `${SOUNDFONT_URL_PATH}/${value}`;
         const filename = `${SOUNDFONT_MOUNTPOINT}/${value}`;
         const staged = this.preloadedSoundfonts.get(value);
         const ready = staged

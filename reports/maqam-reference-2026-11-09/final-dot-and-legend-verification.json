@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-09",
+  "environment": "Google Chrome, existing http://localhost:3000",
+  "staticBends": "Standard rectangles at exact sounding height and current tonic-relative color, retaining voiceShape corner radii; actual changes retain SVG ribbons.",
+  "quartertoneDots": {
+    "sizePx": 2,
+    "centerBelowLowerEdgePx": 2,
+    "classification": "Current colored interval including bend midpoint; inclusive fractional-semitone window 0.25 to 0.75.",
+    "lowestMarkerFullyVisible": true,
+    "dotMovementDuringMarkedNotePlaybackPx": 0,
+    "SikahWhiteTonicMarked": false,
+    "shiftHoveredTonicMarked": false
+  },
+  "legend": {
+    "paddingPx": 5,
+    "nameBaselineTonicLineErrorPx": 0,
+    "rootRounds": 4,
+    "stableFifths": [
+      "Kurd",
+      "Hijaz",
+      "Bayati"
+    ],
+    "allRowsClickable": true,
+    "icons": "Visible on row hover or playback only",
+    "standaloneCornerStop": false,
+    "header": "Maqamat with Lucide square-arrow-out-up-right",
+    "foldControlPx": [
+      60,
+      30
+    ]
+  },
+  "validation": {
+    "typescript": true,
+    "testsPassed": 35,
+    "browserConsoleErrors": 0,
+    "browserConsoleWarnings": 0
+  },
+  "screenshot": "final-white-dot-legend.jpg",
+  "status": "Locally verified; awaiting authorized release."
+}

@@ -76,7 +76,8 @@ test("rendered bent tonic uses white and a regular note receives an interpolated
   const tonic = note(60, [0, 2], [{ time: 0, value: 8192 }, { time: 0, value: 9216 }]);
   const preview = getHoverTonicPreview(tonic, 60.25, 1, analysis({ 1: 0 }), [0, 4]);
   const bent = render({ ...tonic, colorPitchClass: getHoverColorPitchClass(tonic, preview) });
-  assert.match(bent, /stop-color="var\(--pitch-color-0\)"/);
+  assert.match(bent, /noteColor_0_colors/);
+  assert.doesNotMatch(bent, /<svg/);
   assert.doesNotMatch(bent, /color-mix/);
   const regular = render({ ...note(67), colorPitchClass: getHoverColorPitchClass(note(67), preview) });
   assert.match(regular, /fractional-pitch-note/);

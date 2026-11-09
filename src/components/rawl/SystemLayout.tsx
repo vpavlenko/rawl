@@ -10,6 +10,7 @@ import {
 import { VoiceMask } from "../App";
 import { Analysis, getPhraseStarts, MeasuresSpan } from "./analysis";
 import { getSectionOffsets } from "./sectionAnchors";
+import { getFittedSecondWidth } from "./scoreAutoScale";
 import { AnalysisGrid, MeasureSelection } from "./AnalysisGrid";
 import { getNoteRectangles, ModulationOnsetEditingContext, MouseHandlers } from "./getNoteRectangles";
 import ControlPanel, { debounce } from "./layouts/ControlPanel";
@@ -444,48 +445,19 @@ export const StackedSystemLayout: React.FC<
     const viewportWidth = window.innerWidth;
     const targetWidthPercentage = 0.92;
     const targetWidth = viewportWidth * targetWidthPercentage;
-    const maxMeasuresToFit = 34;
-
-    const annotatedSections = sectionSpans.filter(
-      (span) => span[1] - span[0] <= maxMeasuresToFit,
+    const { measures } = measuresAndBeats;
+    // Resolve the same anchor chains in bar units: the fit limit includes
+    // the space before an anchored section, even when bar durations vary.
+    const measureOffsets = getSectionOffsets(
+      analysis, phraseStarts, measures.map((_, index) => index),
     );
-
-    const longestSection = annotatedSections.reduce((longest, current) => {
-      const currentLength =
-        measuresAndBeats.measures[current[1]] -
-        measuresAndBeats.measures[current[0]];
-      const longestLength =
-        measuresAndBeats.measures[longest[1]] -
-        measuresAndBeats.measures[longest[0]];
-      return currentLength > longestLength ? current : longest;
-    }, annotatedSections[0]);
-
-    if (longestSection && annotatedSections.length >= 1) {
-      const longestSectionLength =
-        measuresAndBeats.measures[longestSection[1]] -
-        measuresAndBeats.measures[longestSection[0]];
-
-      // Calculate optimal width for the section
-      let calculatedWidth = targetWidth / longestSectionLength;
-
-      // If the section fits within the measure limit
-      // and we're in single time mode, limit to max 300px per measure
-      if (longestSection[1] - longestSection[0] <= maxMeasuresToFit) {
-        // Calculate how many pixels per measure with current width
-        const measureCount = longestSection[1] - longestSection[0];
-        const secondsPerMeasure = longestSectionLength / measureCount;
-        const pixelsPerMeasure = calculatedWidth * secondsPerMeasure;
-
-        // Limit to max 300px per measure
-        if (pixelsPerMeasure > 300) {
-          calculatedWidth = 300 / secondsPerMeasure;
-        }
-      }
-
-      return calculatedWidth;
-    }
-    return secondWidth;
-  }, [notes, measuresAndBeats, sectionSpans]); // Also depend on measuresAndBeats and sectionSpans
+    return getFittedSecondWidth(sectionSpans.map(([start, end], index) => ({
+      durationSeconds: measures[end] - measures[start],
+      measureCount: end - start,
+      offsetSeconds: sectionOffsets[sectionStarts[index]] ?? 0,
+      offsetMeasures: measureOffsets[sectionStarts[index]] ?? 0,
+    })), targetWidth) ?? secondWidth;
+  }, [notes, measuresAndBeats, sectionSpans, sectionStarts, sectionOffsets, analysis, phraseStarts]);
 
   useEffect(() => {
     setSecondWidth(optimalSecondWidth);

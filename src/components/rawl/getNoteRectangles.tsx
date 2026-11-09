@@ -1,7 +1,6 @@
 import { voiceHoverContains } from "./instrumentVoiceGroups";
-import { contrastingPitchColor, interpolatedPitchColor } from "./colors";
-import { getNotePitchAtTime, getPitchBendSamples, isQuarterTonePitch } from "./pitchBend";
-import Asterisk from "../icons/Asterisk";
+import { interpolatedPitchColor, noteColorClass } from "./colors";
+import { getNotePitchAtTime, getPitchBendSamples, getStaticPitchBend, isQuarterTonePitch, QUARTER_TONE_MARKER_SIZE, QUARTER_TONE_MARKER_OFFSET } from "./pitchBend";
 import * as React from "react";
 import { SecondsConverter, SecondsSpan } from "./Rawl";
 import { ColoredNote, Note, PitchBendPoint } from "./parseMidi";
@@ -424,13 +423,13 @@ const NoteRectangle = React.memo(({
   const bendPlayingRef = React.useRef(false);
   const geometryRef = React.useRef<{
     showFullNote: boolean; noteUnderCursor: boolean; baseHeight: number;
-    baseTop: number; collapsedHeight: number; hasPitchBend: boolean;
+    baseTop: number; collapsedHeight: number; hasMovingPitchBend: boolean;
   } | null>(null);
   const updatePlaying = React.useCallback((active: boolean) => {
     playingRef.current = active;
     const geometry = geometryRef.current;
     if (!geometry) return;
-    if (geometry.hasPitchBend) {
+    if (geometry.hasMovingPitchBend) {
       // Bent notes have an SVG path whose shape depends on the active height.
       // Track queued state too: a seek can clear/reapply within one React batch.
       if (bendPlayingRef.current !== active) {
@@ -460,6 +459,8 @@ const NoteRectangle = React.memo(({
     noteUnderCursor,
   } = note;
   const number = note.displayMidiNumber ?? relativeNumber ?? midiNumber;
+  const staticBend = getStaticPitchBend(note);
+  const rectangleBend = staticBend ?? 0;
 
   // Calculate base height and top position
   // Keep the original bottom/pitch anchor; both React and imperative playback
@@ -469,7 +470,7 @@ const NoteRectangle = React.memo(({
   const baseTop =
     (isDrum && drumNoteToY
       ? drumNoteToY(note)
-      : midiNumberToY(isDrum ? number + 12 : number)) -
+      : midiNumberToY(isDrum ? number + 12 : number + rectangleBend)) -
     noteHeight +
     noteHeight * 2 * (1 - heightScale);
 
@@ -505,24 +506,16 @@ const NoteRectangle = React.memo(({
       : baseTop - (activeHeight - baseHeight)
     : baseTop + baseHeight - collapsedHeight;
 
-  const hasPitchBend =
-    !isDrum &&
-    width > 0 &&
-    note.pitchBend?.some(
-      (point) =>
-        Number.isFinite(point.time) &&
-        Number.isFinite(point.value) &&
-        point.value !== 8192,
-    );
-
-  const fractionalColor = typeof note.colorPitchClass === "number" &&
-    !Number.isInteger(note.colorPitchClass);
+  const hasMovingPitchBend = !isDrum && width > 0 && staticBend === null;
+  const rectanglePitchClass = typeof note.colorPitchClass === "number"
+    ? ((note.colorPitchClass + rectangleBend) % 12 + 12) % 12 : note.colorPitchClass;
+  const rectangleColor = rectangleBend === 0 ? color : noteColorClass(rectanglePitchClass);
+  const fractionalColor = typeof rectanglePitchClass === "number" &&
+    !Number.isInteger(rectanglePitchClass);
   const middlePitch = getNotePitchAtTime(note, (note.span[0] + note.span[1]) / 2);
-  const quarterTone = !isDrum && isQuarterTonePitch(middlePitch);
   const middleBend = middlePitch - midiNumber;
-  const markerColorPitch = typeof note.colorPitchClass === "number"
-    ? note.colorPitchClass + (hasPitchBend ? middleBend : 0) : 0;
-  const markerSize = Math.min(12, baseHeight, width);
+  const quarterTone = !isDrum && typeof note.colorPitchClass === "number" &&
+    isQuarterTonePitch(note.colorPitchClass + middleBend);
   const previewAtPointer = (event: React.MouseEvent<HTMLDivElement>) => {
     const fraction = width > 0
       ? (event.clientX - event.currentTarget.getBoundingClientRect().left) / width : 0;
@@ -532,7 +525,7 @@ const NoteRectangle = React.memo(({
 
   geometryRef.current = {
     showFullNote, noteUnderCursor: !!noteUnderCursor, baseHeight, baseTop,
-    collapsedHeight, hasPitchBend: !!hasPitchBend,
+    collapsedHeight, hasMovingPitchBend,
   };
   React.useLayoutEffect(() => {
     if (registerNote && !note.isDrum) {
@@ -572,7 +565,8 @@ const NoteRectangle = React.memo(({
   const clipRight = fadeStart !== undefined
     ? Math.max(0, width - fadeStart - continuationLength)
     : -1;
-  const maskPadding = hasPitchBend ? noteHeight * 2 + 1 : 1;
+  const maskPadding = (hasMovingPitchBend ? noteHeight * 2 + 1 : 1) +
+    (quarterTone ? QUARTER_TONE_MARKER_OFFSET + QUARTER_TONE_MARKER_SIZE / 2 : 0);
 
   // Format source location string if it exists
   let sourceLocationText = "";
@@ -628,7 +622,7 @@ const NoteRectangle = React.memo(({
       data-modulation-onset-allowed={handleNoteClick && onsetEditing.active && onsetEditing.isAllowed(note) ? "true" : undefined}
       key={`nr_${note.id}`}
       className={`${
-        hasPitchBend ? "pitch-bend-note" : fractionalColor ? "fractional-pitch-note" : color
+        hasMovingPitchBend ? "pitch-bend-note" : fractionalColor ? "fractional-pitch-note" : rectangleColor
       } voiceShape-${voiceIndex} ${
         noteUnderCursor ? "note-under-cursor" : ""
       }`}
@@ -653,16 +647,16 @@ const NoteRectangle = React.memo(({
           fadeInEnd !== undefined || fadeStart !== undefined
             ? `inset(-${maskPadding}px ${clipRight}px -${maskPadding}px ${clipLeft}px)`
             : undefined,
-        pointerEvents: handleNoteClick && !hasPitchBend ? "auto" : "none",
+        pointerEvents: handleNoteClick && !hasMovingPitchBend ? "auto" : "none",
         zIndex:
           noteZIndex ??
           (10 + stackingPriority +
             (noteUnderCursor ? 100 : 0)),
         boxSizing: "border-box",
-        backgroundColor: !hasPitchBend && fractionalColor
-          ? interpolatedPitchColor(note.colorPitchClass as number) : undefined,
+        backgroundColor: !hasMovingPitchBend && fractionalColor
+          ? interpolatedPitchColor(rectanglePitchClass as number) : undefined,
         display: "grid",
-        boxShadow: showFullNote && !hasPitchBend ? "0 0 0px 0.5px black" : "",
+        boxShadow: showFullNote && !hasMovingPitchBend ? "0 0 0px 0.5px black" : "",
         cursor: onsetCursor ?? (enableManualRemeasuring
           ? "e-resize"
           : handleNoteClick
@@ -681,7 +675,7 @@ const NoteRectangle = React.memo(({
       onMouseMove={previewAtPointer}
       onMouseLeave={() => !isDrum && handleMouseLeave()}
     >
-      {hasPitchBend && (
+      {hasMovingPitchBend && (
         <PitchBendNote
           points={note.pitchBend!}
           span={note.span}
@@ -697,16 +691,20 @@ const NoteRectangle = React.memo(({
         />
       )}
       {quarterTone && showFullNote && (
-        <Asterisk
+        <div
           data-quartertone="true"
-          width={markerSize}
-          height={markerSize}
+          aria-hidden="true"
           style={{
             position: "absolute",
             left: "50%",
-            top: `calc(50% + ${hasPitchBend ? midiNumberToY(number + middleBend) - midiNumberToY(number) : 0}px)`,
+            // The lower edge stays fixed when playback grows the note upward.
+            top: `calc(100% + ${QUARTER_TONE_MARKER_OFFSET + (hasMovingPitchBend
+              ? midiNumberToY(number + middleBend) - midiNumberToY(number) : 0)}px)`,
+            width: QUARTER_TONE_MARKER_SIZE,
+            height: QUARTER_TONE_MARKER_SIZE,
+            background: "white",
+            borderRadius: "50%",
             transform: "translate(-50%, -50%)",
-            color: contrastingPitchColor(markerColorPitch),
             pointerEvents: "none",
           }}
         />

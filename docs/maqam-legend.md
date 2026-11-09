@@ -35,7 +35,8 @@ largest set of lower auxiliaries, so the tonic and following scale degrees
 align across all nine staves. Source sayr crops remain as source evidence but
 are not rendered. No complete book pages are bundled.
 
-The title, source attribution and corpus link occupy a left sidebar. Each
+The title, source attribution and corpus links occupy a left sidebar. Links use
+the existing names of every corpus configured with `scaleLegend: "maqam"`. Each
 maqam name is right-aligned left of its stave, centered on the gray fifth guide,
 with a right-aligned Lucide play/stop icon underneath. The name anchor comes
 from the same pitch-coordinate layout as the production guide.

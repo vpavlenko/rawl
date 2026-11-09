@@ -4,6 +4,8 @@ import styled from "styled-components";
 import Play from "../icons/Play";
 import Square from "../icons/Square";
 import { NotePlaybackContext } from "./notePlayback";
+import { corpora } from "./corpora/corpora";
+import { formatComposerName } from "./corpusUtils";
 import { MAQAM_SCALES, MAQAM_REFERENCE_SCALES } from "./legends/maqamScales";
 import {
   maqamLowerPitches,
@@ -162,6 +164,7 @@ const LOWER_COLUMNS = Math.max(
 );
 const COLUMN_COUNT =
   LOWER_COLUMNS + Math.max(...MAQAM_SCALES.map((maqam) => maqam.scale.length));
+const ARABIC_CORPORA = corpora.filter((corpus) => corpus.scaleLegend === "maqam");
 
 export default function MaqamReference() {
   const preview = useMaqamPreview();
@@ -206,7 +209,13 @@ export default function MaqamReference() {
         </span>
         <span style={{ color: "#999" }}>Qanun</span>
         <span>Shift-hover: use this note as tonic.</span>
-        <Link to="/corpus/riyad_al_sunbati">Riyad Al Sunbati</Link>
+        <nav aria-label="Arabic corpora">
+          {ARABIC_CORPORA.map((corpus) => (
+            <Link key={corpus.slug} to={`/corpus/${corpus.slug}`}>
+              {corpus.composerName || formatComposerName(corpus.slug)}
+            </Link>
+          ))}
+        </nav>
       </header>
       <Staves
         ref={stavesRef}

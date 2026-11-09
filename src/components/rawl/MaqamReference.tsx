@@ -76,10 +76,15 @@ const Page = styled.main`
     color: #ccc;
     border: 0;
     padding: 0;
+    outline: none;
   }
   button:hover,
   button:focus-visible {
     color: white;
+  }
+  button:focus-visible {
+    outline: 1px solid #e9b44c;
+    outline-offset: 2px;
   }
   @media (max-width: 700px) {
     padding: 8px;

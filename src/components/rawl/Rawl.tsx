@@ -1,4 +1,4 @@
-import { instrumentVoiceMembers } from "./instrumentVoiceGroups";
+import { instrumentVoiceMembers, instrumentVoiceShapeIndex } from "./instrumentVoiceGroups";
 import { EMPTY_TIME_SLIDER_DATA } from "../timeSliderData";
 import { buildTimeSliderData } from "../buildTimeSliderData";
 import { noteColorClass } from "./colors";
@@ -904,6 +904,7 @@ const Rawl: React.FC<RawlProps> = ({
         return {
           ...note,
           color,
+          displayVoiceIndex: instrumentVoiceShapeIndex(voiceNames, voiceIndex, slug),
           isActive: arrangementVoiceMask[voiceIndex],
           colorPitchClass,
           // Include sourceLocation if it exists in the note
@@ -913,7 +914,7 @@ const Rawl: React.FC<RawlProps> = ({
     );
 
     return result;
-  }, [notes, futureAnalysis, hoverTonicPreview, measuresAndBeats, arrangementVoiceMask, slug]);
+  }, [notes, futureAnalysis, hoverTonicPreview, measuresAndBeats, arrangementVoiceMask, slug, voiceNames]);
 
   // Update display geometry directly on each click without recalculating colors
   // or changing the source notes used for saved snippets and playback.

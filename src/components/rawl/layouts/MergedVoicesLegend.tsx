@@ -1,4 +1,4 @@
-import { groupInstrumentRows, toggleInstrumentMask, soloInstrumentMask } from "../instrumentVoiceGroups";
+import { instrumentVoiceShapeIndex, groupInstrumentRows, toggleInstrumentMask, soloInstrumentMask } from "../instrumentVoiceGroups";
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
@@ -305,7 +305,7 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                   }}
                 >
                   <span
-                    className={isDrum ? undefined : `voiceShape-${voiceIndex}`}
+                    className={isDrum ? undefined : `voiceShape-${instrumentVoiceShapeIndex(sourceVoiceNames, voiceIndex, slug)}`}
                     style={{
                       display: "inline-block",
                       cursor: "pointer",

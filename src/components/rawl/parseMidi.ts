@@ -34,6 +34,8 @@ export type Note = {
 };
 
 export type ColoredNote = Note & {
+  // Presentation identity; voiceIndex remains the original MIDI/source index.
+  displayVoiceIndex?: number;
   color: string;
   isActive: boolean;
   colorPitchClass: number | "default" | "drum";

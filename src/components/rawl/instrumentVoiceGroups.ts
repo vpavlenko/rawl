@@ -1,4 +1,4 @@
-// Group controls only. Source note IDs, MIDI channels and saved indices stay intact.
+// Shared instrument identity for controls and rendering. Source IDs/channels stay intact.
 export type VoiceHover = number | number[] | null;
 
 export const usesInstrumentGroups = (slug?: string): boolean =>
@@ -9,6 +9,11 @@ export function instrumentVoiceMembers(names: string[], index: number, slug?: st
   if (!usesInstrumentGroups(slug) || !names[index]?.trim()) return [index];
   const name = names[index].trim();
   return names.flatMap((candidate, i) => candidate.trim() === name ? [i] : []);
+}
+
+// The lowest source member is stable across pitch sorting, muting and hover.
+export function instrumentVoiceShapeIndex(names: string[], index: number, slug?: string): number {
+  return instrumentVoiceMembers(names, index, slug)[0] ?? index;
 }
 
 export function voiceHoverContains(hover: VoiceHover, index: number): boolean {

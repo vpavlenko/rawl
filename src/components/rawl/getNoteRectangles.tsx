@@ -328,9 +328,10 @@ export const getNoteRectangles = (
     Math.round(Math.log(Math.max(0.001, note.span[1] - note.span[0])) / Math.log(1.1));
   const notesByVoice = new Map<number, ColoredNote[]>();
   renderableNotes.forEach((note) => {
-    const voiceNotes = notesByVoice.get(note.voiceIndex) ?? [];
+    const displayVoiceIndex = note.displayVoiceIndex ?? note.voiceIndex;
+    const voiceNotes = notesByVoice.get(displayVoiceIndex) ?? [];
     voiceNotes.push(note);
-    notesByVoice.set(note.voiceIndex, voiceNotes);
+    notesByVoice.set(displayVoiceIndex, voiceNotes);
   });
   const stackingPriorities = new Map<ColoredNote, number>();
   notesByVoice.forEach((voiceNotes) => {
@@ -416,7 +417,8 @@ const NoteRectangle = React.memo(({
   const voiceZIndices = React.useContext(VoiceZIndicesContext);
   const strumNotes = React.useContext(StrumNotesContext);
   const isStrumNote = !note.isDrum && strumNotes.has(note.id);
-  const voiceZIndex = voiceZIndices.get(note.voiceIndex);
+  const displayVoiceIndex = note.displayVoiceIndex ?? note.voiceIndex;
+  const voiceZIndex = voiceZIndices.get(displayVoiceIndex);
   const [playing, setPlaying] = React.useState(false);
   const elementRef = React.useRef<HTMLDivElement>(null);
   const playingRef = React.useRef(false);
@@ -623,7 +625,7 @@ const NoteRectangle = React.memo(({
       key={`nr_${note.id}`}
       className={`${
         hasMovingPitchBend ? "pitch-bend-note" : fractionalColor ? "fractional-pitch-note" : rectangleColor
-      } voiceShape-${voiceIndex} ${
+      } voiceShape-${displayVoiceIndex} ${
         noteUnderCursor ? "note-under-cursor" : ""
       }`}
       style={{

@@ -2536,6 +2536,12 @@ export const corpora: CorpusEntry[] = [
     country: "Russia",
   },
   {
+    slug: "carla_bley",
+    composerName: "Carla Bley",
+    genre: "Jazz",
+    midis: ["carla-bley-vashkar-trios-2013"],
+  },
+  {
     slug: "bill_evans",
     midis: [
       "bill-evans-on-autunm-leaves-from-the-album-portrait-in-jazz",

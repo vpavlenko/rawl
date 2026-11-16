@@ -57,6 +57,7 @@ import {
 } from "./analysis";
 import { getSectionAnchors, getSectionAnchorShiftTarget, setSectionAnchor } from "./sectionAnchors";
 import { repeatSectionModulations } from "./repeatSectionModulations";
+import { getRhythmGrouping } from "./rhythmGrouping";
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { analyzeHarmony, HarmonyResult } from "../../harmony/harmony";
 import { loadIndexedHarmony } from "../../harmony/index";
@@ -833,6 +834,20 @@ const Rawl: React.FC<RawlProps> = ({
     else selectMeasure(null);
   }, [selectedMeasure, measuresAndBeats, anchorSection, selectMeasure]);
 
+  const setRhythmGrouping = useCallback(
+    (groups: number[]) => {
+      if (selectedMeasure == null) return;
+      commitAnalysisUpdate({
+        rhythmGrouping: {
+          ...analysisRef.current.rhythmGrouping,
+          [selectedMeasure]: groups,
+        },
+      });
+      selectMeasure(null);
+    },
+    [selectedMeasure, commitAnalysisUpdate, selectMeasure],
+  );
+
   const setBeatsPerMeasure = useCallback(
     (beatsPerMeasure) => {
       setSelectedMeasure(null);
@@ -1174,6 +1189,8 @@ const Rawl: React.FC<RawlProps> = ({
       formPartName: analysis.form?.[selectedMeasure] ?? "",
       setFormPartName,
       setBeatsPerMeasure,
+      rhythmGrouping: getRhythmGrouping(analysis.rhythmGrouping, selectedMeasure),
+      setRhythmGrouping,
     }),
     [
       showProvisionalAnalysis,
@@ -1187,6 +1204,8 @@ const Rawl: React.FC<RawlProps> = ({
       analysis.form,
       setFormPartName,
       setBeatsPerMeasure,
+      analysis.rhythmGrouping,
+      setRhythmGrouping,
     ],
   );
 

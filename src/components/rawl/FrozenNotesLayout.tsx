@@ -26,6 +26,7 @@ import { getModulations, SecondsSpan } from "./Rawl";
 import SnippetItem from "./SnippetItem";
 import SnippetList from "./SnippetList";
 import { SystemLayoutProps } from "./SystemLayout";
+import { sliceRhythmGrouping } from "./rhythmGrouping";
 
 const Container = styled.div`
   display: flex;
@@ -451,8 +452,14 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
         ]),
       };
     }
+    const rhythmGrouping = sliceRhythmGrouping(
+      analysis.rhythmGrouping,
+      startMeasure + 1,
+      endMeasure + 1,
+    );
     const frozenAnalysis: FrozenNotesType["analysis"] = {
       ...frozenModulations,
+      ...(rhythmGrouping ? { rhythmGrouping } : {}),
       measuresAndBeats: {
         measures: deltaCoding(
           measuresAndBeats.measures

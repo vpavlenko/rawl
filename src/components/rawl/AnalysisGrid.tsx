@@ -9,6 +9,7 @@ import { getSectionAnchorShiftTarget } from "./sectionAnchors";
 import { SetBeatsPerMeasureCallback, getModulations } from "./Rawl";
 import { MeasuresAndBeats, MidiRange } from "./SystemLayout";
 import { Analysis, MeasuresSpan, PitchClass } from "./analysis";
+import { getGroupedBeatLines, parseRhythmGrouping } from "./rhythmGrouping";
 
 export const STACKED_RN_HEIGHT = 20;
 // Only the active score supplies an offset; standalone examples stay in their key.
@@ -89,6 +90,8 @@ export type MeasureSelection = {
   splitAtMeasure: (boolean, number?) => void;
   mergeAtMeasure: () => void;
   setBeatsPerMeasure: SetBeatsPerMeasureCallback;
+  rhythmGrouping?: number[];
+  setRhythmGrouping?: (groups: number[]) => void;
   formPartName?: string;
   setFormPartName?: (name: string) => void;
   anchorSection?: (target: { phrase: number; edge?: "end" } | null) => void;
@@ -337,6 +340,86 @@ export const NewTonicSymbol: React.FC<{
   );
 };
 
+const RhythmGroupingInput: React.FC<{
+  groups: number[];
+  measure: number;
+  save: (groups: number[]) => void;
+}> = ({ groups, measure, save }) => {
+  const [editing, setEditing] = useState(false);
+  const [value, setValue] = useState(groups.join("+"));
+  const parsed = parseRhythmGrouping(value);
+  const total = parsed?.reduce((sum, group) => sum + group, 0);
+  const valid = parsed !== null;
+  return (
+    <div
+      style={{ position: "relative", marginLeft: 5 }}
+      onClick={(event) => event.stopPropagation()}
+      onKeyDown={(event) => event.stopPropagation()}
+    >
+      <button
+        type="button"
+        onClick={() => setEditing(!editing)}
+        style={{ whiteSpace: "nowrap", fontSize: 11 }}
+      >
+        Rhythm grouping{groups.length ? `: ${groups.join("+")}` : ""}
+      </button>
+      {editing && (
+        <div
+          style={{
+            position: "absolute",
+            top: 24,
+            left: 0,
+            zIndex: 100,
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+            padding: 8,
+            background: "#111",
+            border: "1px solid #666",
+            color: "white",
+            whiteSpace: "nowrap",
+          }}
+        >
+          <span>{measure} →</span>
+          <input
+            autoFocus
+            type="text"
+            aria-label="Rhythm grouping"
+            aria-invalid={value !== "" && !valid}
+            placeholder="3+2+2+3"
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.nativeEvent.isComposing) return;
+              if (event.key === "Enter") {
+                event.preventDefault();
+                if (valid) save(parsed);
+              } else if (event.key === "Escape") {
+                event.preventDefault();
+                setEditing(false);
+              }
+            }}
+            style={{ width: "9em", fontSize: 12 }}
+          />
+          <span style={{ color: valid ? "#aaa" : "orange" }}>
+            Σ {total ?? "?"}
+          </span>
+          <button
+            type="button"
+            disabled={!valid}
+            onClick={() => valid && save(parsed)}
+          >
+            Save
+          </button>
+          <button type="button" onClick={() => save([])}>
+            Reset
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const Measure: React.FC<{
   span: [number, number];
   number: number;
@@ -504,6 +587,13 @@ const Measure: React.FC<{
                         setFormPartName={measureSelection.setFormPartName}
                         shiftSectionAnchor={canAnchorSection ? measureSelection.shiftSectionAnchor : undefined}
                       />
+                      {measureSelection.setRhythmGrouping && (
+                        <RhythmGroupingInput
+                          groups={measureSelection.rhythmGrouping ?? []}
+                          measure={number}
+                          save={measureSelection.setRhythmGrouping}
+                        />
+                      )}
                       {canAnchorSection && !isLastSection && measureSelection.copySectionModulations && (
                         <button
                           type="button"
@@ -858,7 +948,11 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
     playbackMeasure = null,
     showPlaybackMeasureBottomBorder = false,
   }) => {
-    const { measures, beats } = measuresAndBeats;
+    const { measures } = measuresAndBeats;
+    const beatLines = React.useMemo(
+      () => getGroupedBeatLines(measuresAndBeats, analysis.rhythmGrouping),
+      [measuresAndBeats, analysis.rhythmGrouping],
+    );
     if (sectionSpan == null) {
       sectionSpan = [0, measures.length - 1];
     }
@@ -871,7 +965,7 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
 
     // TODO: filter measures and beats using sectionSpan
     const showBeats = React.useMemo(() => {
-      const relevantBars = [...measures, ...beats]
+      const relevantBars = [...measures, ...beatLines]
         .filter(
           (bar) =>
             bar !== 0 &&
@@ -884,7 +978,7 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
           (relevantBars.length + 1) >=
         MIN_WIDTH_BETWEEN_BEATS
       );
-    }, [measures, beats, secondsToX, sectionSpan]);
+    }, [measures, beatLines, secondsToX, sectionSpan]);
 
     const selectedPhraseStart =
       phraseStarts.indexOf(measureSelection.selectedMeasure) !== -1
@@ -987,7 +1081,7 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
           ) : null;
         })}
         {showBeats &&
-          beats.map((time) =>
+          beatLines.map((time) =>
             time >= measures[sectionSpan[0]] &&
             time <= measures[sectionSpan[1]] ? (
               <Beat key={time} second={time} secondsToX={secondsToX} />

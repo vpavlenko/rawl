@@ -2,6 +2,7 @@ import cloneDeep from "lodash/cloneDeep";
 import { Note } from "./parseMidi";
 import { SecondsSpan } from "./Rawl";
 import { MeasuresAndBeats } from "./SystemLayout";
+import type { RhythmGrouping } from "./rhythmGrouping";
 
 export const TIME_SCALE_FACTOR = 100;
 
@@ -93,6 +94,7 @@ export type MidiNumberToNoteSpans = {
 
 export type FrozenAnalysis = {
   modulations: Modulations;
+  rhythmGrouping?: RhythmGrouping;
   modulationOnset?: ModulationOnset;
   measuresAndBeats: {
     measures: DeltaCoded<number>;
@@ -107,6 +109,7 @@ export type FrozenNotes = {
 
 export type Analysis = {
   modulations: Modulations;
+  rhythmGrouping?: RhythmGrouping;
   modulationOnset?: ModulationOnset;
   phrasePatch?: { measure: number; diff: number }[];
   sections?: number[];
@@ -328,6 +331,15 @@ export function rehydrateAnalysis(
   return {
     analysis: {
       modulations: adjustModulations(frozenAnalysis.modulations, measureStart),
+      ...(frozenAnalysis.rhythmGrouping
+        ? {
+            rhythmGrouping: Object.fromEntries(
+              Object.entries(frozenAnalysis.rhythmGrouping).map(
+                ([measure, groups]) => [Number(measure) + measureStart - 1, groups],
+              ),
+            ),
+          }
+        : {}),
       ...(frozenAnalysis.modulationOnset ? {
         modulationOnset: Object.fromEntries(
           Object.entries(frozenAnalysis.modulationOnset).map(

@@ -1,8 +1,9 @@
 import type { Note, PitchBendPoint } from "./parseMidi";
 import type { SecondsSpan } from "./Rawl";
 
-export const QUARTER_TONE_MARKER_SIZE = 2;
+export const QUARTER_TONE_MARKER_SIZE = 1;
 export const QUARTER_TONE_MARKER_OFFSET = 2;
+export const QUARTER_TONE_MARKER_SPACING = 2;
 
 export const pitchBendToSemitones = (value: number) =>
   (Math.max(0, Math.min(16383, value)) - 8192) / 4096;
@@ -10,6 +11,13 @@ export const pitchBendToSemitones = (value: number) =>
 export const isQuarterTonePitch = (pitch: number) => {
   const fraction = pitch - Math.floor(pitch);
   return fraction >= 0.25 && fraction <= 0.75;
+};
+
+export const getQuarterToneMarkerCount = (pitch: number): 0 | 1 | 2 => {
+  if (!isQuarterTonePitch(pitch)) return 0;
+  const lowerPitchClass = ((Math.floor(pitch) % 12) + 12) % 12;
+  // The red, green, purple, blue, and orange/yellow shade pairs.
+  return [1, 3, 5, 8, 10].includes(lowerPitchClass) ? 1 : 2;
 };
 
 // The parser can retain inherited state and a new bend at the same onset.

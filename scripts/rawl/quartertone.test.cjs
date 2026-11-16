@@ -3,7 +3,7 @@ const { test } = require("node:test");
 require("ts-node/register/transpile-only");
 const React = require("react");
 const { renderToStaticMarkup } = require("react-dom/server");
-const { isQuarterTonePitch, getStaticPitchBend } = require("../../src/components/rawl/pitchBend");
+const { isQuarterTonePitch, getStaticPitchBend, getQuarterToneMarkerCount } = require("../../src/components/rawl/pitchBend");
 const { getNoteRectangles } = require("../../src/components/rawl/getNoteRectangles");
 const { getMaqamNotationLayout } = require("../../src/components/rawl/legends/maqamNotationLayout");
 
@@ -50,14 +50,22 @@ test("static bent notes use standard rectangles at the sounding pitch", () => {
   ] })), /data-quartertone="true"/);
 });
 
-test("white dots sit at the former tick center below every fill", () => {
-  for (const colorPitchClass of [0.5, 1.5, 4.5, 8.5, 11.5]) {
-    const markup = render(note(63.5, { colorPitchClass }));
-    assert.match(markup, /data-quartertone="true"[^>]*top:calc\(100% \+ 2px\)[^>]*width:2px[^>]*height:2px[^>]*background:white/);
+test("shade-pair quartertones have one dot below; other intervals have two vertical dots below", () => {
+  for (let lower = -12; lower < 24; lower++) {
+    const pitch = lower + 0.5;
+    const sameShadePair = [1, 3, 5, 8, 10].includes(((lower % 12) + 12) % 12);
+    const count = sameShadePair ? 1 : 2;
+    assert.equal(getQuarterToneMarkerCount(pitch), count);
+    const markup = render(note(63.5, { colorPitchClass: pitch }));
+    assert.equal((markup.match(/data-quartertone="true"/g) || []).length, count);
+    assert.equal((markup.match(/width:1px;height:1px;background:white/g) || []).length, count);
+    for (const offset of sameShadePair ? [2] : [2, 4])
+      assert.ok(markup.includes(`top:calc(100% + ${offset}px)`));
     assert.match(markup, /border-radius:50%/);
-    assert.match(markup, /translate\(-50%, -50%\)/);
     assert.doesNotMatch(markup, /<svg/);
   }
+  for (const pitch of [0, 1, 3.2, 8.8, NaN, Infinity])
+    assert.equal(getQuarterToneMarkerCount(pitch), 0);
 });
 
 test("static detection coalesces onset state and repeated bends but preserves every real change", () => {
@@ -87,11 +95,11 @@ test("quartertone dots stay fixed when direct playback doubles note height", () 
   }
 });
 
-test("notation reserves space for the full dot below its lowest note", () => {
+test("notation reserves space for both outer dots below its lowest note", () => {
   for (const noteHeight of [3.5, 5, 10]) {
     const pitches = [-3.5, -1.5, 0, 1.5, 3, 5];
     const layout = getMaqamNotationLayout(pitches, [], noteHeight);
     const lowestNoteBottom = (5 + 3.5 + 1) * noteHeight + layout.topPadding;
-    assert.ok(layout.height - lowestNoteBottom >= 3);
+    assert.ok(layout.height - lowestNoteBottom >= 4.5);
   }
 });

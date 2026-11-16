@@ -2,6 +2,7 @@ import { createMidiNumberToY } from "../noteCoordinates";
 import {
   QUARTER_TONE_MARKER_OFFSET,
   QUARTER_TONE_MARKER_SIZE,
+  QUARTER_TONE_MARKER_SPACING,
 } from "../pitchBend";
 
 export type MaqamNotationGroup = {
@@ -65,7 +66,7 @@ export const getMaqamNotationLayout = (
     ),
   );
   const bottom = Math.max(
-    pitchHeight + QUARTER_TONE_MARKER_OFFSET + QUARTER_TONE_MARKER_SIZE / 2,
+    pitchHeight + QUARTER_TONE_MARKER_OFFSET + QUARTER_TONE_MARKER_SPACING + QUARTER_TONE_MARKER_SIZE / 2,
     ...groups.map(
       (group, index) =>
         groupTops[index] +

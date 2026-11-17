@@ -202,6 +202,29 @@ async function main() {
   assert.equal(player.channelProgramNums[14], 59);
   player.resume();
   player.processPlaySynth(buffer, 1024);
+  // Tempo changes must leave a currently sounding native synth note intact.
+  const tempoCalls = [];
+  const tempoSynth = { ...synth };
+  for (const method of ["noteOn", "noteOff", "panic", "reset"])
+    tempoSynth[method] = (...args) => { tempoCalls.push(method); return synth[method](...args); };
+  const held = parser(bytes([[
+    event("programChange", { channel: 0, programNumber: 0 }),
+    event("noteOn", { channel: 0, noteNumber: 60, velocity: 100 }),
+    event("noteOff", { channel: 0, noteNumber: 60, velocity: 0 }, 480 * 8),
+    event("endOfTrack"),
+  ]]), tempoSynth).player;
+  held.resume();
+  held.processPlaySynth(buffer, 1024);
+  assert.equal(tempoCalls.filter(method => method === "noteOn").length, 1);
+  tempoCalls.length = 0;
+  const beforeTempo = held.getPosition();
+  for (const speed of [1.1, 0.9, 1.01, 1]) {
+    held.setSpeed(speed);
+    held.processPlaySynth(buffer, 1024);
+  }
+  assert.ok(held.getPosition() > beforeTempo);
+  assert.deepEqual(tempoCalls, [], "Tempo changes must not retrigger, release, panic or reset a held note");
+  synth.panic();
   // Piano hands sharing one pair still split; another port's same channel stays independent.
   const split = transform(
     bytes([track(1, 0, 48, 0), track(1, 0, 72, 0), track(2, 59, 60, 0)]),

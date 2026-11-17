@@ -4,7 +4,24 @@ This integration lives in the isolated `codex/librawl-foundation` worktree based
 on Rawl commit `c5c9bb0407534d9b7eb9a8267078c006fa340ee6`. It does not itself
 merge into the original checkout or publish rawl.rocks.
 
-## Current note-tooltip release (0.3.2)
+## Current shared audition release (0.3.4)
+
+Rawl pins `vendor/librawl-0.3.4.tgz`, source commit `ed851c4`.
+SHA256: `43b61397c67d338612896021c1c89305dbda476d17d7aba031a906f414f423c1`.
+The existing Shift-hover branches now use `createShiftHoverAudition` from
+`librawl/native`; Rawl retains its own note audition function and all existing
+editing, cents, drum and Qanun behavior. The helper auditions one shifted
+entry per visit and ignores moves. Leave and source lifecycle changes reset
+that visit.
+
+The shared package passes 71 tests. Rawl passes all 58 focused tests, TypeScript
+with zero errors, four playback gates and the worklet sync check. An actual
+WASM synth regression holds one note while changing speed four times: source
+time advances with no new note-on, note-off, panic or reset calls. Rawl's
+native rate path already changes speed continuously; its synthesis remains
+host-owned. Evidence: [`librawl-gesture-tempo-034.json`](../evidence/librawl-gesture-tempo-034.json).
+
+## Note-tooltip release (0.3.2)
 
 Rawl pins `vendor/librawl-0.3.2.tgz`, public tag `v0.3.2` / commit
 `61cfdd8`. SHA256: `22c90894ee055808df3c56fb66c7339a7862bd3b3f38b8bfbd32a9900b995ea7`.

@@ -4,6 +4,7 @@ import { buildTimeSliderData } from "../buildTimeSliderData";
 import { noteColorClass } from "./colors";
 import { getNotePitchAtTime } from "./pitchBend";
 import { getHoverColorPitchClass, getHoverTonicPreview } from "./hoverTonic";
+import { createShiftHoverAudition } from "librawl/native";
 import { getNoteCentsFromTonic } from "./noteCents";
 import NoteCentsTooltip from "./NoteCentsTooltip";
 import { corpora, usesQanunTimbre } from "./corpora/corpora";
@@ -521,11 +522,19 @@ const Rawl: React.FC<RawlProps> = ({
     [onsetEditing, isOnsetNoteAllowed],
   );
 
+  const shiftHoverAudition = useMemo(() => createShiftHoverAudition<Note, React.MouseEvent>({
+    audition: (note) => playNote(note),
+    isEnabled: () => showProvisionalAnalysis ||
+      (!onsetEditing && !enableManualRemeasuring && !selectedMeasureRef.current),
+  }), [playNote, showProvisionalAnalysis, onsetEditing, enableManualRemeasuring]);
+  useEffect(() => () => shiftHoverAudition.reset(), [shiftHoverAudition, slug]);
+
   const handleMouseEnter = useCallback(
     (note: Note, event?: React.MouseEvent, time?: number) => {
       if (showNoteCents && event && !note.isDrum) {
         setCentsHover({ note, time: time ?? note.span[0], x: event.clientX, y: event.clientY });
       }
+      shiftHoverAudition.enter(note, event, time);
       if (event?.type === "mousemove") {
         if (!showProvisionalAnalysis && !onsetEditing && !enableManualRemeasuring &&
             selectedMeasureRef.current) {
@@ -535,7 +544,6 @@ const Rawl: React.FC<RawlProps> = ({
         return;
       }
       if (showProvisionalAnalysis) {
-        if (event?.shiftKey) playNote(note);
         return;
       }
       if (onsetEditing) {
@@ -546,21 +554,20 @@ const Rawl: React.FC<RawlProps> = ({
         if (selectedMeasureRef.current) {
           setHoveredNote(note);
           setHoveredTonicPitch(getNotePitchAtTime(note, time));
-        } else if (event?.shiftKey) {
-          playNote(note);
         }
       }
     },
-    [showProvisionalAnalysis, enableManualRemeasuring, playNote, onsetEditing, showNoteCents],
+    [showProvisionalAnalysis, enableManualRemeasuring, shiftHoverAudition, onsetEditing, showNoteCents],
   );
 
   const handleMouseLeave = useCallback(() => {
+    shiftHoverAudition.leave();
     setCentsHover(null);
     if (!enableManualRemeasuring) {
       setHoveredNote(null);
       setHoveredTonicPitch(null);
     }
-  }, [enableManualRemeasuring]);
+  }, [enableManualRemeasuring, shiftHoverAudition]);
 
   const futureSavedAnalysis = useMemo(() => {
     if (showProvisionalAnalysis || !hoveredNote) return analysis;

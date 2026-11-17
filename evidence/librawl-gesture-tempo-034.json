@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-17",
+  "scope": "Rawl shared Shift-hover audition integration and native continuous-tempo regression coverage",
+  "library": {
+    "version": "0.3.4",
+    "artifact": "vendor/librawl-0.3.4.tgz",
+    "bytes": 253900,
+    "sha256": "43b61397c67d338612896021c1c89305dbda476d17d7aba031a906f414f423c1",
+    "integrity": "sha512-7VnSp4tvJpxtyY9SLY4anBEK+dLGETBWMvPKS7Ts/lERyP0JGET2cy2QwmcGyhMaRhrmvzgIWmBpzIPXcRNo/A==",
+    "sourceCommit": "ed851c4",
+    "installedFilesVerified": 49,
+    "sharedTestsPassed": 71
+  },
+  "checks": {
+    "typescriptErrors": 0,
+    "focusedPassed": 58,
+    "focusedFailed": 0,
+    "focusedSkipped": 0,
+    "playbackGates": 4,
+    "actualWasmHeldNoteTempo": {
+      "speeds": [
+        1.1,
+        0.9,
+        1.01,
+        1
+      ],
+      "newNoteOn": 0,
+      "noteOff": 0,
+      "panic": 0,
+      "reset": 0,
+      "sourceTimeAdvances": true
+    },
+    "outputWorkletSha256": "c0d987933f339e99de72ad77b79f75fffb7dd82b6800cb2558387d6df88a6e13"
+  },
+  "gesture": {
+    "owner": "librawl/native.createShiftHoverAudition",
+    "auditionOwner": "Rawl.playNote",
+    "preserved": [
+      "provisional preview",
+      "manual remeasuring",
+      "selected-tonic recoloring",
+      "modulation onset editing",
+      "cents hover",
+      "Qanun fractional pitch",
+      "untransposed drum audition"
+    ],
+    "deduplication": "One shifted entry per visit; moves do not audition; leave and lifecycle reset permit a subsequent visit."
+  },
+  "browser": {
+    "status": "pending original-checkout pin"
+  },
+  "deployment": {
+    "status": "pending clean-worktree deploy-lite"
+  }
+}

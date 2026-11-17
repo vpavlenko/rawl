@@ -244,7 +244,8 @@ const Rawl: React.FC<RawlProps> = ({
     [saveAnalysis],
   );
 
-  const voiceMembers = useCallback((index: number) => instrumentVoiceMembers(voiceNames, index, slug), [voiceNames, slug]);
+  const groupByInstrument = usesQanunTimbre(slug);
+  const voiceMembers = useCallback((index: number) => instrumentVoiceMembers(voiceNames, index, slug, groupByInstrument), [voiceNames, slug, groupByInstrument]);
 
   // Missing or invalid saved offsets render at the original octave.
   const voiceOctaveShifts = useMemo<Record<number, number>>(() => {
@@ -923,7 +924,7 @@ const Rawl: React.FC<RawlProps> = ({
         return {
           ...note,
           color,
-          displayVoiceIndex: instrumentVoiceShapeIndex(voiceNames, voiceIndex, slug),
+          displayVoiceIndex: instrumentVoiceShapeIndex(voiceNames, voiceIndex, slug, groupByInstrument),
           isActive: arrangementVoiceMask[voiceIndex],
           colorPitchClass,
           // Include sourceLocation if it exists in the note
@@ -933,7 +934,7 @@ const Rawl: React.FC<RawlProps> = ({
     );
 
     return result;
-  }, [notes, futureAnalysis, hoverTonicPreview, measuresAndBeats, arrangementVoiceMask, slug, voiceNames]);
+  }, [notes, futureAnalysis, hoverTonicPreview, measuresAndBeats, arrangementVoiceMask, slug, voiceNames, groupByInstrument]);
 
   // Update display geometry directly on each click without recalculating colors
   // or changing the source notes used for saved snippets and playback.

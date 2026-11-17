@@ -1,19 +1,19 @@
 // Shared instrument identity for controls and rendering. Source IDs/channels stay intact.
 export type VoiceHover = number | number[] | null;
 
-export const usesInstrumentGroups = (slug?: string): boolean =>
-  slug === "samai-bayati-qadim" ||
+export const usesInstrumentGroups = (slug?: string, groupByInstrument = false): boolean =>
+  groupByInstrument ||
   /^fazil-say-istanbul-symphony-0[1-7]-/.test(slug || "");
 
-export function instrumentVoiceMembers(names: string[], index: number, slug?: string): number[] {
-  if (!usesInstrumentGroups(slug) || !names[index]?.trim()) return [index];
+export function instrumentVoiceMembers(names: string[], index: number, slug?: string, groupByInstrument = false): number[] {
+  if (!usesInstrumentGroups(slug, groupByInstrument) || !names[index]?.trim()) return [index];
   const name = names[index].trim();
   return names.flatMap((candidate, i) => candidate.trim() === name ? [i] : []);
 }
 
 // The lowest source member is stable across pitch sorting, muting and hover.
-export function instrumentVoiceShapeIndex(names: string[], index: number, slug?: string): number {
-  return instrumentVoiceMembers(names, index, slug)[0] ?? index;
+export function instrumentVoiceShapeIndex(names: string[], index: number, slug?: string, groupByInstrument = false): number {
+  return instrumentVoiceMembers(names, index, slug, groupByInstrument)[0] ?? index;
 }
 
 export function voiceHoverContains(hover: VoiceHover, index: number): boolean {
@@ -21,14 +21,14 @@ export function voiceHoverContains(hover: VoiceHover, index: number): boolean {
 }
 
 export function groupInstrumentRows<T extends { voiceIndex: number }>(
-  rows: T[], names: string[], slug?: string, excluded: number[] = [],
+  rows: T[], names: string[], slug?: string, excluded: number[] = [], groupByInstrument = false,
 ): (T & { voiceMembers: number[] })[] {
   const removed = new Set(excluded);
   const seen = new Set<number>();
   const result: (T & { voiceMembers: number[] })[] = [];
   rows.forEach((row) => {
     if (removed.has(row.voiceIndex) || seen.has(row.voiceIndex)) return;
-    const members = instrumentVoiceMembers(names, row.voiceIndex, slug)
+    const members = instrumentVoiceMembers(names, row.voiceIndex, slug, groupByInstrument)
       .filter((index) => !removed.has(index));
     members.forEach((index) => seen.add(index));
     result.push({ ...row, voiceMembers: members });

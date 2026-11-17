@@ -1,4 +1,5 @@
 import { instrumentVoiceShapeIndex, groupInstrumentRows, toggleInstrumentMask, soloInstrumentMask } from "../instrumentVoiceGroups";
+import { usesQanunTimbre } from "../corpora/corpora";
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
@@ -180,11 +181,12 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
     return () => window.clearTimeout(timer);
   }, [flashing]);
 
+  const groupByInstrument = usesQanunTimbre(slug);
   const order = displayedOrder.split(",").map(Number);
   const sortedVoices = groupInstrumentRows([...targetVoices].sort(
     (a, b) => order.indexOf(a.voiceIndex) - order.indexOf(b.voiceIndex),
-  ), sourceVoiceNames, slug, excludedVoices);
-  const excludedGroups = groupInstrumentRows(excludedVoices.map((voiceIndex) => ({ voiceIndex })), sourceVoiceNames, slug);
+  ), sourceVoiceNames, slug, excludedVoices, groupByInstrument);
+  const excludedGroups = groupInstrumentRows(excludedVoices.map((voiceIndex) => ({ voiceIndex })), sourceVoiceNames, slug, [], groupByInstrument);
 
   const handlePanningToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.checked;
@@ -305,7 +307,7 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                   }}
                 >
                   <span
-                    className={isDrum ? undefined : `voiceShape-${instrumentVoiceShapeIndex(sourceVoiceNames, voiceIndex, slug)}`}
+                    className={isDrum ? undefined : `voiceShape-${instrumentVoiceShapeIndex(sourceVoiceNames, voiceIndex, slug, groupByInstrument)}`}
                     style={{
                       display: "inline-block",
                       cursor: "pointer",

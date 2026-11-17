@@ -29,6 +29,14 @@ export const interpolatedPitchColor = (pitch: number) => {
 export const noteColorClass = (pitch: number | "default" | "drum") =>
   `noteColor_${pitch}_colors`;
 
+export const notePitchDotClass = (pitch: number) => {
+  if (!Number.isFinite(pitch)) return "";
+  const nearest = Math.round(pitch);
+  const pitchClass = ((nearest % 12) + 12) % 12;
+  return Math.abs(pitch - nearest) <= 0.25 && RAWL_COLORS[pitchClass].dot
+    ? `pitchDot_${pitchClass}` : "";
+};
+
 export const noteLetterColors = (prefix = "") =>
   RAWL_COLORS.map(({ foreground }, pitch) => `
     ${prefix}.${noteColorClass(pitch)} {
@@ -54,10 +62,10 @@ export const RawlColorStyles = createGlobalStyle`
       background-color: ${pitchColor(pitch)} !important;
     }
     ${dot ? `
-      .${noteColorClass(pitch)}::after {
+      .${noteColorClass(pitch)}::after, .pitchDot_${pitch}::after {
         content: "";
         position: absolute;
-        top: 50%;
+        top: calc(50% + var(--pitch-dot-offset, 0px));
         left: 50%;
         width: ${dot.size}px;
         height: ${dot.size}px;

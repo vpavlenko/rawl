@@ -1,6 +1,6 @@
 import { voiceHoverContains } from "./instrumentVoiceGroups";
-import { interpolatedPitchColor, noteColorClass } from "./colors";
-import { getNotePitchAtTime, getPitchBendSamples, getStaticPitchBend, getQuarterToneMarkerCount, QUARTER_TONE_MARKER_SIZE, QUARTER_TONE_MARKER_OFFSET, QUARTER_TONE_MARKER_SPACING } from "./pitchBend";
+import { interpolatedPitchColor, noteColorClass, notePitchDotClass } from "./colors";
+import { getNotePitchAtTime, getPitchBendSamples, getStaticPitchBend, getQuarterToneMarkerPosition, QUARTER_TONE_MARKER_SIZE, QUARTER_TONE_MARKER_OFFSET } from "./pitchBend";
 import * as React from "react";
 import { SecondsConverter, SecondsSpan } from "./Rawl";
 import { ColoredNote, Note, PitchBendPoint } from "./parseMidi";
@@ -516,8 +516,10 @@ const NoteRectangle = React.memo(({
     !Number.isInteger(rectanglePitchClass);
   const middlePitch = getNotePitchAtTime(note, (note.span[0] + note.span[1]) / 2);
   const middleBend = middlePitch - midiNumber;
-  const quarterToneMarkerCount = !isDrum && typeof note.colorPitchClass === "number"
-    ? getQuarterToneMarkerCount(note.colorPitchClass + middleBend) : 0;
+  const pitchDotClass = !isDrum && typeof note.colorPitchClass === "number"
+    ? notePitchDotClass(note.colorPitchClass + middleBend) : "";
+  const quarterToneMarkerPosition = !pitchDotClass && !isDrum && typeof note.colorPitchClass === "number"
+    ? getQuarterToneMarkerPosition(note.colorPitchClass + middleBend) : null;
   const markerBendOffset = hasMovingPitchBend
     ? midiNumberToY(number + middleBend) - midiNumberToY(number) : 0;
   const previewAtPointer = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -570,8 +572,8 @@ const NoteRectangle = React.memo(({
     ? Math.max(0, width - fadeStart - continuationLength)
     : -1;
   const maskPadding = (hasMovingPitchBend ? noteHeight * 2 + 1 : 1) +
-    (quarterToneMarkerCount
-      ? QUARTER_TONE_MARKER_OFFSET + (quarterToneMarkerCount - 1) * QUARTER_TONE_MARKER_SPACING + QUARTER_TONE_MARKER_SIZE / 2 : 0);
+    (quarterToneMarkerPosition
+      ? QUARTER_TONE_MARKER_OFFSET + QUARTER_TONE_MARKER_SIZE / 2 : 0);
 
   // Format source location string if it exists
   let sourceLocationText = "";
@@ -628,7 +630,7 @@ const NoteRectangle = React.memo(({
       key={`nr_${note.id}`}
       className={`${
         hasMovingPitchBend ? "pitch-bend-note" : fractionalColor ? "fractional-pitch-note" : rectangleColor
-      } voiceShape-${displayVoiceIndex} ${
+      } voiceShape-${displayVoiceIndex} ${pitchDotClass} ${
         noteUnderCursor ? "note-under-cursor" : ""
       }`}
       style={{
@@ -660,6 +662,7 @@ const NoteRectangle = React.memo(({
         boxSizing: "border-box",
         backgroundColor: !hasMovingPitchBend && fractionalColor
           ? interpolatedPitchColor(rectanglePitchClass as number) : undefined,
+        ...{ "--pitch-dot-offset": `${markerBendOffset}px` },
         display: "grid",
         boxShadow: showFullNote && !hasMovingPitchBend ? "0 0 0px 0.5px black" : "",
         cursor: onsetCursor ?? (enableManualRemeasuring
@@ -695,16 +698,18 @@ const NoteRectangle = React.memo(({
           interactive={!!handleNoteClick}
         />
       )}
-      {showFullNote && Array.from({ length: quarterToneMarkerCount }, (_, index) => (
+      {showFullNote && quarterToneMarkerPosition && (
         <div
-          key={`quartertone-${index}`}
           data-quartertone="true"
+          data-quartertone-position={quarterToneMarkerPosition}
           aria-hidden="true"
           style={{
             position: "absolute",
             left: "50%",
-            // The lower edge stays fixed when playback grows the note upward.
-            top: `calc(100% + ${markerBendOffset + QUARTER_TONE_MARKER_OFFSET + index * QUARTER_TONE_MARKER_SPACING}px)`,
+            // Anchor to the corresponding edge as playback changes note height.
+            top: quarterToneMarkerPosition === "above"
+              ? markerBendOffset - QUARTER_TONE_MARKER_OFFSET
+              : `calc(100% + ${markerBendOffset + QUARTER_TONE_MARKER_OFFSET}px)`,
             width: QUARTER_TONE_MARKER_SIZE,
             height: QUARTER_TONE_MARKER_SIZE,
             background: "white",
@@ -713,7 +718,7 @@ const NoteRectangle = React.memo(({
             pointerEvents: "none",
           }}
         />
-      ))}
+      )}
       {showSourceLocation && sourceLocationText && showFullNote && (
         <div
           style={{

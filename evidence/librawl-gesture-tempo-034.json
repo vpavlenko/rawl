@@ -47,9 +47,27 @@
     "deduplication": "One shifted entry per visit; moves do not audition; leave and lifecycle reset permit a subsequent visit."
   },
   "browser": {
-    "status": "pending original-checkout pin"
+    "status": "passed scoped rendering/runtime check",
+    "url": "http://localhost:3000/f/all-the-things-you-are",
+    "freshDedicatedChromeWindow": true,
+    "renderedScoreAndFlags": true,
+    "retainedVoices": 4,
+    "manualRemeasuring": false,
+    "finalTempo": 1,
+    "newApplicationExceptions": 0,
+    "existingWarnings": [
+      "SockJS unload permission policy",
+      "SoundFont invalid generators",
+      "Unused WASM preload"
+    ],
+    "developmentCache": "Restarted agent-started server on same3000 port; fresh served bundle contains shared helper definition and host call.",
+    "auditionProof": "Three automated tests execute actual Rawl host callbacks and shared helper, including Qanun/drums/cents/editing gates. Native Chrome focus prevented reliable separate browser audio-event counting; no human-listening claim.",
+    "publicReaderTabsUntouched": true
   },
   "deployment": {
-    "status": "pending clean-worktree deploy-lite"
+    "status": "ready",
+    "command": "npm run deploy-lite",
+    "checkout": "/Users/chipfocus/repos/lego/rawl-librawl",
+    "whitepaperDraftExcluded": true
   }
 }

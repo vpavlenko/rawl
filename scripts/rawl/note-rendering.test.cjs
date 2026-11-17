@@ -78,3 +78,15 @@ test("a same-onset zero-duration duplicate is skipped while arbitrarily short po
   assert.deepEqual(mixed.map((element) => element.props.note), [short, drum]);
   assert.deepEqual(mixed, render([short, drum]));
 });
+
+test("shared native notes reject host tooltips while preserving accessibility and source attributes", () => {
+  const attributes = Object.freeze({ title: "host tooltip", "aria-label": "C4", "data-source-row": "7" });
+  const notes = [note("plain", [0, 2]), note("bend", [0, 2], { pitchBend: [{ time: 0, value: 8192 }, { time: 1, value: 10240 }] })];
+  const rectangles = getNoteRectangles(notes, ...renderOptions, null, undefined, undefined, () => attributes);
+  const markup = renderToStaticMarkup(React.createElement(React.Fragment, null, rectangles));
+  assert.doesNotMatch(markup, /\stitle=|<title[\s>]/);
+  assert.equal((markup.match(/aria-label="C4"/g) || []).length, 2);
+  assert.equal((markup.match(/data-source-row="7"/g) || []).length, 2);
+  assert.match(markup, /<svg/);
+  assert.equal(attributes.title, "host tooltip");
+});

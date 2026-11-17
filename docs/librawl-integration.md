@@ -4,6 +4,22 @@ This integration lives in the isolated `codex/librawl-foundation` worktree based
 on Rawl commit `c5c9bb0407534d9b7eb9a8267078c006fa340ee6`. It does not itself
 merge into the original checkout or publish rawl.rocks.
 
+## Current note-tooltip release (0.3.2)
+
+Rawl pins `vendor/librawl-0.3.2.tgz`, public tag `v0.3.2` / commit
+`61cfdd8`. SHA256: `22c90894ee055808df3c56fb66c7339a7862bd3b3f38b8bfbd32a9900b995ea7`.
+The shared native renderer removes individual note titles, including titles
+supplied by host adapters. Accessibility labels, source attributes, note
+interactions and playback height doubling remain unchanged. Both locks and
+all 49 installed package files match the frozen archive. The output worklet
+remains byte-identical.
+
+Node 24.12.0 verification passes TypeScript with zero errors, all 50 focused
+tests without skips, all four playback gates and worklet synchronization.
+The library itself passes 56 tests across React 16 and React 19.
+Current release evidence: [`librawl-note-tooltips-032.json`](../evidence/librawl-note-tooltips-032.json).
+The earlier integration history and browser scope below remain unchanged.
+
 ## Runtime and library boundary
 
 - React and React DOM are pinned to `19.3.1`; styled-components is `6.6.0`.

@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-17",
+  "scope": "Rawl shared note-tooltip suppression release; prior integration evidence is retained separately.",
+  "library": {
+    "version": "0.3.2",
+    "artifact": "vendor/librawl-0.3.2.tgz",
+    "bytes": 237063,
+    "sha256": "22c90894ee055808df3c56fb66c7339a7862bd3b3f38b8bfbd32a9900b995ea7",
+    "integrity": "sha512-z/X1ojP+O1MxFuYe6Sz13YsKpLdZBSVD1fZtjVCw8QBATO9ux++po0d6A/LzevaZimFeNKN1Ouz+FoE3qesxvg==",
+    "publicCommit": "61cfdd8",
+    "publicTag": "v0.3.2",
+    "installedFilesVerified": 49,
+    "npmAndYarnLockIntegrity": "verified"
+  },
+  "checks": {
+    "node": "24.12.0",
+    "typescriptErrors": 0,
+    "focused": {
+      "passed": 50,
+      "failed": 0,
+      "skipped": 0
+    },
+    "sharedLibraryTests": 56,
+    "playbackIndex": "passed",
+    "midiOutputProtocol": "passed",
+    "firstMeasureSeek": "passed",
+    "actualWasmMidiPorts": "passed",
+    "outputWorkletSync": "passed",
+    "outputWorkletSha256": "c0d987933f339e99de72ad77b79f75fffb7dd82b6800cb2558387d6df88a6e13"
+  },
+  "behavior": "Shared native renderer suppresses host-provided note title attributes; labels, source metadata, pitch bends, note audition and playback height doubling retain their previous behavior.",
+  "browser": {
+    "status": "pending original-checkout pin installation"
+  },
+  "deployment": {
+    "status": "pending"
+  }
+}

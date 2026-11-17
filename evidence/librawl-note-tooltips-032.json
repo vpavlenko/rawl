@@ -30,9 +30,40 @@
   },
   "behavior": "Shared native renderer suppresses host-provided note title attributes; labels, source metadata, pitch bends, note audition and playback height doubling retain their previous behavior.",
   "browser": {
-    "status": "pending original-checkout pin installation"
+    "status": "passed",
+    "url": "http://localhost:3000/f/all-the-things-you-are",
+    "renderedNoteElements": 817,
+    "individualNoteTitleAttributes": 0,
+    "descendantAndSvgTitles": 0,
+    "observedPlaybackNoteHeights": [
+      "6px",
+      "12px"
+    ],
+    "clockSamples": [
+      "0:00",
+      "0:09",
+      "0:17"
+    ],
+    "pauseResume": true,
+    "visualNotationAndFlags": "preserved",
+    "consoleNewApplicationExceptions": 0,
+    "existingWarnings": [
+      "SockJS unload permissions policy",
+      "SoundFont invalid generators",
+      "Unused chip-core WASM preload"
+    ],
+    "scope": "One standard, desktop Chrome; bends/drums and host labels covered by shared React16/19 DOM tests. No human-listening or every-piece claim."
   },
   "deployment": {
-    "status": "pending"
+    "status": "ready",
+    "command": "npm run deploy-lite",
+    "checkout": "/Users/chipfocus/repos/lego/rawl-librawl",
+    "reason": "Clean release worktree prevents exporting the unrelated untracked public/whitepaper draft from the original checkout."
+  },
+  "originalCheckout": {
+    "path": "/Users/chipfocus/repos/rawl",
+    "installedVersion": "0.3.2",
+    "port": 3000,
+    "unrelatedWhitepaperFilesByteIdentical": 7
   }
 }

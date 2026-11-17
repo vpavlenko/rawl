@@ -853,6 +853,10 @@ const Rawl: React.FC<RawlProps> = ({
       setSelectedMeasure(null);
 
       const analysisUpdate = {
+        rhythmGrouping: {
+          ...analysisRef.current.rhythmGrouping,
+          [selectedMeasure]: [],
+        },
         measures: {
           beatsPerMeasure: {
             ...(analysis.measures?.beatsPerMeasure ?? {}),

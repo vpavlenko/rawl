@@ -129,7 +129,7 @@ test("frozen excerpts retain the inherited grouping and later resets", () => {
   assert.equal(sliceRhythmGrouping(undefined, 3, 6), undefined);
 });
 
-test("measure menu validates, saves with Enter, and resets grouping", () => {
+test("one measure input sets beats or grouping with Enter and retains split, merge and Reset", () => {
   global.document = require("jsdom").jsdom(
     "<!doctype html><html><body></body></html>",
   );
@@ -158,6 +158,8 @@ test("measure menu validates, saves with Enter, and resets grouping", () => {
   const container = document.createElement("div");
   document.body.appendChild(container);
   const saves = [];
+  const meters = [];
+  let splits = 0, merges = 0;
   const render = (groups = [], timing = grid) =>
     ReactDOM.render(
       React.createElement(
@@ -178,9 +180,9 @@ test("measure menu validates, saves with Enter, and resets grouping", () => {
           measureSelection: {
             selectedMeasure: 1,
             selectMeasure() {},
-            splitAtMeasure() {},
-            mergeAtMeasure() {},
-            setBeatsPerMeasure() {},
+            splitAtMeasure() { splits++; },
+            mergeAtMeasure() { merges++; },
+            setBeatsPerMeasure(value) { meters.push(value); },
             rhythmGrouping: groups,
             setRhythmGrouping: (value) => saves.push(value),
           },
@@ -194,17 +196,35 @@ test("measure menu validates, saves with Enter, and resets grouping", () => {
     );
   try {
     render();
-    Simulate.click(button("Rhythm grouping"));
-    const input = container.querySelector('[aria-label="Rhythm grouping"]');
+    const input = container.querySelector('[aria-label="Rhythm"]');
     assert.ok(input);
-    Simulate.change(input, { target: { value: "3+0+2+3" } });
-    assert.equal(button("Save").disabled, true);
+    assert.equal(container.querySelectorAll('input[type="text"]').length, 1);
+    assert.equal(button("Rhythm grouping"), undefined);
     Simulate.keyDown(input, { key: "Enter", nativeEvent: {} });
+    Simulate.keyDown(input, { key: "Enter", shiftKey: true, nativeEvent: {} });
+    assert.equal(splits, 1);
+    assert.equal(merges, 1);
+    for (const value of ["3+0+2+3", "3+", "0", "2.5", "9007199254740992"]) {
+      Simulate.change(input, { target: { value } });
+      assert.equal(input.getAttribute("aria-invalid"), "true");
+      Simulate.keyDown(input, { key: "Enter", nativeEvent: {} });
+    }
     assert.deepEqual(saves, []);
-    Simulate.change(input, { target: { value: "3+2+2+3" } });
-    assert.equal(button("Save").disabled, false);
+    assert.deepEqual(meters, []);
+    Simulate.change(input, { target: { value: "3" } });
     Simulate.keyDown(input, { key: "Enter", nativeEvent: {} });
-    assert.deepEqual(saves, [[3, 2, 2, 3]]);
+    assert.deepEqual(meters, [3]);
+    assert.deepEqual(saves, []);
+    Simulate.keyDown(input, { key: "+", nativeEvent: {} });
+    assert.equal(document.activeElement, input);
+    Simulate.change(input, { target: { value: "3+2" } });
+    Simulate.keyDown(input, { key: "Enter", nativeEvent: {} });
+    assert.deepEqual(saves, [[3, 2]]);
+    Simulate.change(input, { target: { value: "3+2+2+3" } });
+    assert.equal(input.getAttribute("aria-invalid"), "false");
+    Simulate.keyDown(input, { key: "Enter", nativeEvent: {} });
+    assert.deepEqual(saves, [[3, 2], [3, 2, 2, 3]]);
+    assert.deepEqual(meters, [3]);
     ReactDOM.unmountComponentAtNode(container);
     render([3, 2, 2, 3]);
     const renderedBeats = [...container.querySelectorAll("div")]
@@ -218,27 +238,20 @@ test("measure menu validates, saves with Enter, and resets grouping", () => {
       renderedBeats,
       [300, 500, 700, 1300, 1500, 1700, 2300, 2500, 2700],
     );
-    Simulate.click(button("Rhythm grouping"));
     assert.equal(
-      container.querySelector('[aria-label="Rhythm grouping"]').value,
-      "3+2+2+3",
+      container.querySelector('[aria-label="Rhythm"]').placeholder,
+      "3 or 3+2",
     );
     Simulate.click(button("Reset"));
-    assert.deepEqual(saves, [[3, 2, 2, 3], []]);
+    assert.deepEqual(saves, [[3, 2], [3, 2, 2, 3], []]);
 
     // Regression: RAWL_DISPLAY beatsPerMeasure: 1 yields no beat timestamps.
     ReactDOM.unmountComponentAtNode(container);
     const hiddenGrid = { measures: grid.measures, beats: [] };
     render([], hiddenGrid);
-    Simulate.click(button("Rhythm grouping"));
-    const hiddenInput = container.querySelector(
-      '[aria-label="Rhythm grouping"]',
-    );
+    const hiddenInput = container.querySelector('[aria-label="Rhythm"]');
     Simulate.change(hiddenInput, { target: { value: "3+2+2+3" } });
-    assert.equal(button("Save").disabled, false);
-    assert.ok(container.textContent.includes("Σ 10"));
-    assert.ok(!container.textContent.includes("10/1"));
-    Simulate.click(button("Save"));
+    Simulate.keyDown(hiddenInput, { key: "Enter", nativeEvent: {} });
     assert.deepEqual(saves.at(-1), [3, 2, 2, 3]);
     ReactDOM.unmountComponentAtNode(container);
     render([3, 2, 2, 3], hiddenGrid);

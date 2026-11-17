@@ -1,16 +1,19 @@
 {
   "date": "2026-11-17",
-  "scope": "Isolated codex/librawl-foundation worktree; CLI verification and one scoped Chrome comparison; no merge or production publication",
+  "scope": "Isolated codex/librawl-foundation worktree; final librawl 0.3 CLI and tempo-binding verification; prior 0.2 scoped Chrome comparison retained separately; no merge or production publication",
   "baselineCommit": "c5c9bb0407534d9b7eb9a8267078c006fa340ee6",
   "node": "24.12.0",
   "library": {
-    "version": "0.2.0",
-    "artifact": "vendor/librawl-0.2.0.tgz",
-    "sha256": "34f212d2569da37e7b514ac2aff899fb68d85b4b84c218defe9ab2e9171924e8",
-    "integrity": "sha512-kSyHAIsYTPCDtszxjptum/UZ/DITKMCqIBf0UvuMKUvrQg9BJvBnKgOc7U8Wz8SdHblHYTOzAH1m/Px/7ayFgA==",
+    "version": "0.3.0",
+    "artifact": "vendor/librawl-0.3.0.tgz",
+    "sha256": "0678d2340f1d4ecd4fb597156227e6f3a60ec5d141019dc9b39588ea44b78b65",
+    "integrity": "sha512-F+b7RMfqgyvcH8+4IUEBQX99D9U/UtaV/n2UAu4cJb76KjI1X+raR14OGkWLtn8tTdEk+m+UWav9OCXgnzqIHQ==",
     "npmLockVerified": true,
     "yarnLockVerified": true,
-    "installedVersionVerified": true
+    "installedVersionVerified": true,
+    "bytes": 236909,
+    "publicCommit": "3999bc3c0e920b15cc4a7faf5366dcfc5e9ceced",
+    "installedArtifactsVerified": true
   },
   "runtime": {
     "react": "19.3.1",
@@ -97,7 +100,41 @@
         "Existing WASM font invalid-generator warning",
         "Existing autoplay warning"
       ],
-      "narrowLayoutInvestigation": "Existing stale viewport fit when loaded with DevTools open; fresh reload matches baseline; no source change"
+      "narrowLayoutInvestigation": "Existing stale viewport fit when loaded with DevTools open; fresh reload matches baseline; no source change",
+      "libraryVersion": "0.2.0",
+      "scope": "Prior native renderer/runtime comparison; not a browser claim for the subsequent shared tempo-key migration"
+    },
+    "tempoKeys": {
+      "status": "passed",
+      "consumerChecks": 6,
+      "module": "librawl/audio.bindTempoKeys",
+      "coarse": {
+        "-": -0.1,
+        "=": 0.1
+      },
+      "fine": {
+        "_": -0.01,
+        "+": 0.01
+      },
+      "setter": "setSpeedRelative",
+      "bounds": [
+        0.1,
+        4
+      ],
+      "globalDisablePreserved": true,
+      "shortcutModalExcluded": true,
+      "legacyFourCasesRemoved": true,
+      "disposerAndRemountVerified": true,
+      "browser": "Parent-owned final release verification remains separate"
+    },
+    "final03Rerun": {
+      "typescriptErrors": 0,
+      "focusedPassed": 49,
+      "focusedFailed": 0,
+      "focusedSkipped": 0,
+      "playbackGates": 4,
+      "publicArtifactAndLocks": "verified",
+      "installedDistFiles": "byte-identical to frozen tar"
     }
   },
   "excludedFromThisCLIAudit": [
@@ -109,9 +146,9 @@
     "Production deployment"
   ],
   "sourceSha256": {
-    "package.json": "ff9107b42cbebd55e71e2685e18cdf746cb8007c7862a1bfe0a3357ce20b2809",
-    "package-lock.json": "b241d0e9d74791e241d542d8baa8f9343963d0c6e0a0ca0e69c3b7a3648c25a3",
-    "yarn.lock": "1bc2e5ec2d3c9e12b5592942f30bf4eba496796fc1f63ec5544055723e0d57fa",
+    "package.json": "4e5845ac9e5684aafa5733e2bff2631a267e0f66253928ef3965200f0af4c742",
+    "package-lock.json": "3a6d9a7dc1f4727e78a42e698e307e8b8f6373038b9e5a60832787d9b5ab279e",
+    "yarn.lock": "587c31c669caf70570246a733beea3b9196646dfdf7cceb880559327f5ac1db3",
     "config/webpack.config.dev.js": "f29bb32283110ca13beb42c1df39fe55715756be7aee820df41b22f7b2ff44f6",
     "config/webpack.config.prod.js": "4347214a1b67c86d472d7da15124fd0046b1ff7eed60d59e97af504e6c84f218",
     "src/index.js": "6178f519edbad06e244bc20988e82793b1e824adc27c4db9d898b3a31fd85378",
@@ -130,6 +167,7 @@
     "public/midi-output-worklet.js": "c0d987933f339e99de72ad77b79f75fffb7dd82b6800cb2558387d6df88a6e13",
     "scripts/rawl/sync-librawl.cjs": "99c6b23cb73b0f5b8bd7e00588466cade74750230b4e9d360cf1414c5da8821a",
     "scripts/start.js": "de6dde808fcc0b3a1d5720c31e37b9d29225e3920b7051e11c46ee50035d2faf",
-    "scripts/build.js": "b8c4e3d45ddf65a9be4ef5a543a552745c9daaeb488de5010788d41a760d5309"
+    "scripts/build.js": "b8c4e3d45ddf65a9be4ef5a543a552745c9daaeb488de5010788d41a760d5309",
+    "src/components/App.tsx": "0ed9bc4c2ad1d7666ce725687e5a6a5a1293229b631e171fa3e94b7d92d05451"
   }
 }

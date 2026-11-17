@@ -9,8 +9,8 @@ merge into the original checkout or publish rawl.rocks.
 - React and React DOM are pinned to `19.3.1`; styled-components is `6.6.0`.
   The root uses `createRoot`. The DOM prop filter preserves the previous
   styled-components filtering behavior.
-- `vendor/librawl-0.2.0.tgz` is the reviewed library artifact. Its SHA256 is
-  `34f212d2569da37e7b514ac2aff899fb68d85b4b84c218defe9ab2e9171924e8`.
+- `vendor/librawl-0.3.0.tgz` is the reviewed library artifact. Its SHA256 is
+  `0678d2340f1d4ecd4fb597156227e6f3a60ec5d141019dc9b39588ea44b78b65`.
   npm and Yarn locks agree with its SHA512 integrity.
 - Note rendering, native playback contexts, section clocks, pitch-bend and
   quartertone helpers, pitch colors, voice shapes and tonic flag primitives now
@@ -60,9 +60,27 @@ fixture argument was not used. Package verification also checks the tar hash,
 both lock integrities, installed versions, both stylesheet aliases and exact
 voice-shape stylesheet bytes.
 
-## Chrome verification
+## Shared tempo keys (0.3)
 
-Root verified the candidate on port 3100 against the existing port-3000 app on
+The exact artifact is 236909bytes, pinned to public librawl commit `3999bc3c0e920b15cc4a7faf5366dcfc5e9ceced`.
+Its SHA512 integrity is `sha512-F+b7RMfqgyvcH8+4IUEBQX99D9U/UtaV/n2UAu4cJb76KjI1X+raR14OGkWLtn8tTdEk+m+UWav9OCXgnzqIHQ==`. Every installed dist artifact
+matches the frozen tar. npm and Yarn lock integrities agree.
+
+`App` uses `bindTempoKeys` from `librawl/audio`; the separate four switch cases
+are removed. `-`/`=` retain the original ±0.1 speed steps, and `_`/`+` retain
+±0.01. The existing `setSpeedRelative` setter preserves its0.1–4bounds and
+updates both the MIDI and original-audio paths. Global shortcut disabling,
+editable controls, modifiers and the shortcut modal are excluded. Unmount
+calls the returned disposer; remount does not retain an old handler.
+
+Six checks execute the actual App binding/lifecycle code. The final0.3source
+also passes TypeScript, all49focused tests, the four playback gates and the
+worklet sync check. Browser verification of the shared shortcuts and the final
+production release remain parent-owned; the prior0.2Chrome evidence follows.
+
+## Prior Chrome verification (0.2)
+
+Before the subsequent 0.3 tempo-key migration, root verified the candidate on port 3100 against the existing port-3000 app on
 `/f/all-the-things-you-are`. A fresh reload with DevTools closed produced the
 same `91.71702` time-spacing value, full-width note grid, colors, voice shapes
 and modulation flags. The earlier narrow layout was the existing stale-viewport

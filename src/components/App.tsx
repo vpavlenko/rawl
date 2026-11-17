@@ -33,6 +33,7 @@ import md5 from "md5";
 import path from "path";
 import queryString from "querystring";
 import React from "react";
+import { bindTempoKeys } from "librawl/audio";
 import Dropzone from "react-dropzone";
 import Modal from "react-modal";
 import {
@@ -188,6 +189,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   private midi: ArrayBuffer;
   private droppedFilename: string;
   private keyboardHandlers: Map<string, KeyboardHandler> = new Map();
+  private tempoKeysCleanup: (() => void) | null = null;
   private audioContext: AudioContext;
   private annotationVersions: AnnotationVersions = Object.fromEntries(
     Object.entries(defaultAnalyses).map(([key, analysis]) => [
@@ -314,6 +316,11 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 
   componentDidMount() {
+    this.tempoKeysCleanup = bindTempoKeys({
+      target: document,
+      adjustTempo: (delta) => this.setSpeedRelative(delta),
+      enabled: () => !window.__disableGlobalShortcuts && !this.state.showShortcutHelp,
+    });
     this.audioPlayerReady = this.initAudioPlayer(this.gainNode);
 
     // Inline processMidiUrls here
@@ -848,18 +855,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
             )}", `,
           );
           e.preventDefault();
-          break;
-        case "-":
-          this.setSpeedRelative(-0.1);
-          break;
-        case "_":
-          this.setSpeedRelative(-0.01);
-          break;
-        case "=":
-          this.setSpeedRelative(0.1);
-          break;
-        case "+":
-          this.setSpeedRelative(0.01);
           break;
         case "h":
           this.toggleShortcutHelp();
@@ -1510,6 +1505,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
       : null;
 
   componentWillUnmount() {
+    this.tempoKeysCleanup?.();
+    this.tempoKeysCleanup = null;
     window.removeEventListener(
       "beforeunload",
       this.warnAboutUnsavedAnnotations,

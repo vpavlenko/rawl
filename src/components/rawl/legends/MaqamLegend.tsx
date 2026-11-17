@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ChevronDown from "../../icons/ChevronDown";
-import SquareArrowOutUpRight from "../../icons/SquareArrowOutUpRight";
 import Play from "../../icons/Play";
 import Square from "../../icons/Square";
 import { FoldButton } from "../editor/EditorStyles";
@@ -122,16 +121,17 @@ const MaqamLegend: React.FC<{
         {expanded && (
           <Link
             to="/maqam"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               color: "#e9b44c",
               fontSize: 12,
               padding: "7px 8px",
               display: "inline-flex",
               alignItems: "center",
-              gap: 5,
             }}
           >
-            Maqamat <SquareArrowOutUpRight />
+            Maqamat
           </Link>
         )}
         {!expanded && (

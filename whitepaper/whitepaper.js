@@ -215,17 +215,16 @@
   }
   document.querySelectorAll('[data-example]').forEach(container=>{
     const example=examples[container.dataset.example]();
-    const diagram=container.querySelector('.diagram')??document.createElement('div');diagram.className='diagram';diagram.innerHTML=example.html;
-    if(!diagram.parentNode)container.append(diagram);
+    let diagram=container.querySelector('.diagram');
+    if(!diagram){diagram=document.createElement('div');diagram.className='diagram';diagram.innerHTML=example.html;container.append(diagram);}
     if(example.notes||example.states){
       const tools=document.createElement('div');tools.className='example-tools';
       example.states?.forEach((state,i)=>{const button=document.createElement('button');button.type='button';button.textContent=state.label;button.setAttribute('aria-pressed',String(i===0));button.addEventListener('click',()=>{diagram.innerHTML=state.render();tools.querySelectorAll('[aria-pressed]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)))});tools.append(button)});
       if(example.notes){
         const playButton=document.createElement('button');playButton.type='button';playButton.innerHTML=playIcon+'Play';playButton.addEventListener('click',()=>{play(example.notes,diagram).catch(()=>{stop();playButton.disabled=true;playbackState(diagram,'Unavailable')})});
         const stopButton=document.createElement('button');stopButton.type='button';stopButton.innerHTML=stopIcon+'Stop';stopButton.addEventListener('click',stop);
-        const label=document.createElement('span');label.className='eyebrow';label.textContent='Synth';
         const state=document.createElement('span');state.className='eyebrow play-state';state.setAttribute('role','status');state.setAttribute('aria-live','polite');
-        tools.append(playButton,stopButton,label,state);
+        tools.append(playButton,stopButton,state);
       }
       container.append(tools);
     }

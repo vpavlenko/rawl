@@ -65,9 +65,62 @@
     "publicReaderTabsUntouched": true
   },
   "deployment": {
-    "status": "ready",
+    "date": "2026-11-17",
+    "status": "verified",
+    "publicBase": "https://rawl.rocks",
+    "localManifestSha256": "1891373c225a15178eea78568c89884059d3e26331ded9ee52838917a2ee5a7a",
+    "assets": [
+      {
+        "url": "https://rawl.rocks/index.html",
+        "sha256": "652d6b532706c3a48310f0143a4179fd6165faf46ca9dbc19f073ee17642abd9",
+        "bytes": 1420
+      },
+      {
+        "url": "https://rawl.rocks/midi-output-worklet.js",
+        "sha256": "c0d987933f339e99de72ad77b79f75fffb7dd82b6800cb2558387d6df88a6e13",
+        "bytes": 3922
+      },
+      {
+        "url": "https://rawl.rocks/static/css/main.8ef358e7.css",
+        "sha256": "a8a207cc95624db2ae4ebf9f00120c600475263cefeb194ab3a366e0ee11e66d",
+        "bytes": 8341
+      },
+      {
+        "url": "https://rawl.rocks/static/js/main.3e573490.js",
+        "sha256": "f3748240926ca12dab4e37bf0458fbe990f7bc9aedb2bd6babfdca52cdff026f",
+        "bytes": 6777819
+      },
+      {
+        "url": "https://rawl.rocks/static/js/main.3e573490.js.map",
+        "sha256": "47f49408e17b75bc320837fde79831f8558293bbb365a2aa0aacdc3da8fa009f",
+        "bytes": 2716606
+      },
+      {
+        "url": "https://rawl.rocks/static/js/1.3527ecb1.chunk.js",
+        "sha256": "9117c743e182297cb4bdf1af9914357ca26c7bca62d299a9415818239b3531db",
+        "bytes": 5485186
+      },
+      {
+        "url": "https://rawl.rocks/static/js/midi-synth.c0c7794a.js",
+        "sha256": "8960bd102f1467c204170dd41951e4d6316f2ae2dbbd4738b68bf378f37a0ad6",
+        "bytes": 729836
+      }
+    ],
+    "htmlReferencesActualMain": true,
+    "unrelatedWhitepaperDraftExcluded": true,
     "command": "npm run deploy-lite",
+    "sourceCommit": "5d30ca5dd",
+    "pinCommit": "409181e0b",
+    "ghPagesCommit": "6c0d8fe47f5568da618a42e4be2949791eea7e75",
     "checkout": "/Users/chipfocus/repos/lego/rawl-librawl",
-    "whitepaperDraftExcluded": true
+    "originalServerPort": 3000,
+    "originalServerPid": 59235,
+    "unrelatedDraftsPreserved": 7,
+    "existingIgnoredRuntimeAssetsPreserved": [
+      "libfluidsynth-2.2.1.js",
+      "libfluidsynth-2.3.0.js",
+      "libfluidsynth-2.3.0-with-libsndfile.js",
+      "lib/libfluidsynth-2.4.6.js"
+    ]
   }
 }

@@ -19,7 +19,13 @@ with zero errors, four playback gates and the worklet sync check. An actual
 WASM synth regression holds one note while changing speed four times: source
 time advances with no new note-on, note-off, panic or reset calls. Rawl's
 native rate path already changes speed continuously; its synthesis remains
-host-owned. Evidence: [`librawl-gesture-tempo-034.json`](../evidence/librawl-gesture-tempo-034.json).
+host-owned. A fresh Chrome window renders the final score and all four voices
+with no new application exception. The clean-worktree `npm run deploy-lite`
+release is public: HTML, manifest, main bundle/map, rendering chunk, CSS,
+MIDI synth and output worklet match the local build byte for byte. The
+unrelated whitepaper draft remains excluded and unchanged. Browser audio
+event counting was limited by native input focus; exact audition behavior
+is covered by the executing host-callback tests. Evidence: [`librawl-gesture-tempo-034.json`](../evidence/librawl-gesture-tempo-034.json).
 
 ## Note-tooltip release (0.3.2)
 

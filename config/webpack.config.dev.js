@@ -103,6 +103,7 @@ module.exports = {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       "react-native": "react-native-web",
+      "librawl/voice-shapes.css$": require.resolve("librawl/voice-shapes.css"),
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -138,17 +139,23 @@ module.exports = {
           },
           // Process JS with Babel.
           {
-            test: /\.js$/,
+            test: /\.(?:m?js|cjs)$/,
             include: [
               /node_modules[\/\\]usehooks-ts/,
               /node_modules[\/\\]@babel[\/\\]runtime/,
               /node_modules[\/\\]date-fns/,
+              /node_modules[\/\\]@fortawesome[\/\\]react-fontawesome/,
+              /node_modules[\/\\]react-dropzone/,
+              /node_modules[\/\\]file-selector/,
+              /node_modules[\/\\]librawl/,
+              /node_modules[\/\\]styled-components/,
+              /node_modules[\/\\]@emotion/,
             ],
             loader: require.resolve("babel-loader"),
             options: {
               presets: [
                 ["@babel/preset-env", { modules: false }],
-                "@babel/preset-react",
+                ["@babel/preset-react", { runtime: "automatic" }],
               ],
               plugins: [
                 "@babel/plugin-transform-runtime",
@@ -165,7 +172,7 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve("babel-loader"),
             options: {
-              presets: ["@babel/preset-env", "@babel/preset-react"],
+              presets: ["@babel/preset-env", ["@babel/preset-react", { runtime: "automatic" }]],
               cacheDirectory: true,
               plugins: [
                 "@babel/plugin-transform-runtime",
@@ -226,7 +233,7 @@ module.exports = {
             // its runtime that would otherwise processed through "file" loader.
             // Also exclude `html` and `json` extensions so they get processed
             // by webpacks internal loaders.
-            exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/],
+            exclude: [/\.(js|jsx|mjs|cjs)$/, /\.html$/, /\.json$/],
             loader: require.resolve("file-loader"),
             options: {
               name: "static/media/[name].[hash:8].[ext]",

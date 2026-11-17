@@ -1,9 +1,5 @@
-import { createContext } from "react";
+export { VoiceZIndicesContext } from "librawl/native";
 import { ColoredNotesInVoices } from "./parseMidi";
-
-export const VoiceZIndicesContext = createContext<ReadonlyMap<number, number>>(
-  new Map(),
-);
 
 export const getSortedVoices = (
   voiceNames: string[],

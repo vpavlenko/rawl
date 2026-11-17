@@ -130,16 +130,18 @@ test("frozen excerpts retain the inherited grouping and later resets", () => {
 });
 
 test("one measure input sets beats or grouping with Enter and retains split, merge and Reset", () => {
-  global.document = require("jsdom").jsdom(
-    "<!doctype html><html><body></body></html>",
-  );
+  const jsdom = require("jsdom");
+  const html = "<!doctype html><html><body></body></html>";
+  global.document = jsdom.JSDOM
+    ? new jsdom.JSDOM(html, { pretendToBeVisual: true }).window.document
+    : jsdom.jsdom(html);
   global.window = document.defaultView;
   global.navigator = window.navigator;
   global.requestAnimationFrame = window.requestAnimationFrame = (callback) =>
     setTimeout(callback, 0);
   global.cancelAnimationFrame = window.cancelAnimationFrame = clearTimeout;
   const originalMessageChannel = global.MessageChannel;
-  // React 16's browser scheduler otherwise opens a persistent Node MessagePort.
+  // Keep the jsdom scheduler from opening a persistent Node MessagePort.
   global.MessageChannel = undefined;
   // AnalysisGrid needs only this runtime export from the full player.
   const rawlPath = require.resolve("../../src/components/rawl/Rawl");
@@ -151,8 +153,8 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
     },
   };
   const React = require("react");
-  const ReactDOM = require("react-dom");
-  const { Simulate } = require("react-dom/test-utils");
+  const { createRoot } = require("react-dom/client");
+  const { flushSync } = require("react-dom");
   const { AnalysisGrid } = require("../../src/components/rawl/AnalysisGrid");
   const { AppContext } = require("../../src/components/AppContext");
   const container = document.createElement("div");
@@ -160,8 +162,10 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
   const saves = [];
   const meters = [];
   let splits = 0, merges = 0;
-  const render = (groups = [], timing = grid) =>
-    ReactDOM.render(
+  let root = null;
+  const render = (groups = [], timing = grid) => {
+    if (!root) root = createRoot(container);
+    flushSync(() => root.render(
       React.createElement(
         AppContext.Provider,
         { value: { hoveredMeasuresSpan: null } },
@@ -188,8 +192,26 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
           },
         }),
       ),
-      container,
-    );
+    ));
+  };
+  const unmount = () => {
+    if (root) flushSync(() => root.unmount());
+    root = null;
+  };
+  const change = (input, value) => flushSync(() => {
+    // Use the native setter so React's value tracker sees a real browser edit.
+    Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value")
+      .set.call(input, value);
+    input.dispatchEvent(new window.Event("input", { bubbles: true }));
+  });
+  const keyDown = (input, key, shiftKey = false) => flushSync(() =>
+    input.dispatchEvent(new window.KeyboardEvent("keydown", {
+      key, shiftKey, bubbles: true, cancelable: true,
+    })),
+  );
+  const click = (element) => flushSync(() =>
+    element.dispatchEvent(new window.MouseEvent("click", { bubbles: true })),
+  );
   const button = (text) =>
     [...container.querySelectorAll("button")].find((element) =>
       element.textContent.startsWith(text),
@@ -200,32 +222,32 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
     assert.ok(input);
     assert.equal(container.querySelectorAll('input[type="text"]').length, 1);
     assert.equal(button("Rhythm grouping"), undefined);
-    Simulate.keyDown(input, { key: "Enter", nativeEvent: {} });
-    Simulate.keyDown(input, { key: "Enter", shiftKey: true, nativeEvent: {} });
+    keyDown(input, "Enter");
+    keyDown(input, "Enter", true);
     assert.equal(splits, 1);
     assert.equal(merges, 1);
     for (const value of ["3+0+2+3", "3+", "0", "2.5", "9007199254740992"]) {
-      Simulate.change(input, { target: { value } });
+      change(input, value);
       assert.equal(input.getAttribute("aria-invalid"), "true");
-      Simulate.keyDown(input, { key: "Enter", nativeEvent: {} });
+      keyDown(input, "Enter");
     }
     assert.deepEqual(saves, []);
     assert.deepEqual(meters, []);
-    Simulate.change(input, { target: { value: "3" } });
-    Simulate.keyDown(input, { key: "Enter", nativeEvent: {} });
+    change(input, "3");
+    keyDown(input, "Enter");
     assert.deepEqual(meters, [3]);
     assert.deepEqual(saves, []);
-    Simulate.keyDown(input, { key: "+", nativeEvent: {} });
+    keyDown(input, "+");
     assert.equal(document.activeElement, input);
-    Simulate.change(input, { target: { value: "3+2" } });
-    Simulate.keyDown(input, { key: "Enter", nativeEvent: {} });
+    change(input, "3+2");
+    keyDown(input, "Enter");
     assert.deepEqual(saves, [[3, 2]]);
-    Simulate.change(input, { target: { value: "3+2+2+3" } });
+    change(input, "3+2+2+3");
     assert.equal(input.getAttribute("aria-invalid"), "false");
-    Simulate.keyDown(input, { key: "Enter", nativeEvent: {} });
+    keyDown(input, "Enter");
     assert.deepEqual(saves, [[3, 2], [3, 2, 2, 3]]);
     assert.deepEqual(meters, [3]);
-    ReactDOM.unmountComponentAtNode(container);
+    unmount();
     render([3, 2, 2, 3]);
     const renderedBeats = [...container.querySelectorAll("div")]
       .filter(
@@ -242,18 +264,18 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
       container.querySelector('[aria-label="Rhythm"]').placeholder,
       "3 or 3+2",
     );
-    Simulate.click(button("Reset"));
+    click(button("Reset"));
     assert.deepEqual(saves, [[3, 2], [3, 2, 2, 3], []]);
 
     // Regression: RAWL_DISPLAY beatsPerMeasure: 1 yields no beat timestamps.
-    ReactDOM.unmountComponentAtNode(container);
+    unmount();
     const hiddenGrid = { measures: grid.measures, beats: [] };
     render([], hiddenGrid);
     const hiddenInput = container.querySelector('[aria-label="Rhythm"]');
-    Simulate.change(hiddenInput, { target: { value: "3+2+2+3" } });
-    Simulate.keyDown(hiddenInput, { key: "Enter", nativeEvent: {} });
+    change(hiddenInput, "3+2+2+3");
+    keyDown(hiddenInput, "Enter");
     assert.deepEqual(saves.at(-1), [3, 2, 2, 3]);
-    ReactDOM.unmountComponentAtNode(container);
+    unmount();
     render([3, 2, 2, 3], hiddenGrid);
     const hiddenBeatPositions = [...container.querySelectorAll("div")]
       .filter(
@@ -267,7 +289,7 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
       [300, 500, 700, 1300, 1500, 1700, 2300, 2500, 2700],
     );
   } finally {
-    ReactDOM.unmountComponentAtNode(container);
+    unmount();
     container.remove();
     if (originalRawl) require.cache[rawlPath] = originalRawl;
     else delete require.cache[rawlPath];

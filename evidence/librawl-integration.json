@@ -1,0 +1,135 @@
+{
+  "date": "2026-11-17",
+  "scope": "Isolated codex/librawl-foundation worktree; CLI verification and one scoped Chrome comparison; no merge or production publication",
+  "baselineCommit": "c5c9bb0407534d9b7eb9a8267078c006fa340ee6",
+  "node": "24.12.0",
+  "library": {
+    "version": "0.2.0",
+    "artifact": "vendor/librawl-0.2.0.tgz",
+    "sha256": "34f212d2569da37e7b514ac2aff899fb68d85b4b84c218defe9ab2e9171924e8",
+    "integrity": "sha512-kSyHAIsYTPCDtszxjptum/UZ/DITKMCqIBf0UvuMKUvrQg9BJvBnKgOc7U8Wz8SdHblHYTOzAH1m/Px/7ayFgA==",
+    "npmLockVerified": true,
+    "yarnLockVerified": true,
+    "installedVersionVerified": true
+  },
+  "runtime": {
+    "react": "19.3.1",
+    "reactDOM": "19.3.1",
+    "styledComponents": "6.6.0"
+  },
+  "checks": {
+    "typescript": {
+      "status": "passed",
+      "errors": 0
+    },
+    "focused": {
+      "status": "passed",
+      "tests": 49,
+      "passed": 49,
+      "failed": 0,
+      "skipped": 0
+    },
+    "playbackIndex": "passed",
+    "outputWorkletProtocol": "passed",
+    "firstMeasureSeek": "passed",
+    "midiPorts": {
+      "status": "passed",
+      "actualWASM": true,
+      "optionalExternalMIDIFixture": false,
+      "coverage": [
+        "parse",
+        "synthesis",
+        "mute",
+        "drums",
+        "seek",
+        "controllers",
+        "pitch bend",
+        "hand splitting"
+      ]
+    },
+    "outputWorkletSync": "passed",
+    "whitespace": "passed",
+    "voiceShapeStyles": {
+      "status": "passed",
+      "devAlias": true,
+      "productionAlias": true,
+      "duplicateHostRulesRemoved": true,
+      "sha256": "84fd2408c40d394a998e93fed8c0c3a4aa104e37cf987146f2efd43dd4629f8f"
+    },
+    "chrome": {
+      "status": "passed; scoped root-observed browser verification",
+      "baseline": "http://localhost:3000/f/all-the-things-you-are",
+      "candidate": "http://127.0.0.1:3100/f/all-the-things-you-are",
+      "freshReloadWithDevToolsClosed": true,
+      "timeSpacing": {
+        "baseline": 91.71702,
+        "candidate": 91.71702
+      },
+      "visualParity": [
+        "Full-width note grid",
+        "Colors",
+        "Voice shapes",
+        "Modulation flags"
+      ],
+      "retainedVoices": 4,
+      "playbackClockSamples": [
+        "0:01",
+        "0:17",
+        "0:25",
+        "0:40"
+      ],
+      "pauseResume": "passed",
+      "tempo": [
+        "1x",
+        "1.1x",
+        "1x"
+      ],
+      "transpose": [
+        0,
+        1,
+        2,
+        0
+      ],
+      "vibraphoneMuteRestore": "passed",
+      "newApplicationExceptions": 0,
+      "observedConsoleMessages": [
+        "Development SockJS unload permission violation",
+        "Existing WASM font invalid-generator warning",
+        "Existing autoplay warning"
+      ],
+      "narrowLayoutInvestigation": "Existing stale viewport fit when loaded with DevTools open; fresh reload matches baseline; no source change"
+    }
+  },
+  "excludedFromThisCLIAudit": [
+    "Human listening or independent output/audio synchronization measurement",
+    "Corpus-wide browser and every-piece review",
+    "Quartertone/drum browser examples",
+    "Saved-state workflows",
+    "Full responsive-layout matrix",
+    "Production deployment"
+  ],
+  "sourceSha256": {
+    "package.json": "ff9107b42cbebd55e71e2685e18cdf746cb8007c7862a1bfe0a3357ce20b2809",
+    "package-lock.json": "b241d0e9d74791e241d542d8baa8f9343963d0c6e0a0ca0e69c3b7a3648c25a3",
+    "yarn.lock": "1bc2e5ec2d3c9e12b5592942f30bf4eba496796fc1f63ec5544055723e0d57fa",
+    "config/webpack.config.dev.js": "f29bb32283110ca13beb42c1df39fe55715756be7aee820df41b22f7b2ff44f6",
+    "config/webpack.config.prod.js": "4347214a1b67c86d472d7da15124fd0046b1ff7eed60d59e97af504e6c84f218",
+    "src/index.js": "6178f519edbad06e244bc20988e82793b1e824adc27c4db9d898b3a31fd85378",
+    "src/index.css": "a26791a73d7da2a576f479094079bcb21c7d65ae5841ab84dbbf15ffaeaddf65",
+    "src/components/rawl/getNoteRectangles.tsx": "77a58f3eaebdd8b97e1db499466de3fa2fefaf9ee45f9ff4994cd4106452fb1e",
+    "src/components/rawl/AnalysisGrid.tsx": "ff4c0ba9a8d0104ea954053f138d8c28ee4441c51a870e36d1284282a6175290",
+    "src/components/rawl/notePlayback.ts": "d0d3645ae61b950e22812a9bea18bcfab92a9f856f87133809264e54d36f63f8",
+    "src/components/rawl/drumPlayback.ts": "40c6af0b2b2f9a4d8d8c2dec4b1092a3aabee96468cc9bb37cbf7961f0f39b2a",
+    "src/components/rawl/strumContext.ts": "3f9f583fd4fc1df879350515b01f82b2e2f8925f5c547f4f79dc77b0ec6b9988",
+    "src/components/rawl/voiceOrder.ts": "87eced59bba55a88c5be2d262e1868c377c0fca95d21e16bf22f6a1ac6d45fe2",
+    "src/components/rawl/instrumentVoiceGroups.ts": "b04512e4d76c8dd20262897ac0015078000b171a4a8261963fcfd4fd23cf8449",
+    "src/components/rawl/colors.ts": "243503b526e5bbeb0e108d291a87a60d778f850874e73dc513888767c5c957ec",
+    "src/components/rawl/playbackIndex.ts": "43cef4e85634af8960cf2d2c5beff4b97bc1200a3c75bbfd61f71d65751f17b0",
+    "src/components/rawl/pitchBend.ts": "d7e65ea2358116e5a2f1594ea8d030c82875ce38d581d81a8c8e96088c48239d",
+    "src/players/ThreadedMIDIPlayer.ts": "9c09fcde3467877e9347d4c22f28be9692284ef5233d6e97b43fcfb3222b411c",
+    "public/midi-output-worklet.js": "c0d987933f339e99de72ad77b79f75fffb7dd82b6800cb2558387d6df88a6e13",
+    "scripts/rawl/sync-librawl.cjs": "99c6b23cb73b0f5b8bd7e00588466cade74750230b4e9d360cf1414c5da8821a",
+    "scripts/start.js": "de6dde808fcc0b3a1d5720c31e37b9d29225e3920b7051e11c46ee50035d2faf",
+    "scripts/build.js": "b8c4e3d45ddf65a9be4ef5a543a552745c9daaeb488de5010788d41a760d5309"
+  }
+}

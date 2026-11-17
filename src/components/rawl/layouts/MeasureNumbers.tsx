@@ -148,7 +148,7 @@ const InlineSnippets: React.FC<{
         return (
           <div
             key={start}
-            ref={(el) => (itemRefs.current[groupIndex] = el)}
+            ref={(el) => { itemRefs.current[groupIndex] = el; }}
             style={{
               position: "absolute",
               zIndex: 40,

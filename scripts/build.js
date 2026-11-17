@@ -13,6 +13,7 @@ process.on('unhandledRejection', err => {
 
 // Ensure environment variables are read.
 require('../config/env');
+require('./rawl/sync-librawl.cjs');
 
 const path = require('path');
 const chalk = require('chalk');

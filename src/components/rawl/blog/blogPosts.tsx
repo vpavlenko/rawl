@@ -87,7 +87,7 @@ const extractTextFromJsx = (element: React.ReactNode): string => {
     return element.map(extractTextFromJsx).join("");
   }
 
-  if (React.isValidElement(element)) {
+  if (React.isValidElement<{ children?: React.ReactNode }>(element)) {
     // Extract text from children
     const children = element.props.children;
     return extractTextFromJsx(children);

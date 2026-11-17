@@ -1,4 +1,5 @@
 import * as React from "react";
+import { TonicSymbol } from "librawl/components";
 import { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { AppContext } from "../AppContext";
@@ -305,56 +306,16 @@ export const NewTonicSymbol: React.FC<{
   alignToOnset?: boolean;
 }> = ({ left, number, previousTonic, modulationDiff, tonicStart, alignToOnset = false }) => {
   const transpose = useContext(AnalysisTransposeContext);
-  const displayedTonic = tonicStart == null
-    ? tonicStart
-    : ((tonicStart + transpose) % 12 + 12) % 12;
   return (
-    <>
-      <span
-        style={{
-          color: "white",
-          position: "absolute",
-          top: -2,
-          left: alignToOnset
-            ? left
-            : left + (previousTonic === null ? String(number).length * 8 + 10 : 30),
-          fontSize: 12,
-          zIndex: 100,
-          fontWeight: 700,
-          userSelect: "none",
-          pointerEvents: "none",
-          textAlign: "left",
-          whiteSpace: "nowrap",
-        }}
-      >
-        {previousTonic !== null && (
-          <>{`${
-            modulationDiff > 6
-              ? `↓${Math.abs(modulationDiff - 12)}`
-              : `↑${modulationDiff}`
-          } `}</>
-        )}
-        {PITCH_CLASS_TO_LETTER[displayedTonic]}
-      </span>
-  
-      <div
-        className={`noteColor_${modulationDiff}_colors`}
-        style={{
-          width: MODULATION_BADGE_WIDTH,
-          height: 12,
-          position: "absolute",
-          top: 0,
-          left: left,
-          zIndex: 3,
-          userSelect: "none",
-          pointerEvents: "none",
-          maskImage:
-            "linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
-        }}
-      />
-    </>
+    <TonicSymbol
+      left={left}
+      number={number}
+      previousTonic={previousTonic}
+      modulationDiff={modulationDiff}
+      tonicStart={tonicStart}
+      alignToOnset={alignToOnset}
+      transpose={transpose}
+    />
   );
 };
 

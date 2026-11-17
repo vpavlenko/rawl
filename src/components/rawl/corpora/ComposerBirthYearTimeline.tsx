@@ -424,7 +424,7 @@ const ComposerBirthYearTimeline: React.FC<{
       <TimelineScroll
         ref={timelineRef}
         aria-label={ariaLabel}
-        onKeyDown={(event) => {
+        onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
           if (event.key === "Escape") {
             const trigger =
               event.currentTarget.querySelector<HTMLButtonElement>(

@@ -37,7 +37,7 @@ export const useDebugMemo = <T>(
   deps: ReadonlyArray<any>,
 ): T => {
   // Explicitly define the type of the ref to be an array of dependencies or undefined
-  const previousDepsRef = useRef<ReadonlyArray<any> | undefined>();
+  const previousDepsRef = useRef<ReadonlyArray<any> | undefined>(undefined);
 
   if (previousDepsRef.current) {
     // Compare each dependency to see if any has changed

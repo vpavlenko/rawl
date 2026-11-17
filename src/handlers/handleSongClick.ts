@@ -46,7 +46,7 @@ export const handleSongClick = async (
       console.log("MIDI document data:", midiData);
 
       // Convert Firestore Bytes to Blob
-      const midiBlob = new Blob([midiData.blob.toUint8Array()], {
+      const midiBlob = new Blob([new Uint8Array(midiData.blob.toUint8Array())], {
         type: "audio/midi",
       });
       console.log("Created MIDI Blob:", midiBlob);

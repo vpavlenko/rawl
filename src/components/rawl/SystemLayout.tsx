@@ -627,7 +627,7 @@ export const StackedSystemLayout: React.FC<
                   marginRight: SECTION_RIGHT_MARGIN,
                 }}
                 key={order}
-                ref={(el) => (sectionRefs.current[order] = el)}
+                ref={(el) => { sectionRefs.current[order] = el; }}
               >
                 <HarmonyOverlay
                   start={measuresAndBeats.measures[sectionSpan[0]]}

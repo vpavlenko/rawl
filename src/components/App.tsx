@@ -1699,10 +1699,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
             timeSliderStore: this.timeSliderStore,
           }}
         >
-          <Dropzone disableClick style={{}} onDrop={this.onDrop}>
-            {/* @ts-ignore */}
+          <Dropzone noClick noKeyboard onDrop={this.onDrop}>
             {(dropzoneProps) => (
-              <>
+              <div {...dropzoneProps.getRootProps({ style: { position: "relative" }, "aria-disabled": false })}>
                 {this.state.audioContextLocked &&
                   this.state.parsing &&
                   !(this.props.location.pathname === "/e/new") && (
@@ -1839,7 +1838,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 >
                   <ShortcutHelp />
                 </Modal>
-              </>
+                <input {...dropzoneProps.getInputProps()} />
+              </div>
             )}
           </Dropzone>
         </AppContext.Provider>

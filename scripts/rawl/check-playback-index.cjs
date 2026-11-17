@@ -4,12 +4,15 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { createRequire } = require('node:module');
 const ts = require('typescript');
-const source = fs.readFileSync(path.join(__dirname, '../../src/components/rawl/playbackIndex.ts'), 'utf8');
+const sourcePath = path.join(__dirname, '../../src/components/rawl/playbackIndex.ts');
+const source = fs.readFileSync(sourcePath, 'utf8');
 const compiled = ts.transpileModule(source, {
   compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2018 },
 }).outputText;
-const context = { exports: {} };
+// Resolve the same shared-module bridge used by the production player.
+const context = { exports: {}, require: createRequire(sourcePath) };
 vm.runInNewContext(compiled, context);
 const { createNotePlaybackIndex, createSectionPlaybackClock, findPlaybackMeasure } = context.exports;
 

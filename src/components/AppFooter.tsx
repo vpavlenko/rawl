@@ -79,7 +79,7 @@ const PauseButton = styled.button`
   margin-right: 10px;
 `;
 
-const AudioSourceButton = styled.button`
+const AudioSourceButton = styled.button<{ $loading: boolean }>`
   width: 28px;
   height: ${FOOTER_HEIGHT}px;
   flex-shrink: 0;

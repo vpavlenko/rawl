@@ -32,7 +32,7 @@ export const P = styled.div`
   }
 `;
 
-const AuthorshipTag = styled.div.attrs({ "data-authorship": true })`
+const AuthorshipTag = styled.div.attrs<{ "data-authorship"?: boolean }>({ "data-authorship": true })`
   width: fit-content;
   max-width: 100%;
   box-sizing: border-box;

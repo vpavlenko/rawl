@@ -178,7 +178,7 @@ export const ReadableTextBlock = styled.div`
   position: relative;
 `;
 
-const ChapterReading = styled(ReadableTextBlock).attrs({
+const ChapterReading = styled(ReadableTextBlock).attrs<{ "data-chapter-reading"?: boolean }>({
   "data-chapter-reading": true,
 })`
   display: flow-root;

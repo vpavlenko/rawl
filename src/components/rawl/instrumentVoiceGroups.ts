@@ -1,5 +1,6 @@
 // Shared instrument identity for controls and rendering. Source IDs/channels stay intact.
-export type VoiceHover = number | number[] | null;
+export type { VoiceHover } from "librawl/native";
+export { voiceHoverContains } from "librawl/native";
 
 export const usesInstrumentGroups = (slug?: string, groupByInstrument = false): boolean =>
   groupByInstrument ||
@@ -14,10 +15,6 @@ export function instrumentVoiceMembers(names: string[], index: number, slug?: st
 // The lowest source member is stable across pitch sorting, muting and hover.
 export function instrumentVoiceShapeIndex(names: string[], index: number, slug?: string, groupByInstrument = false): number {
   return instrumentVoiceMembers(names, index, slug, groupByInstrument)[0] ?? index;
-}
-
-export function voiceHoverContains(hover: VoiceHover, index: number): boolean {
-  return Array.isArray(hover) ? hover.includes(index) : hover === index;
 }
 
 export function groupInstrumentRows<T extends { voiceIndex: number }>(

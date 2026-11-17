@@ -55,10 +55,59 @@
     "scope": "One standard, desktop Chrome; bends/drums and host labels covered by shared React16/19 DOM tests. No human-listening or every-piece claim."
   },
   "deployment": {
-    "status": "ready",
+    "date": "2026-11-17",
+    "status": "verified",
+    "publicBase": "https://rawl.rocks",
+    "localManifestSha256": "58a626d3ad2db3913b6a9e6caedd1d0b77ab0e87f9d455942e8a80e56f2dbfe3",
+    "assets": [
+      {
+        "url": "https://rawl.rocks/index.html",
+        "sha256": "d10a2bae02c905b5b020ff788f4972afe3e68c2d428fd00e0e9dff9ec4c3fe0a",
+        "bytes": 1420
+      },
+      {
+        "url": "https://rawl.rocks/midi-output-worklet.js",
+        "sha256": "c0d987933f339e99de72ad77b79f75fffb7dd82b6800cb2558387d6df88a6e13",
+        "bytes": 3922
+      },
+      {
+        "url": "https://rawl.rocks/static/css/main.8ef358e7.css",
+        "sha256": "a8a207cc95624db2ae4ebf9f00120c600475263cefeb194ab3a366e0ee11e66d",
+        "bytes": 8341
+      },
+      {
+        "url": "https://rawl.rocks/static/js/main.8084d823.js",
+        "sha256": "d67124f16b353011ab0dda7be8c56ff48fe120ded745680637a15c15a52270e7",
+        "bytes": 6777687
+      },
+      {
+        "url": "https://rawl.rocks/static/js/main.8084d823.js.map",
+        "sha256": "ad543a9ec6cfea00a186e8729980090717939c38df8afff997ffefc4ad41e145",
+        "bytes": 2715799
+      },
+      {
+        "url": "https://rawl.rocks/static/js/1.bd0650d5.chunk.js",
+        "sha256": "ecca2976857ffbd751aef765470e0ee43de17c0576f94bb89b86a410629c4b71",
+        "bytes": 5478900
+      },
+      {
+        "url": "https://rawl.rocks/static/js/midi-synth.c0c7794a.js",
+        "sha256": "8960bd102f1467c204170dd41951e4d6316f2ae2dbbd4738b68bf378f37a0ad6",
+        "bytes": 729836
+      }
+    ],
+    "htmlReferencesActualMain": true,
+    "unrelatedWhitepaperDraftExcluded": true,
     "command": "npm run deploy-lite",
+    "sourceCommit": "f7bc06e37",
+    "ghPagesCommit": "032596aee02eaac8c0b456ef65e822784290d207",
     "checkout": "/Users/chipfocus/repos/lego/rawl-librawl",
-    "reason": "Clean release worktree prevents exporting the unrelated untracked public/whitepaper draft from the original checkout."
+    "existingIgnoredRuntimeAssetsPreserved": [
+      "libfluidsynth-2.2.1.js",
+      "libfluidsynth-2.3.0.js",
+      "libfluidsynth-2.3.0-with-libsndfile.js",
+      "lib/libfluidsynth-2.4.6.js"
+    ]
   },
   "originalCheckout": {
     "path": "/Users/chipfocus/repos/rawl",

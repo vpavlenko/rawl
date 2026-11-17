@@ -17,6 +17,13 @@ remains byte-identical.
 Node 24.12.0 verification passes TypeScript with zero errors, all 50 focused
 tests without skips, all four playback gates and worklet synchronization.
 The library itself passes 56 tests across React 16 and React 19.
+Chrome on the original localhost:3000 app verified 817 note elements without
+individual or descendant titles, playback advancing through 17 seconds, and
+6px/12px playback height doubling. The authorized `npm run deploy-lite`
+completed from the clean worktree; public HTML, manifest, main bundle, note
+chunk, stylesheet and output worklet match local release bytes. The unrelated
+untracked whitepaper draft was preserved and excluded from the release.
+
 Current release evidence: [`librawl-note-tooltips-032.json`](../evidence/librawl-note-tooltips-032.json).
 The earlier integration history and browser scope below remain unchanged.
 

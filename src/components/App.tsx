@@ -33,7 +33,7 @@ import md5 from "md5";
 import path from "path";
 import queryString from "querystring";
 import React from "react";
-import { bindTempoKeys } from "librawl/audio";
+import { bindPlaybackKeys, bindTempoKeys } from "librawl/audio";
 import Dropzone from "react-dropzone";
 import Modal from "react-modal";
 import {
@@ -189,6 +189,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   private midi: ArrayBuffer;
   private droppedFilename: string;
   private keyboardHandlers: Map<string, KeyboardHandler> = new Map();
+  private playbackKeys?: ReturnType<typeof bindPlaybackKeys>;
   private tempoKeysCleanup: (() => void) | null = null;
   private audioContext: AudioContext;
   private annotationVersions: AnnotationVersions = Object.fromEntries(
@@ -316,6 +317,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 
   componentDidMount() {
+    this.playbackKeys = bindPlaybackKeys({
+      toggle: () => this.togglePause(),
+      enabled: () => !this.state.ejected && !window.__disableGlobalShortcuts && !this.state.showShortcutHelp,
+    });
     this.tempoKeysCleanup = bindTempoKeys({
       target: document,
       adjustTempo: (delta) => this.setSpeedRelative(delta),
@@ -843,10 +848,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
         return; // text or search input has focus
 
       switch (e.key) {
-        case " ":
-          this.togglePause();
-          e.preventDefault();
-          break;
         case "u":
           const { location } = this.props;
           navigator.clipboard.writeText(
@@ -1505,6 +1506,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       : null;
 
   componentWillUnmount() {
+    this.playbackKeys?.destroy();
     this.tempoKeysCleanup?.();
     this.tempoKeysCleanup = null;
     window.removeEventListener(

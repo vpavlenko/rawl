@@ -104,6 +104,8 @@ module.exports = {
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       "react-native": "react-native-web",
       "librawl/voice-shapes.css$": require.resolve("librawl/voice-shapes.css"),
+      "librawl/score-size-sliders.css$": require.resolve("librawl/score-size-sliders.css"),
+      "librawl/piano-legend.css$": require.resolve("librawl/piano-legend.css"),
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).

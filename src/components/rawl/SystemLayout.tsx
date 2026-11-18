@@ -27,6 +27,7 @@ import HarmonyOverlay from "./HarmonyOverlay";
 import { createMidiNumberToY } from "./noteCoordinates";
 
 const SECTION_RIGHT_MARGIN = 20;
+const SCORE_BOTTOM_SPACE = 100;
 
 export type MeasuresAndBeats = {
   measures: number[];
@@ -611,6 +612,7 @@ export const StackedSystemLayout: React.FC<
           position: "relative",
           overflowX: hasWideSection ? "auto" : "hidden",
           overflowY: usePageScroll ? "hidden" : "scroll",
+          ["--rawln-piano-existing-clearance" as string]: `${SCORE_BOTTOM_SPACE}px`,
           width: "100%",
           backgroundColor: "black",
         }}
@@ -704,7 +706,7 @@ export const StackedSystemLayout: React.FC<
             ),
           )}
 
-          <div style={{ height: 100 }} />
+          <div style={{ height: SCORE_BOTTOM_SPACE }} />
         </ScorePinchContent>
 
         {!isEmbedded && (

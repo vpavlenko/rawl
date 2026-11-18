@@ -1,14 +1,7 @@
-import clamp from "lodash/clamp";
-import React, { useCallback, useContext, useEffect } from "react";
-import styled from "styled-components";
-import { AppContext } from "../../AppContext";
-import { StyledRangeInput } from "../../Slider";
+import { ScoreSizeSliders } from "librawl/components";
+import "librawl/score-size-sliders.css";
+import React from "react";
 import { FoldablePianoLegend } from "../legends/PianoLegend";
-
-const TinyLetter = styled.span`
-  font-size: 10px;
-  color: #fff;
-`;
 
 export const debounce = (func, delay) => {
   let timer;
@@ -36,6 +29,11 @@ type ControlPanelProps = {
   setHoveredColors: (colors: string[] | null) => void;
 };
 
+const sliderTitles = {
+  noteHeight: "Note height (W/S, vertical touch pinch, or Shift+trackpad pinch)",
+  timeSpacing: "Time spacing (A/D, horizontal touch pinch, or trackpad pinch)",
+};
+
 const ControlPanel: React.FC<ControlPanelProps> = ({
   noteHeight,
   setNoteHeight,
@@ -45,51 +43,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   currentTonic,
   setHoveredColors,
 }) => {
-  const { registerKeyboardHandler, unregisterKeyboardHandler } =
-    useContext(AppContext);
-
-  const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
-  const debounceSetSecondWidth = useCallback(debounce(setSecondWidth, 50), []);
-
-  const handleSecondWidthChange = useCallback(
-    (newWidth: number) => {
-      setSecondWidth(clamp(newWidth, 2, 150));
-    },
-    [setSecondWidth],
-  );
-
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      switch (e.key) {
-        case "a":
-          handleSecondWidthChange(secondWidth - 2);
-          break;
-        case "d":
-          handleSecondWidthChange(secondWidth + 2);
-          break;
-        case "s":
-          debounceSetNoteHeight(Math.min(noteHeight + 0.25, 10));
-          break;
-        case "w":
-          debounceSetNoteHeight(Math.max(noteHeight - 0.25, 1));
-          break;
-      }
-    };
-
-    registerKeyboardHandler("controlPanel", handleKeyPress);
-
-    return () => {
-      unregisterKeyboardHandler("controlPanel");
-    };
-  }, [
-    registerKeyboardHandler,
-    unregisterKeyboardHandler,
-    secondWidth,
-    handleSecondWidthChange,
-    noteHeight,
-    debounceSetNoteHeight,
-  ]);
-
   return (
     <>
       <FoldablePianoLegend
@@ -97,67 +50,15 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         currentTonic={currentTonic}
         setHoveredColors={setHoveredColors}
       />
-      <div
-        style={{
-          position: "fixed",
-          bottom: 221,
-          right: -131,
-          zIndex: 100000,
-        }}
-      >
-        <span style={{ position: "relative", top: -3, left: 12 }}>
-          <TinyLetter>w</TinyLetter>
-        </span>
-        <span
-          style={{
-            position: "relative",
-            top: 169,
-            left: 6,
-          }}
-        >
-          <TinyLetter>s</TinyLetter>
-        </span>
-        <StyledRangeInput
-          aria-label="Note height"
-          title="Note height (W/S, vertical touch pinch, or Shift+trackpad pinch)"
-          min="1"
-          max="10"
-          step="any"
-          value={noteHeight}
-          onChange={(e) => debounceSetNoteHeight(parseFloat(e.target.value))}
-          style={{
-            transform: "rotate(90deg)",
-            transformOrigin: "bottom left",
-            width: 160,
-          }}
+      <div style={{ "--rawl-size-sliders-z-index": 100001 } as React.CSSProperties}>
+        <ScoreSizeSliders
+          noteHeight={noteHeight}
+          timeSpacing={secondWidth}
+          onNoteHeightChange={setNoteHeight}
+          onTimeSpacingChange={setSecondWidth}
+          keyboardShortcuts
+          titles={sliderTitles}
         />
-      </div>
-      <div
-        style={{
-          position: "fixed",
-          bottom: 35,
-          right: 33,
-          zIndex: 100000,
-        }}
-      >
-        <span style={{ position: "relative", top: 0, left: 0 }}>
-          <TinyLetter>a</TinyLetter>
-        </span>
-        <StyledRangeInput
-          aria-label="Time spacing"
-          title="Time spacing (A/D, horizontal touch pinch, or trackpad pinch)"
-          min="2"
-          max="150"
-          step="any"
-          value={secondWidth}
-          onChange={(e) => debounceSetSecondWidth(parseFloat(e.target.value))}
-          style={{
-            width: 240,
-          }}
-        />
-        <span style={{ position: "relative", top: 0, left: 0 }}>
-          <TinyLetter>d</TinyLetter>
-        </span>
       </div>
     </>
   );

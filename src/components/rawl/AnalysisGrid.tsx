@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TonicSymbol } from "librawl/components";
+import { PlaybackMeasureBorders, TonicSymbol } from "librawl/components";
 import { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { AppContext } from "../AppContext";
@@ -379,34 +379,12 @@ const Measure: React.FC<{
 
   return (
     <>
-      {showHeader && isPlaybackMeasure && (
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left,
-            width: width + 1,
-            height: 0,
-            borderTop: "1px solid #444",
-            transform: "translateY(-1px)",
-            pointerEvents: "none",
-            zIndex: 4,
-          }}
-        />
-      )}
-      {showPlaybackMeasureBottomBorder && isPlaybackMeasure && (
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left,
-            width: width + 1,
-            height: 0,
-            borderBottom: "1px solid #444",
-            transform: "translateY(1px)",
-            pointerEvents: "none",
-            zIndex: 4,
-          }}
+      {isPlaybackMeasure && (showHeader || showPlaybackMeasureBottomBorder) && (
+        <PlaybackMeasureBorders
+          left={left}
+          width={width + 1}
+          top={showHeader}
+          bottom={showPlaybackMeasureBottomBorder}
         />
       )}
       {(showNonPhraseStarts || isPhraseStart) && showMeasureBar && (

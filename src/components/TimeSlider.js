@@ -1,4 +1,5 @@
 import autoBindReact from "auto-bind/react";
+import { observePlaybackPosition } from "librawl/components";
 import React from "react";
 import styled from "styled-components";
 import Slider from "./Slider";
@@ -53,9 +54,6 @@ const DurationLabel = styled.div`
   white-space: nowrap;
 `;
 
-//  46 ms = 2048/44100 sec or 21.7 fps
-// 400 ms = 2.5 fps
-const UPDATE_INTERVAL_MS = 100;
 const pad = (n) => (n < 10 ? "0" + n : n);
 
 export default class TimeSlider extends React.PureComponent {
@@ -65,15 +63,14 @@ export default class TimeSlider extends React.PureComponent {
 
     this.state = {
       sliderData: props.timeSliderStore?.getSnapshot() ?? EMPTY_TIME_SLIDER_DATA,
-      draggedSongPositionMs: -1,
-      currentSongPositionMs: 0,
     };
-    this.timer = null;
+    this.slider = React.createRef();
+    this.elapsed = React.createRef();
   }
 
   componentDidMount() {
     this.subscribeToGeometry();
-    this.syncPlaybackTimer();
+    this.syncPlaybackFrames();
   }
 
   componentDidUpdate(prevProps) {
@@ -81,10 +78,11 @@ export default class TimeSlider extends React.PureComponent {
       this.unsubscribeGeometry?.();
       this.subscribeToGeometry();
     }
-    if (prevProps.paused !== this.props.paused) {
-      this.syncPlaybackTimer();
-    } else if (this.props.paused &&
-      prevProps.currentSongPositionMs !== this.props.currentSongPositionMs) {
+    if (prevProps.paused !== this.props.paused ||
+      prevProps.getCurrentPositionMs !== this.props.getCurrentPositionMs) {
+      this.syncPlaybackFrames();
+    } else if (prevProps.currentSongPositionMs !== this.props.currentSongPositionMs ||
+      prevProps.currentSongDurationMs !== this.props.currentSongDurationMs) {
       this.updateCurrentPosition();
     }
   }
@@ -98,64 +96,53 @@ export default class TimeSlider extends React.PureComponent {
     update();
   }
 
-  syncPlaybackTimer() {
-    clearInterval(this.timer);
-    this.timer = null;
-    this.updateCurrentPosition();
-    if (this.props.paused === false) {
-      this.timer = setInterval(this.updateCurrentPosition, UPDATE_INTERVAL_MS);
-    }
+  syncPlaybackFrames() {
+    this.stopFrames?.();
+    this.stopFrames = this.props.paused === false
+      ? observePlaybackPosition(this.props.getCurrentPositionMs, this.paintPlaybackPosition)
+      : undefined;
+    if (!this.stopFrames) this.updateCurrentPosition();
   }
 
   updateCurrentPosition() {
-    const { getCurrentPositionMs, currentSongDurationMs } = this.props;
-    this.setState({
-      currentSongPositionMs: Math.min(
-        getCurrentPositionMs(),
-        currentSongDurationMs,
-      ),
-    });
+    this.paintPlaybackPosition(this.props.getCurrentPositionMs());
+  }
+
+  paintPlaybackPosition(position) {
+    const duration = this.props.currentSongDurationMs;
+    const ms = duration > 0 && Number.isFinite(position)
+      ? Math.max(0, Math.min(position, duration))
+      : 0;
+    if (this.slider.current?.setPosition(duration > 0 ? ms / duration : 0)) {
+      this.paintTimeLabel(ms);
+    }
   }
 
   componentWillUnmount() {
     this.unsubscribeGeometry?.();
-    clearInterval(this.timer);
+    this.stopFrames?.();
   }
 
-  getSongPos() {
-    return this.state.currentSongPositionMs / this.props.currentSongDurationMs;
-  }
-
-  getTimeLabel() {
-    const val =
-      this.state.draggedSongPositionMs >= 0
-        ? this.state.draggedSongPositionMs
-        : this.state.currentSongPositionMs;
-    return this.getTime(val);
+  paintTimeLabel(ms) {
+    const label = this.getTime(ms);
+    if (this.elapsed.current.textContent !== label) this.elapsed.current.textContent = label;
   }
 
   getTime(ms) {
     const sign = ms < 0 ? "-" : "";
     ms = Math.abs(ms);
     const min = Math.floor(ms / 60000);
-    const sec = (Math.floor((ms % 60000) / 100) / 10).toFixed(0);
+    const sec = Math.floor((ms % 60000) / 1000);
     return `${sign}${min}:${pad(sec)}`;
   }
 
-  handlePositionDrag(event) {
-    const pos = event.target ? event.target.value : event;
-    // Update current time position label
-    this.setState({
-      draggedSongPositionMs: pos * this.props.currentSongDurationMs,
-    });
+  handlePositionDrag(position) {
+    this.paintTimeLabel(position * this.props.currentSongDurationMs);
   }
 
-  handlePositionDrop(event) {
-    this.setState({
-      draggedSongPositionMs: -1,
-      currentSongPositionMs: this.state.draggedSongPositionMs,
-    });
-    this.props.onChange(event);
+  handlePositionDrop(position) {
+    this.props.onChange(position);
+    this.updateCurrentPosition();
   }
 
   render() {
@@ -163,13 +150,14 @@ export default class TimeSlider extends React.PureComponent {
     const durationLabel = this.getTime(this.props.currentSongDurationMs);
     return (
       <TimeSliderContainer>
-        <TimeLabel style={{ width: `${Math.max(5, durationLabel.length)}ch` }}>
-          {this.getTimeLabel()}
+        <TimeLabel ref={this.elapsed} style={{ width: `${Math.max(5, durationLabel.length)}ch` }}>
+          0:00
         </TimeLabel>
         <Slider
-          pos={this.getSongPos()}
+          ref={this.slider}
           onDrag={this.handlePositionDrag}
           onChange={this.handlePositionDrop}
+          onCancel={this.updateCurrentPosition}
           marks={geometry.marks}
           phraseMarks={geometry.phraseMarks}
           bassBars={geometry.bassBars}

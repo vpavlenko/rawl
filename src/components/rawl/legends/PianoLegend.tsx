@@ -1,44 +1,27 @@
-import { pitchColor } from "../colors";
-import { faGuitar, faUserGraduate } from "@fortawesome/free-solid-svg-icons";
+import { FoldablePianoLegend as SharedFoldablePianoLegend } from "librawl/components";
+import type { PianoLegendAudition, PianoLegendMode } from "librawl/components";
+import "librawl/piano-legend.css";
 import * as React from "react";
 import styled, { css, keyframes } from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
 import { playArpeggiatedChord, playScale } from "../../../sampler/sampler";
 import { PITCH_CLASS_TO_LETTER } from "../AnalysisGrid";
-import { Toggle } from "../Toggle";
-import { FoldButtonWithIcon } from "../editor/FoldButtonWithIcon";
 import { TOP_100_COMPOSERS } from "../top100Composers";
-import ChordStairs from "./ChordStairs";
-import { CHROMATIC_CHORDS, MAJOR_MODE, MINOR_MODE, Mode } from "./chords";
+import {
+  CHROMATIC_CHORDS,
+  formatChordName,
+  MAJOR_MODE,
+  MINOR_MODE,
+  Mode,
+  rehydrateChords,
+} from "./chords";
 import { usesQanunTimbre } from "../corpora/corpora";
 import MaqamLegend from "./MaqamLegend";
 
-const PIANO_KEYBOARD_REPETITIONS = 2;
 const MOBILE_PIANO_LEGEND_MEDIA_QUERY = "(max-width: 767px)";
 
 const BLACK_KEYS = [1, 3, -1, 6, 8, 10, -1];
 const WHITE_KEYS = [0, 2, 4, 5, 7, 9, 11];
-
-const SCALE_GROUPS = [
-  {
-    label: "minor",
-    scales: [
-      { label: "phrygian", pitches: [0, 1, 3, 5, 7, 8, 10] },
-      { label: "natural", pitches: [0, 2, 3, 5, 7, 8, 10] },
-      { label: "harmonic", pitches: [0, 2, 3, 5, 7, 8, 11] },
-      { label: "dorian", pitches: [0, 2, 3, 5, 7, 9, 10] },
-    ],
-  },
-  {
-    label: "major",
-    scales: [
-      { label: "mixolydian", pitches: [0, 2, 4, 5, 7, 9, 10] },
-      { label: "natural", pitches: WHITE_KEYS },
-      { label: "lydian", pitches: [0, 2, 4, 6, 7, 9, 11] },
-      { label: "hijaz", pitches: [0, 1, 4, 5, 7, 8, 10] },
-    ],
-  },
-];
 
 const BLACK_KEY_LABELS = ["b2", "b3", -1, "#4", "b6", "b7", -1];
 
@@ -91,30 +74,6 @@ const PianoKey = styled.div<{ isPlaying?: boolean; isEnabled?: boolean; $active?
     css`
       animation: ${keyPress} 0.2s ease-out;
     `}
-`;
-
-const ScaleLabel = styled.button<{ $pitches: number[] }>`
-  background: linear-gradient(
-    to right,
-    ${({ $pitches }) =>
-      [1, 2, 3, 5, 6]
-        .map((degree, index) => `${pitchColor($pitches[degree])} ${index * 20}% ${(index + 1) * 20}%`)
-        .join(", ")}
-  );
-  border: none;
-  font: inherit;
-  cursor: pointer;
-  padding: 2px 6px;
-  margin: 0 2px;
-  border-radius: 4px;
-  color: white;
-  text-shadow: 0 1px 2px black, 0 0 2px black;
-
-  &:hover,
-  &:focus-visible {
-    outline: 1px solid white;
-    outline-offset: 1px;
-  }
 `;
 
 const isMobilePianoLegend = () =>
@@ -262,217 +221,65 @@ export const InlinePianoLegend: React.FC<{ enabledPitches?: number[] }> = ({
   return <PianoLegend inline enabledPitches={enabledPitches} />;
 };
 
+/** Keep the legacy chapter filtering and sampler register for the shared rows. */
+function prepareLegendModes(mode: Mode | Mode[] | undefined, chapterChords?: string[]): PianoLegendMode[] {
+  const primary = Array.isArray(mode) ? mode : mode ? [mode] : [MAJOR_MODE, MINOR_MODE];
+  const rows = chapterChords ? [...primary, CHROMATIC_CHORDS] : primary;
+  const available = chapterChords && new Set(chapterChords);
+  return rows.flatMap(({ title, chords }) => {
+    const filtered = available ? chords.filter(chord => available.has(chord)) : chords;
+    if (!filtered.length || (available && !filtered.some(chord => chord !== "V" && chord !== "V7"))) {
+      return [];
+    }
+    const voiced = rehydrateChords(filtered);
+    const lowest = voiced.reduce((chord, candidate) =>
+      candidate.positions[0] < chord.positions[0] ? candidate : chord,
+    );
+    const shift = lowest.pitches[0] - lowest.positions[0];
+    return [{
+      title,
+      chords: voiced.map(({ name, pitches, positions }) => ({
+        name,
+        pitches,
+        positions: positions.map(position => position + shift),
+        romanLabel: formatChordName(name),
+      })),
+    }];
+  });
+}
+
+const audition: PianoLegendAudition = (pitches, { kind, onActiveNote }) => {
+  if (kind === "scale") {
+    return playScale(pitches, index => onActiveNote?.(index));
+  }
+  void playArpeggiatedChord(pitches, kind === "chord");
+};
+
+function FoldableMaqamLegend() {
+  const [expanded, setExpanded] = useLocalStorage(
+    isMobilePianoLegend() ? "showLegendMobile" : "showLegend",
+    false,
+  );
+  return <MaqamLegend expanded={expanded} onExpandedChange={setExpanded} />;
+}
+
 export const FoldablePianoLegend: React.FC<{
   slug?: string;
   mode?: Mode | Mode[];
   currentTonic?: number;
   setHoveredColors?: (colors: string[] | null) => void;
 }> = ({ slug, mode, currentTonic, setHoveredColors }) => {
-  const isMobileLegend = isMobilePianoLegend();
-  const [showLegend, setShowLegend] = useLocalStorage(
-    isMobileLegend ? "showLegendMobile" : "showLegend",
-    !isMobileLegend,
+  const chapterChords = TOP_100_COMPOSERS.find(composer => composer.slug === slug)?.chords;
+  const modes = React.useMemo(() => prepareLegendModes(mode, chapterChords), [mode, chapterChords]);
+  if (usesQanunTimbre(slug)) return <FoldableMaqamLegend key={slug} />;
+  return (
+    <div style={{ display: "contents", "--rawl-piano-legend-z-index": 100000 } as React.CSSProperties}>
+      <SharedFoldablePianoLegend
+        currentTonic={currentTonic}
+        modes={modes}
+        onAudition={audition}
+        setHoveredColors={setHoveredColors}
+      />
+    </div>
   );
-  const [hoveredScale, setHoveredScale] = React.useState<number[] | null>(null);
-  const [activePitch, setActivePitch] = React.useState<number | null>(null);
-  const stopScale = React.useRef<(() => void) | null>(null);
-  React.useEffect(() => {
-    setActivePitch(null);
-    return () => {
-      stopScale.current?.();
-    };
-  }, [currentTonic, showLegend]);
-
-  const handlePlayScale = React.useCallback((pitches: number[]) => {
-    stopScale.current?.();
-    setActivePitch(null);
-    const sequence = [...pitches, 12];
-    stopScale.current = playScale(
-      sequence.map((pitch) => pitch + (currentTonic ?? 0)),
-      (index) => setActivePitch(index === null ? null : sequence[index]),
-    );
-  }, [currentTonic]);
-  const [showGuitarChords, setShowGuitarChords] = React.useState(false);
-
-  const getEnabledPitches = () => {
-    return hoveredScale ?? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-  };
-
-  const chords = TOP_100_COMPOSERS.find(({ slug: _slug }) => slug === _slug)
-    ?.chords;
-
-  const content = React.useMemo(() => {
-    return (
-      <div
-        key="piano-legend"
-        style={{ position: "fixed", bottom: 51, right: 36, zIndex: 100000 }}
-      >
-        {showLegend ? (
-          <div style={{ position: "relative", marginTop: "30px" }}>
-            <Toggle
-              leftIcon={faUserGraduate}
-              rightIcon={faGuitar}
-              isRight={showGuitarChords}
-              onToggle={() => setShowGuitarChords((prev) => !prev)}
-              leftTitle="Show Roman numerals"
-              rightTitle="Show guitar chords"
-            />
-            <FoldButtonWithIcon
-              position="top"
-              isFolded={!showLegend}
-              onClick={() => setShowLegend(false)}
-            />
-
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 35,
-                backgroundColor: "black",
-                padding: 10,
-                border: "1px solid #666",
-                zIndex: 100000,
-              }}
-            >
-              {(Array.isArray(mode)
-                ? mode
-                : mode
-                ? [mode]
-                : [MAJOR_MODE, MINOR_MODE]
-              ).map((modeItem, index) => (
-                <ChordStairs
-                  key={`mode-${index}`}
-                  mode={modeItem}
-                  chapterChords={chords}
-                  currentTonic={currentTonic}
-                  setHoveredColors={setHoveredColors}
-                  showGuitarChords={showGuitarChords}
-                />
-              ))}
-              {chords && (
-                <ChordStairs
-                  mode={CHROMATIC_CHORDS}
-                  chapterChords={chords}
-                  currentTonic={currentTonic}
-                  setHoveredColors={setHoveredColors}
-                  showGuitarChords={showGuitarChords}
-                />
-              )}
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <div
-                  style={{
-                    margin: "auto",
-                    display: "flex",
-                    flexDirection: "row",
-                  }}
-                >
-                  {Array.from({ length: PIANO_KEYBOARD_REPETITIONS }).map(
-                    (_, index) => (
-                      <PianoLegend
-                        key={`piano-${index}`}
-                        currentTonic={(currentTonic ?? 0) + index * 12}
-                        enabledPitches={getEnabledPitches()}
-                        activePitch={activePitch === null ? null : activePitch - index * 12}
-                      />
-                    ),
-                  )}
-                </div>
-                <div
-                  style={{
-                    overflow: "visible",
-                    color: "white",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "8px",
-                    alignItems: "stretch",
-                    marginTop: "8px",
-                  }}
-                >
-                  {SCALE_GROUPS.map((group) => (
-                    <div
-                      key={group.label}
-                      style={{ display: "flex", alignItems: "center", gap: "8px" }}
-                    >
-                      <div
-                        className={`noteColor_${group.label === "minor" ? 3 : 4}_colors`}
-                        style={{
-                          fontSize: "12px",
-                          flexShrink: 0,
-                          padding: "2px 4px",
-                          boxSizing: "border-box",
-                          borderRadius: "4px",
-                          color: group.label === "minor" ? "white" : "black",
-                        }}
-                      >
-                        {group.label}
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          flex: 1,
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        {group.scales.map((scale) => (
-                          <ScaleLabel
-                            key={scale.label}
-                            $pitches={scale.pitches}
-                            type="button"
-                            aria-label={`Play ${scale.label} ${group.label} scale`}
-                            onClick={() => handlePlayScale(scale.pitches)}
-                            onMouseEnter={() => setHoveredScale(scale.pitches)}
-                            onMouseLeave={() => setHoveredScale(null)}
-                          >
-                            {scale.label}
-                          </ScaleLabel>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div style={{ position: "relative", marginTop: "30px" }}>
-            <FoldButtonWithIcon
-              position="top"
-              isFolded={!showLegend}
-              onClick={() => setShowLegend(true)}
-            />
-            <button
-              onClick={() => setShowLegend(true)}
-              style={{
-                background: "black",
-                border: "1px solid #333",
-                padding: "10px",
-                cursor: "pointer",
-              }}
-            >
-              <InlinePianoLegend />
-            </button>
-          </div>
-        )}
-      </div>
-    );
-  }, [
-    showLegend,
-    slug,
-    mode,
-    currentTonic,
-    chords,
-    setShowLegend,
-    hoveredScale,
-    activePitch,
-    handlePlayScale,
-    showGuitarChords,
-  ]);
-
-  return usesQanunTimbre(slug) ? (
-    <MaqamLegend
-      key={slug}
-      expanded={showLegend}
-      onExpandedChange={setShowLegend}
-    />
-  ) : content;
 };

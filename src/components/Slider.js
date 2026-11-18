@@ -20,6 +20,7 @@ const SliderContainer = styled.div`
   position: relative;
   width: 100%;
   box-sizing: border-box;
+  touch-action: none;
   border: 0;
   display: inline-block;
 `;
@@ -51,6 +52,12 @@ const SliderBassBar = styled.div`
   top: 50%;
   height: 7.5px;
   border: 0;
+  pointer-events: none;
+`;
+
+const SliderPlayhead = styled.div`
+  position: absolute;
+  inset: 0;
   pointer-events: none;
 `;
 
@@ -170,73 +177,76 @@ export default class Slider extends PureComponent {
     super(props);
     autoBindReact(this);
 
-    this.node = React.createRef();
-    this.state = {
-      dragging: false,
-      draggedPos: null,
-    };
+    this.playhead = React.createRef();
+    this.magnifier = React.createRef();
+    this.pointer = null;
+    this.position = null;
   }
 
-  onMouseMove(event) {
-    if (this.state.dragging) {
-      const node = this.node.current;
-      const pos = Math.max(
-        Math.min((event.clientX - node.offsetLeft) / node.offsetWidth, 1),
-        0,
-      );
-      this.setState({
-        draggedPos: pos,
-      });
-      this.props.onDrag(pos);
-    }
+  setPosition(position) {
+    if (this.pointer !== null) return false;
+    this.paint(position);
+    return true;
   }
 
-  onMouseDown(event) {
+  paint(position) {
+    if (position === this.position) return;
+    this.position = position;
+    const percent = `${position * 100}%`;
+    this.playhead.current.style.transform = `translateX(${percent})`;
+    // Overlap the knob's left edge to cover subpixel clipping seams.
+    this.magnifier.current.style.clipPath =
+      `inset(0 calc(100% - ${percent} - var(--charW1)) 0 calc(${percent} - 1px))`;
+  }
+
+  onPointerMove(event) {
+    if (this.pointer !== event.pointerId) return;
+    const { left, width } = event.currentTarget.getBoundingClientRect();
+    if (!width) return;
+    const position = Math.max(0, Math.min((event.clientX - left) / width, 1));
+    this.paint(position);
+    this.props.onDrag(position);
+  }
+
+  onPointerDown(event) {
+    if (this.pointer !== null || event.button !== 0) return;
     event.preventDefault();
-    event.persist();
-    document.addEventListener("mousemove", this.onMouseMove);
-    document.addEventListener("mouseup", this.onMouseUp);
-    this.setState({ dragging: true }, () => this.onMouseMove(event));
+    this.pointer = event.pointerId;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    this.onPointerMove(event);
   }
 
-  onMouseUp(event) {
-    document.removeEventListener("mouseup", this.onMouseUp);
-    document.removeEventListener("mousemove", this.onMouseMove);
-    // Wait a moment to prevent 'snapback' (pos momentarily won't match draggedPos)
-    setTimeout(() => {
-      this.setState({ dragging: false });
-    }, 150);
-    this.props.onChange(this.state.draggedPos);
+  onPointerUp(event) {
+    if (this.pointer !== event.pointerId) return;
+    this.onPointerMove(event);
+    this.pointer = null;
+    this.props.onChange(this.position);
+  }
+
+  onPointerCancel(event) {
+    if (this.pointer !== event.pointerId) return;
+    this.pointer = null;
+    this.props.onCancel();
   }
 
   render() {
-    const pos =
-      Math.max(
-        Math.min(
-          this.state.dragging ? this.state.draggedPos : this.props.pos,
-          1,
-        ),
-        0,
-      ) *
-        100 +
-      "%";
-
     return (
-      <SliderContainer ref={this.node} onMouseDown={this.onMouseDown}>
+      <SliderContainer
+        onPointerDown={this.onPointerDown}
+        onPointerMove={this.onPointerMove}
+        onPointerUp={this.onPointerUp}
+        onPointerCancel={this.onPointerCancel}
+        onLostPointerCapture={this.onPointerCancel}
+      >
         <ColoredMarks marks={this.props.coloredMarks} />
         <SectionMarks marks={this.props.marks} />
         <PhraseMarks marks={this.props.phraseMarks} />
         <BassBars bars={this.props.bassBars} />
-        <SliderKnob style={{
-          left: pos,
-          transition: this.state.dragging ? "none" : "left 0.37s linear",
-        }} />
+        <SliderPlayhead ref={this.playhead} data-playback-head aria-hidden="true">
+          <SliderKnob />
+        </SliderPlayhead>
         <SliderMagnifier
-          style={{
-            // Overlap the knob's left edge to cover subpixel clipping seams.
-            clipPath: `inset(0 calc(100% - ${pos} - var(--charW1)) 0 calc(${pos} - 1px))`,
-            transition: this.state.dragging ? "none" : "clip-path 0.37s linear",
-          }}
+          ref={this.magnifier}
           aria-hidden="true"
         >
           <ColoredMarks marks={this.props.coloredMarks} />

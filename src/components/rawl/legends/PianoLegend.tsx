@@ -5,6 +5,7 @@ import * as React from "react";
 import styled, { css, keyframes } from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
 import { playArpeggiatedChord, playScale } from "../../../sampler/sampler";
+import { HEADER_HEIGHT } from "../../AppHeader";
 import { PITCH_CLASS_TO_LETTER } from "../AnalysisGrid";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 import {
@@ -263,6 +264,15 @@ function FoldableMaqamLegend() {
   return <MaqamLegend expanded={expanded} onExpandedChange={setExpanded} />;
 }
 
+const LegendPlacement = styled.div`
+  display: contents;
+  --rawl-piano-legend-z-index: 100000;
+
+  .rawln-piano-legend {
+    --rawln-legend-top: calc(${() => HEADER_HEIGHT} + 8px + env(safe-area-inset-top, 0px));
+  }
+`;
+
 export const FoldablePianoLegend: React.FC<{
   slug?: string;
   mode?: Mode | Mode[];
@@ -273,13 +283,13 @@ export const FoldablePianoLegend: React.FC<{
   const modes = React.useMemo(() => prepareLegendModes(mode, chapterChords), [mode, chapterChords]);
   if (usesQanunTimbre(slug)) return <FoldableMaqamLegend key={slug} />;
   return (
-    <div style={{ display: "contents", "--rawl-piano-legend-z-index": 100000 } as React.CSSProperties}>
+    <LegendPlacement>
       <SharedFoldablePianoLegend
         currentTonic={currentTonic}
         modes={modes}
         onAudition={audition}
         setHoveredColors={setHoveredColors}
       />
-    </div>
+    </LegendPlacement>
   );
 };

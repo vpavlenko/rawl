@@ -143,15 +143,6 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
   const originalMessageChannel = global.MessageChannel;
   // Keep the jsdom scheduler from opening a persistent Node MessagePort.
   global.MessageChannel = undefined;
-  // AnalysisGrid needs only this runtime export from the full player.
-  const rawlPath = require.resolve("../../src/components/rawl/Rawl");
-  const originalRawl = require.cache[rawlPath];
-  require.cache[rawlPath] = {
-    exports: {
-      getModulations: require("../../src/components/rawl/analysis")
-        .getModulations,
-    },
-  };
   const React = require("react");
   const { createRoot } = require("react-dom/client");
   const { flushSync } = require("react-dom");
@@ -163,7 +154,7 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
   const meters = [];
   let splits = 0, merges = 0;
   let root = null;
-  const render = (groups = [], timing = grid) => {
+  const render = (groups = [], timing = grid, gridProps = {}) => {
     if (!root) root = createRoot(container);
     flushSync(() => root.render(
       React.createElement(
@@ -190,6 +181,7 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
             rhythmGrouping: groups,
             setRhythmGrouping: (value) => saves.push(value),
           },
+          ...gridProps,
         }),
       ),
     ));
@@ -249,12 +241,7 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
     assert.deepEqual(meters, [3]);
     unmount();
     render([3, 2, 2, 3]);
-    const renderedBeats = [...container.querySelectorAll("div")]
-      .filter(
-        (element) =>
-          element.style.zIndex === "2" &&
-          element.style.pointerEvents === "none",
-      )
+    const renderedBeats = [...container.querySelectorAll(".rawln-beat-bar")]
       .map((element) => Number.parseFloat(element.style.left));
     assert.deepEqual(
       renderedBeats,
@@ -277,22 +264,42 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
     assert.deepEqual(saves.at(-1), [3, 2, 2, 3]);
     unmount();
     render([3, 2, 2, 3], hiddenGrid);
-    const hiddenBeatPositions = [...container.querySelectorAll("div")]
-      .filter(
-        (element) =>
-          element.style.zIndex === "2" &&
-          element.style.pointerEvents === "none",
-      )
+    const hiddenBeatPositions = [...container.querySelectorAll(".rawln-beat-bar")]
       .map((element) => Number.parseFloat(element.style.left));
     assert.deepEqual(
       hiddenBeatPositions,
       [300, 500, 700, 1300, 1500, 1700, 2300, 2500, 2700],
     );
+    // A section can start at a nonzero x. Keep the measure position in that
+    // coordinate system and carry only the tonic context into the new row.
+    unmount();
+    const section = {
+      analysis: { modulations: { 1: 0, 2: 7 }, modulationOnset: { 2: 9.5 } },
+      secondsToX: (time) => (time - 10) * 100 + 5,
+      midiNumberToY: (pitch) => (72 - pitch) * 10,
+      showTonalGrid: true,
+      sectionSpan: [1, 2],
+      playbackMeasure: 2,
+    };
+    render([], grid, section);
+    const marker = container.querySelector('.rawln-modulation[data-continued="true"]');
+    assert.ok(marker);
+    assert.equal(marker.querySelector(".rawln-modulation-label").textContent, "G");
+    assert.equal(marker.style.left, "4px");
+    assert.ok(container.querySelector('[data-score-measure="2"]'));
+    assert.equal(container.querySelector(".rawln-tonic-line").style.left, "5px");
+
+    unmount();
+    render([], grid, { ...section, showHeader: false, showPlaybackMeasureBottomBorder: true });
+    assert.equal(container.querySelector("[data-score-measure]"), null);
+    assert.equal(container.querySelector(".rawln-modulation"), null);
+    assert.equal(container.querySelector(".rawln-bar").style.left, "4px");
+    const playbackBorder = container.querySelector(".rawln-playback-measure").style;
+    assert.equal(playbackBorder.borderBottomWidth, "1px");
+    assert.equal(playbackBorder.borderTopWidth, "");
   } finally {
     unmount();
     container.remove();
-    if (originalRawl) require.cache[rawlPath] = originalRawl;
-    else delete require.cache[rawlPath];
     global.MessageChannel = originalMessageChannel;
     window.close();
   }

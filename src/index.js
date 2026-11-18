@@ -2,6 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import 'librawl/voice-shapes.css';
+import 'librawl/style.css';
 import { StyleSheetManager } from 'styled-components';
 import isPropValid from '@emotion/is-prop-valid';
 import { RawlColorStyles } from './components/rawl/colors';

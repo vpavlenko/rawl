@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { TonalGrid } from "../AnalysisGrid";
+import { AnalysisTonalGuides } from "../AnalysisGrid";
 import { noteColorClass } from "../colors";
 import { getNoteRectangles } from "../getNoteRectangles";
 import { PlaybackSectionContext } from "../notePlayback";
@@ -167,7 +167,7 @@ export const MaqamRawlNotation: React.FC<{
           minWidth: minimumWidth,
         }}
       >
-        <TonalGrid
+        <AnalysisTonalGuides
           tonic={tonic}
           measures={[0, columnCount]}
           midiRange={midiRange}

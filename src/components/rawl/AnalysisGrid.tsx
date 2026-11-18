@@ -1,5 +1,11 @@
 import * as React from "react";
-import { PlaybackMeasureBorders, TonicSymbol } from "librawl/components";
+import {
+  PlaybackMeasureBorders,
+  RawlMeasureHeader,
+  TonalGrid as SharedTonalGrid,
+  TonicSymbol,
+} from "librawl/components";
+import { markersForRow, tonicMarkers, tonicRegions, visibleBeatLines } from "librawl/geometry";
 import { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { AppContext } from "../AppContext";
@@ -7,18 +13,15 @@ import Anchor from "../icons/Anchor";
 import CornerRightUp from "../icons/CornerRightUp";
 import CornerDownLeft from "../icons/CornerDownLeft";
 import { getSectionAnchorShiftTarget } from "./sectionAnchors";
-import { SetBeatsPerMeasureCallback, getModulations } from "./Rawl";
+import type { SetBeatsPerMeasureCallback } from "./Rawl";
 import { MeasuresAndBeats, MidiRange } from "./SystemLayout";
-import { Analysis, MeasuresSpan, PitchClass } from "./analysis";
+import { getModulations, type Analysis, type MeasuresSpan, type PitchClass } from "./analysis";
 import { getGroupedBeatLines, parseRhythmGrouping } from "./rhythmGrouping";
 
 export const STACKED_RN_HEIGHT = 20;
 // Only the active score supplies an offset; standalone examples stay in their key.
 export const AnalysisTransposeContext = React.createContext(0);
-const MIN_WIDTH_BETWEEN_BEATS = 10;
-const GRADIENT_HEIGHT_IN_NOTES = 0.5;
 const MOBILE_MEASURE_CLICK_MEDIA_QUERY = "(max-width: 767px)";
-const MODULATION_BADGE_WIDTH = 80;
 
 const KEY_TO_OFFSET = {
   z: -4,
@@ -30,25 +33,6 @@ const KEY_TO_OFFSET = {
   m: 3,
   ",": 4,
 };
-
-const VerticalBar = styled.div`
-  width: 1px;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  z-index: 2;
-  pointer-events: none;
-`;
-
-const MeasureBar = styled(VerticalBar)`
-  background-color: #444;
-  z-index: 1;
-`;
-
-const BeatBar = styled(VerticalBar)`
-  border-left: 0.5px dashed #333;
-  z-index: 1;
-`;
 
 const NeighborAnchorButton = styled.button`
   position: absolute;
@@ -319,472 +303,300 @@ export const NewTonicSymbol: React.FC<{
   );
 };
 
-const Measure: React.FC<{
-  span: [number, number];
+const MeasureEditor: React.FC<{
   number: number;
-  isPhraseStart: boolean;
+  width: number;
   measureSelection: MeasureSelection;
-  showHeader: boolean;
-  secondsToX: (number) => number;
-  showNonPhraseStarts: boolean;
-  hasModulationMarker?: boolean;
   selectedPhraseStart: number;
   sectionSpan: MeasuresSpan;
   isLastSection: boolean;
   anchorTargets?: { phrase: number; edge?: "end"; active: boolean; shortcut?: string }[];
   canAnchorSection?: boolean;
   hasSectionAnchor?: boolean;
-  playbackMeasure?: number | null;
-  showPlaybackMeasureBottomBorder?: boolean;
 }> = ({
-  span,
   number,
-  isPhraseStart,
+  width,
   measureSelection,
-  showHeader,
-  secondsToX,
-  showNonPhraseStarts,
-  hasModulationMarker = false,
   selectedPhraseStart,
   sectionSpan,
   isLastSection,
   anchorTargets = [],
   canAnchorSection = false,
   hasSectionAnchor = false,
-  playbackMeasure = null,
-  showPlaybackMeasureBottomBorder = false,
 }) => {
-  const {
-    selectedMeasure,
-    selectMeasure,
-    splitAtMeasure,
-    mergeAtMeasure,
-    setBeatsPerMeasure,
-  } = measureSelection;
-
-  const left = secondsToX(span[0]) - 1;
-  const width = secondsToX(span[1]) - left - 1;
-
-  const isLastMeasure = number === sectionSpan[1] + 1;
-  // A frozen excerpt can end exactly at a phrase boundary. Keep that final
-  // boundary visible even though there is no following measure to label.
-  const showMeasureBar = !isLastMeasure || isPhraseStart;
-  const isPlaybackMeasure = playbackMeasure === number && !isLastMeasure;
-
-  const { hoveredMeasuresSpan } = useContext(AppContext);
-  const isHighlighted =
-    hoveredMeasuresSpan &&
-    number >= hoveredMeasuresSpan[0] &&
-    number <= hoveredMeasuresSpan[1];
+  const { selectedMeasure, selectMeasure, splitAtMeasure, mergeAtMeasure, setBeatsPerMeasure } =
+    measureSelection;
 
   return (
     <>
-      {isPlaybackMeasure && (showHeader || showPlaybackMeasureBottomBorder) && (
-        <PlaybackMeasureBorders
-          left={left}
-          width={width + 1}
-          top={showHeader}
-          bottom={showPlaybackMeasureBottomBorder}
-        />
-      )}
-      {(showNonPhraseStarts || isPhraseStart) && showMeasureBar && (
+      {selectedMeasure === number && (
         <>
-          <MeasureBar
-            key={`db_${number}`}
+          <div
             style={{
-              left,
-              backgroundColor:
-                showNonPhraseStarts && isPhraseStart ? "#bbb" : undefined,
+              position: "absolute",
+              top: 23,
+              left: 0,
+              color: "gray",
+              fontSize: 12,
             }}
-          />
-          {width && showHeader ? (
-            <>
-              <div
-                key={`db_n_${number}`}
-                data-score-measure={number}
-                style={{
-                  position: "absolute",
-                  top: -4,
-                  left: left + 7,
-                  color:
-                    selectedMeasure === number
-                      ? "red"
-                      : selectedPhraseStart !== -1 &&
-                        Math.abs(number - selectedPhraseStart) <= 4
-                      ? "orange"
-                      : isHighlighted
-                      ? "white"
-                      : hasModulationMarker
-                      ? "black"
-                      : "#666",
-                  zIndex: 15,
-                  cursor: "pointer",
-                  userSelect: "none",
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (isMobileMeasureClick()) return;
-                  selectMeasure(number);
+            onClick={(e) => {
+              e.stopPropagation();
+              if (isMobileMeasureClick()) return;
+              selectMeasure(null);
+            }}
+          >
+            Esc
+          </div>
+          <div
+            style={{
+              position: "absolute",
+              top: -20,
+              left: 0,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <RemeasuringInput
+              setBeatsPerMeasure={setBeatsPerMeasure}
+              rhythmGrouping={measureSelection.rhythmGrouping}
+              setRhythmGrouping={measureSelection.setRhythmGrouping}
+              splitAtMeasure={splitAtMeasure}
+              mergeAtMeasure={mergeAtMeasure}
+              selectMeasure={selectMeasure}
+              selectedMeasure={selectedMeasure}
+              formPartName={measureSelection.formPartName}
+              setFormPartName={measureSelection.setFormPartName}
+              shiftSectionAnchor={canAnchorSection ? measureSelection.shiftSectionAnchor : undefined}
+            />
+            {canAnchorSection && !isLastSection && measureSelection.copySectionModulations && (
+              <button
+                type="button"
+                aria-label="Copy section modulations to all sections below"
+                title="Replace later modulations with this section’s cycle, restarting at each section’s starting tonic. Short sections copy only the changes that fit; copying continues below them."
+                style={{ marginLeft: 5, whiteSpace: "nowrap", background: "#222",
+                  color: "white", border: "1px solid #666", cursor: "pointer", fontSize: 11 }}
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  measureSelection.copySectionModulations();
                 }}
               >
-                {selectedMeasure === number && (
-                  <>
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: 23,
-                        left: 0,
-                        color: "gray",
-                        fontSize: 12,
-                      }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (isMobileMeasureClick()) return;
-                        selectMeasure(null);
-                      }}
-                    >
-                      Esc
-                    </div>
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: -20,
-                        left: 0,
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <RemeasuringInput
-                        setBeatsPerMeasure={setBeatsPerMeasure}
-                        rhythmGrouping={measureSelection.rhythmGrouping}
-                        setRhythmGrouping={measureSelection.setRhythmGrouping}
-                        splitAtMeasure={splitAtMeasure}
-                        mergeAtMeasure={mergeAtMeasure}
-                        selectMeasure={selectMeasure}
-                        selectedMeasure={selectedMeasure}
-                        formPartName={measureSelection.formPartName}
-                        setFormPartName={measureSelection.setFormPartName}
-                        shiftSectionAnchor={canAnchorSection ? measureSelection.shiftSectionAnchor : undefined}
-                      />
-                      {canAnchorSection && !isLastSection && measureSelection.copySectionModulations && (
-                        <button
-                          type="button"
-                          aria-label="Copy section modulations to all sections below"
-                          title="Replace later modulations with this section’s cycle, restarting at each section’s starting tonic. Short sections copy only the changes that fit; copying continues below them."
-                          style={{ marginLeft: 5, whiteSpace: "nowrap", background: "#222",
-                            color: "white", border: "1px solid #666", cursor: "pointer", fontSize: 11 }}
-                          onMouseDown={(event) => event.preventDefault()}
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            measureSelection.copySectionModulations();
-                          }}
-                        >
-                          Copy modulations ↓
-                        </button>
-                      )}
-                      {canAnchorSection && hasSectionAnchor && selectedMeasure === number && (
-                        <button
-                          type="button"
-                          title="Reset section to the left edge"
-                          aria-label="Reset section alignment"
-                          style={{ display: "inline-flex", alignItems: "center", gap: 3,
-                            marginLeft: 5, whiteSpace: "nowrap",
-                            background: "#222", color: "white", border: "1px solid #666", cursor: "pointer" }}
-                          onMouseDown={(event) => event.preventDefault()}
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            measureSelection.anchorSection?.(null);
-                            selectMeasure(null);
-                          }}
-                        >
-                          <Anchor /> Reset
-                        </button>
-                      )}
-                      <div
-                        style={{
-                          marginLeft: 5,
-                          color: "white",
-                          fontSize: 10,
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        Hover a note for tonic, click to save. Type beats,{" "}
-                        <span style={{ color: "orange" }}>Enter</span> to set beats/measure
-                        {selectedPhraseStart === number &&
-                        sectionSpan?.[0] === number - 1 ? (
-                          <span>
-                            . Empty <span style={{ color: "orange" }}>Shift+Enter</span> merges with previous section
-                          </span>
-                        ) : (
-                          <span>. Empty <span style={{ color: "orange" }}>Enter</span> splits into two sections</span>
-                        )}
-                        {measureSelection.setFormPartName && (
-                          <span>. Type <span style={{ color: "orange" }}>F</span> to {measureSelection.formPartName ? "edit the" : "add a"} form part name</span>
-                        )}
-                      </div>
-                    </div>
-                  </>
-                )}
-                {selectedMeasure !== null &&
-                  selectedPhraseStart === selectedMeasure &&
-                  Object.entries(KEY_TO_OFFSET).map(([key, offset]) => {
-                    const targetMeasure = selectedMeasure + offset;
-                    if (targetMeasure === number) {
-                      return (
-                        <div
-                          key={key}
-                          style={{
-                            position: "absolute",
-                            top: -6,
-                            left: 0,
-                            color: "orange",
-                            fontSize: 10,
-                          }}
-                        >
-                          {key}
-                        </div>
-                      );
-                    }
-                    return null;
-                  })}
-                {selectedPhraseStart === number &&
-                  sectionSpan?.[0] !== number - 1 && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: -12,
-                        left: -26,
-                        color: "red",
-                        fontSize: 14,
-                        fontWeight: 700,
-                        zIndex: 100,
-                      }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (isMobileMeasureClick()) return;
-                        splitAtMeasure(false);
-                      }}
-                    >
-                      <CornerDownLeft />
-                    </div>
-                  )}
-                {selectedPhraseStart === number &&
-                  sectionSpan?.[0] !== number - 1 &&
-                  isLastSection && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: -18,
-                        left: -100,
-                        color: "red",
-                        fontSize: 14,
-                        fontWeight: 700,
-                        zIndex: 100,
-                        display: "flex",
-                        gap: "5px",
-                      }}
-                    >
-                      <span
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          if (isMobileMeasureClick()) return;
-                          splitAtMeasure(true, 2);
-                        }}
-                      >
-                        /8
-                      </span>
-                      <span
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          if (isMobileMeasureClick()) return;
-                          splitAtMeasure(true, 3);
-                        }}
-                      >
-                        /12
-                      </span>
-                      <span
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          if (isMobileMeasureClick()) return;
-                          splitAtMeasure(true, 4);
-                        }}
-                      >
-                        /16
-                      </span>
-                    </div>
-                  )}
-                {selectedPhraseStart === number &&
-                  sectionSpan?.[0] === number - 1 && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: 4,
-                        left: 18,
-                        color: "red",
-                        fontSize: 14,
-                        fontWeight: 700,
-                        zIndex: 100,
-                      }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (isMobileMeasureClick()) return;
-                        mergeAtMeasure();
-                      }}
-                    >
-                      <CornerRightUp />
-                    </div>
-                  )}
-                {anchorTargets.map((anchorTarget) => (
-                  <NeighborAnchorButton
-                    key={`${anchorTarget.phrase}:${anchorTarget.edge ?? "start"}`}
-                    type="button"
-                    style={anchorTarget.edge === "end" ? { left: width - 7, top: -36 } : undefined}
-                    title={`Align selected section ${anchorTarget.edge === "end" ? "end" : "start"} with this phrase ${anchorTarget.edge === "end" ? "end" : "start"}`}
-                    aria-label={`Anchor selected section ${anchorTarget.edge === "end" ? "end" : "start"} to phrase ${anchorTarget.phrase + 1} ${anchorTarget.edge === "end" ? "end" : "start"}`}
-                    aria-pressed={anchorTarget.active}
-                    onMouseDown={(event) => event.preventDefault()}
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      measureSelection.anchorSection?.({ phrase: anchorTarget.phrase,
-                        ...(anchorTarget.edge === "end" ? { edge: "end" as const } : {}) });
-                      selectMeasure(null);
-                    }}
-                  >
-                    <Anchor />
-                    {anchorTarget.shortcut && (
-                      <span style={{ marginLeft: 3, color: "orange", fontSize: 10 }}>
-                        {anchorTarget.shortcut}
-                      </span>
-                    )}
-                  </NeighborAnchorButton>
-                ))}
-
-                <span
-                  style={{
-                    fontSize: "12px",
-                    fontFamily: "sans-serif",
-                  }}
-                >
-                  {number}
+                Copy modulations ↓
+              </button>
+            )}
+            {canAnchorSection && hasSectionAnchor && selectedMeasure === number && (
+              <button
+                type="button"
+                title="Reset section to the left edge"
+                aria-label="Reset section alignment"
+                style={{ display: "inline-flex", alignItems: "center", gap: 3,
+                  marginLeft: 5, whiteSpace: "nowrap",
+                  background: "#222", color: "white", border: "1px solid #666", cursor: "pointer" }}
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  measureSelection.anchorSection?.(null);
+                  selectMeasure(null);
+                }}
+              >
+                <Anchor /> Reset
+              </button>
+            )}
+            <div
+              style={{
+                marginLeft: 5,
+                color: "white",
+                fontSize: 10,
+                whiteSpace: "nowrap",
+              }}
+            >
+              Hover a note for tonic, click to save. Type beats,{" "}
+              <span style={{ color: "orange" }}>Enter</span> to set beats/measure
+              {selectedPhraseStart === number &&
+              sectionSpan?.[0] === number - 1 ? (
+                <span>
+                  . Empty <span style={{ color: "orange" }}>Shift+Enter</span> merges with previous section
                 </span>
-              </div>
-            </>
-          ) : null}
+              ) : (
+                <span>. Empty <span style={{ color: "orange" }}>Enter</span> splits into two sections</span>
+              )}
+              {measureSelection.setFormPartName && (
+                <span>. Type <span style={{ color: "orange" }}>F</span> to {measureSelection.formPartName ? "edit the" : "add a"} form part name</span>
+              )}
+            </div>
+          </div>
         </>
       )}
+      {selectedMeasure !== null &&
+        selectedPhraseStart === selectedMeasure &&
+        Object.entries(KEY_TO_OFFSET).map(([key, offset]) => {
+          const targetMeasure = selectedMeasure + offset;
+          if (targetMeasure === number) {
+            return (
+              <div
+                key={key}
+                style={{
+                  position: "absolute",
+                  top: -6,
+                  left: 0,
+                  color: "orange",
+                  fontSize: 10,
+                }}
+              >
+                {key}
+              </div>
+            );
+          }
+          return null;
+        })}
+      {selectedPhraseStart === number &&
+        sectionSpan?.[0] !== number - 1 && (
+          <div
+            style={{
+              position: "absolute",
+              top: -12,
+              left: -26,
+              color: "red",
+              fontSize: 14,
+              fontWeight: 700,
+              zIndex: 100,
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (isMobileMeasureClick()) return;
+              splitAtMeasure(false);
+            }}
+          >
+            <CornerDownLeft />
+          </div>
+        )}
+      {selectedPhraseStart === number &&
+        sectionSpan?.[0] !== number - 1 &&
+        isLastSection && (
+          <div
+            style={{
+              position: "absolute",
+              top: -18,
+              left: -100,
+              color: "red",
+              fontSize: 14,
+              fontWeight: 700,
+              zIndex: 100,
+              display: "flex",
+              gap: "5px",
+            }}
+          >
+            <span
+              onClick={(e) => {
+                e.stopPropagation();
+                if (isMobileMeasureClick()) return;
+                splitAtMeasure(true, 2);
+              }}
+            >
+              /8
+            </span>
+            <span
+              onClick={(e) => {
+                e.stopPropagation();
+                if (isMobileMeasureClick()) return;
+                splitAtMeasure(true, 3);
+              }}
+            >
+              /12
+            </span>
+            <span
+              onClick={(e) => {
+                e.stopPropagation();
+                if (isMobileMeasureClick()) return;
+                splitAtMeasure(true, 4);
+              }}
+            >
+              /16
+            </span>
+          </div>
+        )}
+      {selectedPhraseStart === number &&
+        sectionSpan?.[0] === number - 1 && (
+          <div
+            style={{
+              position: "absolute",
+              top: 4,
+              left: 18,
+              color: "red",
+              fontSize: 14,
+              fontWeight: 700,
+              zIndex: 100,
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (isMobileMeasureClick()) return;
+              mergeAtMeasure();
+            }}
+          >
+            <CornerRightUp />
+          </div>
+        )}
+      {anchorTargets.map((anchorTarget) => (
+        <NeighborAnchorButton
+          key={`${anchorTarget.phrase}:${anchorTarget.edge ?? "start"}`}
+          type="button"
+          style={anchorTarget.edge === "end" ? { left: width - 7, top: -36 } : undefined}
+          title={`Align selected section ${anchorTarget.edge === "end" ? "end" : "start"} with this phrase ${anchorTarget.edge === "end" ? "end" : "start"}`}
+          aria-label={`Anchor selected section ${anchorTarget.edge === "end" ? "end" : "start"} to phrase ${anchorTarget.phrase + 1} ${anchorTarget.edge === "end" ? "end" : "start"}`}
+          aria-pressed={anchorTarget.active}
+          onMouseDown={(event) => event.preventDefault()}
+          onClick={(event) => {
+            event.stopPropagation();
+            measureSelection.anchorSection?.({ phrase: anchorTarget.phrase,
+              ...(anchorTarget.edge === "end" ? { edge: "end" as const } : {}) });
+            selectMeasure(null);
+          }}
+        >
+          <Anchor />
+          {anchorTarget.shortcut && (
+            <span style={{ marginLeft: 3, color: "orange", fontSize: 10 }}>
+              {anchorTarget.shortcut}
+            </span>
+          )}
+        </NeighborAnchorButton>
+      ))}
     </>
   );
 };
 
-const Beat: React.FC<{ second: number; secondsToX: (number) => number }> = ({
-  second,
-  secondsToX,
-}) => (
-  <BeatBar
-    style={{ left: secondsToX(second), zIndex: 2, pointerEvents: "none" }}
-  />
-);
-
-export const TonalGrid: React.FC<{
+export const AnalysisTonalGuides: React.FC<{
   analysis?: Analysis;
   tonic?: number;
   measures: number[];
-  midiNumberToY: (number) => number;
+  midiNumberToY: (pitch: number) => number;
   noteHeight: number;
   midiRange: MidiRange;
-  secondsToX: (number) => number;
+  secondsToX: (time: number) => number;
   sectionSpan?: MeasuresSpan;
-}> = React.memo(
-  ({
-    analysis,
-    tonic: standaloneTonic,
-    measures,
-    midiNumberToY,
-    noteHeight,
-    midiRange,
-    secondsToX,
-    sectionSpan,
-  }) => {
-    if (!measures?.length) return null;
-    const modulations: { measure: number; tonic: number; time: number }[] =
-      standaloneTonic !== undefined
-        ? [{ measure: 0, tonic: standaloneTonic, time: measures[0] }]
-        : getModulations(analysis, measures);
-    const hasBoundaryModulation = modulations.some(
-      ({ time }) => time === measures[sectionSpan?.[1]],
-    );
-    modulations.push({
-      measure: measures.length,
-      tonic: modulations[0]?.tonic ?? 0,
-      time: measures[measures.length - 1],
-    });
+}> = React.memo(({ analysis, tonic, measures, midiNumberToY, noteHeight, midiRange, secondsToX, sectionSpan }) => {
+  if (!measures?.length) return null;
+  const events = tonic === undefined
+    ? getModulations(analysis, measures)
+    : [{ measure: 0, tonic, time: measures[0] }];
+  const clipStart = secondsToX(measures[sectionSpan?.[0] ?? 0]);
+  const endTime = measures[sectionSpan?.[1] ?? measures.length - 1];
+  const clipEnd = secondsToX(endTime) +
+    (sectionSpan && events.some(event => event.time === endTime) ? 30 : 0);
 
-    const minX = secondsToX(measures[sectionSpan?.[0] ?? 0]);
-    const maxX =
-      secondsToX(measures[sectionSpan?.[1] ?? measures.length - 1]) +
-      (hasBoundaryModulation ? 30 : 0);
-
-    const result = [];
-    for (let i = 0; i + 1 < modulations.length; ++i) {
-      const from = modulations[i].time;
-      const to = modulations[i + 1].time;
-      const { tonic } = modulations[i];
-      if (tonic == null) continue;
-      const fromX = Math.max(secondsToX(from), minX);
-      const toX = Math.min(secondsToX(to), maxX);
-      const width = toX - fromX;
-      if (width <= 0) continue;
-      // Octave display shifts can extend a section beyond the MIDI range.
-      // Derive all tonic/fifth rows from its current displayed pitch bounds.
-      const firstOctave = Math.ceil((midiRange[0] + 7 - tonic) / 12);
-      const lastOctave = Math.floor((midiRange[1] + 12 - tonic) / 12);
-      for (let octave = firstOctave; octave <= lastOctave; ++octave) {
-        const midiNumber = tonic + octave * 12;
-        if (toX >= minX && fromX <= maxX) {
-          if (
-            midiNumber - 12 >= midiRange[0] &&
-            midiNumber - 12 <= midiRange[1]
-          )
-            // TODO: display a note like C4 gracefully at each gradient start
-            result.push(
-              <div
-                key={`tonalgrid_octave_${i}_${midiNumber}`}
-                style={{
-                  position: "absolute",
-                  width,
-                  height: GRADIENT_HEIGHT_IN_NOTES * noteHeight,
-                  left: fromX,
-                  top: midiNumberToY(
-                    midiNumber - 13 + GRADIENT_HEIGHT_IN_NOTES,
-                  ),
-                  pointerEvents: "none",
-                  background: `linear-gradient(to top, #333, transparent)`,
-                  zIndex: 0,
-                }}
-              />,
-            );
-          if (midiNumber - 7 >= midiRange[0] && midiNumber - 7 <= midiRange[1])
-            result.push(
-              <div
-                key={`tonalgrid_octave_${i}_fifth_${midiNumber}`}
-                style={{
-                  position: "absolute",
-                  width,
-                  height: 0,
-                  left: fromX,
-                  top: midiNumberToY(midiNumber - 6) - 0.5,
-                  pointerEvents: "none",
-                  borderBottom: "0.5px dashed #333",
-                  zIndex: 0,
-                }}
-              />,
-            );
-        }
-      }
-    }
-    return result;
-  },
-);
+  const regions = tonicRegions(
+    events.map(event => ({ beat: secondsToX(event.time), tonic: event.tonic })),
+    clipStart,
+    Math.min(clipEnd, secondsToX(measures.at(-1))),
+  ).filter(region => region.tonic != null).map(region => ({
+    left: region.start, width: region.end - region.start, tonic: region.tonic,
+  }));
+  return <SharedTonalGrid
+    regions={regions}
+    range={{ low: midiRange[0], high: midiRange[1] }}
+    pitchToY={midiNumberToY}
+    tonicHeight={noteHeight / 2}
+  />;
+});
 
 interface AnalysisGridProps {
   analysis: Analysis;
@@ -833,25 +645,14 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
         ? { ...mod, measure: sectionSpan[0], time: measures[sectionSpan[0]] }
         : mod,
     );
-    const showAllMeasureBars = true;
-
-    // TODO: filter measures and beats using sectionSpan
-    const showBeats = React.useMemo(() => {
-      const relevantBars = [...measures, ...beatLines]
-        .filter(
-          (bar) =>
-            bar !== 0 &&
-            bar >= measures[sectionSpan[0]] &&
-            bar <= measures[sectionSpan[1]],
-        )
-        .sort((a, b) => a - b);
-      return (
-        (secondsToX(relevantBars.at(-1)) - secondsToX(relevantBars.at(0))) /
-          (relevantBars.length + 1) >=
-        MIN_WIDTH_BETWEEN_BEATS
-      );
-    }, [measures, beatLines, secondsToX, sectionSpan]);
-
+    const [firstMeasure, lastMeasure] = sectionSpan;
+    const firstTime = measures[firstMeasure];
+    const lastTime = measures[lastMeasure];
+    const isInSection = (time: number) => time >= firstTime && time <= lastTime;
+    const { hoveredMeasuresSpan } = useContext(AppContext);
+    const transpose = useContext(AnalysisTransposeContext);
+    const measureLines = measures.slice(firstMeasure, lastMeasure + 1);
+    const sectionBeatLines = beatLines.filter(isInSection);
     const selectedPhraseStart =
       phraseStarts.indexOf(measureSelection.selectedMeasure) !== -1
         ? measureSelection.selectedMeasure
@@ -886,50 +687,77 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
         }
       }
     }
+    const events = tonicMarkers(modulationsArray.map((change, index) => ({
+      beat: change.time,
+      number: change.measure + 1,
+      tonic: change.tonic,
+      onsetOverride: !(showGlobalTonicAtStart && index === 0) &&
+        analysis.modulationOnset?.[change.measure + 1] != null,
+    })));
+    const markers = markersForRow(events, {
+      start: firstTime,
+      end: lastTime,
+      toPixels: secondsToX,
+      numberAt: beat => measures.findLastIndex(time => time <= beat) + 1,
+    }).map(marker => ({ ...marker, left: secondsToX(marker.beat) + marker.pixelOffset }));
+    const layout = {
+      measures: measureLines.flatMap((beat, offset) => {
+        const number = firstMeasure + offset + 1;
+        const terminal = offset === measureLines.length - 1;
+        const isPhraseStart = phraseStarts.includes(number);
+        if (terminal && !isPhraseStart) return [];
+        const x = secondsToX(beat);
+        const width = secondsToX(measures[number] ?? beat) - x;
+        const highlighted = !!hoveredMeasuresSpan &&
+          number >= hoveredMeasuresSpan[0] && number <= hoveredMeasuresSpan[1];
+        const hasModulation = markers.some(marker => marker.beat === beat && marker.delta !== null);
+        const color = measureSelection.selectedMeasure === number
+          ? "red"
+          : selectedPhraseStart !== -1 && Math.abs(number - selectedPhraseStart) <= 4
+            ? "orange"
+            : highlighted ? "white" : hasModulation ? "black" : "#666";
+        return [{ beat, number, left: x - 1, width, isPhraseStart, terminal, showLabel: !!width, color, hasModulation }];
+      }),
+      beats: visibleBeatLines(measureLines, sectionBeatLines, secondsToX)
+        .map(beat => ({ beat, left: secondsToX(beat) })),
+      markers,
+    };
+    const playing = layout.measures.find(measure => measure.number === playbackMeasure && !measure.terminal);
+
     return (
       <div style={{ zIndex: 15 }}>
-        {showHeader && modulationsArray.map((mod, index) => {
-          const previousTonic = modulationsArray[index - 1]?.tonic ?? null;
-          const hasOnsetOverride = !(showGlobalTonicAtStart && index === 0) &&
-            analysis.modulationOnset?.[mod.measure + 1] != null;
-          const sectionStart = measures[sectionSpan[0]];
-          const badgeLeft = secondsToX(mod.time) - (hasOnsetOverride ? 0 : 1);
-          // Like a sustained note, a badge has a visible span across section breaks.
-          const continuesIntoSection = mod.time < sectionStart &&
-            badgeLeft + MODULATION_BADGE_WIDTH > secondsToX(sectionStart);
-          if ((!continuesIntoSection && mod.time < sectionStart) ||
-              mod.time >= measures[sectionSpan[1]]) return null;
-          return <NewTonicSymbol
-            key={`modulation_${mod.measure}`}
-            left={continuesIntoSection ? secondsToX(sectionStart) - 1 : badgeLeft}
-            alignToOnset={hasOnsetOverride && !continuesIntoSection}
-            number={mod.measure + 1}
-            previousTonic={previousTonic}
-            modulationDiff={previousTonic == null ? null : (mod.tonic - previousTonic + 12) % 12}
-            tonicStart={mod.tonic}
-          />;
-        })}
-        {measures.map((time, i) => {
-          const number = i + 1;
-          return sectionSpan[0] <= i && i <= sectionSpan[1] ? (
-            <Measure
-              key={i}
-              showHeader={showHeader && i < sectionSpan[1]}
-              span={[time, measures[number] ?? time]}
-              isPhraseStart={phraseStarts.indexOf(number) !== -1}
+        {playing && (showHeader || showPlaybackMeasureBottomBorder) && (
+          <PlaybackMeasureBorders
+            left={playing.left}
+            width={playing.width + 1}
+            top={showHeader}
+            bottom={showPlaybackMeasureBottomBorder}
+          />
+        )}
+        <RawlMeasureHeader
+          layout={layout}
+          transpose={transpose}
+          showHeader={showHeader}
+          selectedMeasure={measures[measureSelection.selectedMeasure - 1] ?? null}
+          onMeasureSelect={(_beat, measure) => {
+            if (!isMobileMeasureClick() && typeof measure.number === "number") {
+              measureSelection.selectMeasure(measure.number);
+            }
+          }}
+          renderMeasureExtras={(measure) => {
+            if (typeof measure.number !== "number") return null;
+            const number = measure.number;
+            const i = number - 1;
+            return <MeasureEditor
               number={number}
+              width={measure.width ?? 0}
               measureSelection={measureSelection}
-              secondsToX={secondsToX}
-              showNonPhraseStarts={showAllMeasureBars}
-              hasModulationMarker={modulationsArray.some((mod, index) =>
-                mod.time === time && modulationsArray[index - 1]?.tonic != null,
-              )}
               selectedPhraseStart={selectedPhraseStart}
               sectionSpan={sectionSpan}
-              isLastSection={sectionSpan?.[1] + 1 === measures.length}
-              canAnchorSection={canAnchorSection && i === sectionSpan[0]}
+              isLastSection={lastMeasure + 1 === measures.length}
+              canAnchorSection={canAnchorSection && i === firstMeasure}
               hasSectionAnchor={!!selectedAnchor}
-              anchorTargets={isAnchorTargetSection && i < sectionSpan[1] ? [
+              anchorTargets={isAnchorTargetSection && i < lastMeasure ? [
                 ...(phraseStarts.includes(number) ? [{
                   phrase: phraseStarts.indexOf(number),
                   shortcut: anchorShortcuts[phraseStarts.indexOf(number)],
@@ -945,22 +773,11 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
                 }] : []),
               ].filter((target) => target.phrase >= sections[currentSectionIndex] &&
                 target.phrase < (sections[currentSectionIndex + 1] ?? phraseStarts.length)) : undefined}
-              playbackMeasure={playbackMeasure}
-              showPlaybackMeasureBottomBorder={
-                showPlaybackMeasureBottomBorder
-              }
-            />
-          ) : null;
-        })}
-        {showBeats &&
-          beatLines.map((time) =>
-            time >= measures[sectionSpan[0]] &&
-            time <= measures[sectionSpan[1]] ? (
-              <Beat key={time} second={time} secondsToX={secondsToX} />
-            ) : null,
-          )}
+            />;
+          }}
+        />
         {showTonalGrid && analysis.modulations[0] !== null && (
-          <TonalGrid
+          <AnalysisTonalGuides
             analysis={analysis}
             measures={measures}
             midiNumberToY={midiNumberToY}

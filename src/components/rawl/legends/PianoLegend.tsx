@@ -198,7 +198,10 @@ export const PianoLegend: React.FC<{
                     inline || enabledPitches.includes(BLACK_KEYS[i])
                       ? "pointer"
                       : "default",
-                  backgroundColor: "black",
+                  backgroundColor:
+                    inline || enabledPitches.includes(BLACK_KEYS[i])
+                      ? undefined
+                      : "black",
                 }}
                 onClick={() => playNote(BLACK_KEYS[i])}
               >

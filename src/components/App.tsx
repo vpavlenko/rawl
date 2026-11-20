@@ -319,7 +319,12 @@ class App extends React.Component<RouteComponentProps, AppState> {
   componentDidMount() {
     this.playbackKeys = bindPlaybackKeys({
       toggle: () => this.togglePause(),
-      enabled: () => !this.state.ejected && !window.__disableGlobalShortcuts && !this.state.showShortcutHelp,
+      enabled: () =>
+        !this.state.ejected &&
+        !window.__disableGlobalShortcuts &&
+        !this.state.showShortcutHelp &&
+        // Keep Space activation native when a measure toolbar button has focus.
+        !document.activeElement?.matches("[data-measure-toolbar] button, .rawln-section-command"),
     });
     this.tempoKeysCleanup = bindTempoKeys({
       target: document,

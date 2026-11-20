@@ -104,6 +104,21 @@ const MeasureInput = styled.input`
   }
 `;
 
+const MeasureFormButton = styled.button`
+  margin-left: 5px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: white;
+  font: inherit;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 1px solid #ddd;
+    outline-offset: 2px;
+  }
+`;
+
 const RemeasuringInput: React.FC<{
   selectedMeasure: number;
   selectMeasure: (number) => void;
@@ -140,6 +155,11 @@ const RemeasuringInput: React.FC<{
     }
   }, [editingName]);
 
+  const editName = () => {
+    setName(formPartName);
+    setEditingName(true);
+  };
+
   const saveName = () => {
     setFormPartName?.(name);
     setEditingName(false);
@@ -155,8 +175,7 @@ const RemeasuringInput: React.FC<{
     if (event.key.toLowerCase() === "f" && setFormPartName) {
       event.preventDefault();
       event.stopPropagation();
-      setName(formPartName);
-      setEditingName(true);
+      editName();
       return;
     }
     if (event.key in KEY_TO_OFFSET) {
@@ -247,9 +266,6 @@ const RemeasuringInput: React.FC<{
         />
         <button type="button" onClick={saveName}>Save</button>
         <button type="button" onClick={() => setEditingName(false)}>Cancel</button>
-        <span style={{ color: "white", fontSize: 10 }}>
-          Enter to save, Esc to cancel. Clear to remove.
-        </span>
       </div>
     );
   }
@@ -268,6 +284,20 @@ const RemeasuringInput: React.FC<{
         placeholder="3 or 3+2"
         autoFocus
       />
+      {setFormPartName && (
+        <MeasureFormButton
+          type="button"
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") event.stopPropagation();
+          }}
+          onClick={(event) => {
+            event.stopPropagation();
+            editName();
+          }}
+        >
+          Form
+        </MeasureFormButton>
+      )}
       {!!rhythmGrouping.length && setRhythmGrouping && (
         <button type="button" style={{ marginLeft: 5 }}
           onClick={(event) => { event.stopPropagation(); setRhythmGrouping([]); }}>
@@ -347,6 +377,7 @@ const MeasureEditor: React.FC<{
             Esc
           </div>
           <div
+            data-measure-toolbar=""
             style={{
               position: "absolute",
               top: -20,
@@ -400,29 +431,6 @@ const MeasureEditor: React.FC<{
                 <Anchor /> Reset
               </button>
             )}
-            <div
-              style={{
-                marginLeft: 5,
-                color: "white",
-                fontSize: 10,
-                whiteSpace: "nowrap",
-              }}
-            >
-              Hover a note for tonic, click to save. Type beats,{" "}
-              <span style={{ color: "orange" }}>Enter</span> to set beats/measure
-              {selectedPhraseStart === number && number > 1 && (
-                sectionSpan[0] === number - 1 ? (
-                  <span>
-                    . Empty <span style={{ color: "orange" }}>Shift+Enter</span> merges with previous section
-                  </span>
-                ) : (
-                  <span>. Empty <span style={{ color: "orange" }}>Enter</span> splits into two sections</span>
-                )
-              )}
-              {measureSelection.setFormPartName && (
-                <span>. Type <span style={{ color: "orange" }}>F</span> to {measureSelection.formPartName ? "edit the" : "add a"} form part name</span>
-              )}
-            </div>
           </div>
         </>
       )}

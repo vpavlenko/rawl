@@ -154,7 +154,7 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
   const meters = [];
   let splits = 0, merges = 0;
   let root = null;
-  const render = (groups = [], timing = grid, gridProps = {}, selectedMeasure = 1) => {
+  const render = (groups = [], timing = grid, gridProps = {}, selectedMeasure = 1, measureOptions = {}) => {
     if (!root) root = createRoot(container);
     flushSync(() => root.render(
       React.createElement(
@@ -180,6 +180,7 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
             setBeatsPerMeasure(value) { meters.push(value); },
             rhythmGrouping: groups,
             setRhythmGrouping: (value) => saves.push(value),
+            ...measureOptions,
           },
           ...gridProps,
         }),
@@ -296,6 +297,48 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
       hiddenBeatPositions,
       [300, 500, 700, 1300, 1500, 1700, 2300, 2500, 2700],
     );
+    unmount();
+    const formNames = [];
+    const setFormPartName = (name) => formNames.push(name);
+    render([], grid, {}, 1, { setFormPartName });
+    const formInput = () => container.querySelector('[aria-label="Form part name"]');
+    const rhythmInput = () => container.querySelector('[aria-label="Rhythm"]');
+    const formButton = button("Form");
+    assert.equal(rhythmInput().nextElementSibling, formButton);
+    assert.ok(formButton.matches("[data-measure-toolbar] button"));
+    assert.doesNotMatch(container.textContent, /Hover a note for tonic|Type beats/);
+    const escapedKeys = [];
+    const recordEscapedKey = (event) => escapedKeys.push(event.key);
+    document.addEventListener("keydown", recordEscapedKey);
+    try {
+      keyDown(formButton, "Enter");
+      keyDown(formButton, " ");
+      assert.deepEqual(escapedKeys, []);
+    } finally {
+      document.removeEventListener("keydown", recordEscapedKey);
+    }
+    click(formButton);
+    assert.doesNotMatch(container.textContent, /Enter to save|Clear to remove/);
+    assert.equal(document.activeElement, formInput());
+    assert.equal(formInput().value, "");
+    change(formInput(), "Verse");
+    click(button("Save"));
+    assert.deepEqual(formNames, ["Verse"]);
+    assert.equal(document.activeElement, rhythmInput());
+
+    render([], grid, {}, 1, { setFormPartName, formPartName: "Verse" });
+    keyDown(rhythmInput(), "f");
+    assert.equal(formInput().value, "Verse");
+    change(formInput(), "Refrain");
+    click(button("Cancel"));
+    assert.deepEqual(formNames, ["Verse"]);
+
+    click(button("Form"));
+    assert.equal(formInput().value, "Verse");
+    change(formInput(), "");
+    keyDown(formInput(), "Enter");
+    assert.deepEqual(formNames, ["Verse", ""]);
+
     // A section can start at a nonzero x. Keep the measure position in that
     // coordinate system and carry only the tonic context into the new row.
     unmount();

@@ -67,7 +67,7 @@
     "iconv-lite": "^0.6.3",
     "immutability-helper": "^2.7.1",
     "jest": "20.0.4",
-    "librawl": "file:vendor/librawl-0.4.1-local-f4ab3506bce0.tgz",
+    "librawl": "file:vendor/librawl-0.4.1-local-1f9b0eec8c41.tgz",
     "lodash": "^4.17.21",
     "md5": "^2.3.0",
     "midi-file": "^1.2.4",

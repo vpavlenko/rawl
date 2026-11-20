@@ -10,8 +10,6 @@ import { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { AppContext } from "../AppContext";
 import Anchor from "../icons/Anchor";
-import CornerRightUp from "../icons/CornerRightUp";
-import CornerDownLeft from "../icons/CornerDownLeft";
 import { getSectionAnchorShiftTarget } from "./sectionAnchors";
 import type { SetBeatsPerMeasureCallback } from "./Rawl";
 import { MeasuresAndBeats, MidiRange } from "./SystemLayout";
@@ -99,14 +97,20 @@ export const PITCH_CLASS_TO_LETTER = {
   11: "B",
 };
 
+const MeasureInput = styled.input`
+  &:focus {
+    outline: 1px solid #ddd;
+    outline-offset: 2px;
+  }
+`;
+
 const RemeasuringInput: React.FC<{
   selectedMeasure: number;
   selectMeasure: (number) => void;
   setBeatsPerMeasure: SetBeatsPerMeasureCallback;
   rhythmGrouping?: number[];
   setRhythmGrouping?: MeasureSelection["setRhythmGrouping"];
-  splitAtMeasure: (boolean, number?) => void;
-  mergeAtMeasure: () => void;
+  onSectionKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
   shiftSectionAnchor?: MeasureSelection["shiftSectionAnchor"];
   formPartName?: string;
   setFormPartName?: MeasureSelection["setFormPartName"];
@@ -116,8 +120,7 @@ const RemeasuringInput: React.FC<{
   setBeatsPerMeasure,
   rhythmGrouping = [],
   setRhythmGrouping,
-  splitAtMeasure,
-  mergeAtMeasure,
+  onSectionKeyDown,
   shiftSectionAnchor,
   formPartName = "",
   setFormPartName,
@@ -163,20 +166,14 @@ const RemeasuringInput: React.FC<{
       return;
     }
     if (event.key === "Enter") {
+      onSectionKeyDown?.(event);
+      if (event.defaultPrevented) return;
       event.preventDefault();
       event.stopPropagation();
-      if (value === "") {
-        if (event.shiftKey) {
-          mergeAtMeasure();
-        } else {
-          splitAtMeasure(false);
-        }
-      } else {
-        const parsed = parseRhythmGrouping(value);
-        if (parsed) {
-          if (parsed.length === 1) setBeatsPerMeasure(parsed[0]);
-          else setRhythmGrouping?.(parsed);
-        }
+      const parsed = parseRhythmGrouping(value);
+      if (parsed) {
+        if (parsed.length === 1) setBeatsPerMeasure(parsed[0]);
+        else setRhythmGrouping?.(parsed);
       }
       return;
     }
@@ -229,7 +226,7 @@ const RemeasuringInput: React.FC<{
         onClick={(event) => event.stopPropagation()}
         onKeyDown={(event) => event.stopPropagation()}
       >
-        <input
+        <MeasureInput
           ref={nameInputRef}
           type="text"
           aria-label="Form part name"
@@ -259,7 +256,7 @@ const RemeasuringInput: React.FC<{
 
   return (
     <>
-      <input
+      <MeasureInput
         type="text"
         ref={inputRef}
         value={value}
@@ -313,6 +310,7 @@ const MeasureEditor: React.FC<{
   anchorTargets?: { phrase: number; edge?: "end"; active: boolean; shortcut?: string }[];
   canAnchorSection?: boolean;
   hasSectionAnchor?: boolean;
+  onSectionKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 }> = ({
   number,
   width,
@@ -323,8 +321,9 @@ const MeasureEditor: React.FC<{
   anchorTargets = [],
   canAnchorSection = false,
   hasSectionAnchor = false,
+  onSectionKeyDown,
 }) => {
-  const { selectedMeasure, selectMeasure, splitAtMeasure, mergeAtMeasure, setBeatsPerMeasure } =
+  const { selectedMeasure, selectMeasure, splitAtMeasure, setBeatsPerMeasure } =
     measureSelection;
 
   return (
@@ -360,8 +359,7 @@ const MeasureEditor: React.FC<{
               setBeatsPerMeasure={setBeatsPerMeasure}
               rhythmGrouping={measureSelection.rhythmGrouping}
               setRhythmGrouping={measureSelection.setRhythmGrouping}
-              splitAtMeasure={splitAtMeasure}
-              mergeAtMeasure={mergeAtMeasure}
+              onSectionKeyDown={onSectionKeyDown}
               selectMeasure={selectMeasure}
               selectedMeasure={selectedMeasure}
               formPartName={measureSelection.formPartName}
@@ -412,13 +410,14 @@ const MeasureEditor: React.FC<{
             >
               Hover a note for tonic, click to save. Type beats,{" "}
               <span style={{ color: "orange" }}>Enter</span> to set beats/measure
-              {selectedPhraseStart === number &&
-              sectionSpan?.[0] === number - 1 ? (
-                <span>
-                  . Empty <span style={{ color: "orange" }}>Shift+Enter</span> merges with previous section
-                </span>
-              ) : (
-                <span>. Empty <span style={{ color: "orange" }}>Enter</span> splits into two sections</span>
+              {selectedPhraseStart === number && number > 1 && (
+                sectionSpan[0] === number - 1 ? (
+                  <span>
+                    . Empty <span style={{ color: "orange" }}>Shift+Enter</span> merges with previous section
+                  </span>
+                ) : (
+                  <span>. Empty <span style={{ color: "orange" }}>Enter</span> splits into two sections</span>
+                )
               )}
               {measureSelection.setFormPartName && (
                 <span>. Type <span style={{ color: "orange" }}>F</span> to {measureSelection.formPartName ? "edit the" : "add a"} form part name</span>
@@ -449,27 +448,6 @@ const MeasureEditor: React.FC<{
           }
           return null;
         })}
-      {selectedPhraseStart === number &&
-        sectionSpan?.[0] !== number - 1 && (
-          <div
-            style={{
-              position: "absolute",
-              top: -12,
-              left: -26,
-              color: "red",
-              fontSize: 14,
-              fontWeight: 700,
-              zIndex: 100,
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              if (isMobileMeasureClick()) return;
-              splitAtMeasure(false);
-            }}
-          >
-            <CornerDownLeft />
-          </div>
-        )}
       {selectedPhraseStart === number &&
         sectionSpan?.[0] !== number - 1 &&
         isLastSection && (
@@ -513,27 +491,6 @@ const MeasureEditor: React.FC<{
             >
               /16
             </span>
-          </div>
-        )}
-      {selectedPhraseStart === number &&
-        sectionSpan?.[0] === number - 1 && (
-          <div
-            style={{
-              position: "absolute",
-              top: 4,
-              left: 18,
-              color: "red",
-              fontSize: 14,
-              fontWeight: 700,
-              zIndex: 100,
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              if (isMobileMeasureClick()) return;
-              mergeAtMeasure();
-            }}
-          >
-            <CornerRightUp />
           </div>
         )}
       {anchorTargets.map((anchorTarget) => (
@@ -744,7 +701,12 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
               measureSelection.selectMeasure(measure.number);
             }
           }}
-          renderMeasureExtras={(measure) => {
+          sectionEditing={{
+            sectionStarts: sections.map(phrase => measures[phraseStarts[phrase] - 1]).filter(Number.isFinite),
+            onSplit: () => measureSelection.splitAtMeasure(false),
+            onGlue: measureSelection.mergeAtMeasure,
+          }}
+          renderMeasureExtras={(measure, onSectionKeyDown) => {
             if (typeof measure.number !== "number") return null;
             const number = measure.number;
             const i = number - 1;
@@ -752,6 +714,7 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
               number={number}
               width={measure.width ?? 0}
               measureSelection={measureSelection}
+              onSectionKeyDown={onSectionKeyDown}
               selectedPhraseStart={selectedPhraseStart}
               sectionSpan={sectionSpan}
               isLastSection={lastMeasure + 1 === measures.length}

@@ -154,7 +154,7 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
   const meters = [];
   let splits = 0, merges = 0;
   let root = null;
-  const render = (groups = [], timing = grid, gridProps = {}) => {
+  const render = (groups = [], timing = grid, gridProps = {}, selectedMeasure = 1) => {
     if (!root) root = createRoot(container);
     flushSync(() => root.render(
       React.createElement(
@@ -173,7 +173,7 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
           secondsToX: (s) => s * 100,
           showTonalGrid: false,
           measureSelection: {
-            selectedMeasure: 1,
+            selectedMeasure,
             selectMeasure() {},
             splitAtMeasure() { splits++; },
             mergeAtMeasure() { merges++; },
@@ -209,6 +209,28 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
       element.textContent.startsWith(text),
     );
   try {
+    render([], grid, { phraseStarts: [1, 2] }, 2);
+    const splitInput = container.querySelector('[aria-label="Rhythm"]');
+    keyDown(splitInput, "Enter", true);
+    assert.equal(merges, 0);
+    keyDown(splitInput, "Enter");
+    assert.equal(splits, 1);
+    click(button("Split"));
+    assert.equal(splits, 2);
+
+    render([], grid, {
+      analysis: { modulations: { 1: 0 }, sections: [0, 1] },
+      phraseStarts: [1, 2],
+      sectionSpan: [1, 3],
+    }, 2);
+    const glueInput = container.querySelector('[aria-label="Rhythm"]');
+    keyDown(glueInput, "Enter");
+    assert.equal(splits, 2);
+    keyDown(glueInput, "Enter", true);
+    assert.equal(merges, 1);
+    click(button("Glue"));
+    assert.equal(merges, 2);
+
     render();
     const input = container.querySelector('[aria-label="Rhythm"]');
     assert.ok(input);
@@ -216,8 +238,10 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
     assert.equal(button("Rhythm grouping"), undefined);
     keyDown(input, "Enter");
     keyDown(input, "Enter", true);
-    assert.equal(splits, 1);
-    assert.equal(merges, 1);
+    assert.equal(splits, 2);
+    assert.equal(merges, 2);
+    assert.equal(button("Split"), undefined);
+    assert.equal(button("Glue"), undefined);
     for (const value of ["3+0+2+3", "3+", "0", "2.5", "9007199254740992"]) {
       change(input, value);
       assert.equal(input.getAttribute("aria-invalid"), "true");

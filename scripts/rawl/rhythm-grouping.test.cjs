@@ -208,6 +208,8 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
     [...container.querySelectorAll("button")].find((element) =>
       element.textContent.startsWith(text),
     );
+  const measureAction = (name) =>
+    container.querySelector(`button.rawln-section-command[aria-label="${name}"]`);
   try {
     render([], grid, { phraseStarts: [1, 2] }, 2);
     const splitInput = container.querySelector('[aria-label="Rhythm"]');
@@ -215,7 +217,7 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
     assert.equal(merges, 0);
     keyDown(splitInput, "Enter");
     assert.equal(splits, 1);
-    click(button("Split"));
+    click(measureAction("Split"));
     assert.equal(splits, 2);
 
     render([], grid, {
@@ -228,7 +230,7 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
     assert.equal(splits, 2);
     keyDown(glueInput, "Enter", true);
     assert.equal(merges, 1);
-    click(button("Glue"));
+    click(measureAction("Glue"));
     assert.equal(merges, 2);
 
     render();
@@ -240,8 +242,8 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
     keyDown(input, "Enter", true);
     assert.equal(splits, 2);
     assert.equal(merges, 2);
-    assert.equal(button("Split"), undefined);
-    assert.equal(button("Glue"), undefined);
+    assert.equal(measureAction("Split"), null);
+    assert.equal(measureAction("Glue"), null);
     for (const value of ["3+0+2+3", "3+", "0", "2.5", "9007199254740992"]) {
       change(input, value);
       assert.equal(input.getAttribute("aria-invalid"), "true");

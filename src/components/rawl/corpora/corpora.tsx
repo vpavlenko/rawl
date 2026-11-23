@@ -3802,6 +3802,7 @@ export const corpora: CorpusEntry[] = [
       "solo-transcription-all-the-things-you-are---paul-desmond",
       "all-the-things-you-are-guitar-chord-melody",
       "my-funny-valentine-lead-sheet-with-lyrics",
+      "rjs-1005j---jazz-vocal-standards---volume-2-1991---s1005_03---body-and-soul",
       "tea-for-two---vincent-youmans-and-irving-caesar-1924-piano-voice-sheet-music-arrangement",
       "tea-for-two-er-ren-deocha-wo---vincent-youmans",
 

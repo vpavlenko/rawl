@@ -80,6 +80,8 @@
 .rawln-section-command:focus-visible{outline:1px solid #ddd;outline-offset:2px}
 .rawln-measure-number:focus-visible{outline:1px solid #ddd;outline-offset:2px}
 .rawln-measure-number[data-pointer-focused]{outline:none}
+.rawln-rhythm-input:focus,.rawln-rhythm-reset:focus-visible{outline:1px solid #ddd;outline-offset:2px}
+.rawln-rhythm-reset{margin-left:5px}
 
 .rawln-piano-clearance {
   display: block;

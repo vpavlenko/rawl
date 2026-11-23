@@ -310,6 +310,16 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
       [300, 500, 700, 1300, 1500, 1700, 2300, 2500, 2700],
     );
     unmount();
+    const shiftedMeasures = [];
+    const phraseGrid = { measures: Array.from({ length: 13 }, (_, index) => index * 10), beats: [] };
+    render([], phraseGrid, { phraseStarts: [1, 5, 9] }, 5, {
+      selectMeasure: (measure) => shiftedMeasures.push(measure),
+    });
+    const phraseInput = container.querySelector('[aria-label="Rhythm"]');
+    for (const key of "zxcvbnm,") keyDown(phraseInput, key);
+    assert.deepEqual(shiftedMeasures, [1, 2, 3, 4, 6, 7, 8, 9]);
+    unmount();
+
     const formNames = [];
     const setFormPartName = (name) => formNames.push(name);
     render([], grid, {}, 1, { setFormPartName });

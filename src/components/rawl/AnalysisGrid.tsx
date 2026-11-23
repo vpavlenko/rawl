@@ -1,5 +1,7 @@
 import * as React from "react";
 import {
+  handlePhraseShiftKey,
+  PHRASE_SHIFT_KEYS,
   PlaybackMeasureBorders,
   RawlMeasureHeader,
   TonalGrid as SharedTonalGrid,
@@ -21,17 +23,6 @@ export const STACKED_RN_HEIGHT = 20;
 // Only the active score supplies an offset; standalone examples stay in their key.
 export const AnalysisTransposeContext = React.createContext(0);
 const MOBILE_MEASURE_CLICK_MEDIA_QUERY = "(max-width: 767px)";
-
-const KEY_TO_OFFSET = {
-  z: -4,
-  x: -3,
-  c: -2,
-  v: -1,
-  b: 1,
-  n: 2,
-  m: 3,
-  ",": 4,
-};
 
 const NeighborAnchorButton = styled.button`
   position: absolute;
@@ -179,12 +170,7 @@ const RemeasuringInput: React.FC<{
       editName();
       return;
     }
-    if (event.key in KEY_TO_OFFSET) {
-      event.preventDefault();
-      const offset = KEY_TO_OFFSET[event.key];
-      selectMeasure(selectedMeasure + offset);
-      return;
-    }
+    if (handlePhraseShiftKey(event, (offset) => selectMeasure(selectedMeasure + offset))) return;
     if (event.key === "Enter") {
       onSectionKeyDown?.(event);
       if (event.defaultPrevented) return;
@@ -437,7 +423,7 @@ const MeasureEditor: React.FC<{
       )}
       {selectedMeasure !== null &&
         selectedPhraseStart === selectedMeasure &&
-        Object.entries(KEY_TO_OFFSET).map(([key, offset]) => {
+        Object.entries(PHRASE_SHIFT_KEYS).map(([key, offset]) => {
           const targetMeasure = selectedMeasure + offset;
           if (targetMeasure === number) {
             return (

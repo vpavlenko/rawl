@@ -137,6 +137,14 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
     : jsdom.jsdom(html);
   global.window = document.defaultView;
   global.navigator = window.navigator;
+  // jsdom 9 does not implement the DOM traversal used to release measure focus.
+  if (!window.Element.prototype.closest) {
+    window.Element.prototype.closest = function closest(selector) {
+      let element = this;
+      while (element && !element.matches(selector)) element = element.parentElement;
+      return element;
+    };
+  }
   global.requestAnimationFrame = window.requestAnimationFrame = (callback) =>
     setTimeout(callback, 0);
   global.cancelAnimationFrame = window.cancelAnimationFrame = clearTimeout;

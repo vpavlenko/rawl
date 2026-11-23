@@ -52,15 +52,6 @@ export const getTonicAtTime = (
 export const getTonic = (seconds: number, analysis: Analysis, measures: number[]): PitchClass =>
   getTonicAtTime(seconds, getModulations(analysis, measures));
 
-export function canSetModulationOnset(
-  note: Note, measure: number | null, analysis: Analysis, measures: number[],
-): boolean {
-  if (measure == null || analysis.modulations[measure] == null) return false;
-  const start = measures[Math.max(0, measure - 2)];
-  const end = measures[measure];
-  return Number.isFinite(note.span[0]) && note.span[0] >= start && note.span[0] < end;
-}
-
 export type ManualMeasures = {
   measureStarts: { [oneIndexedMeasureStart: number]: number };
   beatsPerMeasure: { [oneIndexedMeasureStart: number]: number };

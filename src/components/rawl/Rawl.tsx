@@ -4,7 +4,7 @@ import { buildTimeSliderData } from "../buildTimeSliderData";
 import { noteColorClass } from "./colors";
 import { getNotePitchAtTime } from "./pitchBend";
 import { getHoverColorPitchClass, getHoverTonicPreview } from "./hoverTonic";
-import { createShiftHoverAudition } from "librawl/native";
+import { createShiftHoverAudition, useModulationOnsetEditing } from "librawl/native";
 import { getNoteCentsFromTonic } from "./noteCents";
 import NoteCentsTooltip from "./NoteCentsTooltip";
 import { corpora, usesQanunTimbre } from "./corpora/corpora";
@@ -51,7 +51,6 @@ import {
   getTonic,
   getModulations,
   getTonicAtTime,
-  canSetModulationOnset,
   getExcludedVoices,
   getDrumVoices,
   getPhraseStarts,
@@ -492,35 +491,29 @@ const Rawl: React.FC<RawlProps> = ({
     [transpose, arabicTimbre],
   );
 
-  const [shiftHeld, setShiftHeld] = useState(false);
-  useEffect(() => {
-    const updateShift = (event: KeyboardEvent) => setShiftHeld(event.shiftKey);
-    const clearShift = () => setShiftHeld(false);
-    window.addEventListener("keydown", updateShift);
-    window.addEventListener("keyup", updateShift);
-    window.addEventListener("blur", clearShift);
-    return () => {
-      window.removeEventListener("keydown", updateShift);
-      window.removeEventListener("keyup", updateShift);
-      window.removeEventListener("blur", clearShift);
-    };
-  }, []);
-  const onsetEditing = !showProvisionalAnalysis && shiftHeld && !enableManualRemeasuring &&
-    selectedMeasure != null && analysis.modulations[selectedMeasure] != null;
   const committedMeasures = useMemo(
     () => analysis.measures
       ? buildManualMeasuresAndBeats(analysis.measures, timingNotes).measures
       : parsingResult.measuresAndBeats.measures,
     [analysis.measures, timingNotes, parsingResult],
   );
-  const isOnsetNoteAllowed = useCallback(
-    (note: Note) => canSetModulationOnset(note, selectedMeasure, analysis, committedMeasures),
-    [selectedMeasure, analysis, committedMeasures],
-  );
-  const onsetEditingContext = useMemo(
-    () => ({ active: onsetEditing, isAllowed: isOnsetNoteAllowed }),
-    [onsetEditing, isOnsetNoteAllowed],
-  );
+  const onsetEditor = useModulationOnsetEditing<Note>({
+    getRange: () => {
+      if (showProvisionalAnalysis || enableManualRemeasuring || selectedMeasure == null ||
+          analysis.modulations[selectedMeasure] == null) return null;
+      return [committedMeasures[Math.max(0, selectedMeasure - 2)], committedMeasures[selectedMeasure]];
+    },
+    noteStart: (note) => note.span[0],
+    onChoose: (note) => {
+      commitAnalysisUpdate({
+        modulationOnset: { ...analysisRef.current.modulationOnset, [selectedMeasure]: note.span[0] },
+      });
+      selectedMeasureRef.current = null;
+      setSelectedMeasure(null);
+      setHoveredNote(null);
+    },
+  });
+  const { active: onsetEditing, isAllowed: isOnsetNoteAllowed, chooseNote: chooseModulationOnset } = onsetEditor;
 
   const shiftHoverAudition = useMemo(() => createShiftHoverAudition<Note, React.MouseEvent>({
     audition: (note) => playNote(note),
@@ -572,7 +565,7 @@ const Rawl: React.FC<RawlProps> = ({
   const futureSavedAnalysis = useMemo(() => {
     if (showProvisionalAnalysis || !hoveredNote) return analysis;
     if (onsetEditing) {
-      if (!canSetModulationOnset(hoveredNote, selectedMeasure, analysis, committedMeasures)) {
+      if (!isOnsetNoteAllowed(hoveredNote)) {
         return analysis;
       }
       return {
@@ -586,7 +579,7 @@ const Rawl: React.FC<RawlProps> = ({
       enableManualRemeasuring,
       analysis,
     );
-  }, [showProvisionalAnalysis, hoveredNote, analysis, selectedMeasure, enableManualRemeasuring, onsetEditing, committedMeasures]);
+  }, [showProvisionalAnalysis, hoveredNote, analysis, selectedMeasure, enableManualRemeasuring, onsetEditing, isOnsetNoteAllowed]);
 
   const measuresAndBeats = useMemo(() => {
     if (futureSavedAnalysis.measures) {
@@ -999,20 +992,7 @@ const Rawl: React.FC<RawlProps> = ({
         playNote(note);
         return;
       }
-      const measure = selectedMeasureRef.current;
-      const current = analysisRef.current;
-      if (event?.shiftKey && !enableManualRemeasuring && measure != null &&
-          current.modulations[measure] != null) {
-        if (canSetModulationOnset(note, measure, current, committedMeasures)) {
-          commitAnalysisUpdate({
-            modulationOnset: { ...current.modulationOnset, [measure]: note.span[0] },
-          });
-          selectedMeasureRef.current = null;
-          setSelectedMeasure(null);
-          setHoveredNote(null);
-        }
-        return;
-      }
+      if (chooseModulationOnset(note, event)) return;
       if (selectedMeasureRef.current) {
         advanceAnalysis(
           note,
@@ -1039,7 +1019,7 @@ const Rawl: React.FC<RawlProps> = ({
       commitAnalysisUpdate,
       playNote,
       navigateToSourceLocation,
-      committedMeasures,
+      chooseModulationOnset,
     ],
   );
 
@@ -1128,8 +1108,6 @@ const Rawl: React.FC<RawlProps> = ({
 
   const systemClickHandler = useCallback(
     (e: React.MouseEvent, xToSeconds = xToSeconds__) => {
-      if (e.shiftKey && !enableManualRemeasuring && selectedMeasureRef.current != null &&
-          analysisRef.current.modulations[selectedMeasureRef.current] != null) return;
       const targetElement = e.currentTarget as HTMLElement;
       const rect = targetElement.getBoundingClientRect();
       const distance = e.clientX - rect.left + targetElement.scrollLeft;
@@ -1431,13 +1409,7 @@ const Rawl: React.FC<RawlProps> = ({
           key="innerLeftPanel"
           ref={scoreContainerRef}
           className={onsetEditing ? "Rawl modulation-onset-editing" : "Rawl"}
-          onClickCapture={(event) => {
-            if (onsetEditing && event.shiftKey &&
-                !(event.target as Element).closest('[data-modulation-onset-note="true"]')) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-          }}
+          onClickCapture={onsetEditor.onClickCapture}
           style={{
             margin: 0,
             padding: 0,
@@ -1561,7 +1533,7 @@ const Rawl: React.FC<RawlProps> = ({
             onRecalculate={() => { setLiveHarmony(true); setIndexedHarmony(null); setHarmonyLoading(false); }}
           />}
           <HarmonyContext.Provider value={displayedHarmony}>
-          <ModulationOnsetEditingContext.Provider value={onsetEditingContext}>
+          <ModulationOnsetEditingContext.Provider value={onsetEditor}>
             <StrumNotesContext.Provider value={strumNotes}>
               <AnalysisTransposeContext.Provider value={transpose}>
                 {systemLayout === "merged" ? (

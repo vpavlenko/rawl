@@ -222,6 +222,8 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
   try {
     render([], grid, { phraseStarts: [1, 2] }, 2);
     const splitInput = container.querySelector('[aria-label="Rhythm"]');
+    assert.equal(measureAction("Merge"), null);
+    assert.ok(container.textContent.includes("/8"));
     keyDown(splitInput, "Enter", true);
     assert.equal(merges, 0);
     keyDown(splitInput, "Enter");
@@ -234,12 +236,14 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
       phraseStarts: [1, 2],
       sectionSpan: [1, 3],
     }, 2);
-    const glueInput = container.querySelector('[aria-label="Rhythm"]');
-    keyDown(glueInput, "Enter");
+    const mergeInput = container.querySelector('[aria-label="Rhythm"]');
+    assert.equal(measureAction("Split"), null);
+    assert.equal(container.textContent.includes("/8"), false);
+    keyDown(mergeInput, "Enter");
     assert.equal(splits, 2);
-    keyDown(glueInput, "Enter", true);
+    keyDown(mergeInput, "Enter", true);
     assert.equal(merges, 1);
-    click(measureAction("Glue"));
+    click(measureAction("Merge"));
     assert.equal(merges, 2);
 
     render();
@@ -252,7 +256,7 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
     assert.equal(splits, 2);
     assert.equal(merges, 2);
     assert.equal(measureAction("Split"), null);
-    assert.equal(measureAction("Glue"), null);
+    assert.equal(measureAction("Merge"), null);
     for (const value of ["3+0+2+3", "3+", "0", "2.5", "9007199254740992"]) {
       change(input, value);
       assert.equal(input.getAttribute("aria-invalid"), "true");

@@ -4,6 +4,7 @@ import {
   RawlMeasureHeader,
   TonalGrid as SharedTonalGrid,
   TonicSymbol,
+  type MeasureSectionAction,
 } from "librawl/components";
 import { markersForRow, tonicMarkers, tonicRegions, visibleBeatLines } from "librawl/geometry";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -335,7 +336,7 @@ const MeasureEditor: React.FC<{
   width: number;
   measureSelection: MeasureSelection;
   selectedPhraseStart: number;
-  sectionSpan: MeasuresSpan;
+  sectionAction?: MeasureSectionAction;
   isLastSection: boolean;
   anchorTargets?: { phrase: number; edge?: "end"; active: boolean; shortcut?: string }[];
   canAnchorSection?: boolean;
@@ -346,7 +347,7 @@ const MeasureEditor: React.FC<{
   width,
   measureSelection,
   selectedPhraseStart,
-  sectionSpan,
+  sectionAction,
   isLastSection,
   anchorTargets = [],
   canAnchorSection = false,
@@ -456,9 +457,7 @@ const MeasureEditor: React.FC<{
           }
           return null;
         })}
-      {selectedPhraseStart === number &&
-        sectionSpan?.[0] !== number - 1 &&
-        isLastSection && (
+      {sectionAction === "split" && isLastSection && (
           <div
             style={{
               position: "absolute",
@@ -703,6 +702,8 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
           layout={layout}
           transpose={transpose}
           showHeader={showHeader}
+          showModulationTonics
+          showContinuedTonic
           selectedMeasure={measures[measureSelection.selectedMeasure - 1] ?? null}
           onMeasureSelect={(_beat, measure) => {
             if (!isMobileMeasureClick() && typeof measure.number === "number") {
@@ -714,7 +715,7 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
             onSplit: () => measureSelection.splitAtMeasure(false),
             onGlue: measureSelection.mergeAtMeasure,
           }}
-          renderMeasureExtras={(measure, onSectionKeyDown) => {
+          renderMeasureExtras={(measure, onSectionKeyDown, sectionAction) => {
             if (typeof measure.number !== "number") return null;
             const number = measure.number;
             const i = number - 1;
@@ -724,7 +725,7 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
               measureSelection={measureSelection}
               onSectionKeyDown={onSectionKeyDown}
               selectedPhraseStart={selectedPhraseStart}
-              sectionSpan={sectionSpan}
+              sectionAction={sectionAction}
               isLastSection={lastMeasure + 1 === measures.length}
               canAnchorSection={canAnchorSection && i === firstMeasure}
               hasSectionAnchor={!!selectedAnchor}

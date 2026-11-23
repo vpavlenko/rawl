@@ -1,5 +1,6 @@
 import { doc, getDoc, getFirestore } from "firebase/firestore/lite";
 import { FirestoreMidiDocument, FirestoreMidiIndex } from "../types/firestore";
+import { canonicalMidiSlug } from "./midiSlugAliases";
 
 type HandleSongClickDependencies = {
   setState: (state: any, callback?: () => void) => void;
@@ -26,11 +27,12 @@ export const handleSongClick = async (
       return;
     }
 
-    const analysisKey = `f/${slug}`;
+    const canonicalSlug = canonicalMidiSlug(slug);
+    const analysisKey = `f/${canonicalSlug}`;
 
     console.log("Searching for MIDI info with slug:", slug);
-    let midiInfo = indexData.midis.find(
-      (midi) => midi.slug === slug || midi.id === slug,
+    const midiInfo = indexData.midis.find(
+      (midi) => canonicalMidiSlug(midi.slug) === canonicalSlug || midi.id === slug,
     );
     console.log("Found MIDI info:", midiInfo);
 
@@ -54,7 +56,7 @@ export const handleSongClick = async (
       const currentMidi = {
         id: midiInfo.id,
         title: midiData.title,
-        slug: slug,
+        slug: canonicalSlug,
         sourceUrl: midiData.url,
         originalAudio: midiData.originalAudio,
       };

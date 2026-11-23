@@ -52,6 +52,7 @@ import { ERROR_FLASH_DURATION_MS, MAX_VOICES } from "../config";
 import firebaseConfig from "../config/firebaseConfig";
 import defaultAnalyses from "../corpus/analyses.json";
 import { handleSongClick as handleSongClickUtil } from "../handlers/handleSongClick";
+import { canonicalMidiSlug } from "../handlers/midiSlugAliases";
 import MIDIPlayer from "../players/ThreadedMIDIPlayer";
 import OriginalAudio, { OriginalAudioState } from "../audio/OriginalAudio";
 import { OriginalAudioAsset } from "../types/firestore";
@@ -345,7 +346,11 @@ class App extends React.Component<RouteComponentProps, AppState> {
     const [, urlSlug] = location.pathname.split("/f/");
 
     if (urlSlug) {
-      this.handleSongClick(urlSlug);
+      const slug = canonicalMidiSlug(urlSlug);
+      if (slug !== urlSlug) {
+        this.props.history.replace({ ...location, pathname: `/f/${slug}` });
+      }
+      this.handleSongClick(slug);
     }
   }
 

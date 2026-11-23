@@ -19,8 +19,9 @@ export const buildManualMeasuresAndBeats = (
   let currentMeasureLength = 1.0;
   while (true) {
     measureIndex++;
+    const manualBoundary = measureStarts[measureIndex];
     let newMeasure =
-      measureStarts[measureIndex] ??
+      manualBoundary ??
       snap(
         measures.at(-1) +
           (currentMeasureLength * currentBeatsPerMeasure) /
@@ -30,8 +31,11 @@ export const buildManualMeasuresAndBeats = (
     if (newMeasure - measures.at(-1) < 0.01) {
       newMeasure = measures.at(-1) + 2;
     }
-    const isLastMeasure = notes.every((note) => note.span[1] < newMeasure);
-    if (isLastMeasure && measures.length >= 2) {
+    const hasManualBoundary = newMeasure === manualBoundary;
+    const isLastMeasure = notes.every(({ span: [, end] }) =>
+      hasManualBoundary ? end <= newMeasure : end < newMeasure,
+    );
+    if (isLastMeasure && !hasManualBoundary && measures.length >= 2) {
       // The final boundary has no following onset to snap to. Repeat the
       // preceding bar's duration, including when the final meter changes.
       newMeasure = measures.at(-1) + currentMeasureLength;

@@ -1,6 +1,7 @@
 // Metadata filled in using 4o on Dec 6, 2024.
 
 import AboutTop100Corpus from "../book/AboutTop100Corpus";
+import { TATUM_BODY_AND_SOUL_SLUG } from "../../../handlers/midiSlugAliases";
 import simpleMajorSections from "./simpleMajorSections.json";
 
 export type CorpusSection = {
@@ -4914,6 +4915,12 @@ export const corpora: CorpusEntry[] = [
     genre: "Pop, Children’s Music",
     style: "Children’s Music, Jazz",
     country: "USA",
+  },
+  {
+    slug: "art_tatum",
+    composerName: "Art Tatum",
+    midis: [TATUM_BODY_AND_SOUL_SLUG],
+    genre: "Jazz",
   },
   {
     slug: "chick_corea",

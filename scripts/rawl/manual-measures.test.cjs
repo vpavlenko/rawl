@@ -40,3 +40,11 @@ test("a single bar retains its existing fallback without a preceding bar", () =>
   );
   assert.deepEqual(grid, { measures: [0, 2], beats: [0.5, 1, 1.5] });
 });
+
+test("an explicit closing boundary keeps the duration of a free-time ending", () => {
+  const grid = buildManualMeasuresAndBeats(
+    { measureStarts: { 1: 0, 2: 3, 3: 13 }, beatsPerMeasure: { 2: 1 } },
+    [{ span: [0, 0.2] }, { span: [3, 13] }],
+  );
+  assert.deepEqual(grid, { measures: [0, 3, 13], beats: [0.75, 1.5, 2.25] });
+});

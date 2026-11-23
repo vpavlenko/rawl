@@ -3,14 +3,7 @@ import type { MeasuresAndBeats } from "./SystemLayout";
 // One-based change points, just like beatsPerMeasure. [] restores every beat.
 export type RhythmGrouping = Record<number, number[]>;
 
-export function parseRhythmGrouping(value: string): number[] | null {
-  if (!/^\s*\d+\s*(\+\s*\d+\s*)*$/.test(value)) return null;
-  const groups = value.split("+").map(Number);
-  return groups.every((group) => Number.isSafeInteger(group) && group > 0) &&
-    Number.isSafeInteger(groups.reduce((sum, group) => sum + group, 0))
-    ? groups
-    : null;
-}
+export { parseRhythmGrouping } from "librawl/components";
 
 export function getRhythmGrouping(
   changes: RhythmGrouping | undefined,

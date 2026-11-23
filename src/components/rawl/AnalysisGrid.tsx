@@ -1,6 +1,6 @@
 import * as React from "react";
 import {
-  handlePhraseShiftKey,
+  MeasureRhythmInput,
   PHRASE_SHIFT_KEYS,
   PlaybackMeasureBorders,
   RawlMeasureHeader,
@@ -17,7 +17,7 @@ import { getSectionAnchorShiftTarget } from "./sectionAnchors";
 import type { SetBeatsPerMeasureCallback } from "./Rawl";
 import { MeasuresAndBeats, MidiRange } from "./SystemLayout";
 import { getModulations, type Analysis, type MeasuresSpan, type PitchClass } from "./analysis";
-import { getGroupedBeatLines, parseRhythmGrouping } from "./rhythmGrouping";
+import { getGroupedBeatLines } from "./rhythmGrouping";
 
 export const STACKED_RN_HEIGHT = 20;
 // Only the active score supplies an offset; standalone examples stay in their key.
@@ -157,52 +157,30 @@ const RemeasuringInput: React.FC<{
     setEditingName(false);
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+  const handleFormKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key.toLowerCase() !== "f" || !setFormPartName) return;
+    event.preventDefault();
+    event.stopPropagation();
+    editName();
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.nativeEvent.isComposing) return;
-    if (event.ctrlKey || event.metaKey || event.altKey) return;
-    if (event.key.toLowerCase() === "f" && setFormPartName) {
-      event.preventDefault();
-      event.stopPropagation();
-      editName();
-      return;
-    }
-    if (handlePhraseShiftKey(event, (offset) => selectMeasure(selectedMeasure + offset))) return;
-    if (event.key === "Enter") {
-      onSectionKeyDown?.(event);
-      if (event.defaultPrevented) return;
-      event.preventDefault();
-      event.stopPropagation();
-      const parsed = parseRhythmGrouping(value);
-      if (parsed) {
-        if (parsed.length === 1) setBeatsPerMeasure(parsed[0]);
-        else setRhythmGrouping?.(parsed);
-      }
-      return;
-    }
-    const rhythmCharacter = /^[0-9]$/.test(event.key) ||
-      !!setRhythmGrouping && (event.key === "+" || event.key === " " && value.length > 0);
-    if (event.key.length === 1 && !rhythmCharacter) {
-      // The page ignores events whose target is a text input. Forward unused
-      // character keys from the body after leaving measure editing instead.
-      event.preventDefault();
-      event.stopPropagation();
-      const forwardedEvent = new KeyboardEvent("keydown", {
-        key: event.key,
-        code: event.code,
-        shiftKey: event.shiftKey,
-        repeat: event.repeat,
-        location: event.location,
-        bubbles: true,
-        cancelable: true,
-      });
-      event.currentTarget.blur();
-      selectMeasure(null);
-      document.body.dispatchEvent(forwardedEvent);
-    }
+  const forwardUnusedKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    // The page ignores key events from text inputs. Leave measure editing
+    // before forwarding an unhandled character from the body.
+    event.preventDefault();
+    event.stopPropagation();
+    const forwardedEvent = new KeyboardEvent("keydown", {
+      key: event.key,
+      code: event.code,
+      shiftKey: event.shiftKey,
+      repeat: event.repeat,
+      location: event.location,
+      bubbles: true,
+      cancelable: true,
+    });
+    event.currentTarget.blur();
+    selectMeasure(null);
+    document.body.dispatchEvent(forwardedEvent);
   };
 
   useEffect(() => {
@@ -259,17 +237,17 @@ const RemeasuringInput: React.FC<{
 
   return (
     <>
-      <MeasureInput
-        type="text"
+      <MeasureRhythmInput
         ref={inputRef}
         value={value}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        style={{ fontSize: "10px", width: "7em" }}
-        aria-label="Rhythm"
-        aria-invalid={value !== "" && parseRhythmGrouping(value) === null}
-        placeholder="3 or 3+2"
-        autoFocus
+        onValueChange={setValue}
+        onKeyDown={handleFormKey}
+        onUnhandledCharacter={forwardUnusedKey}
+        onSectionKeyDown={onSectionKeyDown}
+        onPhraseShift={(offset) => selectMeasure(selectedMeasure + offset)}
+        onBeatsPerMeasure={setBeatsPerMeasure}
+        onRhythmGrouping={setRhythmGrouping}
+        showReset={false}
       />
       {setFormPartName && (
         <MeasureFormButton

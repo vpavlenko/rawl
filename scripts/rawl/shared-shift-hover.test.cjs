@@ -6,7 +6,7 @@ const ts=require('typescript');
 const {createShiftHoverAudition}=require('librawl/native');
 const source=fs.readFileSync(path.join(__dirname,'../../src/components/rawl/Rawl.tsx'),'utf8');
 const handlers=source.slice(source.indexOf('  const shiftHoverAudition ='),source.indexOf('  const futureSavedAnalysis ='));
-const playback=source.slice(source.indexOf('  const playNote = useCallback('),source.indexOf('  const [shiftHeld,'));
+const playback=source.slice(source.indexOf('  const playNote = useCallback('),source.indexOf('  const committedMeasures ='));
 const compiled=ts.transpileModule(playback+handlers,{compilerOptions:{target:ts.ScriptTarget.ES2020}}).outputText;
 function harness(options={}){
  const state={auditions:[],hovered:null,tonic:null,cents:null,cleanup:[],selectedMeasureRef:{current:null},...options};

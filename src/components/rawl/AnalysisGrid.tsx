@@ -666,8 +666,6 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
           layout={layout}
           transpose={transpose}
           showHeader={showHeader}
-          showModulationTonics
-          showContinuedTonic
           selectedMeasure={measures[measureSelection.selectedMeasure - 1] ?? null}
           onMeasureSelect={(_beat, measure) => {
             if (!isMobileMeasureClick() && typeof measure.number === "number") {

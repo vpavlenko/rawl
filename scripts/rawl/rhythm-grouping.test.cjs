@@ -361,6 +361,12 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
     keyDown(formInput(), "Enter");
     assert.deepEqual(formNames, ["Verse", ""]);
 
+    unmount();
+    render([], grid, { analysis: { modulations: { 1: 0, 2: 7, 3: 9 } } });
+    const labels = [...container.querySelectorAll(".rawln-modulation-label")];
+    assert.deepEqual(labels.map(label => label.textContent), ["C", "5", "2"]);
+    assert.deepEqual(labels.map(label => !!label.querySelector("svg")), [false, true, true]);
+
     // A section can start at a nonzero x. Keep the measure position in that
     // coordinate system and carry only the tonic context into the new row.
     unmount();
@@ -375,7 +381,7 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
     render([], grid, section);
     const marker = container.querySelector('.rawln-modulation[data-continued="true"]');
     assert.ok(marker);
-    assert.equal(marker.querySelector(".rawln-modulation-label").textContent, "G");
+    assert.equal(marker.querySelector(".rawln-modulation-label"), null);
     assert.equal(marker.style.left, "4px");
     assert.ok(container.querySelector('[data-score-measure="2"]'));
     assert.equal(container.querySelector(".rawln-tonic-line").style.left, "5px");

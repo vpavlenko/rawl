@@ -556,3 +556,26 @@
   display: block;
   margin-top: 3px;
 }
+
+@media (max-width: 400px) {
+  .horo-totals {
+    gap: 10px 16px;
+  }
+
+  .horo-totals dt {
+    font-size: 0.76rem;
+  }
+
+  .horo-header nav {
+    gap: 9px 16px;
+  }
+
+  .horo-distribution .horo-count-row {
+    grid-template-columns: minmax(0, 1fr) minmax(16px, 0.6fr) 2ch;
+    gap: 4px;
+  }
+
+  .horo-barline:nth-child(even) span {
+    visibility: hidden;
+  }
+}

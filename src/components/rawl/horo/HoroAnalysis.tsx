@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   fakebookScorePath,
@@ -240,11 +240,18 @@ export default function HoroAnalysis() {
   const [motion, setMotion] = useState("");
   const [bookQuery, setBookQuery] = useState("");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const title = document.title;
+    const viewport = document.querySelector<HTMLMetaElement>(
+      'meta[name="viewport"]',
+    );
+    const originalViewport = viewport?.content;
     document.title = "Horo analysis · Rawl";
+    if (viewport) viewport.content = "width=device-width, initial-scale=1";
     return () => {
       document.title = title;
+      if (viewport && originalViewport !== undefined)
+        viewport.content = originalViewport;
     };
   }, []);
 

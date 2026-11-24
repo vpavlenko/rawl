@@ -9282,10 +9282,10 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-"librawl@file:vendor/librawl-0.4.1-local-f2e8e30e8b40.tgz":
+"librawl@file:vendor/librawl-0.4.1-local-f08599e0b5f0.tgz":
   version "0.4.1-local"
-  resolved "file:vendor/librawl-0.4.1-local-f2e8e30e8b40.tgz"
-  integrity sha512-uFjlKSLJA+ifuERPypWIfP+ynGJ6klzlva9bsNm2ht5pQsPKZ01SZBxrJy8aOmmBInrox2vKuHLTRXqH0pIFvg==
+  resolved "file:vendor/librawl-0.4.1-local-f08599e0b5f0.tgz"
+  integrity sha512-iebUHionW4BtCPcfSyPK5zBqMVBOR79B3S8/8ykvMl/aZLSIlCJVEtOxyLPTt/tCuOd/QWib1D0zT5pSGLTxwQ==
 
 limiter@^1.1.5:
   version "1.1.5"

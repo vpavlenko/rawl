@@ -54,6 +54,7 @@ const Group = styled.div<{ $above: boolean }>`
 export const MaqamRawlNotation: React.FC<{
   name: string;
   tonic: number;
+  colorReference?: number;
   pitches: number[];
   startColumn: number;
   columnCount: number;
@@ -68,6 +69,7 @@ export const MaqamRawlNotation: React.FC<{
 }> = ({
   name,
   tonic,
+  colorReference = 0,
   pitches,
   startColumn,
   columnCount,
@@ -145,8 +147,10 @@ export const MaqamRawlNotation: React.FC<{
       note: { midiNumber: base + pitch },
       span: maqamNoteSpan(section, index),
     };
+    const relativePitch = pitch - colorReference;
     const pitchClass =
-      getHoverColorPitchClass(note, tonicPreview) ?? ((pitch % 12) + 12) % 12;
+      getHoverColorPitchClass(note, tonicPreview) ??
+      ((relativePitch % 12) + 12) % 12;
     return {
       ...note,
       displaySpan: [startColumn + index, startColumn + index + 1],

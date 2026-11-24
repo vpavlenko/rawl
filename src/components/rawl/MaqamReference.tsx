@@ -255,6 +255,7 @@ export default function MaqamReference() {
                         <MaqamRawlNotation
                           name={maqam.name}
                           tonic={maqam.tonic}
+                          colorReference={maqam.colorReference}
                           pitches={pitches}
                           startColumn={LOWER_COLUMNS - lowerCount}
                           columnCount={COLUMN_COUNT}

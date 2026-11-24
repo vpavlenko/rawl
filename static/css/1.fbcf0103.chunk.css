@@ -332,6 +332,200 @@
   .rawln-piano-name-track::after { -webkit-transition: none; transition: none; }
 }
 
+.rawlt-control {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  -ms-flex-align: center;
+      align-items: center;
+  height: 24px;
+}
+
+.rawlt-control button.rawlt-button {
+  height: 24px;
+  min-width: 22px;
+  padding: 0 4px;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 11px;
+  -webkit-transition: none;
+  transition: none;
+}
+
+.rawlt-control button.rawlt-button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.rawlt-control button.rawlt-button:hover:not(:disabled),
+.rawlt-control button.rawlt-button[aria-expanded="true"],
+.rawlt-control button.rawlt-button:focus-visible,
+.rawlt-control button.rawlt-choice:hover,
+.rawlt-control button.rawlt-choice:focus-visible {
+  background: #ffffff26;
+  color: white;
+}
+
+.rawlt-control button.rawlt-button[aria-expanded="true"] {
+  -webkit-box-shadow: inset 0 -2px white;
+          box-shadow: inset 0 -2px white;
+}
+
+.rawlt-control button.rawlt-button:active:not(:disabled),
+.rawlt-control button.rawlt-choice:active {
+  background: #ffffff45;
+  -webkit-transform: translateY(1px);
+          transform: translateY(1px);
+}
+
+.rawlt-control button.rawlt-button:active:not(:disabled) {
+  -webkit-transform: translateY(1px) scale(0.94);
+          transform: translateY(1px) scale(0.94);
+  -webkit-box-shadow: inset 0 1px 3px #0008;
+          box-shadow: inset 0 1px 3px #0008;
+}
+
+.rawlt-control button:is(.rawlt-button, .rawlt-choice):focus-visible,
+.rawlt-control .rawlt-persist input:focus-visible {
+  outline: 1px solid var(--rawlt-focus-color, white);
+}
+
+.rawlt-control button.rawlt-value {
+  min-width: 44px;
+  font-family: monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.rawlt-picker {
+  position: fixed;
+  bottom: 33px;
+  left: 50%;
+  z-index: 10;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 760px;
+  max-width: calc(100vw - 16px);
+  max-height: calc(100vh - 41px);
+  max-height: calc(100dvh - 41px);
+  overflow: auto;
+  padding: 14px 20px;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  border: 1px solid #777;
+  border-radius: 6px;
+  background: var(--background, #000);
+  color: var(--neutral4, #f5f5f5);
+  -webkit-box-shadow: 0 4px 20px #0008;
+          box-shadow: 0 4px 20px #0008;
+}
+
+.rawlt-picker[data-placement="top"] {
+  --rawlt-picker-top: min(calc(var(--rawlt-anchor-bottom) + 8px), 50vh);
+  top: var(--rawlt-picker-top);
+  bottom: auto;
+  max-height: calc(100vh - var(--rawlt-picker-top) - 8px);
+  max-height: calc(100dvh - var(--rawlt-picker-top) - 8px);
+}
+
+.rawlt-control .rawlt-picker button.rawlt-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 0 5px 0 3px;
+}
+
+.rawlt-control .rawlt-picker button.rawlt-close:active:not(:disabled) {
+  -webkit-transform: none;
+          transform: none;
+}
+
+.rawlt-heading {
+  padding-right: 24px;
+  font-size: 12px;
+}
+
+.rawlt-choices {
+  display: grid;
+  grid-template-columns: repeat(25, minmax(0, 1fr));
+  gap: 2px;
+  margin-top: 12px;
+  padding: 2px 0;
+}
+
+@media (max-width: 700px) {
+  .rawlt-choices {
+    grid-template-columns: repeat(auto-fit, minmax(24px, 1fr));
+    row-gap: 10px;
+  }
+}
+
+.rawlt-control button.rawlt-choice {
+  display: grid;
+  grid-template-rows: repeat(2, 16px);
+  place-items: center;
+  gap: 4px;
+  min-width: 0;
+  padding: 0 0 5px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: #aaa;
+  font: 400 10px / 16px Arial, sans-serif;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-transition: none;
+  transition: none;
+}
+
+.rawlt-control button.rawlt-choice[aria-pressed="true"] {
+  border-bottom-color: white;
+  color: white;
+}
+
+.rawlt-control button.rawlt-choice:focus-visible {
+  outline-offset: -1px;
+}
+
+.rawlt-pitch {
+  position: relative;
+  width: 1ch;
+  text-align: center;
+}
+
+.rawlt-accidental {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  min-width: 0.8em;
+  text-align: center;
+}
+
+.rawlt-persist {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
 .rawln-size-sliders {
   --rawln-size-side: max(clamp(12px, 2.3vw, 33px), env(safe-area-inset-right, 0px));
   position: fixed;

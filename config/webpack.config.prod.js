@@ -142,6 +142,7 @@ module.exports = {
       "librawl/style.css$": require.resolve("librawl/style.css"),
       "librawl/score-size-sliders.css$": require.resolve("librawl/score-size-sliders.css"),
       "librawl/piano-legend.css$": require.resolve("librawl/piano-legend.css"),
+      "librawl/transpose-control.css$": require.resolve("librawl/transpose-control.css"),
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).

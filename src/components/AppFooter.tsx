@@ -1,12 +1,13 @@
 import { faDownload, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { TransposeControl } from "librawl/components";
+import "librawl/transpose-control.css";
 import React, { memo, useContext } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "./AppContext";
 import { StyledRangeInput } from "./Slider";
 import TimeSlider from "./TimeSlider";
-import TransposeControl from "./TransposeControl";
 import Guitar from "./icons/Guitar";
 import KeyboardMusic from "./icons/KeyboardMusic";
 

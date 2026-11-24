@@ -131,7 +131,14 @@
     "title": "Dajčovo horo #1",
     "titleBg": "Дайчово хоро -1-",
     "credit": "2002©Henk Hensing",
-    "endPage": 20
+    "endPage": 20,
+    "slug": "fakebook-020-dajcovo-horo-1",
+    "meter": "9/16",
+    "writtenBars": 47,
+    "playbackBars": 86,
+    "noteAttacks": 619,
+    "sourcePitchCenter": "A major/minor",
+    "sha256": "46115724fa072429af2f7bbc1df89eb45238ebc171fd33cc992bf45398cd85cb"
   },
   {
     "page": 21,
@@ -394,7 +401,14 @@
     "title": "Kopanica #1",
     "titleBg": "Копаница #1",
     "credit": "1986HJH",
-    "endPage": 54
+    "endPage": 54,
+    "slug": "fakebook-054-kopanica-1",
+    "meter": "11/16",
+    "writtenBars": 28,
+    "playbackBars": 104,
+    "noteAttacks": 1014,
+    "sourcePitchCenter": "E minor → D major → E → A major",
+    "sha256": "7af654907dea0e1891317db56ffac0584d9bf0c93f6ac9aac2b512e8b282f69b"
   },
   {
     "page": 55,
@@ -472,7 +486,14 @@
     "titleBg": "Кулско Хоро",
     "credit": "HJH",
     "region": "Severn",
-    "endPage": 63
+    "endPage": 63,
+    "slug": "fakebook-063-kulsko-horo",
+    "meter": "2/4",
+    "writtenBars": 32,
+    "playbackBars": 192,
+    "noteAttacks": 1165,
+    "sourcePitchCenter": "D minor → F major / C minor / C and F minor",
+    "sha256": "ee0ff9314f068be2aa21eb5b4d4685d3fcb30cad6bd21b44ccd4ff93f7c3c0ae"
   },
   {
     "page": 64,
@@ -510,7 +531,14 @@
     "source": "Dimitâr Janev",
     "credit": "HJH©1992",
     "region": "Pirin",
-    "endPage": 67
+    "endPage": 67,
+    "slug": "fakebook-067-mazko-cedo",
+    "meter": "7/8",
+    "writtenBars": 28,
+    "playbackBars": 32,
+    "noteAttacks": 184,
+    "sourcePitchCenter": "G major → E minor",
+    "sha256": "26e9d8a02e1ad2b867644c295a7ca9a88e4257b5f28e7169ce7feadd6de4731a"
   },
   {
     "page": 68,
@@ -809,7 +837,7 @@
     "playbackBars": 72,
     "noteAttacks": 472,
     "sourcePitchCenter": "D minor",
-    "sha256": "0fab245894b21f068d34545e4f77382103c05be52fd5a52fbd50080652b76387"
+    "sha256": "f595be8bcf72a5b16b8a2b6294fb27d0f6e416430c236ae1a282e4076abb3be5"
   },
   {
     "page": 104,
@@ -874,7 +902,7 @@
     "playbackBars": 120,
     "noteAttacks": 842,
     "sourcePitchCenter": "A minor",
-    "sha256": "bb733e313a7cb793bad53edd8eb10bc277d36438f5fc14a95b43b08bda7cd1ae"
+    "sha256": "d0672364eb779ae4450edcfb8c49688f9af23915cb7ae7c9228782aff78599e3"
   },
   {
     "page": 112,

@@ -3,6 +3,7 @@
 import AboutTop100Corpus from "../book/AboutTop100Corpus";
 import { TATUM_BODY_AND_SOUL_SLUG } from "../../../handlers/midiSlugAliases";
 import simpleMajorSections from "./simpleMajorSections.json";
+import { fakebookSettings } from "../horo/fakebookScores";
 
 export type CorpusSection = {
   id: string;
@@ -7249,6 +7250,12 @@ export const corpora: CorpusEntry[] = [
     ],
     country: "Russia",
     composerBirthYear: 1930,
+  },
+  {
+    slug: "bulgarian_fakebook",
+    composerName: null,
+    country: "Bulgaria",
+    midis: fakebookSettings.flatMap(({ slug }) => slug ? [slug] : []),
   },
   {
     slug: "horo",

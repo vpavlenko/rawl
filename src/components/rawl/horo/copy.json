@@ -1,0 +1,14 @@
+{
+  "overview": "The charts count one reference per title or dance-family group. The two comparison pieces remain in the rendition list.",
+  "method": [
+    "Tonic paths use the checked-in Rawl annotations wherever available. The other paths use MIDI estimates. Some tonic changes can be local tonal centers.",
+    "Opening scales use the first two complete annotated phrases, or up to eight measures without phrase annotations. The scale name comes from the upper melody. Ambiguous and partial collections are shown with their candidate scales and observed degrees.",
+    "A reference score favors a clear melody and useful annotations. A dance family can contain several different tunes. Contour matches compare the melody up to transposition."
+  ],
+  "findings": {
+    "phrase": "In the saved analyses, 105 of 109 tonic changes land on a section start. All four remaining marks occur in Kulsko Horo #2.",
+    "step": "A whole tone in either direction accounts for 49 of 109 annotated changes. Of the 45 annotated renditions with a change, 19 end on their opening tonic.",
+    "daichovo": "Semyonov’s Daichovo moves from A major to B Phrygian dominant at measures 41 and 93. Both excursions return to A.",
+    "bulchenska": "Bulchenska Rachenitsa alternates between E and A across four regions in 7/16. Two Rawl uploads of this version contain identical MIDI bytes."
+  }
+}

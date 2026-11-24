@@ -1,5 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { getFakebookSetting } from "../horo/fakebookScores";
 import { stripComposerFromTitle } from "./pieceTitle";
 import { AppContext } from "../../AppContext";
 import { filterSnippetsByAccess, getSnippetTags } from "../analysis";
@@ -357,7 +359,7 @@ const Corpus: React.FC<{
                 }}
               />
             ) : (
-              beautifySlug(midiSlug)
+              getFakebookSetting(midiSlug)?.title || beautifySlug(midiSlug)
             )}
             {hasOrder && <span style={{ marginLeft: "5px" }}>({order})</span>}
           </PieceLink>
@@ -403,6 +405,12 @@ const Corpus: React.FC<{
   return (
     <div style={{ marginBottom: "100px" }}>
       <h1>{beautifySlug(slug)}</h1>
+      {slug === "horo" && (
+        <p><Link to="/corpus/horo/analysis">Horo analysis</Link></p>
+      )}
+      {slug === "bulgarian_fakebook" && (
+        <p><a href="/corpus/horo/analysis#fakebook">Fakebook index</a></p>
+      )}
       {slug === "musescore_instrumental_top" && (
         <p>
           <a href="/musescore-upload-tracker">

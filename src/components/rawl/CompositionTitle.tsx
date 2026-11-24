@@ -16,6 +16,7 @@ import {
   hasMetadata,
 } from "./corpusUtils";
 import { TOP_100_COMPOSERS } from "./top100Composers";
+import { getFakebookSetting } from "./horo/fakebookScores";
 
 const MUSESCORE_ICON = `
 <?xml version="1.0" encoding="utf-8"?>
@@ -113,7 +114,8 @@ const CompositionTitle: React.FC<CompositionTitleProps> = ({
     }
   };
 
-  const formattedTitle = beautifySlug(slug);
+  const fakebookSetting = getFakebookSetting(slug);
+  const formattedTitle = fakebookSetting?.title || beautifySlug(slug);
 
   const composerInfo = React.useMemo(() => {
     return TOP_100_COMPOSERS.find((composer) => composer.slug === slug);

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { corpora } from "./corpora/corpora";
 import { formatComposerName, getEmojis, hasMetadata } from "./corpusUtils";
 import { TOP_100_COMPOSERS } from "./top100Composers";
+import { getFakebookSetting } from "./horo/fakebookScores";
 
 const highlightMatch = (text: string, term: string) => {
   if (!term) return text;
@@ -26,7 +27,7 @@ const niceNames = new Map(
 
 // Get nice name for a MIDI slug if it exists in TOP_100_COMPOSERS
 const getNiceName = (slug: string) => {
-  const niceName = niceNames.get(slug);
+  const niceName = getFakebookSetting(slug)?.title || niceNames.get(slug);
   if (niceName) return niceName;
   return slug.replace(/---/g, " – ").replace(/-/g, " ").replace(/_/g, " ");
 };

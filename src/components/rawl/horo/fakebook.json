@@ -1,0 +1,893 @@
+[
+  {
+    "page": 6,
+    "title": "Aleni Zvezdi",
+    "titleBg": "Алени Звезди",
+    "source": "Dimitâr Janev",
+    "credit": "HJH©2000",
+    "region": "Pirin",
+    "endPage": 6
+  },
+  {
+    "page": 7,
+    "title": "Bavno Oro",
+    "titleBg": "Бавно хоро",
+    "credit": "ЯНВ 30/6/1992 – 3/12/2001",
+    "endPage": 7
+  },
+  {
+    "page": 8,
+    "title": "Brestaška râčenica",
+    "credit": "Notation: Birgitt Karlson - 02/2007",
+    "region": "Dobrudža",
+    "endPage": 8,
+    "relatedSlug": "brestaska-racenica---misc-traditional-brestaska-racenica",
+    "slug": "fakebook-008-brestaska-racenica",
+    "meter": "7/16",
+    "writtenBars": 18,
+    "playbackBars": 24,
+    "noteAttacks": 114,
+    "sourcePitchCenter": "A minor",
+    "sha256": "2a8572b4967db46b1cf50f7c0c809998d07d0cfadb5c0ba8d79ff072be6aac23"
+  },
+  {
+    "page": 9,
+    "title": "Buen vjatâr vee",
+    "titleBg": "Буен вятър вее",
+    "source": "Željazka Bočukova / Atanas Vâlčev",
+    "credit": "ЯНВ 9/9/6",
+    "endPage": 9,
+    "slug": "fakebook-009-buen-vjatar-vee",
+    "meter": "2/4, 3/4",
+    "writtenBars": 17,
+    "playbackBars": 26,
+    "noteAttacks": 140,
+    "sourcePitchCenter": "A minor → E minor",
+    "sha256": "b1ef1fe324e79800eb122a8157f1590e6a576d966ffcc5a36ea490ca803d202a"
+  },
+  {
+    "page": 10,
+    "title": "Bučimiš",
+    "titleBg": "Бучимиш",
+    "credit": "transcr.: John Kamp©2003/zetwerk: Henk Hensing©2003",
+    "region": "Trakija",
+    "endPage": 11
+  },
+  {
+    "page": 12,
+    "title": "Buenek",
+    "credit": "Henk Hensing©1995",
+    "endPage": 12
+  },
+  {
+    "page": 13,
+    "title": "Čerkesko Horo",
+    "titleBg": "Черкеско Хоро",
+    "credit": "1985©HJH",
+    "region": "Severn",
+    "endPage": 13,
+    "relatedSlug": "vcerkesko-horo-3",
+    "slug": "fakebook-013-cerkesko-horo",
+    "meter": "9/8",
+    "writtenBars": 24,
+    "playbackBars": 32,
+    "noteAttacks": 307,
+    "sourcePitchCenter": "G major",
+    "sha256": "7c33b6f9e753e3debf7106ee672764bf706bc5360e0ed5bd2c6dee805ab38742"
+  },
+  {
+    "page": 14,
+    "title": "Čekurjankino Horo",
+    "titleBg": "Чекурянкино Хоро",
+    "credit": "1985©HJH",
+    "endPage": 15,
+    "relatedSlug": "vcekurjankino-horo",
+    "slug": "fakebook-014-cekurjankino-horo",
+    "meter": "7/16",
+    "writtenBars": 58,
+    "playbackBars": 96,
+    "noteAttacks": 526,
+    "sourcePitchCenter": "A minor",
+    "sha256": "d6126522c2c9459b601a87427e2b7f90d8206e254a4d708d8ad07bb1662ff23a"
+  },
+  {
+    "page": 16,
+    "title": "Četvorno Horo #1",
+    "titleBg": "Четворно Хоро",
+    "credit": "Henk Hensing©1987",
+    "endPage": 17,
+    "slug": "fakebook-016-cetvorno-horo-1",
+    "meter": "7/16",
+    "writtenBars": 55,
+    "playbackBars": 196,
+    "noteAttacks": 1086,
+    "sourcePitchCenter": "G minor",
+    "sha256": "2cb62d6a5e1219f14bda143a344da023d6989115401b416172c7be41af307a99"
+  },
+  {
+    "page": 18,
+    "title": "Conkinata",
+    "credit": "Notation: Birgitt Karlson - 10/2003",
+    "region": "Severn",
+    "endPage": 18,
+    "slug": "fakebook-018-conkinata",
+    "meter": "5/16",
+    "writtenBars": 25,
+    "playbackBars": 48,
+    "noteAttacks": 194,
+    "sourcePitchCenter": "D major",
+    "sha256": "6b15d758888f4bcd5bc376e51bbac66d58c3d7bfd2bf2bf64b060ff09152c5b2"
+  },
+  {
+    "page": 19,
+    "title": "Čukanoto",
+    "titleBg": "Чуканото",
+    "credit": "Henk Hensing©1987",
+    "region": "Rodopen",
+    "endPage": 19
+  },
+  {
+    "page": 20,
+    "title": "Dajčovo horo #1",
+    "titleBg": "Дайчово хоро -1-",
+    "credit": "2002©Henk Hensing",
+    "endPage": 20
+  },
+  {
+    "page": 21,
+    "title": "Dajčovo horo #2",
+    "titleBg": "Дайчово хоро -2-",
+    "credit": "Henk Hensintg©1996",
+    "endPage": 21
+  },
+  {
+    "page": 22,
+    "title": "Danec",
+    "titleBg": "Данец",
+    "source": "Ensemble ‘Biseri’ - Dobrič",
+    "credit": "ЯНВ 15/01/2004 - 13/07/1998",
+    "endPage": 22
+  },
+  {
+    "page": 23,
+    "title": "Deninka",
+    "titleBg": "Денинка",
+    "credit": "HJH/HB©2006",
+    "endPage": 23
+  },
+  {
+    "page": 24,
+    "title": "Djado mitjovata",
+    "titleBg": "Дядо Митьовата",
+    "credit": "ЯНВ 11/03/2000",
+    "endPage": 24
+  },
+  {
+    "page": 25,
+    "title": "Dobrudžanska Pandela",
+    "titleBg": "Добруджанска пандела",
+    "credit": "ЯНВ 25/11/1997",
+    "region": "Dobrudža",
+    "endPage": 25
+  },
+  {
+    "page": 26,
+    "title": "Dobrudžanska Tropanka",
+    "titleBg": "Добруджанска Тропанка",
+    "credit": "Henk Hensing©1998",
+    "region": "Dobrudža",
+    "endPage": 26
+  },
+  {
+    "page": 27,
+    "title": "Dobrudžanska Ženska Râka",
+    "titleBg": "Добруджанска Женска Ръка",
+    "credit": "Henk Hensing©1987",
+    "region": "Dobrudža",
+    "endPage": 27
+  },
+  {
+    "page": 28,
+    "title": "Dobrudžanski Râčenik",
+    "titleBg": "Добруджански Ръченик",
+    "credit": "Henk Hensing©1985",
+    "region": "Dobrudža",
+    "endPage": 28
+  },
+  {
+    "page": 29,
+    "title": "Dobrudžansko Horo",
+    "credit": "Notation: Birgitt Karlson - 02/2004",
+    "region": "Dobrudža",
+    "endPage": 29
+  },
+  {
+    "page": 30,
+    "title": "Dospatsko Horo",
+    "titleBg": "Доспацко хоро",
+    "credit": "1992©Henk Hensing",
+    "endPage": 30,
+    "relatedSlug": "dospatsko-horo",
+    "slug": "fakebook-030-dospatsko-horo",
+    "meter": "7/8",
+    "writtenBars": 28,
+    "playbackBars": 56,
+    "noteAttacks": 224,
+    "sourcePitchCenter": "E minor",
+    "sha256": "01ced2451577533120848b492af4b617a9cbb0575b9684b1a8ad67a1d1cfcc1b"
+  },
+  {
+    "page": 31,
+    "title": "Dvaždi Triždi",
+    "credit": "Notation: Birgitt Karlson - 07/2005",
+    "region": "Rodopen",
+    "endPage": 31,
+    "slug": "fakebook-031-dvazdi-trizdi",
+    "meter": "5/8, 9/8",
+    "writtenBars": 12,
+    "playbackBars": 22,
+    "noteAttacks": 108,
+    "sourcePitchCenter": "C major",
+    "sha256": "6fdf5bfe09baee7199076a750a80547e8691119f80ab3a01b1c24df920aa3f49"
+  },
+  {
+    "page": 32,
+    "title": "Džinovsko Horo #2",
+    "titleBg": "Джиновско Хоро #2",
+    "credit": "HJH©2006-HB",
+    "endPage": 33
+  },
+  {
+    "page": 34,
+    "title": "Džinovsko Horo #1",
+    "titleBg": "Джиновско Хоро #1",
+    "credit": "HJH/JPB©2000",
+    "endPage": 34,
+    "slug": "fakebook-034-dzinovsko-horo-1",
+    "meter": "2/4",
+    "writtenBars": 32,
+    "playbackBars": 64,
+    "noteAttacks": 286,
+    "sourcePitchCenter": "A major",
+    "sha256": "732e3512c680c8740b0cdf818a6912a475a6123981050f581ed94bd99c448ebf"
+  },
+  {
+    "page": 35,
+    "title": "Ekizlijsko Horo",
+    "titleBg": "Екизлийско Хоро",
+    "credit": "Henk Hensing©1985",
+    "endPage": 35
+  },
+  {
+    "page": 36,
+    "title": "Elenino horo #1",
+    "titleBg": "Еленино Хоро",
+    "credit": "1983©HJH",
+    "endPage": 37
+  },
+  {
+    "page": 38,
+    "title": "Elenino horo #2",
+    "titleBg": "Еленино Хоро",
+    "source": "Orchestra ‘Izvor’ – Dobrič",
+    "credit": "ЯНВ 06/11/2006",
+    "endPage": 38
+  },
+  {
+    "page": 39,
+    "title": "Eleno Mome",
+    "credit": "HJH©1985",
+    "endPage": 39
+  },
+  {
+    "page": 40,
+    "title": "Graovski Melodij",
+    "titleBg": "Граовски Мелодий",
+    "credit": "2003©HJH/JK",
+    "endPage": 41
+  },
+  {
+    "page": 42,
+    "title": "Gankino Horo",
+    "titleBg": "Ганкино Хоро",
+    "credit": "1984©HJH",
+    "endPage": 42
+  },
+  {
+    "page": 43,
+    "title": "Graovsko Horo #1",
+    "titleBg": "Граовско Хоро #1",
+    "credit": "1969©HJH/JPB",
+    "region": "Šopluk",
+    "endPage": 43,
+    "slug": "fakebook-043-graovsko-horo-1",
+    "meter": "2/4",
+    "writtenBars": 24,
+    "playbackBars": 48,
+    "noteAttacks": 250,
+    "sourcePitchCenter": "D (E♭ and F♯)",
+    "sha256": "d50786e351a728d29f1ba946a44f355703c82b794d6be26f487582967b38cf3c"
+  },
+  {
+    "page": 44,
+    "title": "Graovsko Horo #2",
+    "titleBg": "Граовско Хоро #2",
+    "credit": "1970©HJH",
+    "region": "Šopluk",
+    "endPage": 46
+  },
+  {
+    "page": 47,
+    "title": "Hej, Ravna, Zlatna Dobrudža",
+    "titleBg": "Хей, Равна, Златна Добруджа",
+    "credit": "2006©HJH",
+    "region": "Dobrudža",
+    "endPage": 47,
+    "slug": "fakebook-047-hej-ravna-zlatna-dobrudza",
+    "meter": "2/4",
+    "writtenBars": 18,
+    "playbackBars": 34,
+    "noteAttacks": 116,
+    "sourcePitchCenter": "D minor at the close",
+    "sha256": "cb43d0e71aba3e23d605a9f7d6e4792a0534de62a97cb09ce96efb163fff9949"
+  },
+  {
+    "page": 48,
+    "title": "Imala Majka",
+    "titleBg": "Имала Майка",
+    "credit": "HJH©1980",
+    "endPage": 48,
+    "slug": "fakebook-048-imala-majka",
+    "meter": "7/8",
+    "writtenBars": 36,
+    "playbackBars": 44,
+    "noteAttacks": 170,
+    "sourcePitchCenter": "D minor",
+    "sha256": "934d00a8431cc17268f2dd4deb25c221796b468ef154d96650d4692b410bc497"
+  },
+  {
+    "page": 49,
+    "title": "Indže prez gora vârveše",
+    "titleBg": "Индже през гора вървеше",
+    "credit": "ЯНВ 18/11/2001",
+    "endPage": 49
+  },
+  {
+    "page": 50,
+    "title": "Ispajče",
+    "titleBg": "Испайче",
+    "credit": "ЯНВ 10/12/2001 – 20/3/1992",
+    "endPage": 50
+  },
+  {
+    "page": 51,
+    "title": "Jankinata",
+    "credit": "Notation: Birgitt Karlson - 07/2005",
+    "region": "Severn",
+    "endPage": 51
+  },
+  {
+    "page": 52,
+    "title": "Karamfil",
+    "titleBg": "Карамфил",
+    "source": "Dimitâr Janev",
+    "credit": "Henk Hensing ©1995",
+    "region": "Pirin",
+    "endPage": 52,
+    "slug": "fakebook-052-karamfil",
+    "meter": "7/8",
+    "writtenBars": 40,
+    "playbackBars": 104,
+    "noteAttacks": 338,
+    "sourcePitchCenter": "E minor",
+    "sha256": "c48944de811cbfabc9221dd6cce58fc4db725798be89589d52307bc805c47449"
+  },
+  {
+    "page": 53,
+    "title": "Katerino mome",
+    "credit": "Notation: Birgitt Karlson - 09/2003",
+    "region": "Pirin",
+    "endPage": 53
+  },
+  {
+    "page": 54,
+    "title": "Kopanica #1",
+    "titleBg": "Копаница #1",
+    "credit": "1986HJH",
+    "endPage": 54
+  },
+  {
+    "page": 55,
+    "title": "Kopanica #2",
+    "titleBg": "Копаница #2",
+    "credit": "1986HJH",
+    "region": "Šopluk",
+    "endPage": 55,
+    "relatedSlug": "bistrishka-kopanitsa",
+    "slug": "fakebook-055-kopanica-2",
+    "meter": "11/8",
+    "writtenBars": 20,
+    "playbackBars": 84,
+    "noteAttacks": 708,
+    "sourcePitchCenter": "G major → A minor → D → G",
+    "sha256": "b77685d7dfbc73fd5982a80e9dc950b4f56588d4ea8aeb3ffc287e667996c365"
+  },
+  {
+    "page": 56,
+    "title": "Kopanica Krivo Horo",
+    "titleBg": "Копаница (Криво Хоро)",
+    "credit": "HJH©1989",
+    "endPage": 56
+  },
+  {
+    "page": 57,
+    "title": "Kopanica Lamba Lamba",
+    "titleBg": "Копаница",
+    "source": "Petko Radev / Ivan Kirev",
+    "credit": "ЯНВ 24/11/1995",
+    "endPage": 57
+  },
+  {
+    "page": 58,
+    "title": "Krajdunavsko horo",
+    "titleBg": "Крайдунавско хоро",
+    "source": "Ranja",
+    "credit": "ЯНВ 25/11/1997",
+    "endPage": 58
+  },
+  {
+    "page": 59,
+    "title": "Krivo Horo Šopsko",
+    "titleBg": "Криво Хоро (Шопско)",
+    "credit": "HJH©1992",
+    "region": "Šopluk",
+    "endPage": 59
+  },
+  {
+    "page": 60,
+    "title": "Krivo Horo",
+    "titleBg": "Криво Хоро",
+    "credit": "HJH©1992",
+    "endPage": 61,
+    "relatedSlug": "krivo-horo"
+  },
+  {
+    "page": 62,
+    "title": "Krivo Ihtimansko Horo",
+    "credit": "Notation: Birgitt Karlson - 12/2004",
+    "region": "Šopluk",
+    "endPage": 62,
+    "relatedSlug": "krivo-ihtimansko-horo",
+    "slug": "fakebook-062-krivo-ihtimansko-horo",
+    "meter": "8/16, 9/16, 13/16",
+    "writtenBars": 12,
+    "playbackBars": 24,
+    "noteAttacks": 196,
+    "sourcePitchCenter": "D minor",
+    "sha256": "daea2b24751c6a33ddeb88668da9aca745a98296bbd160ed7305a029b4b2efdf"
+  },
+  {
+    "page": 63,
+    "title": "Kulsko Choro",
+    "titleBg": "Кулско Хоро",
+    "credit": "HJH",
+    "region": "Severn",
+    "endPage": 63
+  },
+  {
+    "page": 64,
+    "title": "Kutsai Kutsai Mome",
+    "credit": "Henk Hensing",
+    "endPage": 64
+  },
+  {
+    "page": 65,
+    "title": "Mališevsko Horo",
+    "titleBg": "Малишевско Хоро",
+    "credit": "HJH©1977",
+    "region": "Pirin",
+    "endPage": 65,
+    "slug": "fakebook-065-malisevsko-horo",
+    "meter": "2/4",
+    "writtenBars": 42,
+    "playbackBars": 166,
+    "noteAttacks": 717,
+    "sourcePitchCenter": "G major",
+    "sha256": "9b357bb48356cbe7e4d3be0d841aff5d6e6953a5af593dc6bea1d4ace7a42506"
+  },
+  {
+    "page": 66,
+    "title": "Mari Marijko",
+    "titleBg": "Мари, Марийко",
+    "credit": "HJH©1993",
+    "region": "Rodopen",
+    "endPage": 66
+  },
+  {
+    "page": 67,
+    "title": "Mâžko čedo",
+    "titleBg": "Мъжко чедо",
+    "source": "Dimitâr Janev",
+    "credit": "HJH©1992",
+    "region": "Pirin",
+    "endPage": 67
+  },
+  {
+    "page": 68,
+    "title": "Minka",
+    "titleBg": "Минка",
+    "credit": "1998©HJH/JK",
+    "region": "Rodopen",
+    "endPage": 68,
+    "slug": "fakebook-068-minka",
+    "meter": "7/8",
+    "writtenBars": 18,
+    "playbackBars": 68,
+    "noteAttacks": 405,
+    "sourcePitchCenter": "E minor",
+    "sha256": "65578c836f42a38c7fb962f69c281050c4b8270f3cb9e34cdd5769305b529d12"
+  },
+  {
+    "page": 69,
+    "title": "Na Purt",
+    "credit": "HJH©1996",
+    "endPage": 69,
+    "slug": "fakebook-069-na-purt",
+    "meter": "7/16",
+    "writtenBars": 24,
+    "playbackBars": 128,
+    "noteAttacks": 601,
+    "sourcePitchCenter": "G minor",
+    "sha256": "eef6e8df84c1c88079c37f080724c08729ffef3bb927cd516a4de21c0e7c2eb7"
+  },
+  {
+    "page": 70,
+    "title": "Naiden Kirov Duet",
+    "credit": "notatie: K. Krijnen",
+    "endPage": 70
+  },
+  {
+    "page": 71,
+    "title": "Neda Voda",
+    "titleBg": "Неда Вода",
+    "credit": "Henk Hensing©1995",
+    "region": "Pirin",
+    "endPage": 71,
+    "slug": "fakebook-071-neda-voda",
+    "meter": "11/8",
+    "writtenBars": 10,
+    "playbackBars": 42,
+    "noteAttacks": 528,
+    "sourcePitchCenter": "F minor",
+    "sha256": "4c01d7648ce3af02ecd70166ba6002e061f64f13f444ef3e8245500527f36f05"
+  },
+  {
+    "page": 72,
+    "title": "Opas #1",
+    "titleBg": "Опас #1",
+    "credit": "1969©HJH",
+    "region": "Dobrudža",
+    "endPage": 72,
+    "slug": "fakebook-072-opas-1",
+    "meter": "2/4",
+    "writtenBars": 30,
+    "playbackBars": 48,
+    "noteAttacks": 164,
+    "sourcePitchCenter": "C major → A minor",
+    "sha256": "146c4d09d245de44ae02e9a609a2a006e602a9628e42cdfc531d1305e5510256"
+  },
+  {
+    "page": 73,
+    "title": "Opas #2",
+    "titleBg": "Опас #2",
+    "credit": "2006©HJH/HB",
+    "region": "Dobrudža",
+    "endPage": 73
+  },
+  {
+    "page": 74,
+    "title": "Pajduška trojka",
+    "credit": "Notation: Birgitt Karlson",
+    "endPage": 74
+  },
+  {
+    "page": 75,
+    "title": "Pajduško Horo #2",
+    "titleBg": "Пайдушко Хоро #2",
+    "credit": "HJH/JK©1985",
+    "endPage": 75,
+    "slug": "fakebook-075-pajdusko-horo-2",
+    "meter": "5/8",
+    "writtenBars": 24,
+    "playbackBars": 48,
+    "noteAttacks": 160,
+    "sourcePitchCenter": "G",
+    "sha256": "9976234341e28424034d10cfd5a1b7d4042aeafa5f637bdaf8e880611f202134"
+  },
+  {
+    "page": 76,
+    "title": "Pajduško Horo #1",
+    "titleBg": "Пайдушко Хоро #1",
+    "credit": "HJH/JK©1988",
+    "endPage": 77
+  },
+  {
+    "page": 78,
+    "title": "Panagjursko Horo",
+    "titleBg": "Панагюрско Хоро",
+    "credit": "HJH/JK©1993",
+    "region": "Trakija",
+    "endPage": 79
+  },
+  {
+    "page": 80,
+    "title": "Pazardžijska lesa",
+    "credit": "Notation: Birgitt Karlson - 10/2004",
+    "region": "Trakija",
+    "endPage": 80
+  },
+  {
+    "page": 81,
+    "title": "Pravo Horo #1",
+    "titleBg": "Право Хоро #1",
+    "credit": "1985©HJH",
+    "endPage": 81,
+    "relatedSlug": "pravo-horo"
+  },
+  {
+    "page": 82,
+    "title": "Pravo Horo #2",
+    "titleBg": "Право Хоро #2",
+    "credit": "1985©HJH",
+    "endPage": 83
+  },
+  {
+    "page": 84,
+    "title": "Pravo Horo #3",
+    "titleBg": "Право Хоро #3",
+    "credit": "1986©HJH/JPB",
+    "endPage": 84
+  },
+  {
+    "page": 85,
+    "title": "Pravo Horo na Pesenta",
+    "titleBg": "Право Хоро на Песента",
+    "credit": "2001©Nevofoon/HJH",
+    "endPage": 85,
+    "slug": "fakebook-085-pravo-horo-na-pesenta",
+    "meter": "2/4",
+    "writtenBars": 32,
+    "playbackBars": 192,
+    "noteAttacks": 644,
+    "sourcePitchCenter": "D → E minor",
+    "sha256": "683fbb87cdd859665c6d86021b880ddba2717459e9a06f92b4d680fe98a0f0ca"
+  },
+  {
+    "page": 86,
+    "title": "Pravo Lovesko Horo",
+    "titleBg": "Право Ловеско Хоро",
+    "credit": "HJH©2006",
+    "endPage": 86
+  },
+  {
+    "page": 87,
+    "title": "Pravo Rodopsko Choro",
+    "titleBg": "Прабо Родопско Хоро",
+    "credit": "HJH©1989",
+    "region": "Rodopen",
+    "endPage": 87
+  },
+  {
+    "page": 88,
+    "title": "Pravo Trakijsko Horo",
+    "titleBg": "Право Тракийско Хоро",
+    "credit": "HJH©2000",
+    "region": "Trakija",
+    "endPage": 88
+  },
+  {
+    "page": 89,
+    "title": "Raçenitsa",
+    "credit": "notatie © Fred Abbingh 2005",
+    "endPage": 89
+  },
+  {
+    "page": 90,
+    "title": "Râka #1",
+    "titleBg": "Ръка #1",
+    "credit": "1986HJH; 1991ML",
+    "region": "Dobrudža",
+    "endPage": 90,
+    "slug": "fakebook-090-raka-1",
+    "meter": "2/4",
+    "writtenBars": 16,
+    "playbackBars": 28,
+    "noteAttacks": 160,
+    "sourcePitchCenter": "C major",
+    "sha256": "90578394b46f7f49cc4fc97dcf31deead42858316e4cc881675b054514680f73"
+  },
+  {
+    "page": 91,
+    "title": "Râka #2",
+    "titleBg": "Ръка #2",
+    "credit": "©1986HJH/JPB",
+    "region": "Dobrudža",
+    "endPage": 91
+  },
+  {
+    "page": 92,
+    "title": "Razloško",
+    "credit": "Notation: Birgitt Karlson - 05/2004",
+    "region": "Pirin",
+    "endPage": 93
+  },
+  {
+    "page": 94,
+    "title": "Razvivaj Dobro",
+    "titleBg": "Развивай, Добро",
+    "credit": "Henk Hensing©1988",
+    "region": "Trakija",
+    "endPage": 94
+  },
+  {
+    "page": 95,
+    "title": "Rusi Kusi",
+    "titleBg": "Руси коси",
+    "credit": "Henk Hensing©1981",
+    "region": "Pirin",
+    "endPage": 95
+  },
+  {
+    "page": 96,
+    "title": "Sborenka #1",
+    "titleBg": "Сборенка #1",
+    "credit": "1969©HJH",
+    "region": "Dobrudža",
+    "endPage": 96
+  },
+  {
+    "page": 97,
+    "title": "Sborenka #2",
+    "titleBg": "Сборенка #2",
+    "credit": "1969©HJH",
+    "region": "Dobrudža",
+    "endPage": 97
+  },
+  {
+    "page": 98,
+    "title": "Sborenka #3",
+    "titleBg": "Сборенка #3",
+    "credit": "2006©HJH/HB",
+    "region": "Dobrudža",
+    "endPage": 98
+  },
+  {
+    "page": 99,
+    "title": "Širto #1",
+    "titleBg": "Ширто #1",
+    "credit": "1985©HJH",
+    "endPage": 99
+  },
+  {
+    "page": 100,
+    "title": "Slivensko Horo",
+    "titleBg": "Сливенско хоро",
+    "credit": "Henk Hensing©1999",
+    "endPage": 100
+  },
+  {
+    "page": 101,
+    "title": "Srebranski Danec",
+    "credit": "Notation: Birgitt Karlson - 09/2003",
+    "region": "Dobrudža",
+    "endPage": 101,
+    "slug": "fakebook-101-srebranski-danec",
+    "meter": "2/4",
+    "writtenBars": 50,
+    "playbackBars": 72,
+    "noteAttacks": 414,
+    "sourcePitchCenter": "F♯ minor",
+    "sha256": "70c9fdd5db37ad64746fa3b0df21864cf829c9b71b0714a5c00cab6c0c33f2db"
+  },
+  {
+    "page": 102,
+    "title": "Šumarsko",
+    "credit": "Notation: Birgitt Karlson - 12/2004",
+    "region": "Pirin",
+    "endPage": 102
+  },
+  {
+    "page": 103,
+    "title": "Svornato Horo",
+    "titleBg": "Сворнато хоро",
+    "credit": "1992©Henk Hensing",
+    "region": "Rodopen",
+    "endPage": 103,
+    "slug": "fakebook-103-svornato-horo",
+    "meter": "9/8",
+    "writtenBars": 24,
+    "playbackBars": 72,
+    "noteAttacks": 472,
+    "sourcePitchCenter": "D minor",
+    "sha256": "0fab245894b21f068d34545e4f77382103c05be52fd5a52fbd50080652b76387"
+  },
+  {
+    "page": 104,
+    "title": "Talima #2",
+    "titleBg": "Талима #2",
+    "credit": "1985©HJH",
+    "region": "Dobrudža",
+    "endPage": 105,
+    "slug": "fakebook-104-talima-2",
+    "meter": "2/4",
+    "writtenBars": 56,
+    "playbackBars": 112,
+    "noteAttacks": 718,
+    "sourcePitchCenter": "G · C · A minor",
+    "sha256": "499d9638074c704287e62c37bdf6ec051531ce5fd3d77d5792922d9bd22806e2"
+  },
+  {
+    "page": 106,
+    "title": "Talima #3",
+    "titleBg": "Талима #3",
+    "credit": "1989©HJH/JK",
+    "region": "Dobrudža",
+    "endPage": 107,
+    "slug": "fakebook-106-talima-3",
+    "meter": "2/4",
+    "writtenBars": 60,
+    "playbackBars": 196,
+    "noteAttacks": 1256,
+    "sourcePitchCenter": "C major",
+    "sha256": "8c3776d9b9218c9d8a34f6ec3d31d415bccec94a980250fd8728bb250bccbb2c"
+  },
+  {
+    "page": 108,
+    "title": "Talima #1",
+    "titleBg": "Талима #1",
+    "credit": "1969©HJH",
+    "region": "Dobrudža",
+    "endPage": 108,
+    "slug": "fakebook-108-talima-1",
+    "meter": "2/4",
+    "writtenBars": 32,
+    "playbackBars": 64,
+    "noteAttacks": 384,
+    "sourcePitchCenter": "G major",
+    "sha256": "09bdd7f2ce3f5cac3a31b9cb6ad95b40248261ffb0ff4fcfa3b4fce267c9a444"
+  },
+  {
+    "page": 109,
+    "title": "Zemenska Râčenica",
+    "titleBg": "Земенска ръченица",
+    "source": "Trajčo Sinapov",
+    "credit": "ЯНВ 03/09/1991 – 05/04/2003",
+    "endPage": 109
+  },
+  {
+    "page": 110,
+    "title": "Varnenski Pred Svatben Tans 2",
+    "endPage": 111,
+    "slug": "fakebook-110-varnenski-predsvatben-tans-2",
+    "meter": "9/8",
+    "writtenBars": 64,
+    "playbackBars": 120,
+    "noteAttacks": 842,
+    "sourcePitchCenter": "A minor",
+    "sha256": "bb733e313a7cb793bad53edd8eb10bc277d36438f5fc14a95b43b08bda7cd1ae"
+  },
+  {
+    "page": 112,
+    "title": "Vlaško",
+    "credit": "Notation: Birgitt Karlson - 02/2004",
+    "region": "Severn",
+    "endPage": 113
+  },
+  {
+    "page": 114,
+    "title": "Vračanska Râčenica",
+    "titleBg": "Врачанска Ръченица",
+    "credit": "1989©HJH/JK",
+    "endPage": 115
+  }
+]

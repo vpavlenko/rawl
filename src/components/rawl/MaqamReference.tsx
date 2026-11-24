@@ -84,7 +84,8 @@ const Page = styled.main`
   button:focus-visible {
     color: white;
   }
-  button:focus-visible {
+  button:focus-visible,
+  header a:focus-visible {
     outline: 1px solid #e9b44c;
     outline-offset: 2px;
   }
@@ -208,6 +209,13 @@ export default function MaqamReference() {
           Johnny Farraj · Sami Abu Shumays · 2019
         </span>
         <span style={{ color: "#999" }}>Qanun</span>
+        <a
+          href="https://vpavlenko.github.io/layouts/oud"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Arabic oud
+        </a>
         <span>Shift-hover: use this note as tonic.</span>
         <nav aria-label="Arabic corpora">
           {ARABIC_CORPORA.map((corpus) => (

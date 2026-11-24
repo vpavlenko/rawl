@@ -205,7 +205,6 @@ const MaqamLegend: React.FC<{
                   <MaqamRawlNotation
                     name={jins.name}
                     tonic={maqam.tonic}
-                    colorReference={maqam.colorReference}
                     pitches={jins.pitches}
                     startColumn={LOWER_COLUMNS - lowerCount}
                     columnCount={COLUMN_COUNT}

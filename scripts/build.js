@@ -56,6 +56,11 @@ measureFileSizesBeforeBuild(paths.appBuild)
   })
   .then(
     ({ stats, previousFileSizes, warnings }) => {
+      // Serve the Horo report directly on GitHub Pages, using the current app assets.
+      fs.copySync(
+        path.join(paths.appBuild, 'index.html'),
+        path.join(paths.appBuild, 'corpus/horo/analysis/index.html')
+      );
       require('child_process').execFileSync(
         process.execPath, ['--test', path.join(__dirname, 'rawl/spa-redirect.test.cjs')],
         { stdio: 'inherit', env: { ...process.env, RAWL_HTML_DIR: paths.appBuild } }

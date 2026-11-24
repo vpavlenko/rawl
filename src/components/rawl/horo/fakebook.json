@@ -20,7 +20,14 @@
     "title": "Bavno Oro",
     "titleBg": "Бавно хоро",
     "credit": "ЯНВ 30/6/1992 – 3/12/2001",
-    "endPage": 7
+    "endPage": 7,
+    "slug": "fakebook-007-bavno-horo",
+    "meter": "7/8",
+    "writtenBars": 38,
+    "playbackBars": 103,
+    "noteAttacks": 449,
+    "sourcePitchCenter": "F minor / C",
+    "sha256": "65f6719907003af75869d00b853d23260692918ab5e244b9f10e7c47abd7458e"
   },
   {
     "page": 8,
@@ -188,7 +195,14 @@
     "titleBg": "Данец",
     "source": "Ensemble ‘Biseri’ - Dobrič",
     "credit": "ЯНВ 15/01/2004 - 13/07/1998",
-    "endPage": 22
+    "endPage": 22,
+    "slug": "fakebook-022-danec",
+    "meter": "2/4 · 3/4",
+    "writtenBars": 67,
+    "playbackBars": 144,
+    "noteAttacks": 857,
+    "sourcePitchCenter": "D major → E minor → F♯ minor",
+    "sha256": "d9638ee3f28184d974d8115d62972e3b4c692afa3859973cc01d71f9e559aac7"
   },
   {
     "page": 23,
@@ -410,7 +424,14 @@
     "title": "Graovski Melodij",
     "titleBg": "Граовски Мелодий",
     "credit": "2003©HJH/JK",
-    "endPage": 41
+    "endPage": 41,
+    "slug": "fakebook-040-graovski-melodij",
+    "meter": "8/8",
+    "writtenBars": 46,
+    "playbackBars": 58,
+    "noteAttacks": 732,
+    "sourcePitchCenter": "G major → A-centered",
+    "sha256": "5bd12b06067564a327fcdaeac26550d3554136cb08a3f8d63b4ea6fec0025f46"
   },
   {
     "page": 42,
@@ -490,21 +511,42 @@
     "title": "Indže prez gora vârveše",
     "titleBg": "Индже през гора вървеше",
     "credit": "ЯНВ 18/11/2001",
-    "endPage": 49
+    "endPage": 49,
+    "slug": "fakebook-049-indze-prez-gora-varvese",
+    "meter": "2/4",
+    "writtenBars": 36,
+    "playbackBars": 140,
+    "noteAttacks": 469,
+    "sourcePitchCenter": "D minor",
+    "sha256": "2049e7c8e1026ff2997b82c731fc77ecbdb98ab8c8a8404f1aae7bb95dfdc80b"
   },
   {
     "page": 50,
     "title": "Ispajče",
     "titleBg": "Испайче",
     "credit": "ЯНВ 10/12/2001 – 20/3/1992",
-    "endPage": 50
+    "endPage": 50,
+    "slug": "fakebook-050-ispajce",
+    "meter": "13/16, 11/16",
+    "writtenBars": 20,
+    "playbackBars": 40,
+    "noteAttacks": 356,
+    "sourcePitchCenter": "C minor / G",
+    "sha256": "a3044eb3c53f73979ab0199e5350b0e62322fdf192ffc958ee12f360d0b5c1f7"
   },
   {
     "page": 51,
     "title": "Jankinata",
     "credit": "Notation: Birgitt Karlson - 07/2005",
     "region": "Severn",
-    "endPage": 51
+    "endPage": 51,
+    "slug": "fakebook-051-jankinata",
+    "meter": "11/8",
+    "writtenBars": 16,
+    "playbackBars": 16,
+    "noteAttacks": 215,
+    "sourcePitchCenter": "G major → E minor",
+    "sha256": "0efb03d202d02e25db280883ab03d6cc0350f55354cc047824e9f3c329fe4026"
   },
   {
     "page": 52,
@@ -601,7 +643,14 @@
     "titleBg": "Крайдунавско хоро",
     "source": "Ranja",
     "credit": "ЯНВ 25/11/1997",
-    "endPage": 58
+    "endPage": 58,
+    "slug": "fakebook-058-krajdunavsko-horo",
+    "meter": "2/4",
+    "writtenBars": 51,
+    "playbackBars": 120,
+    "noteAttacks": 876,
+    "sourcePitchCenter": "G major → E minor → G → A → E minor",
+    "sha256": "0ed1ebf21de349744efb7a31b37aedfb8ddfda7f1949f840e8b39e7cfc7eb732"
   },
   {
     "page": 59,
@@ -609,7 +658,14 @@
     "titleBg": "Криво Хоро (Шопско)",
     "credit": "HJH©1992",
     "region": "Šopluk",
-    "endPage": 59
+    "endPage": 59,
+    "slug": "fakebook-059-krivo-horo-sopsko",
+    "meter": "9/8, 11/8",
+    "writtenBars": 46,
+    "playbackBars": 86,
+    "noteAttacks": 696,
+    "sourcePitchCenter": "D → G → C → G",
+    "sha256": "b9edcdc553dfa5f8df0bcef78157bb5ad285aed890073a53adf0508eabd2193d"
   },
   {
     "page": 60,
@@ -805,7 +861,14 @@
     "page": 74,
     "title": "Pajduška trojka",
     "credit": "Notation: Birgitt Karlson",
-    "endPage": 74
+    "endPage": 74,
+    "slug": "fakebook-074-pajduska-trojka",
+    "meter": "5/8",
+    "writtenBars": 36,
+    "playbackBars": 132,
+    "noteAttacks": 487,
+    "sourcePitchCenter": "E minor",
+    "sha256": "374afd0e8a73b6a5f607b1ed1bb3e6b6319243d1314e006e104bba17087f1efd"
   },
   {
     "page": 75,
@@ -855,7 +918,14 @@
     "title": "Pazardžijska lesa",
     "credit": "Notation: Birgitt Karlson - 10/2004",
     "region": "Trakija",
-    "endPage": 80
+    "endPage": 80,
+    "slug": "fakebook-080-pazardzijska-lesa",
+    "meter": "11/16",
+    "writtenBars": 20,
+    "playbackBars": 24,
+    "noteAttacks": 218,
+    "sourcePitchCenter": "E minor → G major → E minor",
+    "sha256": "cbdd183ff0478168ba625fdcb23b6987b1924238f56f39d3fc20ade35c70b973"
   },
   {
     "page": 81,
@@ -949,7 +1019,14 @@
     "titleBg": "Право Тракийско Хоро",
     "credit": "HJH©2000",
     "region": "Trakija",
-    "endPage": 88
+    "endPage": 88,
+    "slug": "fakebook-088-pravo-trakijsko-horo",
+    "meter": "2/4",
+    "writtenBars": 40,
+    "playbackBars": 246,
+    "noteAttacks": 1236,
+    "sourcePitchCenter": "C → F → D minor → C → B♭ minor",
+    "sha256": "16f22c36d0fc4cf1fc0f740be93cb10d750e21c7b01cf530085627627dee7a38"
   },
   {
     "page": 89,
@@ -1006,7 +1083,7 @@
     "playbackBars": 70,
     "noteAttacks": 505,
     "sourcePitchCenter": "C (D♭ and E)",
-    "sha256": "5ab28c7beea0eaed3baab06d1c57d8ec957cdab2ee3de014a7960937ad2bacd0"
+    "sha256": "c30e633b1771b16d4d372caa64a42867e3b2486d23a15c3985ad2eca19c86f5d"
   },
   {
     "page": 94,
@@ -1102,7 +1179,14 @@
     "title": "Slivensko Horo",
     "titleBg": "Сливенско хоро",
     "credit": "Henk Hensing©1999",
-    "endPage": 100
+    "endPage": 100,
+    "slug": "fakebook-100-slivensko-horo",
+    "meter": "2/4",
+    "writtenBars": 49,
+    "playbackBars": 103,
+    "noteAttacks": 576,
+    "sourcePitchCenter": "F major",
+    "sha256": "d448e7315b047c15a52cd42803fbc4d32ed9f30a7c348c01170607013e48b19b"
   },
   {
     "page": 101,
@@ -1224,7 +1308,14 @@
     "title": "Vlaško",
     "credit": "Notation: Birgitt Karlson - 02/2004",
     "region": "Severn",
-    "endPage": 113
+    "endPage": 113,
+    "slug": "fakebook-112-vlasko",
+    "meter": "2/4",
+    "writtenBars": 55,
+    "playbackBars": 96,
+    "noteAttacks": 871,
+    "sourcePitchCenter": "D (E♭ and F♯)",
+    "sha256": "d421e287ef8839c12b582cb08e4fbeb3115d775851fa5b6845d0d00059fccd4c"
   },
   {
     "page": 114,

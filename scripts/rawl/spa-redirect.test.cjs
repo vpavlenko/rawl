@@ -32,6 +32,7 @@ test('all deep links fetch a fresh shared entry while preserving routes, queries
 });
 
 test("built pages use one current app entry", { skip: !process.env.RAWL_HTML_DIR }, () => {
+ assert.equal(fs.readFileSync(path.join(htmlDir,"corpus/horo/analysis/index.html"),"utf8"),index);
  const manifest=JSON.parse(fs.readFileSync(path.join(htmlDir,"asset-manifest.json"),"utf8"));
  const urls=[...index.matchAll(/<script[^>]+src=["\']([^"\']+)["\']/g)].map(m=>m[1]).filter(u=>u.startsWith("/static/js/"));
  const expected=[manifest["main.js"],...Object.entries(manifest).filter(([k])=>/^static\/js\/\d.*\.js$/.test(k)).map(([,v])=>v)];

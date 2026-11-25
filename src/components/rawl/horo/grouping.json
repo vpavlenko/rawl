@@ -1,0 +1,2054 @@
+{
+  "aytoska-rchenica---unknown-aitoska_rachenitsa": {
+    "measures": 64,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "backovsko-horo": {
+    "measures": 98,
+    "groups": {
+      "1": [
+        3,
+        3
+      ]
+    }
+  },
+  "bakovsko-horo": {
+    "measures": 98,
+    "groups": {
+      "1": [
+        3,
+        3
+      ]
+    }
+  },
+  "bistrica-kopanica": {
+    "measures": 19,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "bistrishka-kopanica": {
+    "measures": 32,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "bistrishka-kopanitsa": {
+    "measures": 104,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "bregovsko-horo-1": {
+    "measures": 36,
+    "groups": {
+      "1": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "20": [
+        3,
+        3,
+        4,
+        3
+      ],
+      "21": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "22": [
+        3,
+        3,
+        4,
+        3
+      ],
+      "23": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "24": [
+        3,
+        3,
+        4,
+        3
+      ],
+      "25": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "26": [
+        3,
+        3,
+        4,
+        3
+      ],
+      "27": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "bregovsko-horo-2": {
+    "measures": 39,
+    "groups": {
+      "2": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "6": [],
+      "7": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "8": [],
+      "10": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "11": [],
+      "23": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "31": [],
+      "32": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "brestaska-racenica---misc-traditional-brestaska-racenica": {
+    "measures": 42,
+    "groups": {
+      "1": [
+        4,
+        3
+      ]
+    }
+  },
+  "bulcenska-racenica": {
+    "measures": 130,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ],
+      "130": []
+    }
+  },
+  "bulchenska-rachenitsa": {
+    "measures": 72,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "cecovoto-horo-9-8": {
+    "measures": 49,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "cerovska-kopanica": {
+    "measures": 58,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "cetvorno-horo": {
+    "measures": 56,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "cetvorno-horo-2": {
+    "measures": 32,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "cetvorno-horo-4": {
+    "measures": 87,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ],
+      "34": [],
+      "40": [
+        3,
+        2,
+        2
+      ],
+      "43": []
+    }
+  },
+  "chetvorno-horo---sofia": {
+    "measures": 80,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "chetvorno-shopsko-horo": {
+    "measures": 47,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "chtvorno-horo---misc-traditional": {
+    "measures": 82,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "daichovo-horo": {
+    "measures": 64,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "daichovo-horo---viacheslav-semyonov": {
+    "measures": 116,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "daichovo-horo-2": {
+    "measures": 257,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "daichovo-horo-3": {
+    "measures": 16,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "daichovo_horo_1": {
+    "measures": 60,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "denjovo-horo": {
+    "measures": 36,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "devetorka-samokovsko-horo": {
+    "measures": 60,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "drjanovska-racenica-ii": {
+    "measures": 48,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "eleno-mome-elenino-horo": {
+    "measures": 62,
+    "groups": {
+      "1": [
+        2,
+        2,
+        1,
+        2
+      ]
+    }
+  },
+  "elenska-racenica": {
+    "measures": 72,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "elenska-racenica---misc-traditional-elenska-racenica": {
+    "measures": 80,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "gankino_horo": {
+    "measures": 40,
+    "groups": {
+      "1": [
+        4,
+        3,
+        4
+      ]
+    }
+  },
+  "gankino_horo_traditionnel_bulgare": {
+    "measures": 81,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "glavinishko-cetvorno": {
+    "measures": 28,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ],
+      "13": [
+        3,
+        3
+      ]
+    }
+  },
+  "gr-uan-vcarsko-horo": {
+    "measures": 32,
+    "groups": {
+      "1": [
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "gr-uan-vcarsko-horo-1": {
+    "measures": 71,
+    "groups": {
+      "1": [
+        2,
+        3,
+        2,
+        2
+      ],
+      "23": [],
+      "34": [
+        2,
+        3,
+        2,
+        2
+      ],
+      "37": [],
+      "48": [
+        2,
+        3,
+        2,
+        2
+      ],
+      "52": [],
+      "63": [
+        2,
+        3,
+        2,
+        2
+      ],
+      "69": []
+    }
+  },
+  "gr-uan-vcarsko-horo-2": {
+    "measures": 77,
+    "groups": {
+      "1": [
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "kolev-s-kopanitsa": {
+    "measures": 60,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "konushenska-rchenica---konushenski-orkestr": {
+    "measures": 139,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "kopanica": {
+    "measures": 56,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "kopanitsa": {
+    "measures": 56,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "krivo-horo": {
+    "measures": 87,
+    "groups": {
+      "1": [
+        4,
+        3,
+        4
+      ],
+      "10": [],
+      "11": [
+        4,
+        3,
+        4
+      ],
+      "22": [],
+      "23": [
+        4,
+        3,
+        4
+      ],
+      "68": []
+    }
+  },
+  "krivo_sadovsko_horo": {
+    "measures": 16,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3,
+        2,
+        2,
+        2
+      ]
+    }
+  },
+  "lazarsko-horo": {
+    "measures": 40,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "lazarsko-horo-1": {
+    "measures": 53,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ],
+      "24": [],
+      "34": [
+        2,
+        2,
+        3,
+        2
+      ],
+      "52": []
+    }
+  },
+  "mr-zvonsky-s-kopanica": {
+    "measures": 90,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "37": [],
+      "38": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "90": []
+    }
+  },
+  "novoselsko-kopanica": {
+    "measures": 62,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "26": [],
+      "27": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "28": [],
+      "29": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "34": [],
+      "35": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "36": [],
+      "37": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "paidushko-choro": {
+    "measures": 113,
+    "groups": {
+      "1": [
+        2,
+        3
+      ]
+    }
+  },
+  "paidushko-horo": {
+    "measures": 112,
+    "groups": {
+      "1": [
+        2,
+        3
+      ]
+    }
+  },
+  "paidushko-horo-2": {
+    "measures": 65,
+    "groups": {
+      "2": [
+        2,
+        3
+      ]
+    }
+  },
+  "paidusko-horo": {
+    "measures": 120,
+    "groups": {
+      "1": [
+        2,
+        3
+      ]
+    }
+  },
+  "pajdusko-horo": {
+    "measures": 192,
+    "groups": {
+      "1": [
+        2,
+        3
+      ]
+    }
+  },
+  "pamela-s-ruchenitsa": {
+    "measures": 30,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "pasard-vzijska-kopanica": {
+    "measures": 66,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "56": [],
+      "57": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "60": [],
+      "61": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "64": [],
+      "65": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "pernishka-rchenica---ibro-lolov": {
+    "measures": 97,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "rachenica-for-three": {
+    "measures": 80,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "rachenitsa": {
+    "measures": 44,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "rachenitsa-1": {
+    "measures": 72,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "rachenitsa-2": {
+    "measures": 72,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "radino-horo": {
+    "measures": 72,
+    "groups": {
+      "1": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "satovcensko-horo": {
+    "measures": 32,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "serbian-racenica": {
+    "measures": 72,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "seymour_blagoevgradsko_horo": {
+    "measures": 64,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "seymour_cekurjankino_horo": {
+    "measures": 96,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "seymour_drjanovska_rachenica": {
+    "measures": 48,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "seymour_elenska_rachenica": {
+    "measures": 72,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "shopska-rachenitsa": {
+    "measures": 135,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "smeceno_horo": {
+    "measures": 63,
+    "groups": {
+      "32": [
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3
+      ],
+      "47": [],
+      "54": [
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "starceska-racenica": {
+    "measures": 44,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "suleman-s-kopanitsa": {
+    "measures": 72,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "svatbarska-racenica---bulgarien": {
+    "measures": 88,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "svatbarska-rachenitsa": {
+    "measures": 98,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ],
+      "98": []
+    }
+  },
+  "svornato-horo": {
+    "measures": 60,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "traditional-music---petrunino-horo": {
+    "measures": 24,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "traditional_music_plevensko_daichovo_horo": {
+    "measures": 58,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "trakijska-rachenica": {
+    "measures": 96,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "trakiyska-rchenica": {
+    "measures": 160,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "varnensko-horo": {
+    "measures": 106,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ],
+      "82": [],
+      "83": [
+        2,
+        2,
+        2,
+        3
+      ],
+      "86": [],
+      "87": [
+        2,
+        2,
+        2,
+        3
+      ],
+      "97": [],
+      "98": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "vcekurjankino-horo": {
+    "measures": 104,
+    "groups": {
+      "1": [
+        4,
+        3
+      ]
+    }
+  },
+  "vcerkesko-horo-3": {
+    "measures": 28,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "veselinovo-horo": {
+    "measures": 402,
+    "groups": {
+      "1": [
+        3,
+        3
+      ],
+      "214": [],
+      "215": [
+        3,
+        3
+      ]
+    }
+  },
+  "veselinovo-horo-1": {
+    "measures": 66,
+    "groups": {
+      "1": [
+        3,
+        3
+      ],
+      "23": [],
+      "25": [
+        3,
+        3
+      ],
+      "28": []
+    }
+  },
+  "veselinovo-horo-2": {
+    "measures": 78,
+    "groups": {
+      "6": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "13": [],
+      "14": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "26": [],
+      "32": [
+        2,
+        3,
+        3,
+        2,
+        2
+      ],
+      "48": [],
+      "69": [
+        2,
+        2,
+        2
+      ]
+    }
+  },
+  "veselinovo-horo-3": {
+    "measures": 115,
+    "groups": {
+      "1": [
+        3,
+        3
+      ]
+    }
+  },
+  "sandansko-oro": {
+    "measures": 12,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3,
+        2,
+        2,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "seymour_jambolsko_pajdushko": {
+    "measures": 40,
+    "groups": {
+      "1": [
+        2,
+        3
+      ]
+    }
+  },
+  "seymour_paidushko": {
+    "measures": 128,
+    "groups": {
+      "1": [
+        2,
+        3
+      ]
+    }
+  },
+  "seymour_pajdusko_oro": {
+    "measures": 128,
+    "groups": {
+      "1": [
+        2,
+        3
+      ]
+    }
+  },
+  "bavno-oro": {
+    "measures": 83,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ],
+      "61": []
+    }
+  },
+  "dospatsko-oro---misc-tunes": {
+    "measures": 140,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "gankino": {
+    "measures": 54,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "maricensko": {
+    "measures": 104,
+    "groups": {
+      "1": [
+        3,
+        3
+      ]
+    }
+  },
+  "chetvorno_shopsko_fixed": {
+    "measures": 160,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "daichovo-chara": {
+    "measures": 38,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "daichovo-hora": {
+    "measures": 68,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ],
+      "36": [],
+      "37": [
+        2,
+        2,
+        2,
+        3
+      ],
+      "48": [],
+      "49": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "bulchenska-rachenitsa----piano-tutorial": {
+    "measures": 72,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "bulgarian-dances-balkan-brass-elenino-horo-no.1": {
+    "measures": 26,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "djinovsko-horo": {
+    "measures": 65,
+    "groups": {
+      "2": [
+        2,
+        3
+      ]
+    }
+  },
+  "dospatsko-choro": {
+    "measures": 64,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "dospatsko-horo": {
+    "measures": 40,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "dospatsko-oro": {
+    "measures": 48,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "dospatsko-oro---misc-tunes-dospatsko-horo": {
+    "measures": 48,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "ekizliisko-horo": {
+    "measures": 104,
+    "groups": {
+      "1": [
+        3,
+        3
+      ]
+    }
+  },
+  "gankino-horo---misc-tunes": {
+    "measures": 64,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "gankino-horo---misc-tunes-gankino-horo": {
+    "measures": 40,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "gergebunarsko-horo": {
+    "measures": 186,
+    "groups": {
+      "1": [
+        3,
+        3
+      ],
+      "17": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "18": [
+        3,
+        3
+      ],
+      "20": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "21": [
+        3,
+        3
+      ],
+      "23": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "24": [
+        3,
+        3
+      ],
+      "26": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "27": [
+        3,
+        3
+      ],
+      "133": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "134": [
+        3,
+        3
+      ],
+      "136": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "137": [
+        3,
+        3
+      ]
+    }
+  },
+  "kopanitsa-1": {
+    "measures": 16,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "9": [],
+      "10": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "13": [],
+      "14": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "krivo-horo-1": {
+    "measures": 76,
+    "groups": {
+      "1": [
+        4,
+        3,
+        4
+      ],
+      "57": []
+    }
+  },
+  "krivo-ihtimansko-horo": {
+    "measures": 24,
+    "groups": {
+      "1": [
+        2,
+        3,
+        3
+      ],
+      "2": [
+        2,
+        3,
+        4
+      ],
+      "3": [
+        2,
+        3,
+        3
+      ],
+      "6": [
+        2,
+        3,
+        4
+      ],
+      "7": [
+        2,
+        3,
+        3
+      ],
+      "9": [
+        2,
+        3,
+        3,
+        2,
+        3
+      ],
+      "10": [
+        2,
+        3,
+        3
+      ],
+      "12": [
+        2,
+        3,
+        3,
+        2,
+        3
+      ],
+      "13": [
+        2,
+        3,
+        3
+      ],
+      "15": [
+        2,
+        3,
+        3,
+        2,
+        3
+      ],
+      "18": [
+        2,
+        3,
+        3
+      ],
+      "20": [
+        2,
+        3,
+        3,
+        2,
+        3
+      ],
+      "23": [
+        2,
+        3,
+        3
+      ]
+    }
+  },
+  "lyavo-horo": {
+    "measures": 36,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "makedonsko-horo-01-c-moll-leadsheeet-alt-saxophon-1-1": {
+    "measures": 64,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "mominsko-horo": {
+    "measures": 28,
+    "groups": {
+      "1": [
+        3,
+        4,
+        3,
+        4
+      ],
+      "2": [
+        3,
+        3,
+        3,
+        4
+      ],
+      "3": [
+        3,
+        4,
+        3,
+        4
+      ],
+      "4": [
+        3,
+        3,
+        3,
+        4
+      ],
+      "5": [],
+      "6": [
+        2,
+        3
+      ],
+      "7": [],
+      "8": [
+        2,
+        3
+      ],
+      "9": [],
+      "10": [
+        2,
+        3
+      ],
+      "11": [],
+      "12": [
+        2,
+        3
+      ],
+      "13": [],
+      "14": [
+        2,
+        3
+      ],
+      "15": [],
+      "16": [
+        2,
+        3
+      ],
+      "17": [],
+      "18": [
+        2,
+        3
+      ],
+      "19": [],
+      "20": [
+        2,
+        3
+      ],
+      "21": [],
+      "28": [
+        2,
+        3
+      ]
+    }
+  },
+  "mominsko-horo-1": {
+    "measures": 42,
+    "groups": {
+      "1": [
+        3,
+        4,
+        3,
+        4
+      ],
+      "2": [
+        3,
+        3,
+        3,
+        4
+      ],
+      "3": [
+        3,
+        4,
+        3,
+        4
+      ],
+      "4": [
+        3,
+        3,
+        3,
+        4
+      ],
+      "5": [
+        4,
+        4,
+        3,
+        3
+      ],
+      "8": [
+        4,
+        2,
+        3,
+        2,
+        3
+      ],
+      "9": [
+        4,
+        4,
+        3,
+        3
+      ],
+      "12": [
+        4,
+        2,
+        3,
+        2,
+        3
+      ],
+      "13": [
+        4,
+        2,
+        3
+      ],
+      "15": [
+        4,
+        3
+      ],
+      "17": [
+        4,
+        2,
+        3
+      ],
+      "19": [
+        4,
+        3
+      ],
+      "21": [
+        4,
+        4,
+        2,
+        2,
+        4
+      ],
+      "22": [
+        4,
+        4,
+        6,
+        4
+      ],
+      "23": [
+        4,
+        4,
+        4,
+        6
+      ],
+      "24": [
+        4,
+        4,
+        2,
+        2,
+        4
+      ],
+      "25": [
+        4,
+        4,
+        6,
+        4
+      ],
+      "26": [
+        4,
+        4,
+        4,
+        6
+      ],
+      "27": [
+        4,
+        4,
+        2,
+        4
+      ],
+      "31": [
+        4,
+        2,
+        3
+      ],
+      "33": [
+        4,
+        3
+      ],
+      "35": [
+        4,
+        2,
+        3
+      ],
+      "37": [
+        4,
+        3
+      ],
+      "39": [
+        4,
+        2,
+        3,
+        2,
+        3
+      ],
+      "40": [
+        4,
+        4,
+        4,
+        2
+      ],
+      "41": [
+        4,
+        2,
+        3,
+        2,
+        3
+      ],
+      "42": [
+        4,
+        4,
+        4,
+        2
+      ]
+    }
+  },
+  "petrunino-horo-muse3": {
+    "measures": 60,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "pravo-trakijsko-horo-1": {
+    "measures": 110,
+    "groups": {
+      "1": [
+        3,
+        3
+      ]
+    }
+  },
+  "seymour_daichovo_horo": {
+    "measures": 68,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "sopsko-horo": {
+    "measures": 72,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "sopsko-horo----piano-tutorial": {
+    "measures": 72,
+    "groups": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  "strandzhansko-horo-3": {
+    "measures": 178,
+    "groups": {
+      "1": [
+        3,
+        3
+      ]
+    }
+  },
+  "elenino-horo": {
+    "measures": 73,
+    "groups": {
+      "1": [
+        4,
+        4,
+        2,
+        3
+      ]
+    }
+  },
+  "pernishka-rchenica---ibro-lolov----piano-tutorial": {
+    "measures": 97,
+    "groups": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  "smeseno_horo": {
+    "measures": 46,
+    "groups": {
+      "1": [
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "2": [
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2
+      ],
+      "3": [
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "4": [
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2
+      ],
+      "5": [
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "6": [
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2
+      ],
+      "7": [
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "8": [
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2
+      ],
+      "17": [
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "18": [
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2
+      ],
+      "19": [
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "20": [
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2
+      ],
+      "25": [
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "26": [
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2
+      ],
+      "27": [
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "28": [
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  }
+}

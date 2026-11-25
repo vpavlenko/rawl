@@ -1,12 +1,13 @@
 import type { Analysis } from "./analysis";
 import type { NotesInVoices } from "./parseMidi";
+import type { RhythmGrouping } from "./rhythmGrouping";
 
 // Optional, portable display hints. These never change MIDI playback events.
 export type MidiDisplayOptions = {
   version: 1;
   legato: boolean;
   measures: number[];
-  beatsPerMeasure: number;
+  beatsPerMeasure?: number;
   gridSubdivisions?: number;
   legatoAcrossVoices?: number[];
   legatoEndingVoices?: number[];
@@ -23,14 +24,19 @@ export function readMidiDisplayOptions(events: any[]): MidiDisplayOptions | unde
     try {
       const value = JSON.parse(text.slice("RAWL_DISPLAY:".length));
       if (value.version !== 1 || typeof value.legato !== "boolean" ||
-          !Number.isInteger(value.beatsPerMeasure) || value.beatsPerMeasure < 1 || value.beatsPerMeasure > 16 ||
           !Array.isArray(value.measures) || value.measures.length < 2 || value.measures.length > 10000 ||
           !value.measures.every((t: number, i: number) => Number.isFinite(t) && t >= 0 && (!i || t > value.measures[i - 1]))) continue;
+      const beats = value.beatsPerMeasure;
+      const rhythmGrouping = readRhythmGrouping(value.analysis?.rhythmGrouping, value.measures.length - 1);
+      if (beats === undefined
+        ? !rhythmGrouping || !Object.values(rhythmGrouping).some((groups) => groups.length > 0)
+        : !Number.isInteger(beats) || beats < 1 || beats > 16) continue;
       // Only these structural defaults may be supplied by a MIDI file.
       const analysis = value.analysis && {
         modulations: value.analysis.modulations || {},
         phrasePatch: value.analysis.phrasePatch || [],
         sections: value.analysis.sections || [],
+        ...(rhythmGrouping && { rhythmGrouping }),
         comment: "", tags: [], form: {},
       };
       return { version: 1, legato: value.legato, measures: value.measures,
@@ -45,6 +51,17 @@ export function readMidiDisplayOptions(events: any[]): MidiDisplayOptions | unde
       // Ordinary or malformed metadata must not interfere with playing a file.
     }
   }
+}
+
+function readRhythmGrouping(value: unknown, measureCount: number): RhythmGrouping | undefined {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return undefined;
+  const entries = Object.entries(value);
+  if (entries.some(([measure, groups]) =>
+    !/^[1-9]\d*$/.test(measure) || Number(measure) > measureCount ||
+    !Array.isArray(groups) || groups.some((group) => !Number.isSafeInteger(group) || group <= 0) ||
+    !Number.isSafeInteger(groups.reduce((sum, group) => sum + group, 0))
+  )) return undefined;
+  return Object.fromEntries(entries);
 }
 
 function validIndices(value: unknown): number[] | undefined {

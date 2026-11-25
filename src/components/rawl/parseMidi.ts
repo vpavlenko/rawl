@@ -321,10 +321,13 @@ export const parseNotes = ({
   const displayOptions = readMidiDisplayOptions(events);
   if (displayOptions) {
     const measures = displayOptions.measures;
-    const beats = measures.slice(1).flatMap((end, i) =>
-      Array.from({ length: displayOptions.beatsPerMeasure - 1 }, (_, b) =>
-        measures[i] + (end - measures[i]) * (b + 1) / displayOptions.beatsPerMeasure),
-    );
+    const beatsPerMeasure = displayOptions.beatsPerMeasure;
+    const beats = beatsPerMeasure === undefined
+      ? measuresAndBeats.beats.filter((beat) => beat > measures[0] && beat < measures.at(-1))
+      : measures.slice(1).flatMap((end, i) =>
+          Array.from({ length: beatsPerMeasure - 1 }, (_, b) =>
+            measures[i] + (end - measures[i]) * (b + 1) / beatsPerMeasure),
+        );
     return {
       measuresAndBeats: { measures, beats },
       notes: displayOptions.legato ? withVisualLegato(notes, measures, displayOptions.gridSubdivisions, displayOptions) : notes,

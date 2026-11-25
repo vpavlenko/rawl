@@ -1,4 +1,5 @@
 import inventory from "./fakebook.json";
+import type { RhythmGrouping } from "../rhythmGrouping";
 
 export const fakebookUrl =
   "https://bgko.org/wp-content/uploads/2020/06/Fakebook_Bulgarian_Music.pdf";
@@ -15,6 +16,7 @@ export type FakebookSetting = {
   region?: string;
   slug?: string;
   meter?: string;
+  rhythmGrouping?: RhythmGrouping;
   playbackBars?: number;
   sourcePitchCenter?: string;
   relatedSlug?: string;

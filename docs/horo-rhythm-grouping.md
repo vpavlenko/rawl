@@ -1,0 +1,16 @@
+# Horo rhythm grouping
+
+## Sources and decisions
+
+A time signature gives the total number of pulses per bar. The grouping determines where Rawl draws the internal beat lines. In seven pulses, for example, Răchenitsa generally groups them as `2+2+3`, while Četvorno commonly starts with the three-pulse group. Use the dance name as a clue and check the setting itself. [Hristov’s 1913 meter study, translated by Goldberg](https://mtosmt.org/issues/mto.24.30.4/mto.24.30.4.goldberg.php), [Goldberg’s fieldwork on Elenino horo](https://journal.iftawm.org/wp-content/uploads/2022/02/Goldberg_AAWM_Vol_7_2.pdf), [Kirilov’s Bulgarian rhythm examples](https://iftawm.org/journal/oldsite/articles/2021a/Kirilov_AAWM_Vol_9_1.pdf).
+
+In the [Fakebook](https://bgko.org/wp-content/uploads/2020/06/Fakebook_Bulgarian_Music.pdf), use a written rhythm cue or repeated primary beam boundaries to choose the display level. Gankino (p. 42) prints `4+3+4`, which spans the same boundaries as `2+2+3+2+2` at its coarser level. Ispajče (p. 50) changes from `3+5+5` to `3+4+4`. Katerino Mome (p. 53) gives a two-bar rhythm cue with `1+2+1` and `1+1+2` in eighth-note units. Preserve printed beaming when a MIDI onset pattern suggests another reading, as with Razloško (p. 92). [Gankino in Aubrey Jaffer’s Balkan Arts transcriptions](https://voluntocracy.org/Music/Gankino.abc).
+
+For the existing corpus, compare each passage on the displayed bar grid, using the MIDI signature and any matching manual grid. Compare pulse-aligned melody attacks, note lengths, sustains, accents, bass and percussion where present. Check whether the proposed phase recurs in separate parts of a passage. Compare dance conventions, printed transcriptions and closely matching versions. Prefer the source grouping where it can be matched to the rendition. Bregovsko #1, for example, has four groups of three in 12/16 and `3+3+4+3` in four 13/16 bars. Sandansko’s 22-pulse cycle divides into a nine-pulse and a thirteen-pulse part. [Bregovsko transcription](https://abcnotation.com/tunePage?a=trillian.mit.edu%2F~jc%2Fmusic%2Fabc%2FIntl%2Fevent%2F2013DECDF%2FBregovskoHoro%2F0000), [Milde’s dance descriptions, pp. 253–254](https://herwigmilde.de/Die_bulgarische_Tanzfolklore.pdf).
+
+## Coverage
+
+- **Original corpus**. Reviewed 165 renditions and 12,795 displayed bars. Applied evidence-backed groupings to 121 renditions (8,845 bars). Kept 2,807 straight-meter bars and 1,143 uncertain bars on the existing grid. Some renditions contain both grouped and uncertain passages.
+- **Fakebook**. Reviewed all 92 settings against the print and MIDI attacks. The source supports a grouping in 51 settings. In bars with both a printed grouping and an independent onset proposal, 1,733 agreed exactly and in 1,642 the onset proposal subdivided one or more printed groups.
+
+The original corpus defaults are stored in `src/components/rawl/horo/grouping.json` as one-based changes. An empty array returns the display to its underlying beat grid. Explicit saved groupings and manual grids with different bar numbering take precedence. The Fakebook groupings are embedded as `RAWL_DISPLAY.analysis.rhythmGrouping` and replace the uniform `beatsPerMeasure` setting only where print evidence supports a grouping. These settings control the beat-line display and leave MIDI playback events intact.

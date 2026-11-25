@@ -8,6 +8,7 @@ import {
 import snapshot from "./corpus.json";
 import copy from "./copy.json";
 import HoroExcerpt from "./HoroExcerpt";
+import { getCatalogGrouping } from "./horoGrouping";
 import "./horoAnalysis.css";
 
 type Region = {
@@ -164,6 +165,7 @@ function RenditionDetails({ rendition }: { rendition: Rendition }) {
     tonicSource,
     modeChanges,
   } = rendition;
+  const grouping = getCatalogGrouping(rendition.slug);
   return (
     <dl className="horo-evidence">
       <div>
@@ -174,6 +176,18 @@ function RenditionDetails({ rendition }: { rendition: Rendition }) {
         <dt>Measures</dt>
         <dd>{measures}</dd>
       </div>
+      {grouping && (
+        <div className="horo-degree-row">
+          <dt>Grouping</dt>
+          <dd>
+            {Object.entries(grouping).map(([measure, groups]) => (
+              <span key={measure}>
+                m. {measure} · {groups.join("+") || "—"}
+              </span>
+            ))}
+          </dd>
+        </div>
+      )}
       {sections.length > 1 && (
         <div>
           <dt>Sections</dt>
@@ -583,6 +597,17 @@ export default function HoroAnalysis() {
                           {[setting.meter, setting.sourcePitchCenter]
                             .filter(Boolean)
                             .join(" · ")}
+                        </small>
+                      )}
+                      {setting.rhythmGrouping && (
+                        <small>
+                          {[
+                            ...new Set(
+                              Object.values(setting.rhythmGrouping)
+                                .filter((groups) => groups.length)
+                                .map((groups) => groups.join("+")),
+                            ),
+                          ].join(" · ")}
                         </small>
                       )}
                     </th>

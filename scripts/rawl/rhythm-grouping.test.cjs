@@ -401,3 +401,38 @@ test("one measure input sets beats or grouping with Enter and retains split, mer
     window.close();
   }
 });
+
+test("portable display grouping can replace the uniform beat count", () => {
+  const { readMidiDisplayOptions } = require("../../src/components/rawl/midiDisplay");
+  const display = (value) => readMidiDisplayOptions([{
+    type: 255,
+    subtype: 1,
+    data: Buffer.from("RAWL_DISPLAY:" + JSON.stringify(value)),
+  }]);
+  const base = { version: 1, legato: false, measures: [0, 7, 14, 20] };
+  const rhythmGrouping = { 1: [2, 2, 3], 2: [], 3: [3, 3] };
+  const options = display({ ...base, analysis: { rhythmGrouping } });
+  assert.deepEqual(options.analysis.rhythmGrouping, rhythmGrouping);
+  assert.equal(options.beatsPerMeasure, undefined);
+  assert.deepEqual(options.measures, base.measures);
+  assert.equal(display({ ...base, beatsPerMeasure: 7 }).beatsPerMeasure, 7);
+
+  for (const invalid of [{ 0: [2, 2, 3] }, { 4: [2, 2, 3] }, { 1: [2, 0, 5] }, { 1: [] }]) {
+    assert.equal(display({ ...base, analysis: { rhythmGrouping: invalid } }), undefined);
+  }
+  assert.equal(display({ ...base, beatsPerMeasure: 7, analysis: { rhythmGrouping: { 1: [0] } } }).analysis.rhythmGrouping, undefined);
+});
+
+test("embedded grouping fills absent saved rhythm and respects an explicit reset or manual grid", () => {
+  const { applyHoroGrouping } = require("../../src/components/rawl/horo/horoGrouping");
+  const embedded = { 1: [2, 2, 3] };
+  const analysis = { modulations: { 1: 0 }, comment: "saved" };
+  assert.deepEqual(applyHoroGrouping(analysis, "fakebook-score", 3, embedded), {
+    ...analysis, rhythmGrouping: embedded,
+  });
+
+  const reset = { ...analysis, rhythmGrouping: { 1: [] } };
+  const manual = { ...analysis, measures: { measureStarts: {}, beatsPerMeasure: { 1: 7 } } };
+  assert.equal(applyHoroGrouping(reset, "fakebook-score", 3, embedded), reset);
+  assert.equal(applyHoroGrouping(manual, "fakebook-score", 3, embedded), manual);
+});

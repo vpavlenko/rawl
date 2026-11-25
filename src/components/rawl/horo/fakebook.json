@@ -13,7 +13,14 @@
     "playbackBars": 48,
     "noteAttacks": 348,
     "sourcePitchCenter": "B minor ↔ D major",
-    "sha256": "34be5c6da2e18c82048cd3f4a8519c9afd5c92d5a79c217b6018a0c0d8f6ce4b"
+    "sha256": "95fa13d1ab9376d618a85267a441eb8970fe5444675ba6d078a1e303218a09b6",
+    "rhythmGrouping": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
   },
   {
     "page": 7,
@@ -27,7 +34,38 @@
     "playbackBars": 103,
     "noteAttacks": 449,
     "sourcePitchCenter": "F minor / C",
-    "sha256": "65f6719907003af75869d00b853d23260692918ab5e244b9f10e7c47abd7458e"
+    "sha256": "5b64450c0ece9d02423c835e2858ed25fcf959c8fc58c65a3a90d3d8fbde92f5",
+    "rhythmGrouping": {
+      "1": [
+        3,
+        2,
+        2
+      ],
+      "83": [],
+      "85": [
+        3,
+        2,
+        2
+      ],
+      "88": [],
+      "90": [
+        3,
+        2,
+        2
+      ],
+      "93": [],
+      "95": [
+        3,
+        2,
+        2
+      ],
+      "98": [],
+      "100": [
+        3,
+        2,
+        2
+      ]
+    }
   },
   {
     "page": 8,
@@ -42,7 +80,13 @@
     "playbackBars": 24,
     "noteAttacks": 114,
     "sourcePitchCenter": "A minor",
-    "sha256": "6499b6b0f1e5269cacb7e7995baf94ed15c47afcd8167f7defe0c825d22a40f5"
+    "sha256": "fa0f70c91fe00ef38a19454a0b03595b6435fcd681ea3d59f1a22961b504b1e7",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        3
+      ]
+    }
   },
   {
     "page": 9,
@@ -72,7 +116,15 @@
     "playbackBars": 58,
     "noteAttacks": 790,
     "sourcePitchCenter": "E minor → D → A → E minor",
-    "sha256": "6cc172507443b68941fe6e7adcaad14bb93bfaaf77f6d42b63a2c2dda00cacc3"
+    "sha256": "1e880cd783b9ff6836e8b008c4635975b2ff1a7f8016af207969fd4d206df270",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        4,
+        3,
+        4
+      ]
+    }
   },
   {
     "page": 12,
@@ -101,7 +153,15 @@
     "playbackBars": 32,
     "noteAttacks": 307,
     "sourcePitchCenter": "G major",
-    "sha256": "7c33b6f9e753e3debf7106ee672764bf706bc5360e0ed5bd2c6dee805ab38742"
+    "sha256": "954e6d06561cf220e948230fce7dc09ecaf535461283f91c262b0c5d9fc89aca",
+    "rhythmGrouping": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
   },
   {
     "page": 14,
@@ -116,7 +176,13 @@
     "playbackBars": 96,
     "noteAttacks": 526,
     "sourcePitchCenter": "A minor",
-    "sha256": "d6126522c2c9459b601a87427e2b7f90d8206e254a4d708d8ad07bb1662ff23a"
+    "sha256": "e5e24d95dcf37da1e88dbf435ed5933ce2b0539f5cd4e6f99d110e0ee1a4bd9a",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        3
+      ]
+    }
   },
   {
     "page": 16,
@@ -130,7 +196,13 @@
     "playbackBars": 196,
     "noteAttacks": 1086,
     "sourcePitchCenter": "G minor",
-    "sha256": "da4e0e0ac76e8dc2b2cd174c6c5e7a18b2a9ae2eda66e84e9f6b6a7e61bb0220"
+    "sha256": "7752e374df8e2b05bc054a522c489f6d6718154f555d509b1fb43de331db46dd",
+    "rhythmGrouping": {
+      "1": [
+        3,
+        4
+      ]
+    }
   },
   {
     "page": 18,
@@ -144,7 +216,13 @@
     "playbackBars": 48,
     "noteAttacks": 194,
     "sourcePitchCenter": "D major",
-    "sha256": "6b15d758888f4bcd5bc376e51bbac66d58c3d7bfd2bf2bf64b060ff09152c5b2"
+    "sha256": "5932808a08a4cbc58ab8063f59fc57b2042b01a00828d2eeca7d6479ae267070",
+    "rhythmGrouping": {
+      "1": [
+        2,
+        3
+      ]
+    }
   },
   {
     "page": 19,
@@ -173,7 +251,14 @@
     "playbackBars": 86,
     "noteAttacks": 619,
     "sourcePitchCenter": "A major/minor",
-    "sha256": "46115724fa072429af2f7bbc1df89eb45238ebc171fd33cc992bf45398cd85cb"
+    "sha256": "ddfc15c599889ca73b6eb77e1c5e756342786f881761515899142af37a22f902",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        2,
+        3
+      ]
+    }
   },
   {
     "page": 21,
@@ -187,7 +272,14 @@
     "playbackBars": 66,
     "noteAttacks": 509,
     "sourcePitchCenter": "G major",
-    "sha256": "99431c06059dc1b980c9c781a9764f8185b43f52a8554d4eebe610affbdeb19f"
+    "sha256": "0cd3638a0daa9c8eb489f243e1eb9653121a9333e4c1e0f22291e84955097203",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        2,
+        3
+      ]
+    }
   },
   {
     "page": 22,
@@ -216,7 +308,14 @@
     "playbackBars": 110,
     "noteAttacks": 494,
     "sourcePitchCenter": "E → G → A minor",
-    "sha256": "eae385bc4fea7b57ef9211b87b311d75f5c40047dd3262e26c58a657f3df1fb0"
+    "sha256": "0c26e5e37dc82bc101ffb3cb970a357d9b5e40e9bd5168596d48a689a3a4401c",
+    "rhythmGrouping": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
   },
   {
     "page": 24,
@@ -290,7 +389,13 @@
     "playbackBars": 72,
     "noteAttacks": 400,
     "sourcePitchCenter": "G major",
-    "sha256": "2a34dc30ec3226081c3bd3b5b1da68bd317aec09b6ca40ded3e1ca8003476d31"
+    "sha256": "d05ea5a25df004e2af9fa92046b85c584845d4ddb723ecc509d5f90e9616ca54",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        3
+      ]
+    }
   },
   {
     "page": 29,
@@ -319,7 +424,14 @@
     "playbackBars": 56,
     "noteAttacks": 224,
     "sourcePitchCenter": "E minor",
-    "sha256": "01ced2451577533120848b492af4b617a9cbb0575b9684b1a8ad67a1d1cfcc1b"
+    "sha256": "3d406644ff23b414ba6f27f03970e408cdc4008c66277975df78c3d4937607dd",
+    "rhythmGrouping": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
   },
   {
     "page": 31,
@@ -333,7 +445,75 @@
     "playbackBars": 22,
     "noteAttacks": 108,
     "sourcePitchCenter": "C major",
-    "sha256": "632510dda783abeeddf78bef19b8c62577d6f0644949c21d13e91ad242f4feb5"
+    "sha256": "10d89ca45b6950b1cd313f5a30e41fc02ffcfc8fba37fef64a609ea389da465d",
+    "rhythmGrouping": {
+      "1": [
+        2,
+        2,
+        1
+      ],
+      "3": [
+        2,
+        2,
+        2,
+        3
+      ],
+      "4": [
+        2,
+        2,
+        1
+      ],
+      "6": [
+        2,
+        2,
+        2,
+        3
+      ],
+      "7": [
+        2,
+        2,
+        1
+      ],
+      "9": [
+        2,
+        2,
+        2,
+        3
+      ],
+      "10": [
+        2,
+        2,
+        1
+      ],
+      "12": [
+        2,
+        2,
+        2,
+        3
+      ],
+      "15": [
+        2,
+        2,
+        1
+      ],
+      "17": [
+        2,
+        2,
+        2,
+        3
+      ],
+      "20": [
+        2,
+        2,
+        1
+      ],
+      "22": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
   },
   {
     "page": 32,
@@ -389,7 +569,15 @@
     "playbackBars": 68,
     "noteAttacks": 693,
     "sourcePitchCenter": "A major → A minor / B → A major",
-    "sha256": "1e5cd3ebba5c98992f026a3f114fbf378475c64117b01e987cbc2df889f3b667"
+    "sha256": "5a06f4e15b26aad3dfdfa9978bc52a58300ea2aca36b18e59497782e2181d595",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        4,
+        2,
+        3
+      ]
+    }
   },
   {
     "page": 38,
@@ -404,7 +592,15 @@
     "playbackBars": 80,
     "noteAttacks": 645,
     "sourcePitchCenter": "D minor → D major → D minor",
-    "sha256": "006ae2fe11767967fa2f6ebda4f8a4af49812fbf873f9cf3b84383a4298906dc"
+    "sha256": "9d8645dd7e526aeddd950ccbf8157092b974e5e0469739360e307beca75882c8",
+    "rhythmGrouping": {
+      "1": [
+        3,
+        3,
+        2,
+        3
+      ]
+    }
   },
   {
     "page": 39,
@@ -417,7 +613,15 @@
     "playbackBars": 176,
     "noteAttacks": 1181,
     "sourcePitchCenter": "B♭ major → C major",
-    "sha256": "976e27bdf6ba45ce90a3c96171e69b6289a7451fb58160d6edbd3a681c142f61"
+    "sha256": "69f3579cf9dbfe70cecf98fb2ad96f57d0b80c6eb04d1cf638926a0a5dffd473",
+    "rhythmGrouping": {
+      "1": [
+        2,
+        2,
+        1,
+        2
+      ]
+    }
   },
   {
     "page": 40,
@@ -431,7 +635,15 @@
     "playbackBars": 58,
     "noteAttacks": 732,
     "sourcePitchCenter": "G major → A-centered",
-    "sha256": "5bd12b06067564a327fcdaeac26550d3554136cb08a3f8d63b4ea6fec0025f46"
+    "sha256": "566e058624031fe4bab8a34aaa90a70be19623e7afe426a7f780ae10182db183",
+    "rhythmGrouping": {
+      "1": [
+        2,
+        2,
+        2,
+        2
+      ]
+    }
   },
   {
     "page": 42,
@@ -445,7 +657,14 @@
     "playbackBars": 40,
     "noteAttacks": 354,
     "sourcePitchCenter": "D minor → A / E → D major",
-    "sha256": "f2a5f0bba01f84a9b69fcb2fefd60bbe0431def3c36c24b4651a3c5277566629"
+    "sha256": "a9b35770e91507f164a5643603cf5da47d98d7175a19f1b35c7794d149b62085",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        3,
+        4
+      ]
+    }
   },
   {
     "page": 43,
@@ -504,7 +723,14 @@
     "playbackBars": 44,
     "noteAttacks": 170,
     "sourcePitchCenter": "D minor",
-    "sha256": "934d00a8431cc17268f2dd4deb25c221796b468ef154d96650d4692b410bc497"
+    "sha256": "2a97d4243c82b128af2137713455a94b2821e22c748fbd7df28fdeded8b8c38e",
+    "rhythmGrouping": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
   },
   {
     "page": 49,
@@ -532,7 +758,19 @@
     "playbackBars": 40,
     "noteAttacks": 356,
     "sourcePitchCenter": "C minor / G",
-    "sha256": "a3044eb3c53f73979ab0199e5350b0e62322fdf192ffc958ee12f360d0b5c1f7"
+    "sha256": "5296f095a0b01c1c34770bfea3325ec3ec2d769b7679cc7c4b4a18cfaf21fca0",
+    "rhythmGrouping": {
+      "1": [
+        3,
+        5,
+        5
+      ],
+      "21": [
+        3,
+        4,
+        4
+      ]
+    }
   },
   {
     "page": 51,
@@ -546,7 +784,15 @@
     "playbackBars": 16,
     "noteAttacks": 215,
     "sourcePitchCenter": "G major → E minor",
-    "sha256": "0efb03d202d02e25db280883ab03d6cc0350f55354cc047824e9f3c329fe4026"
+    "sha256": "fe2e097db0c78ad32b2be4b9e599e286ea9ba3cea2e577ef2c00a20e39749873",
+    "rhythmGrouping": {
+      "1": [
+        2,
+        2,
+        3,
+        4
+      ]
+    }
   },
   {
     "page": 52,
@@ -562,7 +808,14 @@
     "playbackBars": 104,
     "noteAttacks": 338,
     "sourcePitchCenter": "E minor",
-    "sha256": "c48944de811cbfabc9221dd6cce58fc4db725798be89589d52307bc805c47449"
+    "sha256": "cc62387691622701363a79888c87be8a017ed9f8bd713e74b47639962b6f7ffb",
+    "rhythmGrouping": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
   },
   {
     "page": 53,
@@ -576,7 +829,639 @@
     "playbackBars": 126,
     "noteAttacks": 337,
     "sourcePitchCenter": "E minor / B",
-    "sha256": "ef5ae0a5283ffab03f30ad95a19dbd950253ae3f4464246869691a936e3db950"
+    "sha256": "75ce6ee39a93416b37aa19847afee3a9eeb3a572425f6e4f846a09c7a2f0a075",
+    "rhythmGrouping": {
+      "1": [
+        1,
+        2,
+        1
+      ],
+      "2": [
+        1,
+        1,
+        2
+      ],
+      "3": [
+        1,
+        2,
+        1
+      ],
+      "4": [
+        1,
+        1,
+        2
+      ],
+      "5": [
+        1,
+        2,
+        1
+      ],
+      "6": [
+        1,
+        1,
+        2
+      ],
+      "7": [
+        1,
+        2,
+        1
+      ],
+      "8": [
+        1,
+        1,
+        2
+      ],
+      "9": [
+        1,
+        2,
+        1
+      ],
+      "10": [
+        1,
+        1,
+        2
+      ],
+      "11": [
+        1,
+        2,
+        1
+      ],
+      "12": [
+        1,
+        1,
+        2
+      ],
+      "13": [
+        1,
+        2,
+        1
+      ],
+      "14": [
+        1,
+        1,
+        2
+      ],
+      "15": [
+        1,
+        2,
+        1
+      ],
+      "16": [
+        1,
+        1,
+        2
+      ],
+      "17": [
+        1,
+        2,
+        1
+      ],
+      "18": [
+        1,
+        1,
+        2
+      ],
+      "19": [
+        1,
+        2,
+        1
+      ],
+      "20": [
+        1,
+        1,
+        2
+      ],
+      "21": [
+        1,
+        2,
+        1
+      ],
+      "22": [
+        1,
+        1,
+        2
+      ],
+      "23": [
+        1,
+        2,
+        1
+      ],
+      "24": [
+        1,
+        1,
+        2
+      ],
+      "25": [
+        1,
+        2,
+        1
+      ],
+      "26": [
+        1,
+        1,
+        2
+      ],
+      "27": [
+        1,
+        2,
+        1
+      ],
+      "28": [
+        1,
+        1,
+        2
+      ],
+      "29": [
+        1,
+        2,
+        1
+      ],
+      "30": [
+        1,
+        1,
+        2
+      ],
+      "31": [
+        1,
+        2,
+        1
+      ],
+      "32": [
+        1,
+        1,
+        2
+      ],
+      "33": [
+        1,
+        2,
+        1
+      ],
+      "34": [
+        1,
+        1,
+        2
+      ],
+      "35": [
+        1,
+        2,
+        1
+      ],
+      "36": [
+        1,
+        1,
+        2
+      ],
+      "37": [
+        1,
+        2,
+        1
+      ],
+      "38": [
+        1,
+        1,
+        2
+      ],
+      "39": [
+        1,
+        2,
+        1
+      ],
+      "40": [
+        1,
+        1,
+        2
+      ],
+      "41": [
+        1,
+        2,
+        1
+      ],
+      "42": [
+        1,
+        1,
+        2
+      ],
+      "43": [
+        1,
+        2,
+        1
+      ],
+      "44": [
+        1,
+        1,
+        2
+      ],
+      "45": [
+        1,
+        2,
+        1
+      ],
+      "46": [
+        1,
+        1,
+        2
+      ],
+      "47": [
+        1,
+        2,
+        1
+      ],
+      "48": [
+        1,
+        1,
+        2
+      ],
+      "49": [
+        1,
+        2,
+        1
+      ],
+      "50": [
+        1,
+        1,
+        2
+      ],
+      "51": [
+        1,
+        2,
+        1
+      ],
+      "52": [
+        1,
+        1,
+        2
+      ],
+      "53": [
+        1,
+        2,
+        1
+      ],
+      "54": [
+        1,
+        1,
+        2
+      ],
+      "55": [
+        1,
+        2,
+        1
+      ],
+      "56": [
+        1,
+        1,
+        2
+      ],
+      "57": [
+        1,
+        2,
+        1
+      ],
+      "58": [
+        1,
+        1,
+        2
+      ],
+      "59": [
+        1,
+        2,
+        1
+      ],
+      "60": [
+        1,
+        1,
+        2
+      ],
+      "61": [
+        1,
+        2,
+        1
+      ],
+      "62": [
+        1,
+        1,
+        2
+      ],
+      "63": [
+        1,
+        2,
+        1
+      ],
+      "64": [
+        1,
+        1,
+        2
+      ],
+      "65": [
+        1,
+        2,
+        1
+      ],
+      "66": [
+        1,
+        1,
+        2
+      ],
+      "67": [
+        1,
+        2,
+        1
+      ],
+      "68": [
+        1,
+        1,
+        2
+      ],
+      "69": [
+        1,
+        2,
+        1
+      ],
+      "70": [
+        1,
+        1,
+        2
+      ],
+      "71": [
+        1,
+        2,
+        1
+      ],
+      "72": [
+        1,
+        1,
+        2
+      ],
+      "73": [
+        1,
+        2,
+        1
+      ],
+      "74": [
+        1,
+        1,
+        2
+      ],
+      "75": [
+        1,
+        2,
+        1
+      ],
+      "76": [
+        1,
+        1,
+        2
+      ],
+      "77": [
+        1,
+        2,
+        1
+      ],
+      "78": [
+        1,
+        1,
+        2
+      ],
+      "79": [
+        1,
+        2,
+        1
+      ],
+      "80": [
+        1,
+        1,
+        2
+      ],
+      "81": [
+        1,
+        2,
+        1
+      ],
+      "82": [
+        1,
+        1,
+        2
+      ],
+      "83": [
+        1,
+        2,
+        1
+      ],
+      "84": [
+        1,
+        1,
+        2
+      ],
+      "85": [
+        1,
+        2,
+        1
+      ],
+      "86": [
+        1,
+        1,
+        2
+      ],
+      "87": [
+        1,
+        2,
+        1
+      ],
+      "88": [
+        1,
+        1,
+        2
+      ],
+      "89": [
+        1,
+        2,
+        1
+      ],
+      "90": [
+        1,
+        1,
+        2
+      ],
+      "91": [
+        1,
+        2,
+        1
+      ],
+      "92": [
+        1,
+        1,
+        2
+      ],
+      "93": [
+        1,
+        2,
+        1
+      ],
+      "94": [
+        1,
+        1,
+        2
+      ],
+      "95": [
+        1,
+        2,
+        1
+      ],
+      "96": [
+        1,
+        1,
+        2
+      ],
+      "97": [
+        1,
+        2,
+        1
+      ],
+      "98": [
+        1,
+        1,
+        2
+      ],
+      "99": [
+        1,
+        2,
+        1
+      ],
+      "100": [
+        1,
+        1,
+        2
+      ],
+      "101": [
+        1,
+        2,
+        1
+      ],
+      "102": [
+        1,
+        1,
+        2
+      ],
+      "103": [
+        1,
+        2,
+        1
+      ],
+      "104": [
+        1,
+        1,
+        2
+      ],
+      "105": [
+        1,
+        2,
+        1
+      ],
+      "106": [
+        1,
+        1,
+        2
+      ],
+      "107": [
+        1,
+        2,
+        1
+      ],
+      "108": [
+        1,
+        1,
+        2
+      ],
+      "109": [
+        1,
+        2,
+        1
+      ],
+      "110": [
+        1,
+        1,
+        2
+      ],
+      "111": [
+        1,
+        2,
+        1
+      ],
+      "112": [
+        1,
+        1,
+        2
+      ],
+      "113": [
+        1,
+        2,
+        1
+      ],
+      "114": [
+        1,
+        1,
+        2
+      ],
+      "115": [
+        1,
+        2,
+        1
+      ],
+      "116": [
+        1,
+        1,
+        2
+      ],
+      "117": [
+        1,
+        2,
+        1
+      ],
+      "118": [
+        1,
+        1,
+        2
+      ],
+      "119": [
+        1,
+        2,
+        1
+      ],
+      "120": [
+        1,
+        1,
+        2
+      ],
+      "121": [
+        1,
+        2,
+        1
+      ],
+      "122": [
+        1,
+        1,
+        2
+      ],
+      "123": [
+        1,
+        2,
+        1
+      ],
+      "124": [
+        1,
+        1,
+        2
+      ],
+      "125": [
+        1,
+        2,
+        1
+      ],
+      "126": [
+        1,
+        1,
+        2
+      ]
+    }
   },
   {
     "page": 54,
@@ -590,7 +1475,14 @@
     "playbackBars": 104,
     "noteAttacks": 1014,
     "sourcePitchCenter": "E minor → D major → E → A major",
-    "sha256": "7af654907dea0e1891317db56ffac0584d9bf0c93f6ac9aac2b512e8b282f69b"
+    "sha256": "73b1cf623920fa79c95b6bbfd88e23b4be4d688efcc106cf13e2c067e9c8f507",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        3,
+        4
+      ]
+    }
   },
   {
     "page": 55,
@@ -606,7 +1498,14 @@
     "playbackBars": 84,
     "noteAttacks": 708,
     "sourcePitchCenter": "G major → A minor → D → G",
-    "sha256": "b77685d7dfbc73fd5982a80e9dc950b4f56588d4ea8aeb3ffc287e667996c365"
+    "sha256": "1581a04f9c88e5baf60a3cb00f549d84b62889cf5930c8ddf8a26c290a564206",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        3,
+        4
+      ]
+    }
   },
   {
     "page": 56,
@@ -620,7 +1519,14 @@
     "playbackBars": 74,
     "noteAttacks": 734,
     "sourcePitchCenter": "C major → D minor → C major → D major",
-    "sha256": "eca232adc9ca6c75f6c3aa2b8c8e1bb2100070f6568847f137bd4d66a55f661e"
+    "sha256": "0dd98730a9e6072623d1aa27a8359f77104ab8c8223ffb3b062988cf79004569",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        3,
+        4
+      ]
+    }
   },
   {
     "page": 57,
@@ -635,7 +1541,14 @@
     "playbackBars": 140,
     "noteAttacks": 1245,
     "sourcePitchCenter": "B minor → A",
-    "sha256": "63ad760a1c6a09be74f86debc97ce8c0d8f220bc2284dd1921f5498ae6f4a8a4"
+    "sha256": "ec969ea7ef50dd078c0e4d9c5ee4db1b6517b913e909f48e60bab1300b9768f2",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        3,
+        4
+      ]
+    }
   },
   {
     "page": 58,
@@ -665,7 +1578,22 @@
     "playbackBars": 86,
     "noteAttacks": 696,
     "sourcePitchCenter": "D → G → C → G",
-    "sha256": "b9edcdc553dfa5f8df0bcef78157bb5ad285aed890073a53adf0508eabd2193d"
+    "sha256": "d5cdaffb7d2ac6d2ee0c94ca6d443f45081cce3d599a2545f1bd1c790ccf3f91",
+    "rhythmGrouping": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ],
+      "17": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
   },
   {
     "page": 60,
@@ -680,7 +1608,14 @@
     "playbackBars": 76,
     "noteAttacks": 597,
     "sourcePitchCenter": "A → G → E minor → A → B",
-    "sha256": "c8acd325ad63bea9c399d3a975f31aef9b9b13c406182e7808a223801ed69957"
+    "sha256": "1779701c88d93613b7e4673fa1462f757b43312c353982cbc816306ef463e9dd",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        3,
+        4
+      ]
+    }
   },
   {
     "page": 62,
@@ -695,7 +1630,82 @@
     "playbackBars": 24,
     "noteAttacks": 196,
     "sourcePitchCenter": "D minor",
-    "sha256": "daea2b24751c6a33ddeb88668da9aca745a98296bbd160ed7305a029b4b2efdf"
+    "sha256": "b2ebda204aea6db1d64d7330d39855ffc871586a6655ef7950c73ca1f77e9b04",
+    "rhythmGrouping": {
+      "1": [
+        2,
+        3,
+        3
+      ],
+      "2": [
+        2,
+        3,
+        4
+      ],
+      "3": [
+        2,
+        3,
+        3
+      ],
+      "6": [
+        2,
+        3,
+        4
+      ],
+      "7": [
+        2,
+        3,
+        3
+      ],
+      "9": [
+        2,
+        3,
+        3,
+        2,
+        3
+      ],
+      "10": [
+        2,
+        3,
+        3
+      ],
+      "12": [
+        2,
+        3,
+        3,
+        2,
+        3
+      ],
+      "13": [
+        2,
+        3,
+        3
+      ],
+      "15": [
+        2,
+        3,
+        3,
+        2,
+        3
+      ],
+      "18": [
+        2,
+        3,
+        3
+      ],
+      "20": [
+        2,
+        3,
+        3,
+        2,
+        3
+      ],
+      "23": [
+        2,
+        3,
+        3
+      ]
+    }
   },
   {
     "page": 63,
@@ -723,7 +1733,13 @@
     "playbackBars": 64,
     "noteAttacks": 287,
     "sourcePitchCenter": "E minor → D → E minor",
-    "sha256": "0b0cef02fe7df50dd5a3c512f5ccd24254eddebc275c66c9fd7dbcc31b1d6941"
+    "sha256": "3a260782a56788b800670320843964a6b0a856254661c191df1a6ac13a4be42f",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        3
+      ]
+    }
   },
   {
     "page": 65,
@@ -769,7 +1785,14 @@
     "playbackBars": 32,
     "noteAttacks": 184,
     "sourcePitchCenter": "G major → E minor",
-    "sha256": "26e9d8a02e1ad2b867644c295a7ca9a88e4257b5f28e7169ce7feadd6de4731a"
+    "sha256": "8f8af67505afbdfee16262eccea93d297899d1d675717b98f0b8cd24a6509608",
+    "rhythmGrouping": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
   },
   {
     "page": 68,
@@ -784,7 +1807,14 @@
     "playbackBars": 68,
     "noteAttacks": 405,
     "sourcePitchCenter": "E minor",
-    "sha256": "b8e2838298ace1428880ccbd0d7bbb7f069bf77f0df3e191c2fd5064deb7f9b6"
+    "sha256": "088b703316649667be6306a4cbb3e531110503e36950aea1abaa28513589ef84",
+    "rhythmGrouping": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
   },
   {
     "page": 69,
@@ -797,7 +1827,13 @@
     "playbackBars": 128,
     "noteAttacks": 601,
     "sourcePitchCenter": "G minor",
-    "sha256": "eef6e8df84c1c88079c37f080724c08729ffef3bb927cd516a4de21c0e7c2eb7"
+    "sha256": "897c51780aa82aa3bce675ae6f857e1681401dd633438f99e855f66fabcdbaff",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        3
+      ]
+    }
   },
   {
     "page": 70,
@@ -810,7 +1846,14 @@
     "playbackBars": 64,
     "noteAttacks": 349,
     "sourcePitchCenter": "A minor → E minor",
-    "sha256": "8a9ff407a665aae8e570ddbb54b40a679883863959158d840c22cfba128bce90"
+    "sha256": "1ad28cdc958bd5822984f3df0ed3246d3d1213f1d1a579dbfc098e3eaf946101",
+    "rhythmGrouping": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
   },
   {
     "page": 71,
@@ -825,7 +1868,16 @@
     "playbackBars": 42,
     "noteAttacks": 528,
     "sourcePitchCenter": "F minor",
-    "sha256": "4c01d7648ce3af02ecd70166ba6002e061f64f13f444ef3e8245500527f36f05"
+    "sha256": "e634635834f55513c5cb5a3dd53ba67d43dd3136e72d28418c78ba0f34dc2fe5",
+    "rhythmGrouping": {
+      "1": [
+        2,
+        2,
+        2,
+        2,
+        3
+      ]
+    }
   },
   {
     "page": 72,
@@ -868,7 +1920,13 @@
     "playbackBars": 132,
     "noteAttacks": 487,
     "sourcePitchCenter": "E minor",
-    "sha256": "374afd0e8a73b6a5f607b1ed1bb3e6b6319243d1314e006e104bba17087f1efd"
+    "sha256": "19c7507d066293ee9af860fdba1686c555d89c3ba8d595db444495a425004e30",
+    "rhythmGrouping": {
+      "1": [
+        2,
+        3
+      ]
+    }
   },
   {
     "page": 75,
@@ -882,7 +1940,13 @@
     "playbackBars": 48,
     "noteAttacks": 160,
     "sourcePitchCenter": "G",
-    "sha256": "9976234341e28424034d10cfd5a1b7d4042aeafa5f637bdaf8e880611f202134"
+    "sha256": "602697d36fc6ee968966aeda437a78e4611b25b43c053e306bcbe8d12beee188",
+    "rhythmGrouping": {
+      "1": [
+        2,
+        3
+      ]
+    }
   },
   {
     "page": 76,
@@ -896,7 +1960,13 @@
     "playbackBars": 228,
     "noteAttacks": 991,
     "sourcePitchCenter": "A major → B minor → A major",
-    "sha256": "29d11f5cd68d70f4000b66b8edb4861d15a5e6168329950f9c8dd69600ef6227"
+    "sha256": "d9d5fe25091cb523cac2745d6d014b8b09f19cf21f69dab914c1611444e16144",
+    "rhythmGrouping": {
+      "1": [
+        2,
+        3
+      ]
+    }
   },
   {
     "page": 78,
@@ -911,7 +1981,14 @@
     "playbackBars": 120,
     "noteAttacks": 602,
     "sourcePitchCenter": "A minor",
-    "sha256": "657a6e68531ff1c5c569010a05f506b77a78bd8673341625b85032eeb120a988"
+    "sha256": "2f539d2a33d8a045b63b7677ec2afde048f71dacb077d1b1feed506f955fb935",
+    "rhythmGrouping": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
   },
   {
     "page": 80,
@@ -925,7 +2002,14 @@
     "playbackBars": 24,
     "noteAttacks": 218,
     "sourcePitchCenter": "E minor → G major → E minor",
-    "sha256": "cbdd183ff0478168ba625fdcb23b6987b1924238f56f39d3fc20ade35c70b973"
+    "sha256": "a3d28672e36ab884c72a028f4252ed44a36d2b2b37d7594fb4d2db0a58d915f3",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        3,
+        4
+      ]
+    }
   },
   {
     "page": 81,
@@ -1039,7 +2123,14 @@
     "playbackBars": 96,
     "noteAttacks": 588,
     "sourcePitchCenter": "E (F and G♯)",
-    "sha256": "9229242f60b7fb25de63343850cbf7298c350010085954ef24465f297462e7bb"
+    "sha256": "8998b4bbc9de3c8b354aba37e348e7db0cc7993e2252dcc8284e7830a3062f1f",
+    "rhythmGrouping": {
+      "1": [
+        2,
+        2,
+        3
+      ]
+    }
   },
   {
     "page": 90,
@@ -1083,7 +2174,20 @@
     "playbackBars": 70,
     "noteAttacks": 505,
     "sourcePitchCenter": "C (D♭ and E)",
-    "sha256": "c30e633b1771b16d4d372caa64a42867e3b2486d23a15c3985ad2eca19c86f5d"
+    "sha256": "746bf61bcdf808446e225592225bb209d9ae978c07c9b19cc4c3d19242f1d068",
+    "rhythmGrouping": {
+      "3": [
+        3,
+        4,
+        4
+      ],
+      "19": [],
+      "39": [
+        3,
+        4,
+        4
+      ]
+    }
   },
   {
     "page": 94,
@@ -1098,7 +2202,14 @@
     "playbackBars": 20,
     "noteAttacks": 147,
     "sourcePitchCenter": "E minor / D",
-    "sha256": "0ca7792a2d6dd12d661d0d231fbb3aea23a05808c023c9154ed9da33dd716944"
+    "sha256": "78674bae0e0c3212a21e12067bc6157a6b7dd72dcd8e6b9d01f7243512ea7903",
+    "rhythmGrouping": {
+      "1": [
+        3,
+        2,
+        3
+      ]
+    }
   },
   {
     "page": 95,
@@ -1172,7 +2283,13 @@
     "playbackBars": 58,
     "noteAttacks": 347,
     "sourcePitchCenter": "D major",
-    "sha256": "0f909892b5f9003de24c4adbea4e25ea7439b54861563c2193834210c22318a2"
+    "sha256": "0ad219c3c8963b87c04d3134cf91f12f5ba27f2ad295bcf36c233ca50a9cf695",
+    "rhythmGrouping": {
+      "1": [
+        3,
+        4
+      ]
+    }
   },
   {
     "page": 100,
@@ -1214,7 +2331,14 @@
     "playbackBars": 57,
     "noteAttacks": 708,
     "sourcePitchCenter": "E minor",
-    "sha256": "072d851d0ff96453c3791789eb78bb52d1cb75b4b7fa95c346d4a6314a80ad3a"
+    "sha256": "0eb6aeef47f5c501f0df2b9a907a53a80b3b26bdcbe8674ff7a8bfb375bf630b",
+    "rhythmGrouping": {
+      "1": [
+        3,
+        2,
+        2
+      ]
+    }
   },
   {
     "page": 103,
@@ -1229,7 +2353,15 @@
     "playbackBars": 72,
     "noteAttacks": 472,
     "sourcePitchCenter": "D minor",
-    "sha256": "f595be8bcf72a5b16b8a2b6294fb27d0f6e416430c236ae1a282e4076abb3be5"
+    "sha256": "730cf5217d650c1aeacd1b13b48325fedaf3c3872278bb65eec97fa54d857fc0",
+    "rhythmGrouping": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
   },
   {
     "page": 104,
@@ -1289,7 +2421,13 @@
     "playbackBars": 164,
     "noteAttacks": 873,
     "sourcePitchCenter": "B minor",
-    "sha256": "7506b2e1727fea81d2bf3e7876202742368fae04b0d1c555bb09e5ab7c7e2647"
+    "sha256": "77b0be25e2d780a964e17f8509efb35b8c29fbe494d4c60dbeef2793d00154ea",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        3
+      ]
+    }
   },
   {
     "page": 110,
@@ -1301,7 +2439,15 @@
     "playbackBars": 120,
     "noteAttacks": 842,
     "sourcePitchCenter": "A minor",
-    "sha256": "d0672364eb779ae4450edcfb8c49688f9af23915cb7ae7c9228782aff78599e3"
+    "sha256": "8aefddd42307b8d02faa1befee8c6705ac55f5ca7fa49d7635f5100c37140d36",
+    "rhythmGrouping": {
+      "1": [
+        2,
+        2,
+        2,
+        3
+      ]
+    }
   },
   {
     "page": 112,
@@ -1329,6 +2475,12 @@
     "playbackBars": 176,
     "noteAttacks": 1140,
     "sourcePitchCenter": "C major",
-    "sha256": "980f1f9c34eebca937735e32a367d98a3cd5247597de0a74ab058d5a25f8dbc5"
+    "sha256": "f7a81a7517061f7a5ccccbd61302ff4077ee95be22bdaa5d465224d7c9b63c59",
+    "rhythmGrouping": {
+      "1": [
+        4,
+        3
+      ]
+    }
   }
 ]

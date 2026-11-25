@@ -58,6 +58,7 @@ import {
 import { getSectionAnchors, getSectionAnchorShiftTarget, setSectionAnchor } from "./sectionAnchors";
 import { repeatSectionModulations } from "./repeatSectionModulations";
 import { getRhythmGrouping } from "./rhythmGrouping";
+import { applyHoroGrouping } from "./horo/horoGrouping";
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { analyzeHarmony, HarmonyResult } from "../../harmony/harmony";
 import { loadIndexedHarmony } from "../../harmony/index";
@@ -208,16 +209,21 @@ const Rawl: React.FC<RawlProps> = ({
   // Generated harmonies and analysis are opt-in while the feature is experimental.
   const useGeneratedAnalysis = !isCleanMode && harmonyRequested;
 
-  const [analysis, setAnalysis] = useState<Analysis>(
-    suppliedHarmonyAnalysis || ANALYSIS_STUB,
+  const baseAnalysis = suppliedHarmonyAnalysis || ANALYSIS_STUB;
+  const scoreDefaults = useMemo(
+    () => isCleanMode ? baseAnalysis : applyHoroGrouping(
+      baseAnalysis, slug, parsingResult.measuresAndBeats.measures.length - 1,
+      parsingResult.displayOptions?.analysis?.rhythmGrouping,
+    ),
+    [baseAnalysis, isCleanMode, slug, parsingResult],
   );
+  const [analysis, setAnalysis] = useState<Analysis>(scoreDefaults);
   const analysisRef = useRef(analysis);
 
   useEffect(() => {
-    const nextAnalysis = savedAnalysis || rawlProps?.savedAnalysis || parsingResult.displayOptions?.analysis || ANALYSIS_STUB;
-    analysisRef.current = nextAnalysis;
-    setAnalysis(nextAnalysis);
-  }, [savedAnalysis, rawlProps?.savedAnalysis, parsingResult.displayOptions]);
+    analysisRef.current = scoreDefaults;
+    setAnalysis(scoreDefaults);
+  }, [scoreDefaults]);
 
   const [systemLayout, setSystemLayout] = useState<SystemLayout>("merged");
   const scoreContainerRef = useRef<HTMLDivElement>(null);

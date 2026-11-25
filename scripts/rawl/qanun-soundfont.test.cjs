@@ -5,7 +5,7 @@ const path = require("node:path");
 const vm = require("node:vm");
 const crypto = require("node:crypto");
 const root = path.resolve(__dirname, "../..");
-const font = require("../../src/players/qanunSoundfont.json");
+const font = require("librawl/soundfonts/qanun.json");
 
 test("the real synth plays the cleaned qanun bank, preserves bends, tails and GM percussion", async () => {
   const errors = [];
@@ -17,7 +17,7 @@ test("the real synth plays the cleaned qanun bank, preserves bends, tails and GM
     wasmBinary: fs.readFileSync(path.join(root, "public/chip-core.wasm")),
     print() {}, printErr: (message) => errors.push(message),
   });
-  const data = fs.readFileSync(path.join(root, "public", font.file));
+  const data = fs.readFileSync(require.resolve("librawl/soundfonts/qanun.sf2"));
   assert.equal(crypto.createHash("sha256").update(data).digest("hex"), font.sha256);
   core._tp_init(44100);
   core.FS.writeFile("/gm.sf2", fs.readFileSync(path.join(root, "public/2MBGMGS.SF2")));

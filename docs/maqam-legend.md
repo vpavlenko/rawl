@@ -247,7 +247,9 @@ with soft limiting only above a 0.95 peak to contain unusually loud overlaps.
 This raises quiet recordings without compressing their attacks. Full preview
 practice overlaps are checked against clipping. The cleaned FLAC files remain
 unchanged; level calibration is applied by the sampler and SoundFont builder.
-Rebuild the bank with `python3 scripts/rawl/build-qanun-soundfont.py`;
+Rawl serves the calibrated bank from its pinned librawl package. To regenerate
+it for review, run `python3 scripts/rawl/build-qanun-soundfont.py`; the bank
+and package descriptor are written to `_ignore/qanun-build/`.
 `public/audio/qanun/soundfont.json` records source hashes, key ranges, levels
 and the content-addressed output name.
 

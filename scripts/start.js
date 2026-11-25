@@ -13,7 +13,7 @@ process.on('unhandledRejection', err => {
 
 // Ensure environment variables are read.
 require('../config/env');
-require('./rawl/sync-librawl.cjs');
+const { stageQanunSoundFont } = require('./rawl/sync-librawl.cjs');
 
 const fs = require('fs');
 const chalk = require('chalk');
@@ -67,6 +67,7 @@ choosePort(HOST, DEFAULT_PORT)
       // We have not found a port.
       return;
     }
+    stageQanunSoundFont(paths.appPublic);
     await require("./prepare-lakh")(paths.appPublic);
     const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
     const appName = require(paths.appPackageJson).name;

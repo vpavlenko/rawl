@@ -6,6 +6,7 @@ percussion kits. Shared per-sample tuning and peak levels are applied as
 SoundFont metadata/gain; cleaned source recordings remain unchanged.
 Requires FFmpeg; run from any directory with Python 3.
 """
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -43,6 +44,9 @@ def gen(operator, amount):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "_ignore/qanun-build")
+    args = parser.parse_args()
     manifest = json.loads((BANK / "manifest.json").read_text())
     levels = json.loads((ROOT / "src/sampler/qanunLevels.json").read_text())
     tuning = json.loads((ROOT / "src/sampler/qanunTuning.json").read_text())
@@ -173,8 +177,11 @@ def main():
     output = chunk(b"RIFF", payload)
     digest = hashlib.sha256(output).hexdigest()
     filename = f"rawl-qanun-{digest[:12]}.sf2"
-    (ROOT / "public" / filename).write_bytes(output)
-    (ROOT / "src/players/qanunSoundfont.json").write_text(json.dumps({"file": filename, "sha256": digest}, indent=2) + "\n")
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    (args.output_dir / filename).write_bytes(output)
+    (args.output_dir / "qanun.json").write_text(json.dumps({
+        "file": filename, "sha256": digest, "bytes": len(output),
+    }, indent=2) + "\n")
     (BANK / "soundfont.json").write_text(json.dumps({
         "file": filename, "sha256": digest, "bytes": len(output),
         "builder": "scripts/rawl/build-qanun-soundfont.py",

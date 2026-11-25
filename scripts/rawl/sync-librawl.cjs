@@ -13,4 +13,16 @@ if (!current.equals(source)) {
   if (process.argv.includes('--check')) throw new Error('Rawl output worklet needs synchronization.');
   fs.writeFileSync(destination, source);
 }
-if (require.main === module) console.log('librawl output worklet verified');
+
+const qanun = require('librawl/soundfonts/qanun.json');
+const qanunBank = fs.readFileSync(require.resolve('librawl/soundfonts/qanun.sf2'));
+if (qanunBank.length !== qanun.bytes || digest(qanunBank) !== qanun.sha256) {
+  throw new Error('The librawl qanun SoundFont failed its checksum.');
+}
+
+function stageQanunSoundFont(directory) {
+  fs.writeFileSync(path.join(directory, qanun.file), qanunBank);
+}
+
+module.exports = { stageQanunSoundFont };
+if (require.main === module) console.log('librawl output worklet and qanun SoundFont verified');

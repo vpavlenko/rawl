@@ -1,5 +1,5 @@
 // Only packaged, versioned timbres can be selected by portable MIDI metadata.
-import qanunSoundfont from "./qanunSoundfont.json";
+import qanunSoundfont from "librawl/soundfonts/qanun.json";
 import levels from "../sampler/qanunLevels.json";
 export const QANUN_SOUNDFONT = qanunSoundfont.file;
 export const OUD_SOUNDFONT = "rawl-oud-1e42128ba5cd.sf2";

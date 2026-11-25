@@ -4,7 +4,6 @@ const root=path.resolve(__dirname,'../..');
 const transpile=file=>ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2020,module:ts.ModuleKind.CommonJS,esModuleInterop:true}}).outputText;
 function moduleFrom(file,require){const module={exports:{}};vm.runInNewContext('(function(require,module,exports){'+transpile(file)+'\n})',{console,window:{atob:value=>Buffer.from(value,"base64").toString("binary")}})(require,module,module.exports);return module.exports;}
 const timbre=moduleFrom(path.join(root,'src/players/midiTimbre.js'),name=>
- name==='./qanunSoundfont.json'?require(path.join(root,'src/players/qanunSoundfont.json')):
  name==='../sampler/qanunLevels.json'?require(path.join(root,'src/sampler/qanunLevels.json')):require(name));
 const MIDIPlayer=moduleFrom(path.join(root,'src/players/MIDIPlayer.js'),name=>{
  if(name==='midifile')return MIDIFile;
@@ -29,7 +28,9 @@ test('only the exact packaged oud tag selects the sampled timbre',()=>{
 test('qanun has a packaged bank and only its exact portable tag selects it',()=>{
  assert.equal(timbre.getMidiTimbre(parse(midi('RAWL_TIMBRE:qanun'))),'qanun');
  assert.equal(timbre.getMidiTimbre(parse(midi('RAWL_TIMBRE:qanun-extra'))),undefined);
- assert(fs.statSync(path.join(root,'public',timbre.QANUN_SOUNDFONT)).size>1000);
+ const bank = require.resolve('librawl/soundfonts/qanun.sf2');
+ assert.equal(timbre.QANUN_SOUNDFONT, path.basename(bank));
+ assert(fs.statSync(bank).size>1000);
 });
 test('the UI-to-worker boundary forwards Arabic timbre before playback',async()=>{
  let command;

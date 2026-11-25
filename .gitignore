@@ -10,6 +10,7 @@ cmake-build-debug/
 lib*.js
 libxmp/libxmp-lite-stagedir/
 public/soundfonts/
+/public/rawl-qanun-*.sf2
 scripts/untracked/
 src/-catalog-tests/
 # src/chip-core.js

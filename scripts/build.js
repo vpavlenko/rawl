@@ -13,7 +13,7 @@ process.on('unhandledRejection', err => {
 
 // Ensure environment variables are read.
 require('../config/env');
-require('./rawl/sync-librawl.cjs');
+const { stageQanunSoundFont } = require('./rawl/sync-librawl.cjs');
 
 const path = require('path');
 const chalk = require('chalk');
@@ -50,6 +50,7 @@ measureFileSizesBeforeBuild(paths.appBuild)
     fs.emptyDirSync(paths.appBuild);
     // Merge with the public folder
     copyPublicFolder();
+    stageQanunSoundFont(paths.appBuild);
     await require("./prepare-lakh")(paths.appBuild);
     // Start the webpack build
     return build(previousFileSizes);

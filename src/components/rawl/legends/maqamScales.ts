@@ -3,8 +3,6 @@
 export type MaqamScale = {
   name: string;
   tonic: number;
-  // Semitone offset from the tonic used as white in Rawl notation.
-  colorReference?: number;
   lower: number[];
   // Optional practical subset; the original lower array remains source evidence.
   practicalLower?: number[];
@@ -228,7 +226,6 @@ export const MAQAM_SCALES: MaqamScale[] = [
     name: "Huzzam",
     sayrSize: [780, 480],
     tonic: 3.5,
-    colorReference: 3.5, // Sikah's third degree and ghammaz.
     lower: [-3.5, -1.5, -0.5],
     practicalLower: [-3.5, -1.5],
     jins: [0, 1.5, 3.5, 4.5],

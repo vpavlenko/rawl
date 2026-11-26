@@ -1,4 +1,5 @@
 import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { maqamTonicOffset } from "librawl/native";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Play from "../icons/Play";
@@ -263,7 +264,7 @@ export default function MaqamReference() {
                         <MaqamRawlNotation
                           name={maqam.name}
                           tonic={maqam.tonic}
-                          colorReference={maqam.colorReference}
+                          tonicOffset={maqamTonicOffset(maqam.name)}
                           pitches={pitches}
                           startColumn={LOWER_COLUMNS - lowerCount}
                           columnCount={COLUMN_COUNT}

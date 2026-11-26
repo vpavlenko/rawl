@@ -54,7 +54,7 @@ const Group = styled.div<{ $above: boolean }>`
 export const MaqamRawlNotation: React.FC<{
   name: string;
   tonic: number;
-  colorReference?: number;
+  tonicOffset?: number;
   pitches: number[];
   startColumn: number;
   columnCount: number;
@@ -69,7 +69,7 @@ export const MaqamRawlNotation: React.FC<{
 }> = ({
   name,
   tonic,
-  colorReference = 0,
+  tonicOffset = 0,
   pitches,
   startColumn,
   columnCount,
@@ -147,7 +147,7 @@ export const MaqamRawlNotation: React.FC<{
       note: { midiNumber: base + pitch },
       span: maqamNoteSpan(section, index),
     };
-    const relativePitch = pitch - colorReference;
+    const relativePitch = pitch - tonicOffset;
     const pitchClass =
       getHoverColorPitchClass(note, tonicPreview) ??
       ((relativePitch % 12) + 12) % 12;
@@ -172,7 +172,7 @@ export const MaqamRawlNotation: React.FC<{
         }}
       >
         <AnalysisTonalGuides
-          tonic={tonic}
+          tonic={tonic + tonicOffset}
           measures={[0, columnCount]}
           midiRange={midiRange}
           midiNumberToY={midiNumberToY}
@@ -189,7 +189,7 @@ export const MaqamRawlNotation: React.FC<{
               onNote(pitches[index], index);
             },
             (note, event) => {
-              const cents = getPitchCentsFromTonic(note.note.midiNumber, tonic);
+              const cents = getPitchCentsFromTonic(note.note.midiNumber, tonic + tonicOffset);
               if (event && cents !== null)
                 setHover({
                   cents,
